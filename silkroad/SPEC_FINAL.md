@@ -33,23 +33,52 @@
 
 ---
 
-## 2. 이미지 스타일 (고정)
+## 2. 이미지 스타일 (고정 · 확정본)
 
 ```
-painterly illustrated documentary keyframe, semi-flat stylized rendering with
-visible brush and canvas texture, simplified clean forms carrying rich surface
-detail, muted sage-green and slate teal against warm sand / ochre / cream,
-small terracotta-red accents ONLY on figures, soft billowing cream clouds,
-strong atmospheric perspective flattening distance into pale layered bands,
-warm even light, no photoreal detail — ILLUSTRATED, NOT PHOTOGRAPHED.
+highly detailed painterly cinematic matte painting.
+Rich surface texture EVERYWHERE — individually rendered stone blocks and
+mortar joints, rope, timber, woven textile, glazed tile with its chipped
+weathering, scree, rock strata.
+Enormous billowing cumulus clouds with SCULPTED THREE-DIMENSIONAL FORM —
+undersides deep in shadow, tops blazing in warm raking light.
+Layered ranges receding through deep atmospheric haze into pale bands.
+Visible brushwork ONLY in the sky and haze — architecture and terrain carry
+PHOTOGRAPHIC levels of detail.
+Warm raking light modelling every surface with real shadow depth.
+Muted sage-green and slate teal against warm sand / ochre / cream,
+small terracotta-red figures the ONLY saturated accents.
+High-end animated documentary concept art quality.
 No recognizable frontal human face. No text, no lettering, no watermark.
 ```
 
-- 인물은 항상 작게. 붉은 옷이 유일한 채도 높은 요소
-- 사진이 아니다. 회화 일러스트다
-- 모델: `google/nano-banana-2` 16:9 1K → **0크레딧**
+### ⚠️ 절대 쓰지 말 것 — 실패했던 표현
 
----
+| 금지 | 이유 |
+|---|---|
+| `semi-flat` | 모델이 평면적으로 그린다 |
+| `simplified clean forms` | 디테일을 일부러 버린다 |
+| `no photoreal detail` | 질감이 통째로 사라진다 |
+| `illustrated, not photographed` | 밀도를 낮추는 신호로 작동한다 |
+
+이 네 개를 넣었다가 밋밋한 결과가 나왔다. **정반대로 써야 한다.**
+
+### 핵심 원리 — 붓질은 하늘에만, 지상은 사진급
+
+레퍼런스 룩을 만드는 것은 **밀도의 분리**다.
+하늘·안개는 회화적으로 뭉개고, 건축·지형은 돌 하나까지 그린다.
+전부 회화로 가면 밋밋해지고, 전부 사진으로 가면 채널 룩이 아니게 된다.
+
+### 인물 규칙
+
+인물은 **항상 작게**, 그리고 **붉은 옷이 화면에서 유일하게 채도 높은 요소**다.
+이것이 (1) 얼굴 예산 5% 규칙과 (2) 난색 악센트 35.3% 를 동시에 만족시킨다.
+시선을 인물로 끌면서도 얼굴은 안 보이게 하는 장치다.
+
+### 모델
+
+`google/nano-banana-2` · `16:9` · `1K` → **0크레딧**
+(더 높은 해상도가 필요하면 `bytedance/seedream-4-5` 가 **4K도 0크레딧**)
 
 ## 3. 영상 무브 규격 (측정값)
 
