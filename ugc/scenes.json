@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "project_id": "PRJ_money_ugc_01",
+  "genre_pack": "finance_explainer",
+  "format": {"aspect": "9:16", "size": [1080, 1920], "fps": 30, "total_s": 30.0},
+  "style_lock": "glossy vinyl-toy 3D render, soft subsurface skin shading, chunky rounded proportions, oversized head, clean studio key light from upper left with soft fill, high color saturation, crisp clean edges",
+  "negative_lock": "absolutely no text, no letters, no numbers, no symbols, no logos, no watermark anywhere in the image",
+  "cast": {
+    "CHAR_girl": "young woman, glossy jet-black hair in messy twin buns, pastel-pink-lined cat-ear headband, small silver star hairpin, tiny silver cross and heart hairpins, silver bead hair clips, heart drop earrings, black leather choker with a silver cat-face charm, half-lidded confident eyes, thick lashes, glossy full lips, small beauty mark under the left eye",
+    "CHAR_cat": "fluffy cream-and-orange tabby cat, round face, oversized orange rectangular sunglasses, white daisy flower tucked on the head, gold hoop earring with a tiny smiley charm, pink nose, relaxed grumpy expression"
+  },
+  "_note": "Copy carries no invented statistics. Every line is a general principle or a question. Slots marked {{ }} are for the user's own sourced figures.",
+  "scenes": [
+    {"id":"S1","role":"HOOK","dur":3.5,"theme":"dark",
+     "title":"통장은 그대로인데\n왜 자꾸 부족할까?","kicker":"돈의 원리 3분 정리","cast":["CHAR_girl"]},
+    {"id":"S2","role":"PROBLEM","dur":3.0,"theme":"light",
+     "title":"같은 돈으로\n살 수 있는 게 줄어든다","kicker":"문제","cast":["CHAR_girl"]},
+    {"id":"S3","role":"CAUSE_1","dur":3.0,"theme":"light",
+     "title":"돈의 양이 늘면\n돈의 힘은 줄어든다","kicker":"원인 1","cast":[]},
+    {"id":"S4","role":"CAUSE_2","dur":3.0,"theme":"light",
+     "title":"이자가 물가를 못 따라가면\n실질은 마이너스","kicker":"원인 2","cast":[]},
+    {"id":"S5","role":"TWIST","dur":3.0,"theme":"accent",
+     "title":"그래서 모으기만 해서는\n지켜지지 않는다","kicker":"반전","cast":["CHAR_cat"]},
+    {"id":"S6","role":"SOLUTION_1","dur":3.0,"theme":"light",
+     "title":"쓰고 남은 걸 모으지 말고\n먼저 떼고 남은 걸 쓴다","kicker":"해결 1","cast":["CHAR_girl"]},
+    {"id":"S7","role":"SOLUTION_2","dur":3.0,"theme":"light",
+     "title":"한 바구니에\n전부 담지 않는다","kicker":"해결 2","cast":["CHAR_cat"]},
+    {"id":"S8","role":"CHECKLIST","dur":5.0,"theme":"light",
+     "title":"오늘의 체크 4","kicker":"저장각",
+     "items":["월급날 자동이체를 먼저 걸어둔다","비상금이 먼저, 투자는 그다음","이자와 물가를 같이 본다","한 곳에 전부 몰지 않는다"],"cast":[]},
+    {"id":"S9","role":"CTA","dur":3.5,"theme":"light",
+     "title":"저장해두고\n월급날 다시 보기","kicker":"팔로우하면 다음 편","cast":["CHAR_girl","CHAR_cat"]}
+  ]
+}

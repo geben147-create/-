@@ -10,3 +10,8 @@ __pycache__/
 *.pyc
 .venv/
 urls.txt
+ugc/work/
+ugc/out/
+ugc/images/*.png
+ugc/images/*.jpg
+ugc/images/*.webp
