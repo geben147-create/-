@@ -1,0 +1,18 @@
+{
+  "style_version": "v3 — 수채·과슈 일러스트 (최종 방향)",
+  "reference": "파리 우중 수채화 — 파스텔 로즈·라벤더·회청색, 젖은 번짐, 종이 질감, 창문 호박색 불빛, 비의 장막",
+  "style_block": "delicate watercolour and gouache illustration, soft washes of dusty rose / lavender / pale grey-blue / warm cream, muted desaturated pastel palette, fine ink linework over translucent colour, wet-on-wet bleeding, visible paper texture, soft atmospheric haze, small points of warm amber light against cool tones, hand-painted romantic illustration, tranquil and poetic, no harsh contrast, not photographic",
+  "note_on_measured_spec": "채널 실측 팔레트는 사진사실 계열 저채도 틸-앤-탠이었다. v3 수채는 렌더링 방식이 다르지만 색 관계(한색 우세 + 작은 난색 하이라이트)는 실측값과 오히려 더 잘 맞는다. 난색비율 곡선·얼굴 회피·전경 차폐물 규칙은 그대로 유지했다.",
+  "model": "google/nano-banana-2 @1K 16:9 — 0크레딧",
+  "submitted": [
+    {"id":"W_H4","title":"카라반사라이 문","taskId":"cmtpoqzpk3qsa13lkxckubejy"},
+    {"id":"W_H2","title":"미우나이와 딸","taskId":"cmtpouupl3r3r13snjs69f1za"}
+  ],
+  "queued": ["W_H1 편지 극접사","W_H3 사막폭풍 카라반","W_H5 설산 융빙수","W_H6 사마르칸트","W_H7 아흐라르 점등","W_H8 match cut","W_H9 북극","W_H10 부산항","W_H11 편지 회수"],
+  "videos_done": [
+    {"id":"V_H4","title":"게이트 통과 (아치 진입 → 블랙아웃)","model":"kling-ai/kling-v3","settings":"std / 5s","cost":0,
+     "url":"https://videocdn.pollo.ai/web-cdn/pollo/production/cmf20asu60gslb2k5fhlac2gn/ori/1788691409791-59cfb87f-3eae-4db4-9180-3fed924d6a3c.mp4"}
+  ],
+  "credits_spent_total": 0,
+  "credits_remaining": 11602
+}
