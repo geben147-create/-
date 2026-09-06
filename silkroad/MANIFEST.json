@@ -1,0 +1,38 @@
+{
+  "project": "실크로드편 — 체인 프로토타입",
+  "cdn_base": "https://videocdn.pollo.ai/web-cdn/pollo/production/cmf20asu60gslb2k5fhlac2gn/ori/",
+  "cost": { "credits_spent": 0, "credits_remaining": 11602 },
+  "models": {
+    "image": { "brand": "google", "model": "nano-banana-2", "aspectRatio": "16:9", "resolution": "1K", "credits": 0 },
+    "video": { "brand": "minimax", "model": "minimax-h3", "resolution": "768p", "duration": 5, "credits": 0 }
+  },
+  "nodes": [
+    { "id": "N1",  "title": "둔황 오아시스 · 미우나이 모녀", "script": "0:00", "warm_pct": 28, "file": "1788698295669-d47ff6b4-8ade-4429-81c4-14e90b33dd4f.png" },
+    { "id": "N2",  "title": "사막폭풍 속 카라반",           "script": "0:50", "warm_pct": 40, "file": "1788698356324-8130d62c-da08-45b1-8336-86a834dbd1fe.png" },
+    { "id": "N3",  "title": "카라반사라이",                 "script": "1:10", "warm_pct": 48, "file": "1788698044104-d55fce59-60ec-4a68-b400-5176deb7fc3b.png" },
+    { "id": "N4",  "title": "빙하 융빙수 → 오아시스",       "script": "2:00", "warm_pct": 35, "file": "1788698302654-2d4799d7-b2fb-4f90-8b26-857286640fec.png" },
+    { "id": "N5",  "title": "사마르칸트 돔 도시",           "script": "3:20", "warm_pct": 50, "file": "1788698050991-f7b420c7-69d7-4f8e-a419-17205c601fe2.png" },
+    { "id": "N6",  "title": "아흐라르 관개 영지 (정점)",    "script": "4:15", "warm_pct": 57, "file": "1788698363753-5c79550f-332f-4853-884f-7622713f10a1.png" },
+    { "id": "N7",  "title": "낙타발 → 트럭바퀴 match cut",  "script": "5:05", "warm_pct": 30, "file": "1788699118349-3e78943b-2b6d-48e6-8d1d-c4bd9fc4db84.png" },
+    { "id": "N8",  "title": "부산항 컨테이너 터미널",       "script": "5:30", "warm_pct": 15, "file": "1788698920404-b1cd8777-3f7f-4140-a62f-3b83f100da45.png" },
+    { "id": "N9",  "title": "북극 얼음 항로 (최저)",        "script": "5:50", "warm_pct": 10, "file": "1788698926802-e80507ae-6142-4bc0-812b-a76455e7193c.png" },
+    { "id": "N10", "title": "편지 회수 (회복)",             "script": "8:15", "warm_pct": 57, "file": "1788699127347-20586bc2-753a-4901-b844-b0c121c70f2e.png" }
+  ],
+  "links": [
+    { "id": "L1", "from": "N1", "to": "N2", "edit_order": 1, "file": "1788698830994-7fb985f9-9046-45d9-ab77-569f929571e4.mp4" },
+    { "id": "L2", "from": "N2", "to": "N3", "edit_order": 2, "file": "1788698706600-71329b66-532f-497a-8fa4-aa0070f5a0ea.mp4" },
+    { "id": "L3", "from": "N3", "to": "N5", "edit_order": 3, "file": "1788698690253-3f18c1cf-916c-48e0-abee-8ae688e61743.mp4", "note": "L4 와 택일" },
+    { "id": "L4", "from": "N4", "to": "N5", "edit_order": null, "file": "1788698722468-6676d978-e9ff-4d41-a3d4-f23880a227f8.mp4", "note": "L3 의 대안. 물 연구 구간을 살릴 때 사용" },
+    { "id": "L5", "from": "N5", "to": "N6", "edit_order": 4, "file": "1788698981333-784ba432-07c7-4128-835c-7ca197cde9f3.mp4" },
+    { "id": "L6", "from": "N6", "to": "N8", "edit_order": 5, "file": "", "task_id": "cmtptrajw47dqtpwk5b23tn3d", "note": "600년 시간점프. 생성 중" },
+    { "id": "L7", "from": "N8", "to": "N9", "edit_order": 6, "file": "1788699448465-238bda12-9794-4675-927a-32cb77c2ee4e.mp4" },
+    { "id": "L8", "from": "N9", "to": "N10", "edit_order": 7, "file": "1788699583611-74be8757-4a77-450b-83d9-364f6cfdf55b.mp4" }
+  ],
+  "warm_curve": [28, 40, 48, 35, 50, 57, 30, 15, 10, 57],
+  "notes": [
+    "URL 은 cdn_base + file 로 조합한다.",
+    "영상은 전부 image(시작) + imageTail(종료) 로 생성됐다. 앞 클립의 마지막 프레임과 뒤 클립의 첫 프레임이 같은 이미지이므로 전환 효과 없이 그냥 이어붙인다.",
+    "이 컨테이너는 Pollo CDN 이 차단돼 있어 파일을 내려받을 수 없다. 원본은 https://pollo.ai → My Creations 에 있다.",
+    "난색 곡선은 잉카편 실측(황금기 정점 → 몰락 최저 → 유산 회복)과 같은 모양이다."
+  ]
+}
