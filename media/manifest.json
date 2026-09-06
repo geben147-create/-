@@ -16,15 +16,15 @@
     "recommended": "가로 중앙 42% × 세로 중앙 84%"
   },
   "credits": {
+    "balance_before": 12040,
+    "balance_after": 11602,
+    "total_spent": 438,
     "image_count": 7,
-    "image_per": 38,
-    "image_total": 266,
+    "image_total": 228,
     "video_count": 7,
     "per_video": 30,
     "video_total": 210,
-    "grand_total": 476,
-    "balance_before": 12040,
-    "note": "잔액 차이로 실측. 견적 API 의 discountCost:0 은 이미지 실차감과 다르다."
+    "note": "잔액 차이로 실측한 값. 영상은 정확히 30×7=210. 이미지는 7건 합계 228 (견적 API 는 이미지에 discountCost:0 을 돌려주지만 실제로는 차감된다 — 견적이 아니라 잔액을 믿을 것)."
   },
   "shots": {
     "s1_hero": {
@@ -61,7 +61,7 @@
       "duration": "5초",
       "intent": "변화·전환이 보이는 샷. 이 섹션만 스크럽으로 승격했다. 루프가 아니라 진행이 필요하므로 끝 프레임을 고정하지 않았다.",
       "img": "https://videocdn.pollo.ai/web-cdn/pollo/production/cmf20asu60gslb2k5fhlac2gn/ori/1788665583845-012f828c-eca2-413c-ba08-0e737c91656c.png",
-      "vid": null,
+      "vid": "https://videocdn.pollo.ai/web-cdn/pollo/production/cmf20asu60gslb2k5fhlac2gn/ori/1788666966397-5acdf2cf-2fb7-4f77-8950-923255302088.mp4",
       "vid_prompt": "Keep the composition of the attached image exactly as it is. The figure rises very slowly and steadily out of the water, fine golden sparks drift upward, white petals ripple outward across the mirror-still surface. Camera: an extremely slow vertical rise — one movement only, no shake, no zoom. The figure stays inside the frame for the entire shot and never leaves it, and the face is never visible. Overall close to slow motion, a single continuous progression from start to end. Colour, lighting and texture stay identical to the first frame. One single continuous take, no cuts.",
       "neg_prompt": "cut, scene change, transition, fade, text, letters, subtitles, logo, watermark, UI elements, human face, fast camera movement, zoom in, zoom out, handheld shake, camera shake, split screen, subject leaving the frame, oversaturation, heavy lens flare, distortion, morphing, warping",
       "loop_closed": false
@@ -74,7 +74,7 @@
       "duration": "5초",
       "intent": "카드 안에 작게 들어가는 짧은 루프. 제품 질감·재질감을 대표한다.",
       "img": "https://videocdn.pollo.ai/web-cdn/pollo/production/cmf20asu60gslb2k5fhlac2gn/ori/1788666074893-3db8e928-84ae-4ba1-8721-1cb0496f8a56.png",
-      "vid": null,
+      "vid": "https://videocdn.pollo.ai/web-cdn/pollo/production/cmf20asu60gslb2k5fhlac2gn/ori/1788666917130-a52ba232-33c5-4da0-8332-9490aa3e23ee.mp4",
       "vid_prompt": "Keep the composition of the attached image exactly as it is. The petals breathe almost imperceptibly, the water droplet trembles slightly, soft backlight shifts. Camera: an extremely slow macro drift across the petals — one movement only, no shake, no zoom. The subject stays inside the frame for the entire shot and never leaves it. Overall close to slow motion: very little changes across the five seconds. The last frame returns to almost the same state as the first frame. Colour, lighting and texture stay identical to the first frame. One single continuous take, no cuts.",
       "neg_prompt": "cut, scene change, transition, fade, text, letters, subtitles, logo, watermark, UI elements, human face, fast camera movement, zoom in, zoom out, handheld shake, camera shake, split screen, subject leaving the frame, oversaturation, heavy lens flare, distortion, morphing, warping",
       "loop_closed": true
@@ -87,7 +87,7 @@
       "duration": "5초",
       "intent": "카드용 짧은 루프. 작화와 자연스러운 움직임을 대표한다.",
       "img": "https://videocdn.pollo.ai/web-cdn/pollo/production/cmf20asu60gslb2k5fhlac2gn/ori/1788666313930-6a97c317-8a2d-4946-b8cc-1f00fe236a67.png",
-      "vid": null,
+      "vid": "https://videocdn.pollo.ai/web-cdn/pollo/production/cmf20asu60gslb2k5fhlac2gn/ori/1788666958760-3f36bea3-957f-4c2d-8973-11fb44a80331.mp4",
       "vid_prompt": "Keep the composition of the attached image exactly as it is. Long hair and the coat lift slowly in the wind, light particles drift past, distant city lights twinkle faintly. Camera: an extremely slow push in — one movement only, no shake, no zoom. The subject stays inside the frame for the entire shot and never leaves it. Overall close to slow motion: very little changes across the five seconds. The last frame returns to almost the same state as the first frame. Colour, lighting and texture stay identical to the first frame. One single continuous take, no cuts.",
       "neg_prompt": "cut, scene change, transition, fade, text, letters, subtitles, logo, watermark, UI elements, human face, fast camera movement, zoom in, zoom out, handheld shake, camera shake, split screen, subject leaving the frame, oversaturation, heavy lens flare, distortion, morphing, warping",
       "loop_closed": true
@@ -100,7 +100,7 @@
       "duration": "5초",
       "intent": "카드용 짧은 루프. 파티클·빛 효과를 대표한다. 순흑 배경이라 카드 스크림과 자연스럽게 붙는다.",
       "img": "https://videocdn.pollo.ai/web-cdn/pollo/production/cmf20asu60gslb2k5fhlac2gn/ori/1788666512947-56cab501-3b79-45cd-87ef-1eff77d37735.png",
-      "vid": null,
+      "vid": "https://videocdn.pollo.ai/web-cdn/pollo/production/cmf20asu60gslb2k5fhlac2gn/ori/1788666978741-efd02e93-060c-4941-8a0d-8f2635203df9.mp4",
       "vid_prompt": "Keep the composition of the attached image exactly as it is. Golden particles expand outward very slowly and settle back, faint smoke drifts across the frame. Camera: an extremely slow push in — one movement only, no shake, no zoom. The subject stays inside the frame for the entire shot and never leaves it. Overall close to slow motion: very little changes across the five seconds. The last frame returns to almost the same state as the first frame. Colour, lighting and texture stay identical to the first frame. One single continuous take, no cuts.",
       "neg_prompt": "cut, scene change, transition, fade, text, letters, subtitles, logo, watermark, UI elements, human face, fast camera movement, zoom in, zoom out, handheld shake, camera shake, split screen, subject leaving the frame, oversaturation, heavy lens flare, distortion, morphing, warping",
       "loop_closed": true
@@ -113,7 +113,7 @@
       "duration": "5초",
       "intent": "16:9 하나로 두 화면을 덮으려는 시도가 '피사체가 사라지는' 원인이다. 같은 세계를 세로로 다시 잡은 별도 소스.",
       "img": "https://videocdn.pollo.ai/web-cdn/pollo/production/cmf20asu60gslb2k5fhlac2gn/ori/cmtp9vow12m0t13lkiype04yb-0-2c5305dd23680b35.png",
-      "vid": null,
+      "vid": "https://videocdn.pollo.ai/web-cdn/pollo/production/cmf20asu60gslb2k5fhlac2gn/ori/1788667009815-a65c740e-a6e2-4efa-b8ee-55ee0ac8e4ce.mp4",
       "vid_prompt": "Keep the composition of the attached image exactly as it is. Blossom petals drift gently, the water surface ripples very softly, warm sunlight shifts almost imperceptibly. Camera: an extremely slow forward dolly push through the open gate, barely perceptible — one movement only, no shake, no zoom. The subject stays inside the frame for the entire shot and never leaves it. Overall close to slow motion: very little changes across the five seconds. The last frame returns to almost the same state as the first frame. Colour, lighting and texture stay identical to the first frame. One single continuous take, no cuts.",
       "neg_prompt": "cut, scene change, transition, fade, text, letters, subtitles, logo, watermark, UI elements, human face, fast camera movement, zoom in, zoom out, handheld shake, camera shake, split screen, subject leaving the frame, oversaturation, heavy lens flare, distortion, morphing, warping",
       "loop_closed": true

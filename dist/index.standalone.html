@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026 AI 영상 마스터 클래스 — 광고·콘텐츠·숏폼까지 무한 확장</title>
+<meta name="description" content="제작부터 효과, 보정까지 AI 영상의 모든 과정. 15파트 172클립 약 41시간. 8가지 영상 스타일과 5가지 효과, 상업용 퀄리티를 만드는 3가지 보정 기술.">
+<meta property="og:title" content="2026 AI 영상 마스터 클래스">
+<meta property="og:description" content="8가지 영상 스타일 · 5가지 효과 · 3가지 보정. 하나의 커리큘럼으로 끝냅니다.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   2026 AI 영상 마스터 클래스 — 시네마틱 스크롤 랜딩
+   토큰/스크림 수치는 파이프라인 가이드 09번 계산표를 그대로 따름.
+   ============================================================ */
+
+:root{
+  /* 스크림 — 순검정(#000)이 아니라 아주 살짝 푸른 검정 */
+  --scrim: 8, 10, 14;
+
+  --ink-0:  #06080B;   /* 페이지 바닥 */
+  --ink-1:  #0B0E14;   /* 섹션 바닥 */
+  --ink-2:  #131822;   /* 카드 바닥 */
+  --line:   rgba(242,245,249,.12);
+  --line-2: rgba(242,245,249,.07);
+
+  /* 영상 위 텍스트 — 순백 금지 */
+  --on-video:       #F2F5F9;
+  --on-video-2:     rgba(242,245,249,.74);
+  --on-video-label: rgba(242,245,249,.68);
+
+  /* 액센트는 영상 위 본문에 쓰지 않는다. 버튼·라인·작은 라벨만. */
+  --accent:     #E8A33D;
+  --accent-ink: #171009;
+
+  --maxw: 1200px;
+  --font: "Noto Sans KR", -apple-system, BlinkMacSystemFont, "Segoe UI",
+          "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+}
+
+*,*::before,*::after{ box-sizing:border-box; }
+
+html{ scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
+
+body{
+  margin:0;
+  background: var(--ink-0);
+  color: var(--on-video);
+  font-family: var(--font);
+  font-size:17px;
+  line-height:1.72;
+  font-weight:400;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+
+img,video{ display:block; max-width:100%; }
+a{ color:inherit; }
+
+h1,h2,h3{ margin:0; font-weight:700; letter-spacing:-.02em; line-height:1.2; }
+p{ margin:0; }
+
+.wrap{ width:100%; max-width:var(--maxw); margin-inline:auto; padding-inline:clamp(20px,5vw,48px); }
+
+/* 아이브로우 / 라벨 — 자간 0.16em, 굵기 500 */
+.eyebrow{
+  font-size:12px; font-weight:500; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--on-video-label);
+  margin:0 0 18px;
+}
+.eyebrow--accent{ color:var(--accent); }
+/* 영상 위 아이브로우는 카피 블록 맨 위 = 스크림이 가장 옅은 자리에 놓인다.
+   12px 라벨은 WCAG 상 '작은 텍스트'라 4.5:1 이 필요하다. 라벨 톤(.68)으로는
+   최악 프레임에서 3.97:1 밖에 안 나와, 영상 위 아이브로우만 별도로 올린다. */
+.hero .eyebrow,
+.vsec .eyebrow,
+.scrub .eyebrow{ color:rgba(242,245,249,.88); }
+
+/* ---------- 버튼 ---------- */
+.btn{
+  display:inline-flex; align-items:center; gap:10px;
+  padding:15px 30px; border-radius:999px;
+  font-size:15px; font-weight:600; letter-spacing:.01em;
+  text-decoration:none; border:1px solid transparent;
+  transition:transform .18s ease, background-color .18s ease, border-color .18s ease;
+}
+.btn:focus-visible{ outline:2px solid var(--accent); outline-offset:3px; }
+.btn--primary{ background:var(--accent); color:var(--accent-ink); }
+.btn--primary:hover{ transform:translateY(-2px); background:#F0B255; }
+.btn--ghost{ border-color:rgba(242,245,249,.30); color:var(--on-video); }
+.btn--ghost:hover{ border-color:rgba(242,245,249,.62); background:rgba(242,245,249,.06); }
+
+/* ============================================================
+   내비게이션 — body 직속. 조상에 transform 을 절대 걸지 않는다.
+   ============================================================ */
+.nav{
+  position:fixed; inset:0 0 auto 0; z-index:100;
+  display:flex; align-items:center; justify-content:space-between;
+  gap:16px; padding:16px clamp(20px,5vw,48px);
+  background:linear-gradient(to bottom, rgba(6,8,11,.86), rgba(6,8,11,0));
+  backdrop-filter:blur(2px);
+}
+.nav__brand{ font-size:13px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; text-decoration:none; }
+.nav__links{ display:flex; gap:26px; align-items:center; }
+.nav__links a{ font-size:13px; font-weight:500; color:var(--on-video-2); text-decoration:none; }
+.nav__links a:hover{ color:var(--on-video); }
+.nav__cta{ padding:9px 18px; font-size:13px; }
+@media (max-width:860px){ .nav__links a:not(.nav__cta){ display:none; } }
+
+/* ============================================================
+   히어로 — isolation:isolate 로 스택 컨텍스트를 의도적으로 만든다.
+   영상 0 / 스크림 1 / 텍스트 2
+   ============================================================ */
+.hero{
+  position:relative;
+  isolation:isolate;              /* ★ z-index 사고 방지의 핵심 */
+  min-height:78vh;                /* 100vh 금지 — 모바일 주소창 */
+  display:grid; align-items:end;
+  overflow:hidden;
+  background:var(--ink-0);
+}
+.hero__bg{
+  position:absolute; inset:0;
+  width:100%; height:100%;
+  object-fit:cover; object-position:50% 45%;
+  z-index:0; pointer-events:none;
+}
+.hero__scrim{
+  position:absolute; inset:0; z-index:1; pointer-events:none;
+  /* 알파 수치는 verify/check.py 가 순백 프레임 위에서 실측해 맞춘 값이다.
+     아래쪽(글자 영역)은 두껍게, 위쪽은 .04 까지 떨어뜨려 영상을 보여준다. */
+  background:
+    linear-gradient(to top,
+      rgba(var(--scrim),.94) 0%,
+      rgba(var(--scrim),.90) 30%,
+      rgba(var(--scrim),.82) 52%,
+      rgba(var(--scrim),.64) 70%,
+      rgba(var(--scrim),.52) 86%,
+      rgba(var(--scrim),.24) 100%),
+    linear-gradient(to right,
+      rgba(var(--scrim),.74) 0%,
+      rgba(var(--scrim),.66) 30%,
+      rgba(var(--scrim),.44) 46%,
+      rgba(var(--scrim),.16) 68%,
+      rgba(var(--scrim),0) 88%);
+}
+.hero__copy{
+  position:relative; z-index:2;    /* ★ 항상 맨 위 */
+  width:100%; max-width:var(--maxw); margin-inline:auto;
+  padding:0 clamp(20px,5vw,48px) clamp(64px,10vh,112px);
+}
+/* 46ch 는 본문 기준 폭이라 68px 헤드라인에는 너무 좁다 — 줄바꿈이 엉킨다.
+   블록 폭은 헤드라인에 맞추고, 리드문만 따로 읽기 좋은 폭으로 제한한다. */
+.hero__copy .inner{ max-width:min(600px, 92vw); }
+.hero h1{ font-size:clamp(34px,5.2vw,62px); font-weight:700; letter-spacing:-.02em; }
+.hero__lede{
+  margin:22px 0 34px; max-width:46ch;
+  font-size:clamp(17px,1.5vw,19px); font-weight:400; color:var(--on-video-2);
+}
+.hero__actions{ display:flex; flex-wrap:wrap; gap:12px; }
+.hero__meta{
+  margin-top:38px; padding-top:22px; border-top:1px solid var(--line);
+  display:flex; flex-wrap:wrap; gap:28px;
+}
+.hero__meta div{ font-size:13px; font-weight:500; color:var(--on-video-label); }
+.hero__meta b{ display:block; font-size:22px; font-weight:600; color:var(--on-video); letter-spacing:-.01em; }
+
+/* ============================================================
+   영상 배경 섹션 (공통)
+   ============================================================ */
+.vsec{
+  position:relative; isolation:isolate;
+  overflow:hidden; background:var(--ink-1);
+  padding-block:clamp(96px,16vh,180px);
+}
+.vsec__bg{
+  position:absolute; inset:0; width:100%; height:100%;
+  object-fit:cover; object-position:50% 50%;
+  z-index:0; pointer-events:none;
+}
+.vsec__scrim{
+  position:absolute; inset:0; z-index:1; pointer-events:none;
+  background:
+    linear-gradient(to bottom,
+      rgba(var(--scrim),.80) 0%,
+      rgba(var(--scrim),.62) 40%,
+      rgba(var(--scrim),.70) 100%),
+    linear-gradient(to right,
+      rgba(var(--scrim),.58) 0%,
+      rgba(var(--scrim),.16) 55%,
+      rgba(var(--scrim),0) 80%);
+}
+.vsec__copy{ position:relative; z-index:2; }
+.vsec h2{ font-size:clamp(26px,4vw,42px); font-weight:600; letter-spacing:-.015em; }
+.vsec__body{ margin-top:22px; max-width:52ch; font-size:clamp(17px,1.4vw,19px); color:var(--on-video-2); }
+.pains{ margin:28px 0 0; padding:0; list-style:none; display:grid; gap:10px; max-width:52ch; }
+.pains li{ position:relative; padding-left:17px; font-size:15.5px; font-weight:500; color:var(--on-video-2); }
+.pains li::before{ content:""; position:absolute; left:0; top:.66em; width:6px; height:6px;
+                   border-radius:50%; background:var(--accent); }
+
+/* ============================================================
+   스크럽 섹션 — 핀 + currentTime 제어
+   ============================================================ */
+.scrub{ position:relative; background:var(--ink-0); height:280vh; }  /* 스크럽 구간 길이 — 길수록 천천히 재생 */
+.scrub__stage{
+  position:relative; isolation:isolate;
+  height:100vh; min-height:560px; overflow:hidden;
+  display:grid; place-items:center;
+}
+.scrub__video{
+  position:absolute; inset:0; width:100%; height:100%;
+  object-fit:cover; z-index:0; pointer-events:none;
+}
+.scrub__scrim{
+  position:absolute; inset:0; z-index:1; pointer-events:none;
+  /* 텍스트가 정중앙에 오므로 중앙을 가장 어둡게. 가장자리는 .30 까지 풀어 영상을 남긴다. */
+  background:
+    radial-gradient(92% 64% at 50% 50%,
+      rgba(var(--scrim),.58) 0%, rgba(var(--scrim),.50) 46%,
+      rgba(var(--scrim),.34) 74%, rgba(var(--scrim),.26) 100%),
+    linear-gradient(to bottom,
+      rgba(var(--scrim),.62) 0%, rgba(var(--scrim),.38) 38%, rgba(var(--scrim),.76) 100%);
+}
+.scrub__copy{
+  position:relative; z-index:2; text-align:center;
+  width:100%; max-width:var(--maxw); padding-inline:clamp(20px,5vw,48px);
+}
+.scrub__copy h2{ font-size:clamp(28px,4.6vw,50px); font-weight:700; letter-spacing:-.02em; }
+.scrub__copy p{ margin:22px auto 0; max-width:46ch; font-size:clamp(17px,1.4vw,19px); color:var(--on-video-2); }
+
+/* 파이프라인 스텝 — 스크럽 진행에 맞춰 점등 */
+.steps{
+  margin-top:44px; display:flex; flex-wrap:wrap; justify-content:center;
+  gap:10px 8px;
+}
+.step{
+  display:inline-flex; align-items:center; gap:8px;
+  padding:9px 16px; border-radius:999px;
+  border:1px solid rgba(242,245,249,.16);
+  background:rgba(var(--scrim),.55);
+  font-size:13px; font-weight:500; color:var(--on-video-label);
+  transition:color .3s ease, border-color .3s ease, background-color .3s ease;
+}
+.step.is-on{
+  color:var(--accent-ink); background:var(--accent);
+  border-color:var(--accent);
+}
+.scrub__progress{
+  margin:34px auto 0; width:min(420px,80%); height:2px;
+  background:rgba(242,245,249,.16); border-radius:2px; overflow:hidden;
+}
+.scrub__progress i{ display:block; height:100%; width:0%; background:var(--accent); }
+
+/* ============================================================
+   스타일 카드 3종 (짧은 루프)
+   ============================================================ */
+.styles{ background:var(--ink-0); padding-block:clamp(96px,15vh,160px); }
+.styles__head{ max-width:56ch; margin-bottom:clamp(40px,6vh,64px); }
+.styles__head h2{ font-size:clamp(26px,4vw,42px); font-weight:600; }
+.styles__head p{ margin-top:20px; color:var(--on-video-2); }
+.cards{ display:grid; gap:20px; grid-template-columns:repeat(auto-fit,minmax(290px,1fr)); }
+.card{
+  position:relative; isolation:isolate;
+  border-radius:16px; overflow:hidden;
+  border:1px solid var(--line-2);
+  background:var(--ink-2);
+  min-height:420px; display:flex; flex-direction:column; justify-content:flex-end;
+}
+.card__bg{
+  position:absolute; inset:0; width:100%; height:100%;
+  object-fit:cover; z-index:0; pointer-events:none;
+}
+.card__scrim{
+  position:absolute; inset:0; z-index:1; pointer-events:none;
+  background:linear-gradient(to top,
+    rgba(var(--scrim),.96) 0%,
+    rgba(var(--scrim),.93) 30%,
+    rgba(var(--scrim),.86) 48%,
+    rgba(var(--scrim),.60) 68%,
+    rgba(var(--scrim),.24) 88%,
+    rgba(var(--scrim),.06) 100%);
+}
+.card__body{ position:relative; z-index:2; padding:28px 26px 30px; }
+.card h3{ font-size:21px; font-weight:600; letter-spacing:-.01em; }
+.card p{ margin-top:12px; font-size:15px; color:var(--on-video-2); }
+.card ul{ margin:18px 0 0; padding:0; list-style:none; display:grid; gap:7px; }
+.card li{ font-size:13.5px; font-weight:500; color:var(--on-video-label); padding-left:15px; position:relative; }
+.card li::before{ content:""; position:absolute; left:0; top:.62em; width:5px; height:5px; border-radius:50%; background:var(--accent); opacity:.85; }
+
+/* ============================================================
+   신뢰 구간 — 의도적으로 영상이 없는 섹션
+   ============================================================ */
+.trust{ background:var(--ink-1); border-block:1px solid var(--line-2); padding-block:clamp(96px,15vh,160px); }
+.trust__head{ max-width:54ch; margin-bottom:clamp(44px,7vh,72px); }
+.trust__head h2{ font-size:clamp(26px,4vw,42px); font-weight:600; }
+.trust__head p{ margin-top:20px; color:var(--on-video-2); }
+.stats{ display:grid; gap:1px; grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+        background:var(--line-2); border:1px solid var(--line-2); border-radius:14px; overflow:hidden; }
+.stat{ background:var(--ink-1); padding:26px 22px; }
+.stat b{ display:block; font-size:clamp(28px,3.4vw,38px); font-weight:700; letter-spacing:-.02em; color:var(--on-video); }
+.stat span{ display:block; margin-top:6px; font-size:13px; font-weight:500; color:var(--on-video-label); }
+
+.tutors{ margin-top:clamp(44px,7vh,72px); display:grid; gap:16px; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); }
+.tutor{ padding:24px 22px; border:1px solid var(--line-2); border-radius:14px; background:var(--ink-2); }
+.tutor h4{ margin:0; font-size:16px; font-weight:600; letter-spacing:-.01em; }
+.tutor span{ display:block; margin-top:4px; font-size:12px; font-weight:500; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); }
+.tutor p{ margin-top:12px; font-size:14px; color:var(--on-video-2); line-height:1.66; }
+
+.curri{ margin-top:clamp(44px,7vh,72px); border:1px solid var(--line-2); border-radius:14px; overflow:hidden; }
+.curri__row{ display:flex; gap:16px; align-items:baseline; padding:15px 22px; border-top:1px solid var(--line-2); font-size:14.5px; }
+.curri__row:first-child{ border-top:0; }
+.curri__row b{ flex:0 0 62px; font-size:12px; font-weight:600; letter-spacing:.08em; color:var(--accent); }
+.curri__row span{ flex:1; color:var(--on-video-2); }
+.curri__row i{ font-style:normal; font-size:12.5px; font-weight:500; color:var(--on-video-label); white-space:nowrap; }
+
+/* ============================================================
+   CTA — 히어로와 같은 세계로 회귀
+   ============================================================ */
+.cta{ min-height:74vh; align-items:center; }
+.cta .hero__scrim{
+  /* 가운데 정렬이라 좌우 그라디언트가 안 먹는다 — 중앙을 직접 덮는다 */
+  background:
+    radial-gradient(88% 70% at 50% 50%,
+      rgba(var(--scrim),.72) 0%, rgba(var(--scrim),.62) 52%, rgba(var(--scrim),.40) 100%),
+    linear-gradient(to bottom,
+      rgba(var(--scrim),.70) 0%, rgba(var(--scrim),.52) 45%, rgba(var(--scrim),.80) 100%);
+}
+.cta .hero__copy{ padding-block:clamp(80px,12vh,120px); text-align:center; }
+.cta .inner{ max-width:none; }
+.cta h2{ font-size:clamp(30px,5vw,56px); font-weight:700; letter-spacing:-.02em; }
+.cta__lede{ margin:22px auto 0; max-width:44ch; font-size:clamp(17px,1.4vw,19px); color:var(--on-video-2); }
+.price{ margin:38px auto 32px; display:inline-flex; flex-direction:column; align-items:center; gap:6px; }
+.price s{ font-size:15px; color:var(--on-video-label); text-decoration-thickness:1px; }
+.price b{ font-size:clamp(30px,4.6vw,46px); font-weight:700; letter-spacing:-.02em; }
+.price em{ font-style:normal; font-size:13px; font-weight:500; letter-spacing:.02em; color:var(--accent); }
+.cta__actions{ display:flex; flex-wrap:wrap; gap:12px; justify-content:center; }
+.cta__fine{ margin-top:26px; font-size:12.5px; color:var(--on-video-label); }
+
+/* ---------- 푸터 ---------- */
+.foot{ background:var(--ink-0); border-top:1px solid var(--line-2); padding-block:44px; }
+.foot__in{ display:flex; flex-wrap:wrap; gap:18px 32px; align-items:center; justify-content:space-between; }
+.foot p{ font-size:12.5px; color:var(--on-video-label); }
+.foot a{ font-size:12.5px; font-weight:500; color:var(--on-video-2); text-decoration:none; }
+.foot a:hover{ color:var(--on-video); }
+
+/* ============================================================
+   모바일 — 가로 세이프존이 32%뿐이므로 좌우 스크림을 세로형으로 교체
+   ============================================================ */
+@media (max-width:768px){
+  body{ font-size:16px; }
+  .hero__bg{ object-position:50% 40%; }
+  .hero__scrim{
+    background:linear-gradient(to top,
+      rgba(var(--scrim),.92) 0%,
+      rgba(var(--scrim),.78) 38%,
+      rgba(var(--scrim),.40) 68%,
+      rgba(var(--scrim),.12) 100%);
+  }
+  .vsec__scrim{
+    background:linear-gradient(to bottom,
+      rgba(var(--scrim),.86) 0%,
+      rgba(var(--scrim),.72) 45%,
+      rgba(var(--scrim),.84) 100%);
+  }
+  .card{ min-height:360px; }
+  .scrub__stage{ height:88vh; min-height:520px; }
+}
+
+/* 세로 공간이 좁은 창 — 노트북 + 북마크바 + 확장프로그램이면 600px 밑으로 떨어진다.
+   가이드가 경고하는 바로 그 상황. 여기서 히어로 카피가 잘리면 안 된다. */
+@media (max-height:760px) and (min-width:769px){
+  .hero{ min-height:auto; }
+  .hero h1{ font-size:clamp(30px,4vw,44px); }
+  .hero__lede{ margin:16px 0 24px; font-size:16.5px; }
+  .hero__copy{ padding-bottom:clamp(32px,6vh,56px); padding-top:84px; }
+  .hero__meta{ margin-top:26px; padding-top:16px; gap:22px; }
+  .hero__meta b{ font-size:19px; }
+  .cta{ min-height:auto; }
+}
+@media (max-height:620px) and (min-width:769px){
+  .hero__meta{ display:none; }
+  .hero h1{ font-size:clamp(28px,3.4vw,38px); }
+}
+
+/* ============================================================
+   접근성 — 동작 줄이기: 영상 정지, 포스터만
+   ============================================================ */
+@media (prefers-reduced-motion:reduce){
+  html{ scroll-behavior:auto; }
+  /* 영상을 숨기지 않는다 — 재생만 막으면 poster 속성이 첫 프레임을 그대로 보여준다.
+     별도 포스터 파일을 참조하지 않으므로 404 가 나지 않는다. */
+  .hero__bg,.vsec__bg,.card__bg,.scrub__video{ animation:none !important; }
+  .btn,[data-reveal]{ transition:none !important; }
+}
+
+:focus-visible{ outline:2px solid var(--accent); outline-offset:3px; border-radius:4px; }
+.skip{ position:absolute; left:-9999px; }
+.skip:focus{ left:12px; top:12px; z-index:200; padding:10px 16px; background:var(--accent); color:var(--accent-ink); border-radius:8px; }
+
+</style>
+</head>
+<body>
+
+<a class="skip" href="#main">본문 바로가기</a>
+
+<!-- 내비게이션 — body 직속. 조상에 transform 이 없으므로 fixed 가 뷰포트 기준으로 동작한다 -->
+<nav class="nav">
+  <a class="nav__brand" href="#main">FASTCAMPUS</a>
+  <div class="nav__links">
+    <a href="#styles">영상 스타일</a>
+    <a href="#trust">커리큘럼</a>
+    <a href="#trust">강사진</a>
+    <a href="https://github.com/geben147-create/-/blob/claude/cinematic-scroll-pipeline-ajcxs8/pipeline.html">제작 파이프라인</a>
+    <a class="btn btn--primary nav__cta" href="#cta">수강권 선택</a>
+  </div>
+</nav>
+
+<main id="main">
+
+  <!-- ══════════ S1 · 히어로 (루프) ══════════ -->
+  <section class="hero">
+    <video class="hero__bg"
+           autoplay muted loop playsinline
+           preload="metadata"
+           poster="https://videocdn.pollo.ai/web-cdn/pollo/production/cmf20asu60gslb2k5fhlac2gn/ori/1788665106815-87db149f-491f-43a4-bfff-4aa56537c65d.png"
+           aria-hidden="true" tabindex="-1">
+      <source src="https://videocdn.pollo.ai/web-cdn/pollo/production/cmf20asu60gslb2k5fhlac2gn/ori/1788667009815-a65c740e-a6e2-4efa-b8ee-55ee0ac8e4ce.mp4" media="(max-width: 768px)" type="video/mp4">
+      <source src="https://videocdn.pollo.ai/web-cdn/pollo/production/cmf20asu60gslb2k5fhlac2gn/ori/1788666767794-fbfd01e8-485f-418c-99f5-0ac1252cfa5b.mp4" type="video/mp4">
+    </video>
+    <div class="hero__scrim" aria-hidden="true"></div>
+
+    <div class="hero__copy">
+      <div class="inner">
+        <p class="eyebrow">AI CREATIVE · 영상 생성</p>
+        <h1>제작부터 보정까지,<br>AI 영상의 전부</h1>
+        <p class="hero__lede">
+          8가지 영상 스타일, 5가지 미친 효과, 그리고 상업용 퀄리티를 만드는
+          3가지 보정 기술. 남들이 하나씩 따로 배울 때
+          당신은 단 하나의 커리큘럼으로 끝냅니다.
+        </p>
+        <div class="hero__actions">
+          <a class="btn btn--primary" href="#cta">수강권 선택하기</a>
+          <a class="btn btn--ghost" href="#styles">영상 스타일 보기</a>
+        </div>
+        <div class="hero__meta">
+          <div><b>15파트</b>172클립</div>
+          <div><b>약 41시간</b>온라인 강의</div>
+          <div><b>평생소장</b>누구나 수강</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ S2 · 문제 제기 (루프) ══════════ -->
+  <section class="vsec" id="problem">
+    <video class="vsec__bg"
+           muted loop playsinline preload="none"
+           data-src="https://videocdn.pollo.ai/web-cdn/pollo/production/cmf20asu60gslb2k5fhlac2gn/ori/1788666875850-bfa2fe36-3626-4a4d-af53-722a6d94d54b.mp4"
+           poster="https://videocdn.pollo.ai/web-cdn/pollo/production/cmf20asu60gslb2k5fhlac2gn/ori/1788665368651-fa6115e5-0014-4bdc-9d38-4085208ef401.png"
+           aria-hidden="true" tabindex="-1"></video>
+    <div class="vsec__scrim" aria-hidden="true"></div>
+
+    <div class="vsec__copy wrap" data-reveal>
+      <p class="eyebrow">THE PROBLEM</p>
+      <h2>따로 배우면,<br>따로 남습니다</h2>
+      <p class="vsec__body">
+        브랜딩 광고는 A 강의, 숏폼은 B 강의, VFX는 또 C 강의.
+        구독하는 툴 개수만 늘어나는데 정작 하나의 결과물로는 이어지지 않습니다.
+        돈과 시간이 그렇게 흩어집니다.
+      </p>
+      <ul class="pains">
+        <li>툴은 쓸 줄 아는데 &ldquo;작품&rdquo;이 안 나온다</li>
+        <li>생성은 됐는데 디테일이 뭉개지고 자글거린다</li>
+        <li>색감이 칙칙해서 브랜드 톤과 맞지 않는다</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ══════════ S3 · 해결책 (스크럽 + 핀) ══════════ -->
+  <section class="scrub" id="solve" data-scrub>
+    <div class="scrub__stage">
+      <video class="scrub__video"
+             muted playsinline preload="auto"
+             data-src="https://videocdn.pollo.ai/web-cdn/pollo/production/cmf20asu60gslb2k5fhlac2gn/ori/1788666966397-5acdf2cf-2fb7-4f77-8950-923255302088.mp4"
+             poster="https://videocdn.pollo.ai/web-cdn/pollo/production/cmf20asu60gslb2k5fhlac2gn/ori/1788665583845-012f828c-eca2-413c-ba08-0e737c91656c.png"
+             aria-hidden="true" tabindex="-1"></video>
+      <div class="scrub__scrim" aria-hidden="true"></div>
+
+      <div class="scrub__copy">
+        <p class="eyebrow eyebrow--accent">THE ANSWER</p>
+        <h2>기획부터 납품까지<br>한 줄로 이어집니다</h2>
+        <p>
+          끊기는 지점이 없습니다. 지금 스크롤하고 계신 이 배경 영상도
+          강의에서 다루는 것과 똑같은 파이프라인으로 만들어졌습니다.
+        </p>
+        <div class="steps">
+          <span class="step">기획 · 샷 설계</span>
+          <span class="step">첫 프레임</span>
+          <span class="step">영상 생성</span>
+          <span class="step">효과 · VFX</span>
+          <span class="step">보정 · 색</span>
+          <span class="step">웹 납품</span>
+        </div>
+        <div class="scrub__progress" aria-hidden="true"><i></i></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ S4 · 스타일 3종 (짧은 루프) ══════════ -->
+  <section class="styles" id="styles">
+    <div class="wrap">
+      <div class="styles__head" data-reveal>
+        <p class="eyebrow">WHAT YOU MAKE</p>
+        <h2>8가지 스타일, 5가지 효과,<br>3가지 보정</h2>
+        <p>가장 수요가 높은 전문 카테고리만 골라 실습으로. 각 분야별 강의를 따로 들을 필요가 없습니다.</p>
+      </div>
+
+      <div class="cards">
+        <article class="card" data-reveal>
+          <video class="card__bg" muted loop playsinline preload="none"
+                 data-src="https://videocdn.pollo.ai/web-cdn/pollo/production/cmf20asu60gslb2k5fhlac2gn/ori/1788666917130-a52ba232-33c5-4da0-8332-9490aa3e23ee.mp4" poster="https://videocdn.pollo.ai/web-cdn/pollo/production/cmf20asu60gslb2k5fhlac2gn/ori/1788666074893-3db8e928-84ae-4ba1-8721-1cb0496f8a56.png"
+                 aria-hidden="true" tabindex="-1"></video>
+          <div class="card__scrim" aria-hidden="true"></div>
+          <div class="card__body">
+            <h3>브랜딩 · 제품</h3>
+            <p>가상 모델로 완성하는 브랜드 필름부터, 구매 욕구를 자극하는 제품의 재질감까지.</p>
+            <ul>
+              <li>브랜드 페르소나 영상 생성</li>
+              <li>제품 텍스처 · 질감 구현</li>
+              <li>톤앤무드 배경 합성</li>
+              <li>숏폼 시즌 · 플랫폼별 컨셉</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="card" data-reveal>
+          <video class="card__bg" muted loop playsinline preload="none"
+                 data-src="https://videocdn.pollo.ai/web-cdn/pollo/production/cmf20asu60gslb2k5fhlac2gn/ori/1788666958760-3f36bea3-957f-4c2d-8973-11fb44a80331.mp4" poster="https://videocdn.pollo.ai/web-cdn/pollo/production/cmf20asu60gslb2k5fhlac2gn/ori/1788666313930-6a97c317-8a2d-4946-b8cc-1f00fe236a67.png"
+                 aria-hidden="true" tabindex="-1"></video>
+          <div class="card__scrim" aria-hidden="true"></div>
+          <div class="card__body">
+            <h3>캐릭터 · 애니메이션</h3>
+            <p>전문 드로잉 스킬 없이 상업적 가치가 있는 캐릭터 IP를 기획하고 영상화까지.</p>
+            <ul>
+              <li>일본 애니메이션 스타일 작화</li>
+              <li>픽사 · SF · 게임 캐릭터</li>
+              <li>게임 시네마틱 트레일러</li>
+              <li>기획·음악·편집 1인 파이프라인</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="card" data-reveal>
+          <video class="card__bg" muted loop playsinline preload="none"
+                 data-src="https://videocdn.pollo.ai/web-cdn/pollo/production/cmf20asu60gslb2k5fhlac2gn/ori/1788666978741-efd02e93-060c-4941-8a0d-8f2635203df9.mp4" poster="https://videocdn.pollo.ai/web-cdn/pollo/production/cmf20asu60gslb2k5fhlac2gn/ori/1788666512947-56cab501-3b79-45cd-87ef-1eff77d37735.png"
+                 aria-hidden="true" tabindex="-1"></video>
+          <div class="card__scrim" aria-hidden="true"></div>
+          <div class="card__body">
+            <h3>VFX · 3D · 타이포</h3>
+            <p>단순 생성을 넘어 작품으로. 다른 강의에서 알려주지 않는 후처리의 전부.</p>
+            <ul>
+              <li>파티클 · 빛 · 번개 · 불 연출</li>
+              <li>Blender 없는 3D 모션</li>
+              <li>움직이는 타이포그래피</li>
+              <li>업스케일 · 배경제거 · 색보정</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ S5 · 신뢰 (의도적으로 영상 없음) ══════════ -->
+  <section class="trust" id="trust">
+    <div class="wrap">
+      <div class="trust__head" data-reveal>
+        <p class="eyebrow">WHY THIS ONE</p>
+        <h2>현업이 만든 커리큘럼</h2>
+        <p>광고 대행사, 게임사, 촬영 현장에서 실제로 굴러가는 프로세스 그대로. 툴 사용법이 아니라 &ldquo;광고에서 통하는&rdquo; 크리에이티브를 다룹니다.</p>
+      </div>
+
+      <div class="stats" data-reveal>
+        <div class="stat"><b>15</b><span>파트</span></div>
+        <div class="stat"><b>172</b><span>클립</span></div>
+        <div class="stat"><b>41시간</b><span>총 분량</span></div>
+        <div class="stat"><b>5팀</b><span>강사진</span></div>
+        <div class="stat"><b>평생</b><span>소장</span></div>
+      </div>
+
+      <div class="tutors" data-reveal>
+        <div class="tutor">
+          <span>Branding</span>
+          <h4>에이치마이 스튜디오</h4>
+          <p>전) 우피(Oopy) 초기 창업 멤버 — 브랜딩·UIUX·콘텐츠 디자이너. 기획부터 제작까지 실제 프로젝트 전 과정을 단계별로.</p>
+        </div>
+        <div class="tutor">
+          <span>Advertising</span>
+          <h4>모아이</h4>
+          <p>현) AI Creative Specialist. 전) 광고 대행사 AD · 시니어 모션그래픽 디자이너. 뷰티·패션 브랜드 캠페인 디렉팅.</p>
+        </div>
+        <div class="tutor">
+          <span>Cinematic</span>
+          <h4>SOAP</h4>
+          <p>현) 광고·뮤직비디오 촬영감독. AI 전문 프로덕션 &lsquo;스튜디오 슉(SHUKK)&rsquo; 대표.</p>
+        </div>
+        <div class="tutor">
+          <span>Game</span>
+          <h4>스튜디오 사이</h4>
+          <p>전) 엔씨소프트 브랜드 매니저. 머릿속 기획을 살아 움직이는 홍보 영상으로 만드는 A to Z.</p>
+        </div>
+        <div class="tutor">
+          <span>Brand Film</span>
+          <h4>blink studio</h4>
+          <p>현) 블링크스튜디오 대표. 전) 현대자동차 ADVANCED DESIGN팀. 삼성물산·LG생활건강·SM엔터 AI 광고 콘텐츠 제작.</p>
+        </div>
+      </div>
+
+      <div class="curri" data-reveal>
+        <div class="curri__row"><b>PART 1</b><span>AI 브랜드 연출 이미지 제작</span><i>14클립 · 3:44</i></div>
+        <div class="curri__row"><b>PART 2</b><span>AI 브랜딩 광고 영상 제작</span><i>10클립 · 2:46</i></div>
+        <div class="curri__row"><b>PART 3</b><span>AI 제품 영상 제작</span><i>9클립 · 2:41</i></div>
+        <div class="curri__row"><b>PART 4</b><span>AI 숏폼 제작</span><i>11클립 · 3:25</i></div>
+        <div class="curri__row"><b>PART 5</b><span>AI를 활용한 SNS 숏폼 콘텐츠 마스터</span><i>13클립 · 3:53</i></div>
+        <div class="curri__row"><b>PART 6</b><span>AI 애니메이션 제작</span><i>19클립 · 3:39</i></div>
+        <div class="curri__row"><b>PART 7</b><span>AI 캐릭터 제작</span><i>19클립 · 4:12</i></div>
+        <div class="curri__row"><b>PART 8</b><span>AI 게임 트레일러 제작</span><i>6클립 · 0:53</i></div>
+        <div class="curri__row"><b>PART 9</b><span>파티클 소스 생성/합성과 신비로운 라이팅</span><i>7클립 · 0:58</i></div>
+        <div class="curri__row"><b>PART 10</b><span>모션그래픽 아티스트를 위한 AI 워크플로우</span><i>11클립 · 3:15</i></div>
+        <div class="curri__row"><b>PART 11</b><span>AI로 타이포그래피 마스터</span><i>12클립 · 3:00</i></div>
+        <div class="curri__row"><b>PART 12</b><span>AI 3D 아트</span><i>15클립 · 3:30</i></div>
+        <div class="curri__row"><b>PART 13</b><span>AI로 VFX 연출 마스터</span><i>11클립 · 2:56</i></div>
+        <div class="curri__row"><b>PART 14</b><span>[보너스] 실습 1 — 라라랜드 스타일</span><i>7클립 · 1:19</i></div>
+        <div class="curri__row"><b>PART 15</b><span>[보너스] 실습 2 — 화양연화 스타일</span><i>8클립 · 1:39</i></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ S6 · CTA (히어로와 같은 세계로 회귀) ══════════ -->
+  <section class="hero cta" id="cta">
+    <video class="hero__bg"
+           muted loop playsinline preload="none"
+           data-src="https://videocdn.pollo.ai/web-cdn/pollo/production/cmf20asu60gslb2k5fhlac2gn/ori/1788666767794-fbfd01e8-485f-418c-99f5-0ac1252cfa5b.mp4"
+           poster="https://videocdn.pollo.ai/web-cdn/pollo/production/cmf20asu60gslb2k5fhlac2gn/ori/1788665106815-87db149f-491f-43a4-bfff-4aa56537c65d.png"
+           aria-hidden="true" tabindex="-1"></video>
+    <div class="hero__scrim" aria-hidden="true"></div>
+
+    <div class="hero__copy">
+      <div class="inner">
+        <p class="eyebrow">START NOW</p>
+        <h2>2026년, 가장 앞서가는<br>AI 영상 제작자로</h2>
+        <p class="cta__lede">더 이상 돈 낭비, 시간 낭비하지 마세요. 가장 확실하고 빠른 지름길.</p>
+
+        <div class="price">
+          <s>798,000원</s>
+          <b>347,000원~</b>
+          <em>최대 56% 할인 · 12개월 무이자 할부 시 월 28,917원~</em>
+        </div>
+
+        <div class="cta__actions">
+          <a class="btn btn--primary" href="https://fastcampus.co.kr/dgn_online_aiall" target="_blank" rel="noopener">수강권 선택하기</a>
+          <a class="btn btn--ghost" href="https://github.com/geben147-create/-/blob/claude/cinematic-scroll-pipeline-ajcxs8/pipeline.html">이 페이지 제작 과정 보기</a>
+        </div>
+        <p class="cta__fine">평생소장 · 학습자료 및 자막 제공 · 최대 34,700P 적립</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap foot__in">
+    <p>본 페이지는 파이프라인 시연을 위한 학습용 재구성입니다. 강의 정보 출처: 패스트캠퍼스.</p>
+    <a href="https://github.com/geben147-create/-/blob/claude/cinematic-scroll-pipeline-ajcxs8/pipeline.html">전체 제작 파이프라인 →</a>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   시네마틱 스크롤 — 지연 로딩 + 스크럽
+   가이드 08-B / 08-C 를 그대로 구현.
+   GSAP 이 없으면 스크럽은 자체 rAF 폴백으로 동작한다.
+   ============================================================ */
+(function () {
+  'use strict';
+
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- 1. 지연 로딩: 화면에 들어올 때만 src 를 붙인다 ----------
+     6개 영상을 동시에 받으면 첫 화면이 죽는다. */
+  var lazy = document.querySelectorAll('video[data-src]');
+  if (lazy.length) {
+    if (reduced) {
+      // 동작 줄이기: 아예 로드하지 않는다 (CSS 가 poster 배경으로 대체)
+      lazy.forEach(function (v) { v.removeAttribute('data-src'); });
+    } else if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          var v = e.target;
+          if (e.isIntersecting) {
+            if (!v.src && v.dataset.src) v.src = v.dataset.src;
+            var p = v.play();
+            if (p && p.catch) p.catch(function () {});   // 자동재생 거부돼도 조용히
+          } else if (!v.hasAttribute('data-keep-playing')) {
+            v.pause();                                    // 화면 밖이면 정지
+          }
+        });
+      }, { rootMargin: '250px 0px', threshold: 0.05 });
+      lazy.forEach(function (v) { io.observe(v); });
+    } else {
+      lazy.forEach(function (v) { v.src = v.dataset.src; });
+    }
+  }
+
+  /* ---------- 2. 히어로: 자동재생이 막히면 조용히 포스터로 ---------- */
+  var hero = document.querySelector('.hero__bg');
+  if (hero && !reduced) {
+    var hp = hero.play();
+    if (hp && hp.catch) hp.catch(function () {});
+  }
+
+  /* ---------- 3. 스크럽 섹션 ----------
+     스크롤 위치 → currentTime 직결. 핀은 sticky 로 건다
+     (GSAP pin 은 조상에 transform 을 만들어 fixed 자식을 깨뜨리므로
+      여기서는 position:sticky 로 핀하고 스크럽만 계산한다). */
+  var scrubSection = document.querySelector('[data-scrub]');
+  if (scrubSection && !reduced) {
+    var video   = scrubSection.querySelector('.scrub__video');
+    var stage   = scrubSection.querySelector('.scrub__stage');
+    var bar     = scrubSection.querySelector('.scrub__progress i');
+    var steps   = Array.prototype.slice.call(scrubSection.querySelectorAll('.step'));
+    var duration = 0;
+    var target = 0, current = 0, ticking = false;
+
+    // sticky 로 핀 — 조상 transform 없이 화면에 고정된다
+    stage.style.position = 'sticky';
+    stage.style.top = '0';
+
+    function onMeta() {
+      duration = video.duration || 0;
+      if (duration) loop();
+    }
+    if (video.readyState >= 1) onMeta();
+    video.addEventListener('loadedmetadata', onMeta);
+
+    function progress() {
+      var rect = scrubSection.getBoundingClientRect();
+      var total = scrubSection.offsetHeight - window.innerHeight;
+      if (total <= 0) return 0;
+      var p = (-rect.top) / total;
+      return Math.max(0, Math.min(1, p));
+    }
+
+    function paint(p) {
+      if (bar) bar.style.width = (p * 100).toFixed(2) + '%';
+      if (steps.length) {
+        var active = Math.min(steps.length - 1, Math.floor(p * steps.length + 0.0001));
+        steps.forEach(function (s, i) { s.classList.toggle('is-on', i <= active && p > 0.02); });
+      }
+    }
+
+    function loop() {
+      target = progress() * duration;
+      // scrub 관성 (가이드의 scrub:0.6 에 해당)
+      current += (target - current) * 0.18;
+      if (Math.abs(target - current) < 0.004) current = target;
+
+      if (duration) {
+        // 재생 중이면 seek 가 무시되므로 반드시 멈춘 상태로 조작
+        if (!video.paused) video.pause();
+        if (isFinite(current)) {
+          try { video.currentTime = Math.max(0, Math.min(duration - 0.02, current)); } catch (e) {}
+        }
+      }
+      paint(progress());
+      requestAnimationFrame(loop);
+    }
+
+    // 스크럽 영상은 화면 밖에서도 seek 가능해야 하므로 즉시 로드
+    if (video.dataset.src && !video.src) video.src = video.dataset.src;
+    video.pause();
+  }
+
+  /* ---------- 4. 진입 페이드 ---------- */
+  if ('IntersectionObserver' in window) {
+    var revealables = document.querySelectorAll('[data-reveal]');
+    if (revealables.length) {
+      revealables.forEach(function (el) {
+        if (reduced) { el.style.opacity = 1; el.style.transform = 'none'; return; }
+        el.style.opacity = 0;
+        el.style.transform = 'translateY(18px)';
+        el.style.transition = 'opacity .7s cubic-bezier(.22,.61,.36,1), transform .7s cubic-bezier(.22,.61,.36,1)';
+      });
+      if (!reduced) {
+        var ro = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) {
+            if (e.isIntersecting) {
+              e.target.style.opacity = 1;
+              e.target.style.transform = 'none';
+              ro.unobserve(e.target);
+            }
+          });
+        }, { rootMargin: '0px 0px -12% 0px', threshold: 0.08 });
+        revealables.forEach(function (el) { ro.observe(el); });
+      }
+    }
+  }
+})();
+
+</script>
+</body>
+</html>

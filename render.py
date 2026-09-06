@@ -8,7 +8,7 @@ index.template.html 의 {{TOKEN}} 을 실제 미디어 경로로 치환해 index
 remote 모드는 지금 바로 열어볼 수 있고, local 모드는 build.sh 를 돌린 뒤
 자체 호스팅(용량·캐시·오프라인 제어)으로 전환할 때 쓴다.
 """
-import json, sys, pathlib
+import json, sys, pathlib, re
 
 ROOT = pathlib.Path(__file__).parent
 mode = (sys.argv[1] if len(sys.argv) > 1 else "remote").lower()
@@ -56,5 +56,18 @@ for token, (key, kind) in TOKENS.items():
         missing.append(token)
     html = html.replace("{{%s}}" % token, val)
 
+# src="" 인 <source> 는 브라우저가 빈 요청을 날려 콘솔 에러를 만든다.
+# 해당 소스가 없으면 줄 자체를 지워, 다음 <source> 로 자연스럽게 폴백되게 한다.
+dropped = []
+kept = []
+for line in html.splitlines():
+    if re.search(r'<source\s[^>]*\bsrc=""', line):
+        dropped.append(line.strip()[:70])
+        continue
+    kept.append(line)
+html = "\n".join(kept)
+
 (ROOT / "index.html").write_text(html, encoding="utf-8")
-print(f"index.html rendered [{mode}]" + (f" — 비어 있는 토큰: {', '.join(missing)}" if missing else ""))
+print(f"index.html rendered [{mode}]"
+      + (f" — 비어 있는 토큰: {', '.join(missing)}" if missing else "")
+      + (f" / 빈 <source> {len(dropped)}개 제거" if dropped else ""))

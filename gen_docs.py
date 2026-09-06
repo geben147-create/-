@@ -43,28 +43,32 @@ shotcards = "\n".join(cards)
 
 # ---------------------------------------------------------------- 실제 수치
 c = man["credits"]
-n_img, n_vid = c["image_count"], c["video_count"]
 receipts = f'''
 <div class="tablewrap">
   <table>
-    <thead><tr><th>단계</th><th>도구 / 모델</th><th>건수</th><th>크레딧</th></tr></thead>
+    <thead><tr><th>단계</th><th>도구 / 모델</th><th>건수</th><th>크레딧 (실측)</th></tr></thead>
     <tbody>
       <tr><td>첫 프레임 이미지</td><td><code>{html.escape(man["models"]["image"])}</code> · 2K</td>
-          <td>{n_img}</td><td class="ok"><b>0</b> <span class="dim">(Ultra 무제한)</span></td></tr>
+          <td>{c["image_count"]}</td><td><b>{c["image_total"]}</b></td></tr>
       <tr><td>배경 영상</td><td><code>{html.escape(man["models"]["video"])}</code> · pro · 5s</td>
-          <td>{n_vid}</td><td><b>{c["per_video"]} × {n_vid} = {c["video_total"]}</b></td></tr>
+          <td>{c["video_count"]}</td><td><b>{c["video_total"]}</b> <span class="dim">({c["per_video"]} × {c["video_count"]})</span></td></tr>
       <tr><td>웹 인코딩</td><td><code>ffmpeg</code> (libx264 / libvpx-vp9 / libwebp)</td>
           <td>—</td><td class="ok"><b>0</b></td></tr>
       <tr><td>웹 조립</td><td>순수 HTML / CSS / JS <span class="dim">(외부 라이브러리 0개)</span></td>
           <td>—</td><td class="ok"><b>0</b></td></tr>
-      <tr><td colspan="3"><b>합계</b></td><td><b>{c["video_total"]} 크레딧</b></td></tr>
+      <tr><td>검수</td><td>Playwright + Pillow <span class="dim">(순백 프레임 대비 실측)</span></td>
+          <td>—</td><td class="ok"><b>0</b></td></tr>
+      <tr><td colspan="3"><b>합계 — 잔액 {c["balance_before"]:,} → {c["balance_after"]:,}</b></td>
+          <td><b>{c["total_spent"]}</b></td></tr>
     </tbody>
   </table>
 </div>
 <div class="note">
-  <b>추가 결제 없음.</b> 이미지는 무제한 플랜이라 0크레딧, 영상만 기존 잔액
-  ({c["balance_before"]:,} 크레딧)에서 <b>{c["video_total"]}</b> 크레딧이 차감됐다
-  — 잔액의 약 {c["video_total"]/c["balance_before"]*100:.1f}%.
+  <b>추가 결제 없음.</b> 기존 연간 구독의 잔여 크레딧에서만 {c["total_spent"]} 크레딧이 차감됐다 —
+  잔액의 약 {c["total_spent"]/c["balance_before"]*100:.1f}%.<br><br>
+  <b>주의:</b> 이 수치는 견적이 아니라 <b>잔액 차이로 실측</b>한 값이다. Pollo 견적 API 는
+  이미지에 대해 <code>discountCost: 0</code> 을 돌려주지만 실제로는 차감된다.
+  <b>견적값이 아니라 잔액을 믿을 것.</b>
 </div>
 
 <h3>왜 이 모델들인가</h3>
