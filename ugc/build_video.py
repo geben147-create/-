@@ -99,6 +99,27 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
     return head + "\n".join(ev) + "\n"
 
 
+def build_clip_scene(clip: Path, scene: dict, ass: Path, dest: Path):
+    """A generated clip already carries its motion, so no synthetic zoom here.
+
+    The clip is trimmed to the card's length, fitted to frame, and the caption
+    is burned on top. Adding a Ken Burns move over footage that is already
+    moving reads as a wobble, so the two paths are kept apart on purpose.
+    """
+    frames = int(round(scene["dur"] * FPS))
+    vf = (
+        f"scale={W}:{H}:force_original_aspect_ratio=increase,"
+        f"crop={W}:{H},fps={FPS},"
+        f"subtitles='{ass.as_posix()}':fontsdir='/usr/local/share/fonts',"
+        f"format=yuv420p"
+    )
+    run([FF, "-hide_banner", "-loglevel", "error", "-y",
+         "-t", f"{scene['dur']:.3f}", "-i", str(clip),
+         "-vf", vf, "-an", "-r", str(FPS), "-frames:v", str(frames),
+         "-c:v", "libx264", "-preset", "medium", "-crf", "18",
+         "-pix_fmt", "yuv420p", str(dest)])
+
+
 def build_scene(img: Path, scene: dict, ass: Path, dest: Path, idx: int):
     frames = int(round(scene["dur"] * FPS))
     # Alternate a slow push in and pull out so consecutive cards do not feel
@@ -147,33 +168,47 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--scenes", default="scenes.json")
     ap.add_argument("--images", default="images")
+    ap.add_argument("--clips", default="clips",
+                    help="generated motion clips; a clips/S1.mp4 is used in "
+                         "place of the still for that card when present")
     ap.add_argument("--work", default="work")
     ap.add_argument("--out", default="out/final.mp4")
     a = ap.parse_args()
 
     cfg = json.loads(Path(a.scenes).read_text(encoding="utf-8"))
     scenes = cfg["scenes"]
-    imgdir, work = Path(a.images), Path(a.work)
+    imgdir, clipdir, work = Path(a.images), Path(a.clips), Path(a.work)
     work.mkdir(parents=True, exist_ok=True)
     Path(a.out).parent.mkdir(parents=True, exist_ok=True)
 
-    missing = [s["id"] for s in scenes
-               if not any((imgdir / f"{s['id']}{e}").exists()
-                          for e in (".png", ".jpg", ".jpeg", ".webp"))]
+    def source_for(sid: str):
+        for e in (".mp4", ".mov", ".webm"):
+            if (clipdir / f"{sid}{e}").exists():
+                return clipdir / f"{sid}{e}", True
+        for e in (".png", ".jpg", ".jpeg", ".webp"):
+            if (imgdir / f"{sid}{e}").exists():
+                return imgdir / f"{sid}{e}", False
+        return None, False
+
+    missing = [s["id"] for s in scenes if source_for(s["id"])[0] is None]
     if missing:
-        sys.exit(f"missing images for: {', '.join(missing)}\n"
-                 f"put them in {imgdir}/ as S1.png .. S9.png")
+        sys.exit(f"no source for: {', '.join(missing)}\n"
+                 f"put stills in {imgdir}/ as S1.png .. S9.png, "
+                 f"or motion clips in {clipdir}/ as S1.mp4 .. S9.mp4")
 
     clips, durs = [], []
     for i, s in enumerate(scenes):
-        img = next(imgdir / f"{s['id']}{e}" for e in (".png", ".jpg", ".jpeg", ".webp")
-                   if (imgdir / f"{s['id']}{e}").exists())
+        src, is_clip = source_for(s["id"])
         ass = work / f"{s['id']}.ass"
         ass.write_text(ass_for(s), encoding="utf-8")
-        clip = work / f"{s['id']}.mp4"
-        print(f"  [{i+1}/{len(scenes)}] {s['id']} {s['role']:<11} {s['dur']}s")
-        build_scene(img, s, ass, clip, i)
-        clips.append(clip); durs.append(s["dur"])
+        out = work / f"{s['id']}.mp4"
+        print(f"  [{i+1}/{len(scenes)}] {s['id']} {s['role']:<11} {s['dur']}s"
+              f"  {'motion clip' if is_clip else 'still'}")
+        if is_clip:
+            build_clip_scene(src, s, ass, out)
+        else:
+            build_scene(src, s, ass, out, i)
+        clips.append(out); durs.append(s["dur"])
 
     print("  stitching...")
     stitch(clips, durs, Path(a.out))

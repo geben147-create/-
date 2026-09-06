@@ -53,7 +53,9 @@ section{padding:12px 16px;min-height:calc(100vh - 44px);display:flex;flex-direct
 .cell{position:relative;aspect-ratio:9/16;border-radius:9px;overflow:hidden;background:#07070a;
   border:1px solid var(--line);cursor:zoom-in;container-type:inline-size}
 .cell.picked{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent)}
-.cell img{width:100%;height:100%;object-fit:cover;display:block}
+.cell img,.cell video{width:100%;height:100%;object-fit:cover;display:block}
+.cell .pend{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  color:var(--ink3);font:700 clamp(8px,2.6cqw,12px) var(--sans);text-align:center;padding:10px}
 .cell .err{position:absolute;inset:0;display:none;align-items:center;justify-content:center;
   padding:14px;text-align:center;color:#9a9a94;font-size:11px;line-height:1.55}
 .tag{position:absolute;left:0;top:0;z-index:4;padding:3px 8px;border-radius:0 0 8px 0;
@@ -115,6 +117,11 @@ dialog .cl{position:fixed;top:12px;right:16px;background:var(--panel);color:var(
   <div class="row9" id="row9"></div>
 </section>
 
+<section>
+  <div class="lbl"><h2>③ 생성된 영상 9컷</h2><span>wan-v2-2-flash · 5초 · 720p · 컷당 8크레딧 · 자동 반복재생</span></div>
+  <div class="row9" id="rowV"></div>
+</section>
+
 <div class="foot">
   <details>
     <summary>고를 때 볼 것 · 견적표</summary>
@@ -165,6 +172,17 @@ const CUTS=[
  ["S8 체크4","1788663792525-be375ceb-f033-4140-8867-f006bc27e009.png"],
  ["S9 CTA","1788663642897-b5825dbe-e5fa-4081-8f11-0e8b637e8310.png"]];
 const KICK="돈의 원리 3분 정리", TITLE="통장은 그대로인데<br>왜 자꾸 부족할까?";
+// null = still rendering when this page was written
+const VIDS=[
+ ["S1 훅","1788664959984-2dd3f302-7af5-4056-9e48-e98530cb122c.mp4"],
+ ["S2 문제","1788665142075-e27a2140-f862-4c03-ae41-c436c36041a2.mp4"],
+ ["S3 원인1","1788665199182-d70ed5b0-5269-4f5f-880c-08d05c5abccb.mp4"],
+ ["S4 원인2","1788665161845-c0e959c0-02c1-4eba-946f-f8379dbd2f90.mp4"],
+ ["S5 반전","1788664956658-8faf84a8-5c17-4d27-819b-964b2683fc72.mp4"],
+ ["S6 해결1","1788665305554-d250c7da-0ba7-4034-848c-c3e9d5499265.mp4"],
+ ["S7 해결2","1788665171528-9f22fe72-192a-42bc-91e3-cbe7c0bc94be.mp4"],
+ ["S8 체크4","1788665177688-efa95890-c075-45d4-9689-f99e6d2081a5.mp4"],
+ ["S9 CTA","1788665181762-96faa563-cfc7-4fa0-85a1-27b757441201.mp4"]];
 const ov=`<div class="zone"></div><div class="safe"><i class="t"></i><i class="b"></i></div>
 <div class="cap"><span class="k">${KICK}</span><div class="t">${TITLE}</div></div>`;
 
@@ -180,12 +198,32 @@ document.getElementById("row9").innerHTML=CUTS.map(([n,f])=>`
    <img src="${C+f}" alt="${n}"><div class="err">불러오지 못했습니다<br>${n}</div>
  </div>`).join("");
 
+document.getElementById("rowV").innerHTML=VIDS.map(([n,f])=>`
+ <div class="cell"${f?` data-src="${C+f}" data-video="1"`:""}>
+   <span class="tag">${n}</span>${f
+     ? `<video src="${C+f}" autoplay muted loop playsinline preload="metadata"></video>
+        <div class="err">불러오지 못했습니다<br>${n}</div>`
+     : `<div class="pend">생성 중<br>${n}</div>`}
+ </div>`).join("");
+
+document.querySelectorAll(".cell video").forEach(v=>v.addEventListener("error",()=>{
+  v.style.display="none"; const e=v.parentElement.querySelector(".err");
+  if(e) e.style.display="flex";}));
+
 document.querySelectorAll(".cell img").forEach(im=>im.addEventListener("error",()=>{
   im.style.display="none"; im.parentElement.querySelector(".err").style.display="flex";}));
 
 const dlg=document.getElementById("dlg"),dimg=document.getElementById("dimg");
+const dvid=document.createElement("video");
+dvid.controls=dvid.autoplay=dvid.loop=true; dvid.muted=true; dvid.playsInline=true;
+dvid.style.cssText="max-width:98vw;max-height:94vh;display:block;border-radius:8px";
+dlg.addEventListener("close",()=>{dvid.pause(); dvid.remove(); dimg.style.display="";});
 document.querySelectorAll(".cell").forEach(c=>{
-  c.addEventListener("click",()=>{dimg.src=c.dataset.src;dlg.showModal();});
+  c.addEventListener("click",()=>{
+    if(!c.dataset.src) return;
+    if(c.dataset.video){ dimg.style.display="none"; dvid.src=c.dataset.src; dlg.appendChild(dvid); }
+    else { dimg.src=c.dataset.src; }
+    dlg.showModal();});
   if(c.dataset.pick) c.addEventListener("dblclick",e=>{e.preventDefault();dlg.close();pick(c.dataset.pick);});
 });
 
