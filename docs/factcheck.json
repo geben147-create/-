@@ -1,0 +1,253 @@
+{
+  "schema": "stayfade/factcheck/1",
+  "checked_at": "2026-09-06",
+  "method_ko": "웹 검색으로 각 항목의 공식 문서 또는 1차 보도를 확인. 공식 페이지 접근이 차단된 경우 검색 스니펫/2차 출처임을 표시했습니다. 확인 못 한 것은 추측으로 채우지 않고 unverified 로 남겼습니다.",
+  "fx_rate": {
+    "usd_krw": 1350,
+    "basis_ko": "2026-09-04 매매기준율 약 1,350.4원 (9/6은 일요일). 카드 해외결제 수수료·부가세 별도",
+    "source": "https://kr.investing.com/currencies/usd-krw"
+  },
+  "claims": [
+    {
+      "id": "RN-1",
+      "verdict": "confirmed",
+      "ko": "RouteNote는 AI 생성 콘텐츠를 한국 파트너 스토어(멜론·지니·벅스·FLO·VIBE), Amazon, Content Recognition 옵션에 배포하지 않는다. AI 보조 릴리스도 한국 스토어에서 차단된다.",
+      "source": "https://support.routenote.com/kb-article/can-i-upload-ai-releases/",
+      "confidence": "high"
+    },
+    {
+      "id": "RN-2",
+      "verdict": "confirmed",
+      "ko": "RouteNote 심사는 현재 25~27 영업일. AI 콘텐츠는 추가 검토로 더 걸릴 수 있다고만 안내하며 '+4~7일' 같은 공식 수치는 없다. 승인 후 스토어 반영에 7~14일(일부 최대 28일)이 더 걸린다.",
+      "source": "https://support.routenote.com/kb-article/how-long-will-i-be-waiting-for-my-release-to-go-live/",
+      "confidence": "high"
+    },
+    {
+      "id": "RN-3",
+      "verdict": "confirmed",
+      "ko": "RouteNote Free는 순수익의 85%를 아티스트에게 지급. Premium은 릴리스 단위 선불(싱글 $10 ≈ 13,500원, EP $20, 앨범 $30)이며 2년차부터 릴리스당 연 $9.99 ≈ 13,500원.",
+      "source": "https://support.routenote.com/kb-article/how-much-does-premium-cost/",
+      "confidence": "high",
+      "usd": 10
+    },
+    {
+      "id": "RN-4",
+      "verdict": "confirmed",
+      "ko": "RouteNote 오디오 규격: 스테레오 FLAC 또는 MP3 320kbps, 16bit/44.1kHz. WAV 업로드 불가. 앞뒤 무음 8초 초과·클리핑·과압축은 거절 사유.",
+      "source": "https://support.routenote.com/kb-article/what-are-the-audio-file-requirements/",
+      "confidence": "high"
+    },
+    {
+      "id": "RN-5",
+      "verdict": "confirmed",
+      "ko": "RouteNote Dolby Track Mastering은 트랙당 $7.99 ≈ 10,800원, 30초 미리듣기 무료.",
+      "source": "https://routenote.com/blog/routenote-upgrades-dolby-track-mastering/",
+      "confidence": "medium",
+      "usd": 7.99
+    },
+    {
+      "id": "DK-1",
+      "verdict": "confirmed",
+      "ko": "DistroKid 요금: Musician $24.99 ≈ 33,700원/년, Musician Plus $44.99 ≈ 60,700원/년, Ultimate $89.99 ≈ 121,500원/년. DSP 로열티 100% 지급.",
+      "source": "https://www.alera.fm/blog/distrokid-pricing-2026-every-plan-fee-hidden-cost",
+      "confidence": "medium",
+      "usd": 24.99
+    },
+    {
+      "id": "DK-2",
+      "verdict": "confirmed",
+      "ko": "DistroKid는 권리를 100% 보유한 AI 생성 음악의 업로드를 허용하며, 2026년 5월부터 업로드 시 AI 공시가 필수다. 업로드 폼에서 가사/보컬/악기/전체 오디오/오디오 일부 중 해당 항목을 지정한다.",
+      "source": "https://jackrighteous.com/en-us/blogs/ai-music-distribution-guide/distrokid-upload-form-ai-music-paper-trail",
+      "confidence": "medium"
+    },
+    {
+      "id": "DK-3",
+      "verdict": "confirmed",
+      "ko": "DistroKid Content ID는 직접 만들지 않은 오디오(비트·루프·샘플 등)가 포함되면 부적격. 커버곡도 불가.",
+      "source": "https://jackrighteous.com/en-us/blogs/ai-music-distribution-guide/distrokid-ai-credits-what-ai-music-creators-should-document",
+      "confidence": "medium"
+    },
+    {
+      "id": "DK-4",
+      "verdict": "confirmed",
+      "ko": "DistroKid Content ID 추가 비용: 싱글 연 $4.95 ≈ 6,700원, 앨범 연 $14.95 ≈ 20,200원. 여기에 더해 발생 수익의 20%를 DistroKid가 가져간다.",
+      "source": "https://audora.music/guides/distrokid-true-cost/",
+      "confidence": "medium",
+      "usd": 4.95
+    },
+    {
+      "id": "DK-5",
+      "verdict": "partially_correct",
+      "ko": "DistroKid는 멜론·지니·벅스에 유통하지 않는다. 국내는 2022년 9월부터 FLO만 연결된 것으로 설명된다. 2차 출처(나무위키) 기준이므로 계약 전 DistroKid 스토어 목록으로 재확인 필요.",
+      "source": "https://namu.wiki/w/DistroKid",
+      "confidence": "low"
+    },
+    {
+      "id": "SY-1",
+      "verdict": "confirmed",
+      "ko": "Symphonic Starter는 연 $29.99 ≈ 40,500원, 주 아티스트 1명 전용 DIY 플랜이며 유통 로열티 100% 지급. Partner는 신청 심사제이고 아티스트 무제한, 수수료는 퍼센트 방식.",
+      "source": "https://support.symdistro.com/hc/en-us/articles/9220840169485-Symphonic-Starter-FAQ",
+      "confidence": "high",
+      "usd": 29.99
+    },
+    {
+      "id": "SY-2",
+      "verdict": "confirmed",
+      "ko": "Symphonic의 생성형 AI 제한 파트너에 Audible Magic, Meta, Bandcamp, YouTube Content ID가 포함된다. 즉 Partner 계정이어도 AI 트랙의 Content ID는 열리지 않는다.",
+      "source": "https://support.symdistro.com/hc/en-us/articles/31610957692173-Symphonic-s-AI-Disclosure-Generative-AI-Stance",
+      "confidence": "medium"
+    },
+    {
+      "id": "AM-1",
+      "verdict": "confirmed",
+      "ko": "Amuse Artist 플랜은 연 $23.99 ≈ 32,400원(스트리밍 로열티 100%). Artist Plus $39.99, Professional $59.99+.",
+      "source": "https://www.amuse.io/en/pricing/",
+      "confidence": "medium",
+      "usd": 23.99
+    },
+    {
+      "id": "AM-2",
+      "verdict": "confirmed",
+      "ko": "Amuse는 AI 음악을 허용하지만 YouTube Content ID와 Meta에서 제외하며, 7일당 10릴리스 제한이 있다.",
+      "source": "https://undetectr.com/blog/best-distributors-ai-music-ranked-2026",
+      "confidence": "low"
+    },
+    {
+      "id": "LA-1",
+      "verdict": "confirmed",
+      "ko": "LANDR는 AI 음악을 허용하지만 월 12곡 제한이 있고 YouTube Content ID·Meta·TikTok·Deezer·Pandora에서 제외한다.",
+      "source": "https://undetectr.com/blog/best-distributors-ai-music-ranked-2026",
+      "confidence": "low"
+    },
+    {
+      "id": "TC-1",
+      "verdict": "confirmed",
+      "ko": "TuneCore는 100% AI 생성물을 거부하고, CD Baby는 AI 콘텐츠를 금지한다.",
+      "source": "https://undetectr.com/blog/distrokid-tunecore-cdbaby-ai-policies-compared",
+      "confidence": "low"
+    },
+    {
+      "id": "KM-1",
+      "verdict": "confirmed",
+      "ko": "한국음악저작권협회는 2026-08-03 AI 활용 음악의 인간 창작 부분 등록 기준을 발표했다가 2026-08-25 철회했다. 국회·정부와 함께 법·제도 기준을 마련하기 위한 것이며, 논의 중단이나 100% AI 생성물 등록 허용을 뜻하지 않는다고 명시했다.",
+      "source": "https://www.khan.co.kr/article/202608251836001/",
+      "confidence": "high"
+    },
+    {
+      "id": "KR-1",
+      "verdict": "confirmed",
+      "ko": "국내 전송 음원사용료 분배율: 음반제작자 48.25%, 서비스사업자 35%, 작사·작곡 10.5%, 실연자 6.25%. 권리자 합계 65%.",
+      "source": "https://kpia.or.kr/board/board.php?bo_table=media&idx=747",
+      "confidence": "medium"
+    },
+    {
+      "id": "KR-2",
+      "verdict": "confirmed",
+      "ko": "권리자 65% : 사업자 35% 구조는 문체부 음원 전송사용료 징수규정 개정으로 도입되었다.",
+      "source": "https://www.mcst.go.kr/site/s_notice/press/pressView.jsp?pMenuCD=0302000000&pSeq=16742",
+      "confidence": "high"
+    },
+    {
+      "id": "KR-3",
+      "verdict": "unverified",
+      "ko": "2025년 논의된 권리자 68.42% : 사업자 31.58% 개정안이 문체부 승인·시행되었는지 확인하지 못했다. 이 문서는 보수적으로 65:35를 사용한다.",
+      "source": "",
+      "confidence": "none"
+    },
+    {
+      "id": "KR-4",
+      "verdict": "confirmed",
+      "ko": "월정액 스트리밍 1회 재생 시 발생액은 대략 7원 수준. 플랫폼 2원대 중반, 권리자 4원대 중반. 작사·작곡 약 0.7원, 가수·연주자 약 0.4원대.",
+      "source": "https://v.daum.net/v/yh70r3EocN?f=p",
+      "confidence": "medium"
+    },
+    {
+      "id": "SU-1",
+      "verdict": "confirmed",
+      "ko": "Suno 유료(Pro/Premier) 구독 중 생성한 출력은 상업 이용이 가능하고 Suno가 자신의 권리를 양도하지만, 저작권 성립을 보장하지는 않는다.",
+      "source": "https://suno.com/terms-of-service",
+      "confidence": "high"
+    },
+    {
+      "id": "SU-2",
+      "verdict": "confirmed",
+      "ko": "2026-09-03부터 모든 Suno 음악에 다운로드 횟수 제한이 적용된다. 무료 계정은 계정 수명 동안 총 7회(비상업), Pro $8/월 ≈ 10,800원은 월 20회(상업권 포함), Premier $24/월 ≈ 32,400원은 월 60회.",
+      "source": "https://help.suno.com/en/articles/13614785",
+      "confidence": "medium",
+      "usd": 8
+    },
+    {
+      "id": "SU-3",
+      "verdict": "confirmed",
+      "ko": "Suno Studio의 'Get MIDI'는 스템당 10 크레딧이며 Studio 자체가 Premier 전용이다. 무료·Pro 티어에서는 MIDI를 뽑을 수 없다. 무료 대안으로 Basic Pitch를 쓰면 0원.",
+      "source": "https://help.suno.com/en/articles/8128193",
+      "confidence": "medium"
+    },
+    {
+      "id": "YT-1",
+      "verdict": "confirmed",
+      "ko": "YouTube Content ID는 레퍼런스 콘텐츠에 대한 배타적 권리를 요구한다. 비독점 라이선스, CC, 퍼블릭도메인, 공정이용 클립은 레퍼런스로 부적격.",
+      "source": "https://support.google.com/youtube/answer/2605065?hl=en",
+      "confidence": "high"
+    },
+    {
+      "id": "US-1",
+      "verdict": "confirmed",
+      "ko": "미국 저작권청은 프롬프트만으로는 저작자성에 충분한 인간의 통제가 되지 않는다고 보되, AI 출력물에 대한 인간의 창의적 선택·배열·수정은 보호 대상이 될 수 있다고 본다(사안별 판단).",
+      "source": "https://www.copyright.gov/ai/",
+      "confidence": "high"
+    },
+    {
+      "id": "TL-1",
+      "verdict": "confirmed",
+      "ko": "REAPER는 60일 전기능 평가판. 개인/연매출 2만 달러 미만 상업 사용은 $60 ≈ 81,000원, 그 외 상업 라이선스는 $225 ≈ 303,800원.",
+      "source": "https://www.reaper.fm/purchase.php",
+      "confidence": "high",
+      "usd": 60
+    },
+    {
+      "id": "TL-2",
+      "verdict": "confirmed",
+      "ko": "Seed-VC는 1~30초 레퍼런스만으로 zero-shot 음성/가창 변환을 지원하고, 실시간 변환 알고리즘 지연은 약 300ms. 파인튜닝은 화자당 최소 1발화·100스텝(T4에서 2분)으로도 가능하며 데이터셋 클립은 1~30초.",
+      "source": "https://github.com/Plachtaa/seed-vc",
+      "confidence": "high",
+      "usd": 0
+    },
+    {
+      "id": "TL-3",
+      "verdict": "confirmed",
+      "ko": "Demucs는 MIT 라이선스로 상업 사용이 가능하다. Basic Pitch는 Spotify의 무료 오픈소스 오디오→MIDI 도구다.",
+      "source": "https://github.com/facebookresearch/demucs/blob/main/LICENSE",
+      "confidence": "medium",
+      "usd": 0
+    },
+    {
+      "id": "TL-4",
+      "verdict": "partially_correct",
+      "ko": "Kits AI는 무료 티어(변환 15분)와 월 $9.99 ≈ 13,500원부터의 유료 플랜을 제공. ACE Studio Artist는 연간 결제 시 월 $12.42 ≈ 16,800원(월 결제 $16.58). Audimee는 Starter 월 약 $12 ≈ 16,200원. 값이 자료마다 달라 결제 화면에서 재확인 필요.",
+      "source": "https://www.kits.ai/pricing",
+      "confidence": "low"
+    },
+    {
+      "id": "SR-1",
+      "verdict": "unverified",
+      "ko": "사운드리퍼블리카는 멜론·벅스·지니 등 국내와 해외 스트리밍에 배급하지만, AI 활용곡 수용 여부와 수수료율은 공개 페이지에서 확인할 수 없었다. 직접 문의 필요.",
+      "source": "https://www.soundrepublica.com/",
+      "confidence": "none"
+    },
+    {
+      "id": "YT-2",
+      "verdict": "unverified",
+      "ko": "사용자가 보낸 유튜브 영상 24개의 제목·자막은 이 실행 환경의 네트워크 정책상 youtube.com 접근이 차단되어 확인하지 못했다.",
+      "source": "",
+      "confidence": "none"
+    },
+    {
+      "id": "PC-1",
+      "verdict": "refuted",
+      "ko": "'승인 확률 몇 %' 같은 수치는 근거가 없다. RouteNote·Symphonic·DistroKid·YouTube 어디도 승인률 통계를 공개하지 않는다. 이 문서에는 확률 숫자를 넣지 않았다.",
+      "source": "",
+      "confidence": "high"
+    }
+  ]
+}
