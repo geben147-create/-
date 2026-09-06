@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "arrangement_manifest.schema.json",
+  "title": "arrangement_manifest.json — exactly what the arrangement stage changed",
+  "type": "object",
+  "required": ["decisions_used", "tempo_bpm", "key", "intro", "original_offset_in_output_s", "changed_sections", "new_midi_counts", "human_still_needed"],
+  "properties": {
+    "decisions_used": {"type": "object", "description": "Copy of human_decisions.json (or the defaults) that produced this render; _source says which."},
+    "variant_descriptions": {"type": "object"},
+    "tempo_bpm": {"type": "number"}, "key": {"type": "string"}, "bar_len_s": {"type": "number"}, "bars_total": {"type": "integer"},
+    "intro": {"type": "object", "properties": {"bars": {"type": "integer"}, "len_s": {"type": "number"}, "chord": {"type": "string"}, "output_range": {"type": "array"}, "content": {"type": "string"}}},
+    "original_offset_in_output_s": {"type": "number", "description": "output_time = original_time + this"},
+    "tail_trimmed_s": {"type": "number"},
+    "changed_sections": {"type": "array", "items": {"type": "object", "properties": {"section_index": {"type": "integer"}, "label": {"type": "string"}, "bars": {"type": "integer"}, "orig_range": {"type": "array"}, "output_range": {"type": "array"}}}},
+    "breakdown": {"type": ["object", "null"]},
+    "events": {"type": "array"},
+    "new_midi_counts": {"type": "object", "properties": {"drum_events": {"type": "integer"}, "bass_notes": {"type": "integer"}, "pad_chords": {"type": "integer"}}},
+    "levels": {"type": "object"},
+    "sections_output_time": {"type": "array"},
+    "duration_out_s": {"type": "number"}, "duration_in_s": {"type": "number"},
+    "human_still_needed": {"type": "array", "items": {"type": "string"}}
+  }
+}

@@ -1,0 +1,92 @@
+{
+  "preview_window_orig_s": [
+    0.373,
+    13.547
+  ],
+  "bars": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "drums": {
+    "A": {
+      "description": "Straight pop/rock groove: kick on 1 & 3, snare on 2 & 4, 8th-note hats, snare-roll fill at section ends.",
+      "events": 104,
+      "preview": "drums_A_preview.wav"
+    },
+    "B": {
+      "description": "Syncopated: kicks on 1, 2.5, 3.5, clap layered on the snare, 16th-note hats with accents, open hat on 4.5.",
+      "events": 198,
+      "preview": "drums_B_preview.wav"
+    },
+    "C": {
+      "description": "Half-time: kick on 1 with a ghost kick, snare on 3, rim on 4.5, 8th hats plus a humanised 16th shaker.",
+      "events": 234,
+      "preview": "drums_C_preview.wav"
+    }
+  },
+  "bass": {
+    "A": {
+      "description": "Long root notes (whole/half), octave drop every 4th bar — warm, leaves room for the vocal.",
+      "notes": 10,
+      "preview": "bass_A_preview.wav"
+    },
+    "B": {
+      "description": "Driving 8th-note pulse with a rest on the '2-and' and an octave jump on '4-and'.",
+      "notes": 56,
+      "preview": "bass_B_preview.wav"
+    },
+    "C": {
+      "description": "Syncopated root–fifth pattern with a chromatic approach note into the next chord.",
+      "notes": 32,
+      "preview": "bass_C_preview.wav"
+    }
+  },
+  "bridge": {
+    "A": {
+      "chords": [
+        "Dm",
+        "A#",
+        "F",
+        "C"
+      ],
+      "roman": "i – VI – III – VII",
+      "mood": "epic minor loop",
+      "bars": 8,
+      "preview": "bridge_A_chords_preview.wav",
+      "melody": "none yet — the human hums/sings the bridge melody over this bed (scripts/hum_to_midi.py)"
+    },
+    "B": {
+      "chords": [
+        "Gm",
+        "C",
+        "F",
+        "Dm"
+      ],
+      "roman": "iv – VII – III – i",
+      "mood": "descending, reflective",
+      "bars": 8,
+      "preview": "bridge_B_chords_preview.wav",
+      "melody": "none yet — the human hums/sings the bridge melody over this bed (scripts/hum_to_midi.py)"
+    },
+    "C": {
+      "chords": [
+        "A#",
+        "C",
+        "Dm",
+        "Dm"
+      ],
+      "roman": "VI – VII – i – i",
+      "mood": "rock/anime drive",
+      "bars": 8,
+      "preview": "bridge_C_chords_preview.wav",
+      "melody": "none yet — the human hums/sings the bridge melody over this bed (scripts/hum_to_midi.py)"
+    }
+  },
+  "how_to_choose": "Listen to *_preview.wav, then write human_decisions.json (see skill schema) with drums.choice, bass.choice, bridge.choice and any note edits. Re-run: pipeline.py <track> --from arrange"
+}

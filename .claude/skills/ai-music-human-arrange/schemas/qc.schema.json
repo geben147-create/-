@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "qc.schema.json",
+  "title": "qc.json — technical before/after measurements of one track",
+  "type": "object",
+  "required": ["original", "master_24bit", "distributor_flac", "checks", "all_technical_checks_pass"],
+  "properties": {
+    "original": {"$ref": "#/$defs/measurement"},
+    "master_24bit": {"$ref": "#/$defs/measurement"},
+    "distributor_flac": {"$ref": "#/$defs/measurement"},
+    "checks": {"type": "object", "additionalProperties": {"type": "boolean"},
+      "description": "no_clipping, true_peak_below_-1dBTP, dc_offset_below_1e-4, head/tail_silence_below_8s, stereo_16bit_44k1, no_negative_correlation_windows"},
+    "all_technical_checks_pass": {"type": "boolean"},
+    "note": {"type": "string"}
+  },
+  "$defs": {
+    "measurement": {
+      "type": "object",
+      "properties": {
+        "file": {"type": "string"}, "sha256": {"type": "string"},
+        "duration_s": {"type": "number"}, "duration_mmss": {"type": "string"},
+        "sample_rate": {"type": "integer"}, "channels": {"type": "integer"}, "subtype": {"type": "string"},
+        "lufs_integrated": {"type": ["number", "null"], "description": "ffmpeg ebur128 I (LUFS)"},
+        "lra_lu": {"type": ["number", "null"]},
+        "true_peak_dbtp": {"type": ["number", "null"], "description": "ffmpeg ebur128 true peak"},
+        "true_peak_dbtp_4x": {"type": "number", "description": "4x oversampled sample peak computed in numpy"},
+        "sample_peak_dbfs": {"type": "number"}, "rms_dbfs": {"type": "number"}, "crest_factor_db": {"type": "number"},
+        "dc_offset_max_abs": {"type": "number"}, "clipped_samples_ge_0dbfs": {"type": "integer"},
+        "head_silence_s": {"type": "number"}, "tail_silence_s": {"type": "number"},
+        "correlation": {"type": "number"}, "neg_corr_ratio_1s": {"type": "number"}, "active_seconds": {"type": "integer"}
+      }
+    }
+  }
+}

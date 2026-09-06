@@ -1,0 +1,14 @@
+{
+  "numpy": "1.26.4",
+  "scipy": "1.17.1",
+  "soundfile": "0.14.0",
+  "librosa": "0.11.0",
+  "pyloudnorm": "installed",
+  "mido": "installed",
+  "pretty_midi": "0.2.11.post0",
+  "torch": "2.14.0+cu130",
+  "demucs": "4.1.0",
+  "basic_pitch": "installed",
+  "soxr": "1.1.0",
+  "ffmpeg": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers"
+}

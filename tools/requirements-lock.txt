@@ -1,0 +1,16 @@
+basic-pitch==0.4.0
+demucs==4.1.0
+librosa==0.11.0
+matchering==2.0.6
+mido==1.3.3
+numpy==1.26.4
+onnxruntime==1.29.0
+pretty_midi==0.2.11.post0
+pyloudnorm==0.2.0
+resampy==0.4.2
+scipy==1.17.1
+soundfile==0.14.0
+soxr==1.1.0
+tensorflow==2.15.0.post1
+torch==2.14.0
+torchaudio==2.11.0

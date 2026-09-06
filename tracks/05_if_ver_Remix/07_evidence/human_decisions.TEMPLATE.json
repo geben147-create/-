@@ -1,0 +1,29 @@
+{
+  "drums": {
+    "choice": "A",
+    "edits": []
+  },
+  "bass": {
+    "choice": "A",
+    "edits": []
+  },
+  "pad": {
+    "enabled": true,
+    "level_db": -20.0
+  },
+  "original_drums_db": -1.5,
+  "original_bass_db": -3.0,
+  "intro_bars": 2,
+  "breakdown": true,
+  "bridge": {
+    "choice": "none"
+  },
+  "vocal": {
+    "lead_takes": []
+  },
+  "_status": "TEMPLATE — no human decision recorded yet",
+  "decided_by": "",
+  "decided_at": "",
+  "notes": "",
+  "_help": "Set drums.choice / bass.choice / bridge.choice to A, B or C after listening to 03_proposals/*_preview.wav. Edits reference the 'index' fields in 03_proposals/*_notes.json / *_events.json."
+}

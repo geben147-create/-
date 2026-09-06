@@ -1,0 +1,17 @@
+{
+  "target_lufs": -14.0,
+  "ceiling_dbtp": -1.0,
+  "highpass_hz": 20.0,
+  "side_gain": 0.92,
+  "limiter_oversampling": 4,
+  "gain_pass1_db": 0.74,
+  "gain_pass2_db": 0.0,
+  "ab_compare": {
+    "orig_start_s": 41.74,
+    "arranged_start_s": 44.98,
+    "matched_lufs": -14.0,
+    "order": "original 24 s -> 1 s silence -> arranged 24 s"
+  },
+  "premaster_correlation": 0.799,
+  "note": "Target loudness is this session's setting, not a distributor pass mark. Distributors normalise anyway."
+}

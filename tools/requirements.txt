@@ -1,0 +1,14 @@
+# Free, open-source audio stack used by scripts/ (Python 3.10–3.11 recommended)
+numpy
+scipy
+soundfile
+soxr
+librosa
+pyloudnorm
+mido
+pretty_midi
+matchering
+torch            # CPU build is enough: pip install torch --index-url https://download.pytorch.org/whl/cpu
+torchaudio
+demucs           # stem separation (htdemucs); weights download on first run
+basic-pitch      # audio -> MIDI (Spotify); model bundled in the wheel

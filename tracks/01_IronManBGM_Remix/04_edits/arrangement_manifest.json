@@ -1,0 +1,194 @@
+{
+  "decisions_used": {
+    "drums": {
+      "choice": "A",
+      "edits": []
+    },
+    "bass": {
+      "choice": "A",
+      "edits": []
+    },
+    "pad": {
+      "enabled": true,
+      "level_db": -20.0
+    },
+    "original_drums_db": -1.5,
+    "original_bass_db": -3.0,
+    "intro_bars": 2,
+    "breakdown": true,
+    "bridge": {
+      "choice": "none"
+    },
+    "vocal": {
+      "lead_takes": []
+    },
+    "_source": "defaults (no human_decisions.json yet)"
+  },
+  "variant_descriptions": {
+    "drums": "Straight pop/rock groove: kick on 1 & 3, snare on 2 & 4, 8th-note hats, snare-roll fill at section ends.",
+    "bass": "Long root notes (whole/half), octave drop every 4th bar — warm, leaves room for the vocal."
+  },
+  "tempo_bpm": 148.03,
+  "key": "D minor",
+  "bar_len_s": 1.6213,
+  "bars_total": 79,
+  "intro": {
+    "bars": 2,
+    "len_s": 3.243,
+    "chord": "Gm",
+    "output_range": [
+      0.0,
+      3.243
+    ],
+    "content": "pad + riser + hat pick-up (new)"
+  },
+  "original_offset_in_output_s": 3.243,
+  "tail_trimmed_s": 0.0,
+  "changed_sections": [
+    {
+      "section_index": 1,
+      "label": "hook",
+      "bars": 12,
+      "orig_range": [
+        45.739,
+        65.344
+      ],
+      "output_range": [
+        48.982,
+        68.587
+      ]
+    },
+    {
+      "section_index": 4,
+      "label": "hook",
+      "bars": 12,
+      "orig_range": [
+        91.456,
+        111.04
+      ],
+      "output_range": [
+        94.699,
+        114.283
+      ]
+    }
+  ],
+  "breakdown": {
+    "orig_start": 89.835,
+    "orig_end": 91.456,
+    "output_range": [
+      93.078,
+      94.699
+    ]
+  },
+  "events": [
+    {
+      "type": "stem_duck",
+      "orig_start": 45.739,
+      "orig_end": 65.344,
+      "drums_db": -1.5,
+      "bass_db": -3.0,
+      "ramp_ms": 180
+    },
+    {
+      "type": "stem_duck",
+      "orig_start": 91.456,
+      "orig_end": 111.04,
+      "drums_db": -1.5,
+      "bass_db": -3.0,
+      "ramp_ms": 180
+    },
+    {
+      "type": "breakdown",
+      "orig_start": 89.835,
+      "orig_end": 91.456,
+      "drums_db": -14,
+      "bass_db": -8
+    }
+  ],
+  "new_midi_counts": {
+    "drum_events": 296,
+    "bass_notes": 30,
+    "pad_chords": 24
+  },
+  "levels": {
+    "drums_gain_db": -10.08,
+    "bass_gain_db": -10.59,
+    "pad_gain_db": -4.84,
+    "target_drums_rms_db": -22.97,
+    "target_bass_rms_db": -19.16,
+    "section_mix_rms_db": -11.16
+  },
+  "sections_output_time": [
+    {
+      "index": 0,
+      "start": 3.286,
+      "end": 48.982,
+      "bars": 28,
+      "rms_db": -17.65,
+      "energy_rank": 7,
+      "label": "low"
+    },
+    {
+      "index": 1,
+      "start": 48.982,
+      "end": 68.587,
+      "bars": 12,
+      "rms_db": -12.82,
+      "energy_rank": 2,
+      "label": "hook"
+    },
+    {
+      "index": 2,
+      "start": 68.587,
+      "end": 88.16,
+      "bars": 12,
+      "rms_db": -16.22,
+      "energy_rank": 6,
+      "label": "verse"
+    },
+    {
+      "index": 3,
+      "start": 88.16,
+      "end": 94.699,
+      "bars": 4,
+      "rms_db": -13.0,
+      "energy_rank": 3,
+      "label": "verse"
+    },
+    {
+      "index": 4,
+      "start": 94.699,
+      "end": 114.283,
+      "bars": 12,
+      "rms_db": -11.25,
+      "energy_rank": 1,
+      "label": "hook"
+    },
+    {
+      "index": 5,
+      "start": 114.283,
+      "end": 120.832,
+      "bars": 4,
+      "rms_db": -13.32,
+      "energy_rank": 4,
+      "label": "verse"
+    },
+    {
+      "index": 6,
+      "start": 120.832,
+      "end": 131.883,
+      "bars": 7,
+      "rms_db": -14.15,
+      "energy_rank": 5,
+      "label": "outro"
+    }
+  ],
+  "duration_out_s": 131.883,
+  "duration_in_s": 128.64,
+  "human_still_needed": [
+    "Choose drums/bass variant (A/B/C) and edit notes -> human_decisions.json, re-run: python scripts/pipeline.py <track> --from arrange",
+    "Hum/sing a new melody for the bridge or hook -> 03_human_raw/, convert with scripts/hum_to_midi.py",
+    "Record lead/harmony vocal takes -> 03_human_raw/TAKE_xx.wav, then scripts/vocal_prep.py",
+    "Full listening pass of LISTEN_arranged.mp3 and the A/B file"
+  ]
+}

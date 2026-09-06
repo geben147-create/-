@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "human_decisions.schema.json",
+  "title": "human_decisions.json — the human's creative decisions for one track",
+  "description": "Written by the human (or by an agent acting on the human's explicit words) after listening to 03_proposals/*_preview.wav. The arrangement stage reads this file; nothing here is invented by the pipeline. Keep every version of this file: the change history is part of the human-contribution evidence.",
+  "type": "object",
+  "required": ["decided_by", "decided_at", "drums", "bass"],
+  "properties": {
+    "decided_by": {"type": "string", "description": "Name of the human who made the choices."},
+    "decided_at": {"type": "string", "description": "ISO-8601 date-time, e.g. 2026-09-07T21:10:00+09:00"},
+    "notes": {"type": "string", "description": "Free text: why you chose what you chose (this is the best evidence of creative intent)."},
+    "drums": {
+      "type": "object", "required": ["choice"],
+      "properties": {
+        "choice": {"type": "string", "enum": ["A", "B", "C"]},
+        "edits": {"type": "array", "items": {"$ref": "#/$defs/drumEdit"}}
+      }
+    },
+    "bass": {
+      "type": "object", "required": ["choice"],
+      "properties": {
+        "choice": {"type": "string", "enum": ["A", "B", "C"]},
+        "edits": {"type": "array", "items": {"$ref": "#/$defs/noteEdit"}}
+      }
+    },
+    "pad": {"type": "object", "properties": {"enabled": {"type": "boolean"}, "level_db": {"type": "number", "maximum": 0}}},
+    "original_drums_db": {"type": "number", "description": "Gain applied to the ORIGINAL drum stem inside changed sections (-1.5 = partial, -60 = replace)."},
+    "original_bass_db": {"type": "number"},
+    "intro_bars": {"type": "integer", "minimum": 0, "maximum": 8},
+    "breakdown": {"type": "boolean"},
+    "bridge": {
+      "type": "object",
+      "properties": {
+        "choice": {"type": "string", "enum": ["none", "A", "B", "C"]},
+        "insert_after_section": {"type": "integer"},
+        "melody_notes_json": {"type": "string", "description": "Path to *_notes.json produced by scripts/hum_to_midi.py from the human's hummed melody."}
+      }
+    },
+    "vocal": {
+      "type": "object",
+      "properties": {
+        "lead_takes": {"type": "array", "items": {"type": "string"}, "description": "RAW take files in 03_human_raw/ (never edited in place)."},
+        "placed": {"type": "array", "items": {"type": "object", "properties": {"take": {"type": "string"}, "start_output_s": {"type": "number"}, "tuned": {"type": "boolean"}}}}
+      }
+    }
+  },
+  "$defs": {
+    "noteEdit": {
+      "type": "object", "required": ["index", "action"],
+      "properties": {
+        "index": {"type": "integer", "description": "index field from 03_proposals/bass_X_notes.json"},
+        "action": {"type": "string", "enum": ["remove", "transpose", "shift_ms", "velocity"]},
+        "semitones": {"type": "integer"}, "ms": {"type": "number"}, "vel": {"type": "number", "minimum": 0, "maximum": 1}
+      }
+    },
+    "drumEdit": {
+      "type": "object", "required": ["action"],
+      "properties": {
+        "index": {"type": "integer"},
+        "action": {"type": "string", "enum": ["remove", "velocity", "remove_at"]},
+        "bar": {"type": "integer"}, "beat": {"type": "number"}, "inst": {"type": "string"}, "vel": {"type": "number"}
+      }
+    }
+  }
+}

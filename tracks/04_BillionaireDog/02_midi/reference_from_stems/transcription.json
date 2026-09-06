@@ -1,0 +1,18 @@
+{
+  "tool": "basic-pitch (Spotify), ICASSP 2022 model",
+  "purpose": "reference/transcription only — not a human composition claim",
+  "stems": {
+    "bass": {
+      "notes": 183,
+      "midi": "02_midi/reference_from_stems/bass_basicpitch.mid"
+    },
+    "other": {
+      "notes": 298,
+      "midi": "02_midi/reference_from_stems/other_basicpitch.mid"
+    },
+    "vocals": {
+      "notes": 44,
+      "midi": "02_midi/reference_from_stems/vocals_basicpitch.mid"
+    }
+  }
+}

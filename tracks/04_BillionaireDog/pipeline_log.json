@@ -1,0 +1,123 @@
+{
+  "track": "04_BillionaireDog",
+  "stages": {
+    "hash": {
+      "ok": true,
+      "seconds": 0.0,
+      "result": {
+        "sha256": "b1e6d6a20fa110e480fbb923e112a569b6cac3f310d07a0e8973a071f4bae0f7"
+      }
+    },
+    "analyze": {
+      "ok": true,
+      "seconds": 26.9,
+      "result": {
+        "tempo": 100.45,
+        "key": "D# minor",
+        "sections": 7,
+        "bars": 51
+      }
+    },
+    "separate": {
+      "ok": true,
+      "seconds": 1.3,
+      "result": {
+        "backend": "demucs-htdemucs",
+        "stems_dir": "01_stems/htdemucs/original",
+        "seconds": 1.3,
+        "note": "",
+        "sum_correlation": 0.999854,
+        "sum_relative_rms_error": 0.017947
+      }
+    },
+    "midi": {
+      "ok": true,
+      "seconds": 10.1,
+      "result": {
+        "bass": {
+          "notes": 183,
+          "midi": "02_midi/reference_from_stems/bass_basicpitch.mid"
+        },
+        "other": {
+          "notes": 298,
+          "midi": "02_midi/reference_from_stems/other_basicpitch.mid"
+        },
+        "vocals": {
+          "notes": 44,
+          "midi": "02_midi/reference_from_stems/vocals_basicpitch.mid"
+        }
+      }
+    },
+    "proposals": {
+      "ok": true,
+      "seconds": 5.8,
+      "result": {
+        "window": [
+          39.776,
+          58.976
+        ],
+        "variants": 3
+      }
+    },
+    "arrange": {
+      "ok": true,
+      "seconds": 22.7,
+      "result": {
+        "intro_s": 4.778,
+        "changed": [
+          [
+            44.554,
+            82.954
+          ],
+          [
+            94.954,
+            121.311
+          ]
+        ],
+        "counts": {
+          "drum_events": 332,
+          "bass_notes": 33,
+          "pad_chords": 27
+        },
+        "duration_out": 126.459
+      }
+    },
+    "master": {
+      "ok": true,
+      "seconds": 40.7,
+      "result": {
+        "target_lufs": -14.0,
+        "ceiling_dbtp": -1.0,
+        "highpass_hz": 20.0,
+        "side_gain": 0.92,
+        "limiter_oversampling": 4,
+        "gain_pass1_db": 2.28,
+        "gain_pass2_db": 0.32,
+        "ab_compare": {
+          "orig_start_s": 35.78,
+          "arranged_start_s": 40.55,
+          "matched_lufs": -14.8,
+          "order": "original 24 s -> 1 s silence -> arranged 24 s"
+        },
+        "premaster_correlation": 0.866,
+        "note": "Target loudness is this session's setting, not a distributor pass mark. Distributors normalise anyway."
+      }
+    },
+    "qc": {
+      "ok": true,
+      "seconds": 12.9,
+      "result": {
+        "pass": true,
+        "lufs": -14.1,
+        "tp": -1.0
+      }
+    },
+    "evidence": {
+      "ok": true,
+      "seconds": 4.1,
+      "result": {
+        "files_hashed": 65
+      }
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "file": "original.wav",
+  "sha256": "ba0d52519af8c1e17e3edaaea20974a6d2a37178b267ebfb288644f6b6fec033",
+  "duration_s": 108.88,
+  "duration_mmss": "01:48.88",
+  "sample_rate": 48000,
+  "channels": 2,
+  "subtype": "PCM_16",
+  "sample_peak_dbfs": -0.43,
+  "true_peak_dbtp_4x": -0.2,
+  "rms_dbfs": -17.93,
+  "crest_factor_db": 17.49,
+  "dc_offset_max_abs": 0.0010538461539431761,
+  "clipped_samples_ge_0dbfs": 0,
+  "head_silence_s": 0.0,
+  "tail_silence_s": 0.0,
+  "lufs_integrated": -16.2,
+  "lra_lu": 2.0,
+  "true_peak_dbtp": -0.2,
+  "correlation": 0.9213759538803328,
+  "neg_corr_ratio_1s": 0.0,
+  "active_seconds": 106
+}

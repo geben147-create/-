@@ -1,0 +1,10 @@
+# large / reproducible intermediates are NOT committed (regenerate with scripts/pipeline.py)
+tracks/*/01_stems/
+tracks/*/04_edits/bed_original_stems_automated.wav
+tracks/*/04_edits/new_parts/*.wav
+tracks/*/05_mix/
+tracks/*/03_proposals/*_preview.wav
+tracks/*/06_master/arranged_master_44k1_24bit.wav
+__pycache__/
+*.pyc
+.venv/
