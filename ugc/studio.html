@@ -42,6 +42,8 @@ a.dl{display:inline-block;padding:10px 18px;border-radius:8px;background:var(--a
 code{font:11.5px var(--mono);color:var(--ink2)}
 .warn{color:var(--danger)}
 label.opt{display:flex;gap:7px;align-items:center;font-size:12.5px;color:var(--ink2)}
+select{font:700 12px var(--sans);background:#0c0c10;color:var(--ink);border:1px solid var(--line);
+ border-radius:6px;padding:5px 8px}
 </style>
 </head>
 <body><div class="wrap">
@@ -65,6 +67,9 @@ label.opt{display:flex;gap:7px;align-items:center;font-size:12.5px;color:var(--i
   <div class="row">
     <button class="go" id="run" disabled>완성 영상 만들기</button>
     <label class="opt"><input type="checkbox" id="optCap" checked> 자막 넣기</label>
+    <label class="opt">언어 <select id="selLang"><option value="ko">한국어</option>
+      <option value="ja">日本語</option></select></label>
+    <label class="opt">훅 <select id="selHook"></select></label>
     <span id="fmt" style="font-size:12px;color:var(--ink3)"></span>
   </div>
   <div class="bar"><i id="prog"></i></div>
@@ -81,22 +86,49 @@ label.opt{display:flex;gap:7px;align-items:center;font-size:12.5px;color:var(--i
 <script>
 "use strict";
 const W=1080,H=1920,FPS=30,XF=0.20;
-const SCENES=[
- {id:"S1",dur:3.5,theme:"dark",  k:"돈의 원리 3분 정리",t:"통장은 그대로인데\n왜 자꾸 부족할까?"},
- {id:"S2",dur:3.0,theme:"light", k:"문제",   t:"같은 돈으로\n살 수 있는 게 줄어든다"},
- {id:"S3",dur:3.0,theme:"light", k:"원인 1", t:"돈의 양이 늘면\n돈의 힘은 줄어든다"},
- {id:"S4",dur:3.0,theme:"light", k:"원인 2", t:"이자가 물가를 못 따라가면\n실질은 마이너스"},
- {id:"S5",dur:3.0,theme:"accent",k:"반전",   t:"그래서 모으기만 해서는\n지켜지지 않는다"},
- {id:"S6",dur:3.0,theme:"light", k:"해결 1", t:"쓰고 남은 걸 모으지 말고\n먼저 떼고 남은 걸 쓴다"},
- {id:"S7",dur:3.0,theme:"light", k:"해결 2", t:"한 바구니에\n전부 담지 않는다"},
- {id:"S8",dur:5.0,theme:"light", k:"저장각", t:"오늘의 체크 4",
-  items:["월급날 자동이체를 먼저 걸어둔다","비상금이 먼저, 투자는 그다음",
-         "이자와 물가를 같이 본다","한 곳에 전부 몰지 않는다"]},
- {id:"S9",dur:3.5,theme:"light", k:"팔로우하면 다음 편",t:"저장해두고\n월급날 다시 보기"}];
+const SETS={
+ ko:{font:'"Noto Sans KR","Malgun Gothic","Apple SD Gothic Neo",sans-serif',
+  scenes:[
+  {id:"S1",dur:3.5,theme:"dark",  k:"돈의 원리 3분 정리",t:"통장은 그대로인데\n왜 자꾸 부족할까?"},
+  {id:"S2",dur:3.0,theme:"light", k:"문제",   t:"같은 돈으로\n살 수 있는 게 줄어든다"},
+  {id:"S3",dur:3.0,theme:"light", k:"원인 1", t:"돈의 양이 늘면\n돈의 힘은 줄어든다"},
+  {id:"S4",dur:3.0,theme:"light", k:"원인 2", t:"이자가 물가를 못 따라가면\n실질은 마이너스"},
+  {id:"S5",dur:3.0,theme:"accent",k:"반전",   t:"그래서 모으기만 해서는\n지켜지지 않는다"},
+  {id:"S6",dur:3.0,theme:"light", k:"해결 1", t:"쓰고 남은 걸 모으지 말고\n먼저 떼고 남은 걸 쓴다"},
+  {id:"S7",dur:3.0,theme:"light", k:"해결 2", t:"한 바구니에\n전부 담지 않는다"},
+  {id:"S8",dur:5.0,theme:"light", k:"저장각", t:"오늘의 체크 4",
+   items:["월급날 자동이체를 먼저 걸어둔다","비상금이 먼저, 투자는 그다음",
+          "이자와 물가를 같이 본다","한 곳에 전부 몰지 않는다"]},
+  {id:"S9",dur:3.5,theme:"light", k:"팔로우하면 다음 편",t:"저장해두고\n월급날 다시 보기"}],
+  hooks:[
+  {id:"A",n:"질문형 (기본)",   k:"돈의 원리 3분 정리",t:"통장은 그대로인데\n왜 자꾸 부족할까?"},
+  {id:"B",n:"손실 회피",       k:"모르면 손해",      t:"가만히 두면\n돈은 조용히 줄어든다"},
+  {id:"C",n:"통념 깨기",       k:"흔한 오해",        t:"열심히 모으는 게\n항상 정답은 아니다"},
+  {id:"D",n:"자기 지목",       k:"월급쟁이 필독",    t:"월급은 올랐는데\n왜 더 빠듯할까?"},
+  {id:"E",n:"시간 약속",       k:"3분 요약",         t:"돈이 새는 이유\n3분이면 정리된다"},
+  {id:"F",n:"장면 · 구체",     k:"장바구니의 경고",  t:"같은 돈을 냈는데\n봉투가 가벼워졌다"}]},
+ ja:{font:'"Noto Sans JP","Hiragino Sans","Yu Gothic",sans-serif',
+  scenes:[
+  {id:"S1",dur:3.5,theme:"dark",  k:"お金の仕組み 3分",t:"通帳は変わらないのに\nなぜいつも足りない？"},
+  {id:"S2",dur:3.0,theme:"light", k:"問題",   t:"同じお金で\n買えるものが減っていく"},
+  {id:"S3",dur:3.0,theme:"light", k:"原因 1", t:"お金の量が増えると\nお金の力は弱くなる"},
+  {id:"S4",dur:3.0,theme:"light", k:"原因 2", t:"金利が物価に追いつかないと\n実質はマイナス"},
+  {id:"S5",dur:3.0,theme:"accent",k:"逆転",   t:"だから貯めるだけでは\n守れない"},
+  {id:"S6",dur:3.0,theme:"light", k:"解決 1", t:"余ったら貯めるのではなく\n先に取り分けて残りを使う"},
+  {id:"S7",dur:3.0,theme:"light", k:"解決 2", t:"ひとつのカゴに\n全部入れない"},
+  {id:"S8",dur:5.0,theme:"light", k:"保存推奨", t:"今日のチェック 4",
+   items:["給料日に自動振替を先に設定する","生活防衛資金が先、投資はその次",
+          "金利と物価をいっしょに見る","一か所に集中させない"]},
+  {id:"S9",dur:3.5,theme:"light", k:"フォローで次回",t:"保存して\n給料日にもう一度"}],
+  hooks:[
+  {id:"A",n:"質問",       k:"お金の仕組み 3分",t:"通帳は変わらないのに\nなぜいつも足りない？"},
+  {id:"B",n:"損失回避",   k:"知らないと損",    t:"放っておくと\nお金は静かに減る"},
+  {id:"C",n:"通念を壊す", k:"よくある誤解",    t:"がんばって貯めるのが\nいつも正解とは限らない"},
+  {id:"D",n:"自分ごと",   k:"会社員は必読",    t:"給料は上がったのに\nなぜ苦しいのか"}]}};
 const TH={light:{ink:"#201a16",rim:"#ffffff",chk:"#12876f",kb:"#ffc53d",kt:"#201a16"},
           dark: {ink:"#ffffff",rim:"#201a16",chk:"#ffc53d",kb:"#ffc53d",kt:"#201a16"},
           accent:{ink:"#ffffff",rim:"#201a16",chk:"#ffc53d",kb:"#ffc53d",kt:"#201a16"}};
-const FONT='"Noto Sans KR","Malgun Gothic","Apple SD Gothic Neo",sans-serif';
+let LANG="ko", SCENES=SETS.ko.scenes, FONT=SETS.ko.font;
 
 const media={};                                   // S1..S9 -> {file,isVideo}
 const $=s=>document.querySelector(s), log=m=>{const l=$("#log");
@@ -120,6 +152,21 @@ function accept(files){
   $("#run").disabled=n===0;
   log(`소재 ${n}/9 준비됨`);
 }
+function fillHooks(){
+  const hs=SETS[LANG].hooks;
+  $("#selHook").innerHTML=hs.map(h=>`<option value="${h.id}">${h.id} · ${h.n}</option>`).join("");
+  applyHook();
+}
+function applyHook(){
+  const h=SETS[LANG].hooks.find(x=>x.id===$("#selHook").value)||SETS[LANG].hooks[0];
+  SCENES=SETS[LANG].scenes.map(s=>s.id==="S1"?{...s,k:h.k,t:h.t}:s);
+  FONT=SETS[LANG].font;
+  log(`언어 ${LANG.toUpperCase()} · 훅 ${h.id}`);
+}
+$("#selLang").onchange=e=>{LANG=e.target.value; fillHooks();};
+$("#selHook").onchange=applyHook;
+fillHooks();
+
 $("#pick").onclick=()=>$("#fin").click();
 $("#fin").onchange=e=>accept(e.target.files);
 const dz=$("#drop");

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "project_id": "PRJ_money_ugc_01",
-  "genre_pack": "finance_explainer",
+  "project_id": "PRJ_{{프로젝트}}",
+  "genre_pack": "{{장르팩}}",
   "format": {
     "aspect": "9:16",
     "size": [
@@ -24,73 +24,80 @@
       "role": "HOOK",
       "dur": 3.5,
       "theme": "dark",
-      "title": "통장은 그대로인데\n왜 자꾸 부족할까?",
-      "kicker": "돈의 원리 3분 정리",
+      "title": "{{충격 또는 질문 한 줄}}\n{{두 번째 줄}}",
+      "kicker": "{{키커}}",
       "cast": [
         "CHAR_girl"
-      ]
+      ],
+      "image_prompt": "{{장면 묘사}} + 상단 절반 비우기 + no text"
     },
     {
       "id": "S2",
       "role": "PROBLEM",
       "dur": 3.0,
       "theme": "light",
-      "title": "같은 돈으로\n살 수 있는 게 줄어든다",
+      "title": "{{시청자가 실제로 겪는 증상}}\n{{한 줄 더}}",
       "kicker": "문제",
       "cast": [
         "CHAR_girl"
-      ]
+      ],
+      "image_prompt": "{{장면 묘사}} + 상단 절반 비우기 + no text"
     },
     {
       "id": "S3",
       "role": "CAUSE_1",
       "dur": 3.0,
       "theme": "light",
-      "title": "돈의 양이 늘면\n돈의 힘은 줄어든다",
+      "title": "{{왜 그런지 첫 번째 이유}}\n{{한 줄 더}}",
       "kicker": "원인 1",
-      "cast": []
+      "cast": [],
+      "image_prompt": "{{장면 묘사}} + 상단 절반 비우기 + no text"
     },
     {
       "id": "S4",
       "role": "CAUSE_2",
       "dur": 3.0,
       "theme": "light",
-      "title": "이자가 물가를 못 따라가면\n실질은 마이너스",
+      "title": "{{두 번째 이유 · 조건문으로}}\n{{한 줄 더}}",
       "kicker": "원인 2",
-      "cast": []
+      "cast": [],
+      "image_prompt": "{{장면 묘사}} + 상단 절반 비우기 + no text"
     },
     {
       "id": "S5",
       "role": "TWIST",
       "dur": 3.0,
       "theme": "accent",
-      "title": "그래서 모으기만 해서는\n지켜지지 않는다",
+      "title": "{{통념을 뒤집는 한 줄}}\n{{한 줄 더}}",
       "kicker": "반전",
       "cast": [
         "CHAR_cat"
-      ]
+      ],
+      "image_prompt": "{{장면 묘사}} + 상단 절반 비우기 + no text"
     },
     {
       "id": "S6",
       "role": "SOLUTION_1",
       "dur": 3.0,
       "theme": "light",
-      "title": "쓰고 남은 걸 모으지 말고\n먼저 떼고 남은 걸 쓴다",
+      "title": "{{오늘 당장 할 수 있는 행동}}\n{{한 줄 더}}",
       "kicker": "해결 1",
       "cast": [
         "CHAR_girl"
-      ]
+      ],
+      "image_prompt": "{{장면 묘사}} + 상단 절반 비우기 + no text"
     },
     {
       "id": "S7",
       "role": "SOLUTION_2",
       "dur": 3.0,
       "theme": "light",
-      "title": "한 바구니에\n전부 담지 않는다",
+      "title": "{{두 번째 행동}}\n{{한 줄 더}}",
       "kicker": "해결 2",
       "cast": [
         "CHAR_cat"
-      ]
+      ],
+      "image_prompt": "{{장면 묘사}} + 상단 절반 비우기 + no text"
     },
     {
       "id": "S8",
@@ -100,70 +107,28 @@
       "title": "오늘의 체크 4",
       "kicker": "저장각",
       "items": [
-        "월급날 자동이체를 먼저 걸어둔다",
-        "비상금이 먼저, 투자는 그다음",
-        "이자와 물가를 같이 본다",
-        "한 곳에 전부 몰지 않는다"
+        "{{체크 1}}",
+        "{{체크 2}}",
+        "{{체크 3}}",
+        "{{체크 4}}"
       ],
-      "cast": []
+      "cast": [],
+      "image_prompt": "{{장면 묘사}} + 상단 절반 비우기 + no text"
     },
     {
       "id": "S9",
       "role": "CTA",
       "dur": 3.5,
       "theme": "light",
-      "title": "저장해두고\n월급날 다시 보기",
-      "kicker": "팔로우하면 다음 편",
+      "title": "{{저장 유도}}\n{{언제 다시 볼지}}",
+      "kicker": "{{팔로우 유도}}",
       "cast": [
         "CHAR_girl",
         "CHAR_cat"
-      ]
+      ],
+      "image_prompt": "{{장면 묘사}} + 상단 절반 비우기 + no text"
     }
   ],
   "lang": "ko",
-  "font": "Noto Sans KR",
-  "hook_variants": [
-    {
-      "id": "A",
-      "angle": "질문형 · 기본",
-      "kicker": "돈의 원리 3분 정리",
-      "title": "통장은 그대로인데\n왜 자꾸 부족할까?",
-      "why": "공격하지 않고 공감으로 연다. 저장률이 가장 높은 형태."
-    },
-    {
-      "id": "B",
-      "angle": "손실 회피",
-      "kicker": "모르면 손해",
-      "title": "가만히 두면\n돈은 조용히 줄어든다",
-      "why": "손실 언급은 조회수를 만든다. 다만 반복하면 계정 톤이 무거워진다."
-    },
-    {
-      "id": "C",
-      "angle": "부정 · 통념 깨기",
-      "kicker": "흔한 오해",
-      "title": "열심히 모으는 게\n항상 정답은 아니다",
-      "why": "반박형. 댓글이 가장 많이 붙지만 논쟁도 함께 온다."
-    },
-    {
-      "id": "D",
-      "angle": "자기 지목",
-      "kicker": "월급쟁이 필독",
-      "title": "월급은 올랐는데\n왜 더 빠듯할까?",
-      "why": "대상을 좁혀 '내 얘기'로 만든다. 팔로워 전환이 좋다."
-    },
-    {
-      "id": "E",
-      "angle": "약속 · 시간",
-      "kicker": "3분 요약",
-      "title": "돈이 새는 이유\n3분이면 정리된다",
-      "why": "시간 약속형. 이탈은 낮지만 훅의 힘은 약하다."
-    },
-    {
-      "id": "F",
-      "angle": "장면 · 구체",
-      "kicker": "장바구니의 경고",
-      "title": "같은 돈을 냈는데\n봉투가 가벼워졌다",
-      "why": "추상 대신 장면으로 연다. S2와 자연스럽게 이어진다."
-    }
-  ]
+  "font": "Noto Sans KR"
 }

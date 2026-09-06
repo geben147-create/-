@@ -17,7 +17,7 @@ from pathlib import Path
 
 W, H, FPS = 1080, 1920, 30
 XFADE = 0.20                      # short dissolve; the guide keeps cuts dominant
-FONT = "Noto Sans KR"
+FONT = "Noto Sans KR"        # overridden by "font" in the scenes file
 
 # ASS colours are &HAABBGGRR — blue and red are swapped versus hex.
 # outline must CONTRAST with the fill or the text haloes and turns mushy:
@@ -61,7 +61,7 @@ def t(sec: float) -> str:
     return f"{h}:{m:02d}:{s:02d}.{cs:02d}"
 
 
-def ass_for(scene: dict) -> str:
+def ass_for(scene: dict, font: str = FONT) -> str:
     """One ASS file per scene. Times are local to that scene's clip."""
     th = THEME[scene.get("theme", "light")]
     dur = scene["dur"]
@@ -76,9 +76,9 @@ ScaledBorderAndShadow: yes
 
 [V4+ Styles]
 Format: Name, Fontname, Fontsize, PrimaryColour, OutlineColour, BackColour, Bold, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
-Style: Kicker,{FONT},46,{th['kicker_tx']},{th['kicker_bg']},{th['kicker_bg']},-1,3,16,0,8,90,90,150,1
-Style: Title,{FONT},{86 if is_list else 80},{th['title']},{th['outline']},&H60000000,-1,1,4,2,8,90,90,{240 if is_list else 300},1
-Style: Item,{FONT},50,{th['title']},{th['outline']},&H00000000,-1,1,3,0,7,120,110,0,1
+Style: Kicker,{font},46,{th['kicker_tx']},{th['kicker_bg']},{th['kicker_bg']},-1,3,16,0,8,90,90,150,1
+Style: Title,{font},{86 if is_list else 80},{th['title']},{th['outline']},&H60000000,-1,1,4,2,8,90,90,{240 if is_list else 300},1
+Style: Item,{font},50,{th['title']},{th['outline']},&H00000000,-1,1,3,0,7,120,110,0,1
 
 [Events]
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
@@ -177,6 +177,8 @@ def main() -> int:
 
     cfg = json.loads(Path(a.scenes).read_text(encoding="utf-8"))
     scenes = cfg["scenes"]
+    # A Korean face has no kana; a Japanese one has no hangul. Wrong font, tofu.
+    font = cfg.get("font") or FONT
     imgdir, clipdir, work = Path(a.images), Path(a.clips), Path(a.work)
     work.mkdir(parents=True, exist_ok=True)
     Path(a.out).parent.mkdir(parents=True, exist_ok=True)
@@ -200,7 +202,7 @@ def main() -> int:
     for i, s in enumerate(scenes):
         src, is_clip = source_for(s["id"])
         ass = work / f"{s['id']}.ass"
-        ass.write_text(ass_for(s), encoding="utf-8")
+        ass.write_text(ass_for(s, font), encoding="utf-8")
         out = work / f"{s['id']}.mp4"
         print(f"  [{i+1}/{len(scenes)}] {s['id']} {s['role']:<11} {s['dur']}s"
               f"  {'motion clip' if is_clip else 'still'}")
