@@ -641,14 +641,23 @@ footer b{color:var(--neon-c);font-weight:600}
         <div class="wr o"><span class="lab">해야 할 것</span><code>pip freeze &gt; requirements.txt</code> 로 재현 · <code>winget install Gyan.FFmpeg</code> 로 각자 설치</div>
       </div>
       <p style="margin-top:12px">진짜로 다른 PC의 <span class="c">성능</span>이 필요한 거라면 파일 공유가 아니라 <span class="mk mk-c">SSH 원격 실행</span> 이 답입니다. 공유할 가치가 있는 건 <span class="g">모델 가중치와 미디어 파일</span>뿐이고, 그마저도 자주 쓰는 모델은 각 PC 로컬 NVMe에 복제해 둬야 합니다.</p>
-      <pre>ssh YH-FINISH <span class="k">"ffmpeg -i D:\in.mp4 -c:v hevc_nvenc D:\out.mp4"</span></pre>
+      <div class="wr x" style="margin-top:14px">
+        <span class="lab">⚠️ 지금 실행하면 실패합니다</span>
+        <span style="font-family:var(--mono);font-size:12px;color:var(--neon-r);display:block;margin:6px 0">ssh: Could not resolve hostname yh-finish</span>
+        <span class="c">YH-FINISH 는 제가 붙인 별명일 뿐</span>, 아직 존재하지 않는 컴퓨터입니다.
+        03_YH_REMOTE_BOOTSTRAP 으로 그 PC에 SSH를 켜고 Tailscale에 로그인해야 이름이 생깁니다. 🏗️
+      </div>
+      <pre><span class="cm"># ↓ 나중에(3단계 끝난 뒤) 이렇게 됩니다. 지금 실행하는 명령이 아닙니다.</span>
+ssh YH-FINISH <span class="k">"ffmpeg -i D:\in.mp4 -c:v hevc_nvenc D:\out.mp4"</span></pre>
     </div>
 
     <div class="fix">
       <div class="fix-h"><span class="dots">🔴🔴🔴</span><span class="code">C5</span><h3>GTX 1650에 인코딩 맡기기 전에 <span class="y">재보세요</span></h3></div>
       <p>GTX 1650은 리비전에 따라 NVENC 세대가 다르고, <span class="mk mk-r">일부 초기 TU117 모델은 NVENC 자체가 없습니다</span> 게다가 <span class="c">i9의 CPU 인코딩(libx264)</span>이 1650 NVENC보다 화질·용량 효율이 좋은 경우가 흔합니다. <span class="y">"약한 PC에 인코딩"은 자동으로 옳은 배치가 아닙니다.</span></p>
-      <pre>ffmpeg -hide_banner -encoders | findstr <span class="w">nvenc</span>
-<span class="cm"># 아무것도 안 나오면 YH-FINISH 는 인코딩 담당이 될 수 없습니다.</span></pre>
+      <p style="margin-top:12px">📦 <span class="y">그런데 재보려면 먼저 ffmpeg 가 깔려 있어야 합니다.</span> 지금 이 PC에 없다면 아래 섹션의 전역 설치를 먼저 하세요.</p>
+      <pre><span class="cm"># 설치 후, 재시작한 터미널에서</span>
+ffmpeg -hide_banner -encoders | findstr <span class="w">nvenc</span>
+<span class="cm"># 아무것도 안 나오면 그 PC 는 인코딩 담당이 될 수 없습니다.</span></pre>
     </div>
 
     <div class="fix">
@@ -744,6 +753,56 @@ footer b{color:var(--neon-c);font-weight:600}
       <p>4개 <code>YH_AUDIT_*</code> 폴더를 메인 PC 한 폴더에 모아주세요. 그러면 어느 PC가 AUTO고 STORE인지 <span class="c">추측 없이</span> 정할 수 있습니다.</p>
     </div>
   </div>
+</section>
+
+<!-- 신규: ffmpeg 전역 설치 -->
+<section>
+  <div class="shead"><span class="snum">12</span><h2>🔧 ffmpeg 전역 설치 — Codex도 쓸 수 있게</h2></div>
+  <p class="sub">"설치했는데 왜 안 되지?"가 나오는 이유는 거의 항상 <span class="y">PATH 범위</span>와 <span class="c">재시작</span> 두 가지입니다.</p>
+
+  <div class="wrong-right" style="margin-bottom:20px">
+    <div class="wr x">
+      <span class="lab">❌ winget 기본 설치만 하면</span>
+      <code>winget install Gyan.FFmpeg</code> 는 <span class="r">내 계정 PATH</span> 에만 등록됩니다.
+      <span style="display:block;margin-top:6px">Codex CLI · VS Code · n8n · 예약작업(SYSTEM 계정)처럼 다른 컨텍스트에서 도는 프로그램은 <span class="r">그 PATH 를 못 봅니다.</span></span>
+    </div>
+    <div class="wr o">
+      <span class="lab">⭕ 전역 설치</span>
+      <code>C:\ffmpeg</code> 에 풀고 <span class="g">시스템 PATH(Machine)</span> 에 등록.
+      <span style="display:block;margin-top:6px">모든 사용자 · 모든 프로그램이 봅니다. <span class="c">Codex 포함.</span> ✅</span>
+    </div>
+  </div>
+
+  <div class="today">
+    <div class="task" style="border-color:rgba(180,255,57,.4)">
+      <div class="rr">① 관리자 PowerShell</div>
+      <h4>🚀 한 줄 실행</h4>
+      <p>시작 버튼 <span class="y">우클릭</span> → <span class="c">터미널(관리자)</span> 로 열어야 합니다. 일반 창이면 시스템 PATH를 못 건드립니다.</p>
+      <pre>powershell -ExecutionPolicy Bypass `
+  -File .\<span class="w">06_INSTALL_FFMPEG_GLOBAL.ps1</span></pre>
+    </div>
+    <div class="task">
+      <div class="rr">② 스크립트가 알아서 함</div>
+      <h4>🔍 자동 검증까지</h4>
+      <p>다운로드 → <code>C:\ffmpeg</code> 설치 → 시스템 PATH 등록 → <span class="c">새 프로세스에서 보이는지</span> 확인 → NVENC 유무 판정 → <span class="g">실제 3초 영상 인코딩 테스트</span>까지 돌립니다.</p>
+      <p style="margin-bottom:0">즉 <span class="y">C5 항목(NVENC 재보기)이 여기서 같이 끝납니다.</span> 🎯</p>
+    </div>
+    <div class="task" style="border-color:rgba(255,77,94,.4)">
+      <div class="rr">③ 여기서 대부분 실수함</div>
+      <h4>🔁 반드시 재시작</h4>
+      <p><span class="mk mk-r">이미 열린 프로그램은 PATH 변경을 모릅니다</span></p>
+      <p>PowerShell 창 전부 · VS Code(창만 닫지 말고 <span class="r">완전 종료</span>) · <span class="p">Codex CLI</span> · Claude Code · Docker Desktop · n8n.
+      가장 확실한 건 <span class="c">재부팅</span>입니다. 🔄</p>
+      <pre>ffmpeg -version
+where.exe ffmpeg</pre>
+    </div>
+  </div>
+
+  <p class="sub" style="margin-top:20px;margin-bottom:0;max-width:none">
+    💬 <b style="color:#E8EFF5">왜 Codex에서 자꾸 안 됐는지</b> — Codex CLI는 <span class="c">자기가 시작될 때의 PATH를 그대로 물고 갑니다.</span>
+    설치 전에 켜둔 Codex는 아무리 기다려도 ffmpeg를 못 봅니다. <span class="y">설치 → Codex 완전 종료 → 다시 실행</span> 순서만 지키면 됩니다.
+    그리고 시스템 PATH에 넣었으니 <span class="g">앞으로 새로 까는 도구는 전부 자동으로 보입니다.</span> ✨
+  </p>
 </section>
 
 <!-- 9 -->
