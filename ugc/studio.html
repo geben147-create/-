@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>영상 조립 스튜디오</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#101014;--panel:#191920;--line:#2c2c36;--ink:#f0f0ee;--ink2:#a3a39c;--ink3:#75756d;
+ --accent:#5ac2a3;--danger:#e07b73;
+ --sans:"Noto Sans KR","Malgun Gothic","Apple SD Gothic Neo",system-ui,sans-serif;
+ --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.65 var(--sans)}
+.wrap{max-width:1180px;margin:0 auto;padding:22px 20px 70px}
+h1{font-size:20px;margin:0 0 4px;letter-spacing:-.01em}
+.sub{color:var(--ink2);margin:0 0 18px;font-size:13.5px}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin-bottom:14px}
+.panel h2{font-size:13px;margin:0 0 9px;letter-spacing:.03em;color:var(--ink2);font-weight:800}
+.drop{border:2px dashed var(--line);border-radius:10px;padding:26px;text-align:center}
+.drop.over{border-color:var(--accent);background:#16302a}
+button{font:800 13px var(--sans);padding:9px 16px;border-radius:8px;border:1px solid var(--line);
+ background:transparent;color:var(--ink);cursor:pointer}
+button:hover:not(:disabled){border-color:var(--ink3)}
+button.go{background:var(--accent);color:#08130f;border-color:transparent}
+button:disabled{opacity:.4;cursor:not-allowed}
+.slots{display:grid;grid-template-columns:repeat(9,1fr);gap:6px;margin-top:12px}
+.slot{border:1px solid var(--line);border-radius:7px;padding:7px 4px;text-align:center;font:700 11px var(--mono);
+ color:var(--ink3)}
+.slot.has{border-color:var(--accent);color:var(--accent)}
+.slot small{display:block;font:600 9px var(--sans);color:var(--ink3);margin-top:2px}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+canvas{width:100%;max-width:290px;border-radius:9px;border:1px solid var(--line);background:#000;display:block}
+.stage{display:flex;gap:18px;align-items:flex-start;flex-wrap:wrap}
+.log{font:11.5px/1.6 var(--mono);color:var(--ink2);background:#0c0c10;border:1px solid var(--line);
+ border-radius:8px;padding:10px 12px;max-height:190px;overflow:auto;margin-top:10px;white-space:pre-wrap}
+.bar{height:7px;background:#0c0c10;border:1px solid var(--line);border-radius:5px;overflow:hidden;margin-top:9px}
+.bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .2s}
+a.dl{display:inline-block;padding:10px 18px;border-radius:8px;background:var(--accent);color:#08130f;
+ font-weight:800;text-decoration:none;margin-top:10px}
+code{font:11.5px var(--mono);color:var(--ink2)}
+.warn{color:var(--danger)}
+label.opt{display:flex;gap:7px;align-items:center;font-size:12.5px;color:var(--ink2)}
+</style>
+</head>
+<body><div class="wrap">
+<h1>영상 조립 스튜디오</h1>
+<p class="sub">브라우저 안에서 자막을 얹고 9컷을 이어 붙여 완성 영상을 만듭니다.
+설치할 것도, 업로드할 것도, 비용도 없습니다. 파일은 이 페이지 밖으로 나가지 않습니다.</p>
+
+<div class="panel">
+  <h2>1 · 소재 넣기</h2>
+  <div class="drop" id="drop">
+    <p style="margin:0 0 11px">클립 <code>S1.mp4 … S9.mp4</code> 또는 스틸 <code>S1.png …</code> 을 넣으세요.
+      <br><span style="color:var(--ink3);font-size:12.5px">섞어도 됩니다. 같은 컷에 둘 다 있으면 영상이 우선입니다.</span></p>
+    <button id="pick">파일 고르기</button>
+    <input id="fin" type="file" multiple accept="video/*,image/*" hidden>
+  </div>
+  <div class="slots" id="slots"></div>
+</div>
+
+<div class="panel">
+  <h2>2 · 만들기</h2>
+  <div class="row">
+    <button class="go" id="run" disabled>완성 영상 만들기</button>
+    <label class="opt"><input type="checkbox" id="optCap" checked> 자막 넣기</label>
+    <span id="fmt" style="font-size:12px;color:var(--ink3)"></span>
+  </div>
+  <div class="bar"><i id="prog"></i></div>
+  <div class="stage" style="margin-top:14px">
+    <canvas id="cv" width="1080" height="1920"></canvas>
+    <div style="flex:1;min-width:280px">
+      <div class="log" id="log">대기 중.</div>
+      <div id="out"></div>
+    </div>
+  </div>
+</div>
+</div>
+
+<script>
+"use strict";
+const W=1080,H=1920,FPS=30,XF=0.20;
+const SCENES=[
+ {id:"S1",dur:3.5,theme:"dark",  k:"돈의 원리 3분 정리",t:"통장은 그대로인데\n왜 자꾸 부족할까?"},
+ {id:"S2",dur:3.0,theme:"light", k:"문제",   t:"같은 돈으로\n살 수 있는 게 줄어든다"},
+ {id:"S3",dur:3.0,theme:"light", k:"원인 1", t:"돈의 양이 늘면\n돈의 힘은 줄어든다"},
+ {id:"S4",dur:3.0,theme:"light", k:"원인 2", t:"이자가 물가를 못 따라가면\n실질은 마이너스"},
+ {id:"S5",dur:3.0,theme:"accent",k:"반전",   t:"그래서 모으기만 해서는\n지켜지지 않는다"},
+ {id:"S6",dur:3.0,theme:"light", k:"해결 1", t:"쓰고 남은 걸 모으지 말고\n먼저 떼고 남은 걸 쓴다"},
+ {id:"S7",dur:3.0,theme:"light", k:"해결 2", t:"한 바구니에\n전부 담지 않는다"},
+ {id:"S8",dur:5.0,theme:"light", k:"저장각", t:"오늘의 체크 4",
+  items:["월급날 자동이체를 먼저 걸어둔다","비상금이 먼저, 투자는 그다음",
+         "이자와 물가를 같이 본다","한 곳에 전부 몰지 않는다"]},
+ {id:"S9",dur:3.5,theme:"light", k:"팔로우하면 다음 편",t:"저장해두고\n월급날 다시 보기"}];
+const TH={light:{ink:"#201a16",rim:"#ffffff",chk:"#12876f",kb:"#ffc53d",kt:"#201a16"},
+          dark: {ink:"#ffffff",rim:"#201a16",chk:"#ffc53d",kb:"#ffc53d",kt:"#201a16"},
+          accent:{ink:"#ffffff",rim:"#201a16",chk:"#ffc53d",kb:"#ffc53d",kt:"#201a16"}};
+const FONT='"Noto Sans KR","Malgun Gothic","Apple SD Gothic Neo",sans-serif';
+
+const media={};                                   // S1..S9 -> {file,isVideo}
+const $=s=>document.querySelector(s), log=m=>{const l=$("#log");
+  l.textContent+="\n"+m; l.scrollTop=l.scrollHeight;};
+
+$("#slots").innerHTML=SCENES.map(s=>
+  `<div class="slot" id="sl_${s.id}">${s.id}<small>없음</small></div>`).join("");
+
+function accept(files){
+  [...files].forEach(f=>{
+    const m=f.name.match(/^(S[1-9])\b/i)||f.name.match(/(S[1-9])/i);
+    if(!m) return;
+    const id=m[1].toUpperCase(), isVideo=/^video\//.test(f.type)||/\.(mp4|webm|mov)$/i.test(f.name);
+    // a clip wins over a still for the same card
+    if(media[id]&&media[id].isVideo&&!isVideo) return;
+    media[id]={file:f,isVideo};
+    const el=$("#sl_"+id); el.classList.add("has");
+    el.querySelector("small").textContent=isVideo?"영상":"이미지";
+  });
+  const n=Object.keys(media).length;
+  $("#run").disabled=n===0;
+  log(`소재 ${n}/9 준비됨`);
+}
+$("#pick").onclick=()=>$("#fin").click();
+$("#fin").onchange=e=>accept(e.target.files);
+const dz=$("#drop");
+["dragenter","dragover"].forEach(e=>dz.addEventListener(e,ev=>{ev.preventDefault();dz.classList.add("over")}));
+["dragleave","drop"].forEach(e=>dz.addEventListener(e,ev=>{ev.preventDefault();dz.classList.remove("over")}));
+dz.addEventListener("drop",ev=>{if(ev.dataTransfer?.files?.length)accept(ev.dataTransfer.files)});
+
+// ---------- caption drawing ----------
+function wrapDraw(ctx,lines,cx,y,size,th,lh){
+  ctx.font=`900 ${size}px ${FONT}`; ctx.textAlign="center"; ctx.textBaseline="top";
+  ctx.lineJoin="round"; ctx.lineWidth=Math.max(6,size*0.10);
+  lines.forEach((ln,i)=>{const yy=y+i*(size*lh);
+    ctx.strokeStyle=th.rim; ctx.strokeText(ln,cx,yy);
+    ctx.fillStyle=th.ink;   ctx.fillText(ln,cx,yy);});
+  return y+lines.length*(size*lh);
+}
+function drawCaption(ctx,sc,tSec){
+  const th=TH[sc.theme], cx=W/2, isList=!!sc.items;
+  // kicker pill
+  if(sc.k){
+    const a=Math.min(1,Math.max(0,(tSec-0.10)/0.22));
+    ctx.globalAlpha=a;
+    const fs=46; ctx.font=`900 ${fs}px ${FONT}`; ctx.textAlign="center"; ctx.textBaseline="top";
+    const w=ctx.measureText(sc.k).width, padX=26, padY=13, bw=w+padX*2, bh=fs+padY*2, bx=cx-bw/2, by=150;
+    ctx.fillStyle=th.kb;
+    if(ctx.roundRect){ctx.beginPath();ctx.roundRect(bx,by,bw,bh,10);ctx.fill();}
+    else ctx.fillRect(bx,by,bw,bh);
+    ctx.fillStyle=th.kt; ctx.fillText(sc.k,cx,by+padY);
+    ctx.globalAlpha=1;
+  }
+  // title
+  const a2=Math.min(1,Math.max(0,(tSec-0.22)/0.30));
+  ctx.globalAlpha=a2;
+  wrapDraw(ctx,sc.t.split("\n"),cx,isList?250:300,isList?86:80,th,1.32);
+  ctx.globalAlpha=1;
+  // checklist, revealed one at a time
+  if(isList){
+    ctx.textAlign="left"; ctx.textBaseline="top";
+    sc.items.forEach((it,i)=>{
+      const st=0.75+i*0.62, a=Math.min(1,Math.max(0,(tSec-st)/0.26));
+      if(a<=0) return;
+      ctx.globalAlpha=a;
+      const y=640+i*158, fs=50;
+      ctx.font=`900 ${fs}px ${FONT}`; ctx.lineJoin="round"; ctx.lineWidth=5;
+      ctx.strokeStyle=th.rim; ctx.strokeText("✓",120,y); ctx.fillStyle=th.chk; ctx.fillText("✓",120,y);
+      ctx.strokeText(it,120+fs*1.15,y); ctx.fillStyle=th.ink; ctx.fillText(it,120+fs*1.15,y);
+      ctx.globalAlpha=1;
+    });
+  }
+}
+function cover(ctx,src,sw,sh){                    // object-fit: cover
+  const s=Math.max(W/sw,H/sh), w=sw*s, h=sh*s;
+  ctx.drawImage(src,(W-w)/2,(H-h)/2,w,h);
+}
+
+// ---------- element loading ----------
+function loadVideo(file){return new Promise((res,rej)=>{
+  const v=document.createElement("video"); v.muted=true; v.playsInline=true; v.preload="auto";
+  v.src=URL.createObjectURL(file);
+  v.onloadeddata=()=>res(v);
+  v.onerror=()=>{
+    const m=(v.error&&v.error.message)||"";
+    rej(new Error(/DEMUXER|SUPPORTED/i.test(m)
+      ? `${file.name} — 이 브라우저가 이 코덱을 못 읽습니다. 크롬 또는 엣지에서 여세요.`
+      : `${file.name} 열기 실패${m?" ("+m+")":""}`));};
+  setTimeout(()=>rej(new Error(file.name+" 읽기 시간 초과")),15000);});}
+function loadImage(file){return new Promise((res,rej)=>{
+  const i=new Image(); i.onload=()=>res(i); i.onerror=()=>rej(new Error(file.name+" 열기 실패"));
+  i.src=URL.createObjectURL(file);});}
+
+function pickMime(){
+  // A bare 'video/mp4' can report supported while the H.264 profile behind it
+  // is not, which yields an unplayable file. Demand an explicit codec first.
+  const c=['video/mp4;codecs=avc1.42E01E','video/mp4;codecs=avc1.4D401E',
+           'video/webm;codecs=vp9','video/webm;codecs=vp8','video/webm','video/mp4'];
+  for(const m of c) if(window.MediaRecorder&&MediaRecorder.isTypeSupported(m)) return m;
+  return "";
+}
+function canDecodeH264(){
+  const v=document.createElement("video");
+  return !!v.canPlayType('video/mp4; codecs="avc1.42E01E"');
+}
+$("#fmt").textContent=(()=>{const m=pickMime();
+  if(!m) return "⚠ 이 브라우저는 녹화를 지원하지 않습니다 — 크롬/엣지를 쓰세요";
+  return `출력 형식: ${m.includes("mp4")?"MP4":"WebM"}`
+       + (canDecodeH264()?"":"  ⚠ 이 브라우저는 H.264(MP4) 입력을 못 읽습니다");})();
+
+// ---------- the run ----------
+$("#run").onclick=async()=>{
+  const btn=$("#run"); btn.disabled=true; $("#out").innerHTML="";
+  const ctx=$("#cv").getContext("2d",{alpha:false});
+  const mime=pickMime();
+  if(!mime){log("MediaRecorder 미지원 브라우저입니다. 크롬/엣지를 쓰세요.");btn.disabled=false;return;}
+
+  const cards=[];
+  for(const sc of SCENES){
+    const m=media[sc.id];
+    if(!m){log(`건너뜀 ${sc.id} — 소재 없음`); continue;}
+    try{ cards.push({sc,el:m.isVideo?await loadVideo(m.file):await loadImage(m.file),isVideo:m.isVideo}); }
+    catch(e){ log("⚠ "+e.message); }
+  }
+  if(!cards.length){
+    log("쓸 수 있는 소재가 없습니다.");
+    if(!canDecodeH264()) log("→ 원인: 이 브라우저에 H.264 디코더가 없습니다. "
+                            +"크롬이나 엣지에서 다시 열면 됩니다.");
+    btn.disabled=false;return;}
+
+  const stream=$("#cv").captureStream(FPS);
+  const rec=new MediaRecorder(stream,{mimeType:mime,videoBitsPerSecond:9_000_000});
+  const chunks=[]; rec.ondataavailable=e=>{if(e.data.size)chunks.push(e.data);};
+  const done=new Promise(r=>rec.onstop=r);
+  rec.start(250);
+  log(`녹화 시작 · ${cards.length}컷 · ${mime}`);
+
+  const total=cards.reduce((a,c)=>a+c.sc.dur,0)-XF*(cards.length-1);
+  let prevFrame=null, elapsed=0;
+
+  for(let i=0;i<cards.length;i++){
+    const {sc,el,isVideo}=cards[i];
+    if(isVideo){ try{ el.currentTime=0; await el.play(); }catch(e){} }
+    const t0=performance.now();
+    const zoomIn=i%2===0;
+    await new Promise(resolve=>{
+      const step=()=>{
+        const t=(performance.now()-t0)/1000;
+        if(t>=sc.dur){resolve();return;}
+        ctx.fillStyle="#000"; ctx.fillRect(0,0,W,H);
+        // stills get the slow push the clips already carry
+        const z=isVideo?1:(zoomIn?1+0.075*(t/sc.dur):1.075-0.075*(t/sc.dur));
+        ctx.save();
+        if(!isVideo){ctx.translate(W/2,H/2);ctx.scale(z,z);ctx.translate(-W/2,-H/2);}
+        const sw=isVideo?el.videoWidth:el.naturalWidth, sh=isVideo?el.videoHeight:el.naturalHeight;
+        if(sw&&sh) cover(ctx,el,sw,sh);
+        ctx.restore();
+        if($("#optCap").checked) drawCaption(ctx,sc,t);
+        // dissolve out of the previous card
+        if(prevFrame&&t<XF){ctx.globalAlpha=1-t/XF;ctx.drawImage(prevFrame,0,0);ctx.globalAlpha=1;}
+        if(t>sc.dur-XF-0.05){
+          prevFrame=prevFrame||document.createElement("canvas");
+          prevFrame.width=W; prevFrame.height=H;
+          prevFrame.getContext("2d").drawImage($("#cv"),0,0);
+        }
+        $("#prog").style.width=Math.min(100,((elapsed+t)/total)*100)+"%";
+        requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    });
+    if(isVideo) el.pause();
+    elapsed+=sc.dur-XF;
+    log(`  ${sc.id} 완료 (${sc.dur}s, ${isVideo?"영상":"이미지"})`);
+  }
+
+  rec.stop(); await done;
+  const blob=new Blob(chunks,{type:mime});
+  const ext=mime.includes("mp4")?"mp4":"webm";
+  const url=URL.createObjectURL(blob);
+  $("#out").innerHTML=`<a class="dl" href="${url}" download="reel_money_9cut.${ext}">
+    완성 영상 내려받기 · ${(blob.size/1048576).toFixed(1)}MB · .${ext}</a>
+    <p style="font-size:12px;color:var(--ink3);margin:8px 0 0">
+    1080×1920 · 약 ${total.toFixed(1)}초${ext==="webm"
+      ? " · WebM입니다. 인스타가 거부하면 MP4로 변환해서 올리세요."
+      : ""}</p>`;
+  log(`완료 · ${(blob.size/1048576).toFixed(1)}MB`);
+  $("#prog").style.width="100%"; btn.disabled=false;
+};
+</script>
+</body></html>
