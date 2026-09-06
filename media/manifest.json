@@ -17,10 +17,14 @@
   },
   "credits": {
     "image_count": 7,
+    "image_per": 38,
+    "image_total": 266,
     "video_count": 7,
     "per_video": 30,
     "video_total": 210,
-    "balance_before": 12040
+    "grand_total": 476,
+    "balance_before": 12040,
+    "note": "잔액 차이로 실측. 견적 API 의 discountCost:0 은 이미지 실차감과 다르다."
   },
   "shots": {
     "s1_hero": {
@@ -69,7 +73,7 @@
       "ratio": "16:9",
       "duration": "5초",
       "intent": "카드 안에 작게 들어가는 짧은 루프. 제품 질감·재질감을 대표한다.",
-      "img": null,
+      "img": "https://videocdn.pollo.ai/web-cdn/pollo/production/cmf20asu60gslb2k5fhlac2gn/ori/1788666074893-3db8e928-84ae-4ba1-8721-1cb0496f8a56.png",
       "vid": null,
       "vid_prompt": "Keep the composition of the attached image exactly as it is. The petals breathe almost imperceptibly, the water droplet trembles slightly, soft backlight shifts. Camera: an extremely slow macro drift across the petals — one movement only, no shake, no zoom. The subject stays inside the frame for the entire shot and never leaves it. Overall close to slow motion: very little changes across the five seconds. The last frame returns to almost the same state as the first frame. Colour, lighting and texture stay identical to the first frame. One single continuous take, no cuts.",
       "neg_prompt": "cut, scene change, transition, fade, text, letters, subtitles, logo, watermark, UI elements, human face, fast camera movement, zoom in, zoom out, handheld shake, camera shake, split screen, subject leaving the frame, oversaturation, heavy lens flare, distortion, morphing, warping",
@@ -82,7 +86,7 @@
       "ratio": "16:9",
       "duration": "5초",
       "intent": "카드용 짧은 루프. 작화와 자연스러운 움직임을 대표한다.",
-      "img": null,
+      "img": "https://videocdn.pollo.ai/web-cdn/pollo/production/cmf20asu60gslb2k5fhlac2gn/ori/1788666313930-6a97c317-8a2d-4946-b8cc-1f00fe236a67.png",
       "vid": null,
       "vid_prompt": "Keep the composition of the attached image exactly as it is. Long hair and the coat lift slowly in the wind, light particles drift past, distant city lights twinkle faintly. Camera: an extremely slow push in — one movement only, no shake, no zoom. The subject stays inside the frame for the entire shot and never leaves it. Overall close to slow motion: very little changes across the five seconds. The last frame returns to almost the same state as the first frame. Colour, lighting and texture stay identical to the first frame. One single continuous take, no cuts.",
       "neg_prompt": "cut, scene change, transition, fade, text, letters, subtitles, logo, watermark, UI elements, human face, fast camera movement, zoom in, zoom out, handheld shake, camera shake, split screen, subject leaving the frame, oversaturation, heavy lens flare, distortion, morphing, warping",
