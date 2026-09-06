@@ -1,0 +1,28 @@
+{
+  "style_version": "v2 — 레퍼런스 반영 (고채도·고휘도·초현실)",
+  "changed": ["채도 대폭 상향", "볼류메트릭 갓레이", "신전 기둥·아치 포털 프레이밍", "떠다니는 꽃잎·비둘기·나비", "바로크 회화 질감", "POV 액션 앵글(낙타 POV)"],
+  "kept": ["전경 차폐물 = 통과 전환 장치", "얼굴 회피(정면 얼굴 0)", "난색비율 곡선 모양", "청록↔테라코타 색 관계"],
+  "model": "google/nano-banana-2 @1K 16:9 — 0크레딧",
+  "credits_spent_total": 0,
+  "images_v2": [
+    {"id":"H4v2","title":"카라반사라이 문 = 천국의 문","status":"succeed","url":"https://videocdn.pollo.ai/web-cdn/pollo/production/cmf20asu60gslb2k5fhlac2gn/ori/1788690463987-bc4058ac-2bb2-4c10-bb81-a3533a67f1cb.png"},
+    {"id":"H6v2","title":"사마르칸트 직활강","status":"succeed","url":"https://videocdn.pollo.ai/web-cdn/pollo/production/cmf20asu60gslb2k5fhlac2gn/ori/1788690468241-97a3b00e-58b3-4076-87c9-bf79945c5461.png"},
+    {"id":"H3v2","title":"낙타 POV 사막폭풍 돌진","status":"succeed","url":"https://videocdn.pollo.ai/web-cdn/pollo/production/cmf20asu60gslb2k5fhlac2gn/ori/1788690475927-a8ae0431-874e-4920-8e38-ee09ae9f962b.png"},
+    {"id":"H7v2","title":"아흐라르 자산 점등 (최고점)","status":"submitted","taskId":"cmtpo1u3b3pc2p398chob3xei"},
+    {"id":"H1v2","title":"편지 극접사","status":"submitted","taskId":"cmtpo8mmo3qogdtna7dnj5lpt"},
+    {"id":"H2v2","title":"미우나이와 딸","status":"submitted","taskId":"cmtpo8rde3pukp398yo1z69jo"},
+    {"id":"H5v2","title":"설산 X-ray 융빙수","status":"submitted","taskId":"cmtpo8w013pz9tz3foangjnp1"},
+    {"id":"H8v2","title":"낙타→컨테이너 match cut","status":"submitted","taskId":"cmtpo90jt3q8ka6j0376til1i"},
+    {"id":"H9v2","title":"북극 궤도 (최저 난색)","status":"submitted","taskId":"cmtpofr5j3qp4gnniwqny5o6c"},
+    {"id":"H10v2","title":"부산항 Money X-ray","status":"submitted","taskId":"cmtpofvko3pp3n2ilvoqpn0g5"},
+    {"id":"H11v2","title":"편지 회수 (회복)","status":"submitted","taskId":"cmtpofzcs3qlub0hyyp5148rc"}
+  ],
+  "videos": [
+    {"id":"V_H4","source":"H4v2","model":"kling-ai/kling-v3","settings":"std / 5s","cost":0,"status":"submitted","taskId":"cmtpogt583qmqu51rjagypzbj"}
+  ],
+  "free_model_map": {
+    "image": {"google/nano-banana-2":"1K only (2K=5)", "bytedance/seedream-4-5":"2K and 4K both free", "bytedance/seedream-5-lite":"free"},
+    "video": {"minimax/minimax-h3":"768p / 5s only", "kling-ai/kling-v3":"std / 5s only (multiShot also free)", "alibaba/wan-v3-0-prime":"480p / 5s only"},
+    "hard_rule": "5초 초과 = 유료. 6초부터 과금."
+  }
+}

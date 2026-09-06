@@ -1,0 +1,25 @@
+{
+  "model_note": "생성 모델은 전부 0크레딧(unlimited 등급). H1-H4는 google/nano-banana-2 @1K, H5-H11은 bytedance/seedream-4-5 @4K.",
+  "credits_spent": 0,
+  "frames": [
+    {"id":"H1","time":"0:00-0:12","title":"도착하지 못한 편지","warm_target_pct":30,"exit_transition":"D 차폐물 와이프","model":"google/nano-banana-2","resolution":"1K","status":"succeed",
+     "url":"https://videocdn.pollo.ai/web-cdn/pollo/production/cmf20asu60gslb2k5fhlac2gn/ori/1788689386785-e17c912d-4680-40a7-a06c-370cf21dcae2.png",
+     "detail":"https://pollo.ai/v/cmtpnedex3nyx12p06846hq9c"},
+    {"id":"H2","time":"0:20-0:33","title":"미우나이와 딸","warm_target_pct":28,"exit_transition":"E 크로스 디졸브","model":"google/nano-banana-2","resolution":"1K","status":"succeed",
+     "url":"https://videocdn.pollo.ai/web-cdn/pollo/production/cmf20asu60gslb2k5fhlac2gn/ori/1788689390806-26cdd19f-124e-4f9a-93ab-e0962c344572.png",
+     "detail":"https://pollo.ai/v/cmtpnehta3nvsa6j0tut5t8vy"},
+    {"id":"H3","time":"0:50-1:02","title":"사막폭풍 속 카라반","warm_target_pct":40,"exit_transition":"D 차폐물 와이프","model":"google/nano-banana-2","resolution":"1K","status":"succeed",
+     "url":"https://videocdn.pollo.ai/web-cdn/pollo/production/cmf20asu60gslb2k5fhlac2gn/ori/1788689398836-90dc35f0-f2c3-4593-9194-7cd636711f11.png",
+     "detail":"https://pollo.ai/v/cmtpnemnl3nzjq3ekds6s40uf"},
+    {"id":"H4","time":"1:10-1:24","title":"카라반사라이 문이 열린다","warm_target_pct":48,"exit_transition":"C 블랙아웃 통과","model":"google/nano-banana-2","resolution":"1K","status":"succeed",
+     "url":"https://videocdn.pollo.ai/web-cdn/pollo/production/cmf20asu60gslb2k5fhlac2gn/ori/1788689403997-ac275df9-8a8c-43f6-85a2-5fd292b5c620.png",
+     "detail":"https://pollo.ai/v/cmtpnernz3o1g703a7dpevvrg"},
+    {"id":"H5","time":"2:00-2:14","title":"설산 X-ray 융빙수","warm_target_pct":35,"exit_transition":"B 화이트아웃 통과","model":"bytedance/seedream-4-5","resolution":"4K","status":"submitted","taskId":"cmtpnjfvn3oudux0haevok4oe"},
+    {"id":"H6","time":"3:20-3:34","title":"사마르칸트 청록 돔 (직활강)","warm_target_pct":50,"exit_transition":"C 블랙아웃 통과","model":"bytedance/seedream-4-5","resolution":"4K","status":"submitted","taskId":"cmtpnjjq73o3cen5v1qdti6w0"},
+    {"id":"H7","time":"3:50-4:10","title":"아흐라르의 자산이 점등된다 (최고점)","warm_target_pct":57,"exit_transition":"E 크로스 디졸브","model":"bytedance/seedream-4-5","resolution":"4K","status":"submitted","taskId":"cmtpnjo303o49ic92ye17psth"},
+    {"id":"H8","time":"5:05-5:12","title":"카라반→컨테이너 match cut","warm_target_pct":30,"exit_transition":"A 하드컷(match cut)","model":"bytedance/seedream-4-5","resolution":"4K","status":"submitted","taskId":"cmtpnjryx3oco12p0uc8r3ut5"},
+    {"id":"H9","time":"5:30-5:45","title":"북극 지구본 위 컨테이너선 (최저)","warm_target_pct":10,"exit_transition":"B 화이트아웃 통과","model":"bytedance/seedream-4-5","resolution":"4K","status":"pending_slot"},
+    {"id":"H10","time":"7:50-8:05","title":"부산항 Money X-ray","warm_target_pct":15,"exit_transition":"C 블랙아웃 통과","model":"bytedance/seedream-4-5","resolution":"4K","status":"pending_slot"},
+    {"id":"H11","time":"8:15-8:30","title":"편지가 돌아온다 (회복)","warm_target_pct":57,"exit_transition":"페이드 아웃","model":"bytedance/seedream-4-5","resolution":"4K","status":"pending_slot"}
+  ]
+}
