@@ -1,27 +1,35 @@
 <title>연하 4PC 정비반</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Gothic+A1:wght@400;500;700;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Gothic+A1:wght@400;500;700;900&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap">
 
 <style>
 :root{
   /* 다크 전용 — 사용자가 다크보드로 지정 */
-  --ground:#0B0F14;
-  --surface:#131B23;
-  --surface2:#1A242E;
-  --sunken:#080C10;
+  --ground:#0A0E13;
+  --surface:#121A22;
+  --surface2:#19232D;
+  --sunken:#070A0E;
   --line:#26333F;
-  --line-soft:#1B2530;
+  --line-soft:#1A242E;
 
   --ink:#E8EFF5;
   --ink-dim:#B4C3CF;
-  --muted:#7D91A0;      /* 시안 쪽으로 살짝 기운 회색 */
+  --muted:#7D91A0;
 
-  --local:#3FD8C4;      /* 내 하드웨어 */
-  --cloud:#A78BFA;      /* 클라우드 / API */
-  --fix:#FF7A6B;        /* 수정 필요 */
-  --ok:#63D68C;         /* 유지 */
-  --warn:#F2B544;       /* 주의 */
+  --local:#3FD8C4;
+  --cloud:#A78BFA;
+  --fix:#FF7A6B;
+  --ok:#63D68C;
+  --warn:#F2B544;
+
+  /* 형광 강조 — 핵심 단어 전용 */
+  --neon-y:#FFE83D;   /* 쨍한 노랑 */
+  --neon-g:#B4FF39;   /* 연두 */
+  --neon-c:#2BF5E4;   /* 형광 시안 */
+  --neon-p:#FF56D9;   /* 형광 핑크 */
+  --neon-r:#FF4D5E;   /* 빨강 */
+  --neon-o:#FF9424;   /* 형광 주황 */
 
   --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
   --body:"Gothic A1","Malgun Gothic",system-ui,-apple-system,sans-serif;
@@ -31,120 +39,130 @@
 *{box-sizing:border-box}
 body{
   margin:0;background:var(--ground);color:var(--ink);
-  font-family:var(--body);font-size:15px;line-height:1.72;
+  font-family:var(--body);font-size:15px;line-height:1.75;
   -webkit-font-smoothing:antialiased;
 }
 .wrap{max-width:1080px;margin:0 auto;padding:0 22px 96px}
 
+/* ---------- 형광 강조 ---------- */
+.y,.g,.c,.p,.r,.o{font-weight:800}
+.y{color:var(--neon-y);text-shadow:0 0 14px rgba(255,232,61,.40)}
+.g{color:var(--neon-g);text-shadow:0 0 14px rgba(180,255,57,.38)}
+.c{color:var(--neon-c);text-shadow:0 0 14px rgba(43,245,228,.38)}
+.p{color:var(--neon-p);text-shadow:0 0 14px rgba(255,86,217,.38)}
+.r{color:var(--neon-r);text-shadow:0 0 14px rgba(255,77,94,.40)}
+.o{color:var(--neon-o);text-shadow:0 0 14px rgba(255,148,36,.38)}
+
+/* 형광펜 (가장 중요한 것만) */
+.mk{
+  padding:1px 7px;border-radius:3px;font-weight:900;color:#06090C;
+  box-shadow:0 0 18px rgba(255,255,255,.13);
+}
+.mk-y{background:var(--neon-y)}
+.mk-g{background:var(--neon-g)}
+.mk-c{background:var(--neon-c)}
+.mk-p{background:var(--neon-p);color:#0A0E13}
+.mk-r{background:var(--neon-r);color:#fff}
+
 /* ---------- 헤더 ---------- */
 header{
   border-bottom:1px solid var(--line);
-  background:linear-gradient(180deg,#101A22 0%,var(--ground) 100%);
-  padding:44px 0 34px;margin-bottom:8px;
+  background:
+    radial-gradient(700px 260px at 12% 0%,rgba(43,245,228,.10),transparent 70%),
+    radial-gradient(600px 240px at 88% 12%,rgba(255,86,217,.09),transparent 70%),
+    linear-gradient(180deg,#0E1820 0%,var(--ground) 100%);
+  padding:46px 0 36px;margin-bottom:8px;
 }
 .eyebrow{
-  font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;
-  color:var(--local);margin:0 0 14px;
+  font-family:var(--mono);font-size:11px;letter-spacing:.24em;text-transform:uppercase;
+  color:var(--neon-c);margin:0 0 14px;text-shadow:0 0 16px rgba(43,245,228,.45);
 }
 h1{
   font-family:var(--disp);font-weight:400;font-size:clamp(34px,6.2vw,60px);
   line-height:1.06;margin:0 0 18px;letter-spacing:-.01em;text-wrap:balance;
 }
-h1 .a{color:var(--local)}
-h1 .b{color:var(--cloud)}
+h1 em{font-style:normal;color:var(--neon-y);text-shadow:0 0 26px rgba(255,232,61,.42)}
+h1 b{font-weight:400;color:var(--neon-c);text-shadow:0 0 26px rgba(43,245,228,.42)}
 .lede{font-size:17px;color:var(--ink-dim);max-width:62ch;margin:0}
-.stampline{
-  display:flex;flex-wrap:wrap;gap:8px;margin-top:22px;
-  font-family:var(--mono);font-size:11.5px;
-}
-.stamp{
-  border:1px solid var(--line);border-radius:3px;padding:4px 10px;color:var(--muted);
-  background:var(--sunken);
-}
-.stamp b{color:var(--ink-dim);font-weight:500}
+.stampline{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px;font-family:var(--mono);font-size:11.5px}
+.stamp{border:1px solid var(--line);border-radius:3px;padding:4px 10px;color:var(--muted);background:var(--sunken)}
 
 /* ---------- 섹션 ---------- */
-section{padding:44px 0;border-bottom:1px solid var(--line-soft)}
+section{padding:46px 0;border-bottom:1px solid var(--line-soft)}
 section:last-of-type{border-bottom:0}
 .shead{display:flex;align-items:baseline;gap:14px;margin-bottom:6px}
 .snum{
-  font-family:var(--mono);font-size:12px;font-weight:600;color:var(--muted);
-  border:1px solid var(--line);border-radius:3px;padding:2px 7px;flex:none;
+  font-family:var(--mono);font-size:12px;font-weight:700;color:var(--neon-c);
+  border:1px solid rgba(43,245,228,.34);border-radius:3px;padding:2px 7px;flex:none;
+  text-shadow:0 0 12px rgba(43,245,228,.4);
 }
-h2{
-  font-family:var(--disp);font-weight:400;font-size:clamp(23px,3.4vw,32px);
-  margin:0;letter-spacing:-.005em;line-height:1.2;
-}
-.sub{color:var(--muted);margin:8px 0 26px;max-width:64ch;font-size:14.5px}
+h2{font-family:var(--disp);font-weight:400;font-size:clamp(23px,3.4vw,32px);margin:0;line-height:1.2}
+.sub{color:var(--muted);margin:8px 0 26px;max-width:66ch;font-size:14.5px}
 
 /* ---------- 측정 패널 ---------- */
 .measure{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
 .panel{border:1px solid var(--line);border-radius:6px;background:var(--surface);overflow:hidden}
-.panel.known{border-color:rgba(63,216,196,.34)}
-.panel.unknown{border-style:dashed;border-color:rgba(242,181,68,.4);background:var(--sunken)}
-.ptop{
-  display:flex;justify-content:space-between;align-items:center;gap:10px;
-  padding:12px 16px;border-bottom:1px solid var(--line-soft);background:var(--surface2);
-}
+.panel.known{border-color:rgba(43,245,228,.34)}
+.panel.unknown{border-style:dashed;border-color:rgba(255,232,61,.38);background:var(--sunken)}
+.ptop{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid var(--line-soft);background:var(--surface2)}
 .panel.unknown .ptop{background:transparent}
 .ptitle{font-weight:700;font-size:14px}
-.pbadge{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;padding:3px 8px;border-radius:3px}
-.pbadge.y{background:rgba(63,216,196,.14);color:var(--local)}
-.pbadge.n{background:rgba(242,181,68,.14);color:var(--warn)}
+.pbadge{font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.1em;padding:3px 8px;border-radius:3px}
+.pbadge.ok{background:var(--neon-c);color:#06090C}
+.pbadge.no{background:var(--neon-y);color:#06090C}
 dl.spec{margin:0;padding:6px 16px 14px;font-family:var(--mono);font-size:12.5px}
 dl.spec div{display:flex;justify-content:space-between;gap:14px;padding:7px 0;border-bottom:1px dotted var(--line-soft)}
 dl.spec div:last-child{border-bottom:0}
 dl.spec dt{color:var(--muted);flex:none}
 dl.spec dd{margin:0;text-align:right;color:var(--ink-dim);font-variant-numeric:tabular-nums}
-dl.spec dd.hot{color:var(--fix)}
-dl.spec dd.good{color:var(--local)}
-.pnote{padding:0 16px 16px;font-size:13px;color:var(--muted);line-height:1.6}
+.pnote{padding:0 16px 16px;font-size:13px;color:var(--muted);line-height:1.65}
 
 /* ---------- 헤드라인 발견 ---------- */
 .finding{
-  border:1px solid rgba(167,139,250,.45);border-radius:8px;
-  background:linear-gradient(140deg,rgba(167,139,250,.10),rgba(167,139,250,.02) 60%),var(--surface);
+  border:1px solid rgba(255,86,217,.45);border-radius:8px;
+  background:
+    radial-gradient(420px 200px at 8% 0%,rgba(255,86,217,.13),transparent 70%),
+    var(--surface);
   padding:26px 26px 22px;
 }
-.finding-top{display:flex;flex-wrap:wrap;align-items:flex-end;gap:26px;margin-bottom:20px}
+.finding-top{display:flex;flex-wrap:wrap;align-items:flex-end;gap:28px;margin-bottom:20px}
 .credit{flex:none}
 .credit .n{
-  font-family:var(--disp);font-size:clamp(44px,9vw,72px);line-height:.9;color:var(--cloud);
-  font-variant-numeric:tabular-nums;
+  font-family:var(--disp);font-size:clamp(46px,9vw,76px);line-height:.9;
+  color:var(--neon-p);font-variant-numeric:tabular-nums;
+  text-shadow:0 0 34px rgba(255,86,217,.5);
 }
-.credit .u{font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--muted);margin-top:8px}
+.credit .u{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.16em;color:var(--neon-y);margin-top:10px}
 .finding-top p{margin:0;flex:1 1 260px;color:var(--ink-dim);font-size:15px}
-.finding-top p strong{color:var(--ink)}
 .modelgrid{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
 .chip{
-  font-family:var(--mono);font-size:11.5px;padding:4px 9px;border-radius:3px;
-  background:rgba(167,139,250,.10);color:#C9B8FF;border:1px solid rgba(167,139,250,.22);
+  font-family:var(--mono);font-size:11.5px;font-weight:600;padding:4px 9px;border-radius:3px;
+  background:rgba(255,86,217,.10);color:#FF9AE8;border:1px solid rgba(255,86,217,.28);
 }
-.chip.dim{background:var(--sunken);color:var(--muted);border-color:var(--line)}
+.chip.dim{background:var(--sunken);color:var(--muted);border-color:var(--line);font-weight:400}
 
 /* ---------- 표 ---------- */
 .tbox{overflow-x:auto;border:1px solid var(--line);border-radius:6px;background:var(--surface)}
-table{border-collapse:collapse;width:100%;min-width:520px;font-size:13.5px}
+table{border-collapse:collapse;width:100%;min-width:540px;font-size:13.5px}
 th,td{padding:11px 14px;text-align:left;border-bottom:1px solid var(--line-soft);vertical-align:top}
 thead th{
   background:var(--surface2);font-family:var(--mono);font-size:10.5px;
-  letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600;
-  position:sticky;top:0;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--neon-c);font-weight:700;position:sticky;top:0;
 }
 tbody tr:last-child td{border-bottom:0}
 td.name{font-weight:700;color:var(--ink)}
 td.m{font-family:var(--mono);font-size:12.5px;color:var(--ink-dim)}
-.yes{color:var(--ok);font-weight:700}
-.no{color:var(--fix);font-weight:700}
-.maybe{color:var(--warn);font-weight:700}
-td small{display:block;color:var(--muted);font-size:12px;line-height:1.5;margin-top:3px}
+.yes{color:var(--neon-g);font-weight:800;text-shadow:0 0 12px rgba(180,255,57,.35)}
+.nope{color:var(--neon-r);font-weight:800;text-shadow:0 0 12px rgba(255,77,94,.35)}
+.mid{color:var(--neon-y);font-weight:800;text-shadow:0 0 12px rgba(255,232,61,.35)}
+td small{display:block;color:var(--muted);font-size:12px;line-height:1.55;margin-top:3px}
 
-/* ---------- 4070 부하 바 ---------- */
+/* ---------- 부하 바 ---------- */
 .loads{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px;margin-top:8px}
 .load{border:1px solid var(--line);border-radius:6px;background:var(--surface);padding:16px}
-.load h3{margin:0 0 3px;font-size:14px;font-family:var(--body);font-weight:700}
+.load h3{margin:0 0 3px;font-size:14px;font-family:var(--body);font-weight:800}
 .load .when{font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:.1em;margin-bottom:14px}
-.bar{display:flex;height:16px;border-radius:3px;overflow:hidden;background:var(--sunken);border:1px solid var(--line-soft)}
+.bar{display:flex;height:18px;border-radius:3px;overflow:hidden;background:var(--sunken);border:1px solid var(--line-soft)}
 .bar i{display:block;height:100%}
 .legend{margin:12px 0 0;padding:0;list-style:none;font-family:var(--mono);font-size:11.5px}
 .legend li{display:flex;align-items:center;gap:8px;padding:3px 0;color:var(--ink-dim)}
@@ -153,93 +171,75 @@ td small{display:block;color:var(--muted);font-size:12px;line-height:1.5;margin-
 
 /* ---------- 수정 카드 ---------- */
 .fixes{display:flex;flex-direction:column;gap:14px}
-.fix{
-  border:1px solid var(--line);border-left:3px solid var(--fix);border-radius:0 6px 6px 0;
-  background:var(--surface);padding:18px 20px;
-}
-.fix.keep{border-left-color:var(--ok)}
+.fix{border:1px solid var(--line);border-left:3px solid var(--neon-r);border-radius:0 6px 6px 0;background:var(--surface);padding:18px 20px}
+.fix.keep{border-left-color:var(--neon-g)}
 .fix-h{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:9px}
 .dots{font-size:12px;letter-spacing:1px;flex:none}
 .code{
-  font-family:var(--mono);font-size:10.5px;font-weight:600;letter-spacing:.1em;
-  color:var(--fix);border:1px solid rgba(255,122,107,.34);border-radius:3px;padding:2px 7px;flex:none;
+  font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.1em;
+  color:#06090C;background:var(--neon-r);border-radius:3px;padding:2px 8px;flex:none;
 }
-.fix.keep .code{color:var(--ok);border-color:rgba(99,214,140,.34)}
-.fix-h h3{margin:0;font-size:15.5px;font-family:var(--body);font-weight:700;line-height:1.4}
+.fix.keep .code{background:var(--neon-g)}
+.fix-h h3{margin:0;font-size:15.5px;font-family:var(--body);font-weight:800;line-height:1.4}
 .fix p{margin:0 0 10px;color:var(--ink-dim);font-size:14.5px}
 .fix p:last-child{margin-bottom:0}
-.wrong-right{
-  display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px;margin-top:12px;
-}
+.wrong-right{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px;margin-top:12px}
 .wr{border-radius:4px;padding:11px 13px;font-size:13.5px;line-height:1.6}
-.wr.x{background:rgba(255,122,107,.07);border:1px solid rgba(255,122,107,.2)}
-.wr.o{background:rgba(99,214,140,.07);border:1px solid rgba(99,214,140,.2)}
-.wr .lab{
-  font-family:var(--mono);font-size:10px;letter-spacing:.14em;display:block;margin-bottom:5px;
-}
-.wr.x .lab{color:var(--fix)}
-.wr.o .lab{color:var(--ok)}
-code{
-  font-family:var(--mono);font-size:12.5px;background:var(--sunken);
-  border:1px solid var(--line-soft);border-radius:3px;padding:1px 5px;color:var(--local);
-}
+.wr.x{background:rgba(255,77,94,.08);border:1px solid rgba(255,77,94,.26)}
+.wr.o{background:rgba(180,255,57,.07);border:1px solid rgba(180,255,57,.24)}
+.wr .lab{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.14em;display:block;margin-bottom:5px}
+.wr.x .lab{color:var(--neon-r)}
+.wr.o .lab{color:var(--neon-g)}
+code{font-family:var(--mono);font-size:12.5px;background:var(--sunken);border:1px solid var(--line-soft);border-radius:3px;padding:1px 5px;color:var(--neon-c)}
 pre{
   font-family:var(--mono);font-size:12.5px;background:var(--sunken);border:1px solid var(--line);
-  border-radius:5px;padding:13px 15px;overflow-x:auto;margin:12px 0 0;color:var(--ink-dim);line-height:1.65;
+  border-radius:5px;padding:13px 15px;overflow-x:auto;margin:12px 0 0;color:var(--ink-dim);line-height:1.7;
 }
-pre .c{color:var(--muted)}
-pre .k{color:var(--local)}
+pre .cm{color:var(--muted)}
+pre .k{color:var(--neon-c);font-weight:600}
+pre .w{color:var(--neon-y);font-weight:600}
 
-/* ---------- 순서 흐름 ---------- */
+/* ---------- 흐름 ---------- */
 .flow{display:flex;flex-wrap:wrap;align-items:stretch;gap:10px;margin-top:6px}
-.step{
-  flex:1 1 150px;border:1px solid var(--line);border-radius:6px;background:var(--surface);
-  padding:14px 15px;position:relative;
-}
-.step .o{font-family:var(--mono);font-size:10.5px;color:var(--muted);letter-spacing:.14em}
-.step h4{margin:6px 0 5px;font-size:14.5px;font-family:var(--body);font-weight:700}
+.step{flex:1 1 150px;border:1px solid var(--line);border-radius:6px;background:var(--surface);padding:14px 15px}
+.step .o2{font-family:var(--mono);font-size:10.5px;font-weight:700;color:var(--muted);letter-spacing:.14em}
+.step h4{margin:6px 0 5px;font-size:14.5px;font-family:var(--body);font-weight:800}
 .step p{margin:0;font-size:12.5px;color:var(--muted);line-height:1.55}
-.step.hi{border-color:rgba(63,216,196,.42);background:linear-gradient(160deg,rgba(63,216,196,.07),transparent)}
-.step.hi .o{color:var(--local)}
-.step.danger{border-color:rgba(255,122,107,.4)}
-.step.danger .o{color:var(--fix)}
+.step.hi{border-color:rgba(180,255,57,.4);background:linear-gradient(160deg,rgba(180,255,57,.08),transparent)}
+.step.hi .o2{color:var(--neon-g)}
+.step.danger{border-color:rgba(255,77,94,.4);background:linear-gradient(160deg,rgba(255,77,94,.07),transparent)}
+.step.danger .o2{color:var(--neon-r)}
 
-/* ---------- 오늘 할 일 ---------- */
+/* ---------- 오늘 ---------- */
 .today{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
 .task{border:1px solid var(--line);border-radius:6px;background:var(--surface);padding:18px}
-.task .r{font-family:var(--mono);font-size:11px;color:var(--local);letter-spacing:.14em;margin-bottom:9px}
-.task h4{margin:0 0 8px;font-size:15px;font-family:var(--body);font-weight:700}
+.task .rr{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--neon-c);letter-spacing:.14em;margin-bottom:9px}
+.task h4{margin:0 0 8px;font-size:15px;font-family:var(--body);font-weight:800}
 .task p{margin:0 0 10px;font-size:13.5px;color:var(--muted);line-height:1.6}
 .task pre{margin-top:0;font-size:11.5px}
 
-/* ---------- 금지 목록 ---------- */
-.never{
-  border:1px solid rgba(255,122,107,.32);border-radius:6px;background:rgba(255,122,107,.045);
-  padding:20px 24px;
-}
-.never h3{margin:0 0 12px;font-family:var(--disp);font-weight:400;font-size:20px;color:var(--fix)}
+/* ---------- 금지 ---------- */
+.never{border:1px solid rgba(255,77,94,.36);border-radius:6px;background:rgba(255,77,94,.05);padding:20px 24px}
+.never h3{margin:0 0 12px;font-family:var(--disp);font-weight:400;font-size:21px;color:var(--neon-r);text-shadow:0 0 20px rgba(255,77,94,.4)}
 .never ul{margin:0;padding-left:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:7px}
 .never li{font-family:var(--mono);font-size:12.5px;color:var(--ink-dim);padding-left:20px;position:relative;line-height:1.6}
-.never li::before{content:"×";position:absolute;left:4px;color:var(--fix);font-weight:700}
+.never li::before{content:"×";position:absolute;left:4px;color:var(--neon-r);font-weight:700}
 
-footer{
-  border-top:1px solid var(--line);margin-top:60px;padding-top:22px;
-  font-family:var(--mono);font-size:11.5px;color:var(--muted);line-height:1.9;
-}
-footer b{color:var(--ink-dim);font-weight:500}
+footer{border-top:1px solid var(--line);margin-top:60px;padding-top:22px;font-family:var(--mono);font-size:11.5px;color:var(--muted);line-height:1.95}
+footer b{color:var(--neon-c);font-weight:600}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 
 <header>
   <div class="wrap">
     <p class="eyebrow">YH CLUSTER · 점검 보고</p>
-    <h1>4070 한 대에<br><span class="a">전부</span> 얹지 말고<br><span class="b">네 대로</span> 나누기</h1>
-    <p class="lede">원안의 방향은 맞습니다. 다만 순서가 두 군데 뒤집혀 있고, 이미 결제해 둔 자원 하나를 통째로 빠뜨렸습니다. 아래는 측정된 사실과 고칠 지점입니다.</p>
+    <h1>4070 한 대에<br><em>전부</em> 얹지 말고<br><b>네 대로</b> 나누기</h1>
+    <p class="lede">원안의 방향은 맞습니다. 다만 순서가 <span class="y">두 군데</span> 뒤집혀 있고, 이미 결제해 둔 자원 <span class="p">하나</span>를 통째로 빠뜨렸습니다.</p>
     <div class="stampline">
-      <span class="stamp"><b>2026-09-06</b></span>
-      <span class="stamp">수정 <b style="color:#FF7A6B">9건</b></span>
-      <span class="stamp">유지 <b style="color:#63D68C">7건</b></span>
-      <span class="stamp">오늘 실행 <b>3건</b></span>
+      <span class="stamp">2026-09-06</span>
+      <span class="stamp">수정 <span class="r">9건</span></span>
+      <span class="stamp">유지 <span class="g">7건</span></span>
+      <span class="stamp">오늘 실행 <span class="y">3건</span></span>
     </div>
   </div>
 </header>
@@ -248,46 +248,46 @@ footer b{color:var(--ink-dim);font-weight:500}
 
 <!-- 1 -->
 <section>
-  <div class="shead"><span class="snum">01</span><h2>"이 컴퓨터 사양"은 두 대를 가리킵니다</h2></div>
-  <p class="sub">질문하신 컴퓨터가 둘로 갈립니다. 하나는 지금 이 대화가 도는 클라우드 컨테이너, 하나는 앞에 앉아 계신 Windows PC입니다. 전자만 제가 직접 잴 수 있습니다.</p>
+  <div class="shead"><span class="snum">01</span><h2>🖥️ "이 컴퓨터 사양"은 두 대를 가리킵니다</h2></div>
+  <p class="sub">질문하신 컴퓨터가 둘로 갈립니다. 하나는 지금 이 대화가 도는 <span class="c">클라우드 컨테이너</span>, 하나는 앞에 앉아 계신 <span class="y">Windows PC</span>. 전자만 제가 직접 잴 수 있습니다.</p>
 
   <div class="measure">
     <div class="panel known">
-      <div class="ptop"><span class="ptitle">이 대화가 도는 컨테이너</span><span class="pbadge y">직접 측정함</span></div>
+      <div class="ptop"><span class="ptitle">이 대화가 도는 컨테이너</span><span class="pbadge ok">측정 완료</span></div>
       <dl class="spec">
-        <div><dt>CPU</dt><dd>Intel Xeon @ 2.10GHz · 4 vCPU</dd></div>
-        <div><dt>RAM</dt><dd>15 GB</dd></div>
-        <div><dt>디스크</dt><dd>252 GB 중 여유 <span>30 GB</span></dd></div>
-        <div><dt>GPU</dt><dd class="hot">없음</dd></div>
+        <div><dt>CPU</dt><dd>Intel Xeon 2.10GHz · <span class="c">4 vCPU</span></dd></div>
+        <div><dt>RAM</dt><dd><span class="c">15 GB</span></dd></div>
+        <div><dt>디스크</dt><dd>252 GB 중 여유 <span class="y">30 GB</span></dd></div>
+        <div><dt>GPU</dt><dd><span class="r">없음</span></dd></div>
         <div><dt>OS</dt><dd>Ubuntu 24.04.4 LTS</dd></div>
-        <div><dt>Docker</dt><dd class="good">29.3.1</dd></div>
+        <div><dt>Docker</dt><dd><span class="g">29.3.1</span></dd></div>
         <div><dt>Python / Node</dt><dd>3.11.15 / 22.22.2</dd></div>
-        <div><dt>ffmpeg</dt><dd class="hot">미설치</dd></div>
+        <div><dt>ffmpeg</dt><dd><span class="r">미설치</span></dd></div>
       </dl>
-      <p class="pnote">GPU가 없고 세션이 끝나면 사라집니다. <b style="color:#E8EFF5">여기로 영상 작업이나 파일 400GB를 옮기는 선택지는 없습니다.</b> 코드 짜고, 스크립트 만들고, API 호출하는 용도입니다.</p>
+      <p class="pnote"><span class="r">GPU가 없고</span> 세션이 끝나면 사라집니다. <span class="mk mk-r">여기로 영상작업이나 400GB를 옮기는 선택지는 없습니다</span> 코드 짜고, 스크립트 만들고, API 호출하는 용도입니다.</p>
     </div>
 
     <div class="panel unknown">
-      <div class="ptop"><span class="ptitle">앞에 계신 Windows PC 4대</span><span class="pbadge n">측정 불가</span></div>
+      <div class="ptop"><span class="ptitle">앞에 계신 Windows PC 4대</span><span class="pbadge no">측정 불가</span></div>
       <dl class="spec">
-        <div><dt>CPU / RAM 슬롯</dt><dd>?</dd></div>
-        <div><dt>실제 VRAM</dt><dd>?</dd></div>
-        <div><dt>SSD인지 HDD인지</dt><dd>?</dd></div>
-        <div><dt>빈 공간</dt><dd>?</dd></div>
-        <div><dt>Windows 에디션</dt><dd>? <span style="color:#7D91A0">← RDP 가능 여부</span></dd></div>
-        <div><dt>NVENC 유무</dt><dd>? <span style="color:#7D91A0">← 인코딩 담당 가능?</span></dd></div>
-        <div><dt>회수 가능 캐시</dt><dd>?</dd></div>
-        <div><dt>WSL vhdx 크기</dt><dd>? <span style="color:#7D91A0">← 숨은 용량 범인</span></dd></div>
+        <div><dt>CPU / RAM 슬롯</dt><dd><span class="y">?</span></dd></div>
+        <div><dt>실제 VRAM</dt><dd><span class="y">?</span></dd></div>
+        <div><dt>SSD인지 HDD인지</dt><dd><span class="y">?</span></dd></div>
+        <div><dt>빈 공간</dt><dd><span class="y">?</span></dd></div>
+        <div><dt>Windows 에디션</dt><dd><span class="y">?</span> <span style="color:#7D91A0">← RDP 가능?</span></dd></div>
+        <div><dt>NVENC 유무</dt><dd><span class="y">?</span> <span style="color:#7D91A0">← 인코딩 담당?</span></dd></div>
+        <div><dt>회수 가능 캐시</dt><dd><span class="y">?</span></dd></div>
+        <div><dt>WSL vhdx 크기</dt><dd><span class="y">?</span> <span style="color:#7D91A0">← 숨은 범인</span></dd></div>
       </dl>
-      <p class="pnote">클라우드에서는 사용자 하드웨어가 보이지 않습니다. 물음표를 숫자로 바꾸는 게 <code>01_YH_AUDIT.ps1</code> 입니다. 이게 끝나기 전엔 "i3를 AUTO, i7을 STORE" 같은 배치를 확정할 수 없습니다.</p>
+      <p class="pnote">클라우드에서는 사용자 하드웨어가 보이지 않습니다. 물음표를 숫자로 바꾸는 게 <code>01_YH_AUDIT.ps1</code> 입니다. 이게 끝나기 전엔 <span class="y">"i3를 AUTO, i7을 STORE"</span> 같은 배치를 확정할 수 없습니다.</p>
     </div>
   </div>
 </section>
 
 <!-- 2 -->
 <section>
-  <div class="shead"><span class="snum">02</span><h2>이미 사둔 걸 안 쓰고 있습니다</h2></div>
-  <p class="sub">계정을 확인했습니다. Pollo Ultra 연간 구독이 살아 있고 2027년 8월까지 유효합니다.</p>
+  <div class="shead"><span class="snum">02</span><h2>💳 이미 사둔 걸 안 쓰고 있습니다</h2></div>
+  <p class="sub">계정을 확인했습니다. <span class="p">Pollo Ultra</span> 연간 구독이 살아 있고 <span class="y">2027년 8월</span>까지 유효합니다.</p>
 
   <div class="finding">
     <div class="finding-top">
@@ -295,7 +295,7 @@ footer b{color:var(--ink-dim);font-weight:500}
         <div class="n">12,040</div>
         <div class="u">잔여 크레딧 · ULTRA · ~2027.08.31</div>
       </div>
-      <p><strong>그리고 이 세션에 Pollo MCP가 연결돼 있습니다.</strong> 즉 지금 이 대화창에서 바로 영상·이미지를 뽑을 수 있습니다. 8GB VRAM 노트북으로 재현할 수 없는 모델들입니다.</p>
+      <p><span class="mk mk-p">이 세션에 Pollo MCP가 연결돼 있습니다</span> 즉 <span class="c">지금 이 대화창에서 바로</span> 영상·이미지를 뽑을 수 있습니다. <span class="y">8GB VRAM</span> 노트북으로는 <span class="r">재현 불가능한</span> 모델들입니다.</p>
     </div>
     <div class="modelgrid">
       <span class="chip">Veo 3.1</span><span class="chip">Sora 2 / Pro</span><span class="chip">Kling v3</span>
@@ -310,76 +310,240 @@ footer b{color:var(--ink-dim);font-weight:500}
 
 <!-- 3 -->
 <section>
-  <div class="shead"><span class="snum">03</span><h2>미니맥스 · Pollo 오픈소스, 결론부터</h2></div>
-  <p class="sub">물어보신 두 개 다 "로컬에서 돌린다"는 답이 아닙니다. 이유가 서로 다릅니다.</p>
+  <div class="shead"><span class="snum">03</span><h2>🔓 미니맥스 · Pollo 오픈소스, 결론부터</h2></div>
+  <p class="sub">물어보신 두 개 다 <span class="r">"로컬에서 돌린다"는 답이 아닙니다.</span> 이유가 서로 다릅니다.</p>
   <div class="tbox">
     <table>
-      <thead><tr><th>대상</th><th>오픈소스</th><th>내 4070(8GB)에서</th><th>실제 상황</th></tr></thead>
+      <thead><tr><th>대상</th><th>오픈소스</th><th>내 4070(8GB)</th><th>실제 상황</th></tr></thead>
       <tbody>
         <tr>
           <td class="name">MiniMax 영상<br><small>Hailuo · video-01</small></td>
-          <td class="no">아니오</td><td class="no">불가</td>
-          <td>가중치를 공개한 적 없습니다. API 전용.<small>Pollo 구독에 이미 포함돼 있습니다.</small></td>
+          <td class="nope">아니오</td><td class="nope">불가</td>
+          <td>가중치를 <span class="r">공개한 적 없습니다.</span> API 전용.<small>대신 Pollo 구독에 이미 포함돼 있습니다.</small></td>
         </tr>
         <tr>
           <td class="name">MiniMax LLM<br><small>M1 · M2 · Text-01</small></td>
-          <td class="yes">예</td><td class="no">불가</td>
-          <td>Apache 2.0 계열로 공개.<small>수백B MoE라 H100 여러 장이 필요합니다. 8GB와는 두 자릿수 차이.</small></td>
+          <td class="yes">예</td><td class="nope">불가</td>
+          <td>Apache 2.0 계열로 공개.<small>수백B MoE라 <span class="y">H100 여러 장</span>이 필요합니다. 8GB와는 두 자릿수 차이.</small></td>
         </tr>
         <tr>
           <td class="name">Pollo AI</td>
-          <td class="no">아니오</td><td class="no">불가</td>
-          <td>자체 모델 없이 여러 모델을 모아 파는 서비스입니다.<small>오픈소스라는 개념 자체가 없습니다. 대신 이미 구독 중.</small></td>
+          <td class="nope">아니오</td><td class="nope">불가</td>
+          <td>자체 모델 없이 여러 모델을 <span class="p">모아 파는 서비스</span>입니다.<small>오픈소스라는 개념 자체가 없습니다.</small></td>
         </tr>
         <tr>
           <td class="name">LTX-Video 2B</td>
           <td class="yes">예</td><td class="yes">잘 됨</td>
-          <td>8GB에서 가장 빠른 선택.<small>짧은 클립 위주. 실험·반복에 적합.</small></td>
+          <td><span class="g">8GB에서 가장 빠른 선택.</span><small>짧은 클립 위주. 실험·반복에 적합.</small></td>
         </tr>
         <tr>
           <td class="name">Wan 2.1 T2V-1.3B</td>
           <td class="yes">예 (Apache 2.0)</td><td class="yes">잘 됨</td>
-          <td>480p, 속도·품질 균형이 좋습니다.</td>
+          <td>480p, <span class="g">속도·품질 균형</span>이 좋습니다.</td>
         </tr>
         <tr>
           <td class="name">FramePack</td>
           <td class="yes">예</td><td class="yes">됨</td>
-          <td>애초에 저VRAM(6GB)을 목표로 만든 구조.<small>긴 영상에 강합니다.</small></td>
+          <td>애초에 <span class="g">저VRAM(6GB)</span>을 목표로 만든 구조.<small>긴 영상에 강합니다.</small></td>
         </tr>
         <tr>
           <td class="name">HunyuanVideo 13B</td>
-          <td class="yes">예</td><td class="maybe">고통스러움</td>
+          <td class="yes">예</td><td class="mid">고통스러움</td>
           <td>GGUF Q4 + block swap을 얹어야 겨우.<small>8GB에서는 실용성이 낮습니다.</small></td>
         </tr>
       </tbody>
     </table>
   </div>
-  <p class="sub" style="margin-top:20px;margin-bottom:0">
-    <b style="color:#E8EFF5">그래서 역할을 이렇게 나누는 게 맞습니다.</b><br>
-    결과물로 내보낼 본편은 <b style="color:#A78BFA">Pollo API</b>(이미 결제됨).
-    로컬 4070은 <b style="color:#3FD8C4">무제한 반복 실험 · LoRA 학습 · 이미지 생성 · 업스케일 · Whisper 자막 · 로컬 TTS</b>.
-    이쪽은 8GB로도 충분히 실용적이고, 오히려 크레딧을 아껴줍니다.
+  <p class="sub" style="margin-top:22px;margin-bottom:0;max-width:none">
+    <b style="color:#E8EFF5;font-size:15px">그래서 역할을 이렇게 나누는 게 맞습니다.</b><br>
+    본편으로 내보낼 결과물은 <span class="mk mk-p">Pollo API</span> (이미 결제됨).
+    로컬 4070은 <span class="c">무제한 반복 실험</span> · <span class="c">LoRA 학습</span> · <span class="g">이미지 생성</span> · <span class="g">업스케일</span> · <span class="y">Whisper 자막</span> · <span class="y">로컬 TTS</span>.
+    이쪽은 8GB로도 충분히 실용적이고, <span class="p">오히려 크레딧을 아껴줍니다.</span>
+  </p>
+</section>
+
+<!-- 신규: 양자화 -->
+<section>
+  <div class="shead"><span class="snum">04</span><h2>🧮 양자화하면 미니맥스가 되나?</h2></div>
+  <p class="sub">결론이 <span class="y">영상</span>과 <span class="c">LLM</span>에서 완전히 다릅니다. 영상 쪽은 양자화를 논할 단계 자체가 아닙니다.</p>
+
+  <div class="finding" style="border-color:rgba(255,77,94,.45);background:radial-gradient(420px 200px at 8% 0%,rgba(255,77,94,.12),transparent 70%),var(--surface);margin-bottom:20px">
+    <p style="margin:0;font-size:15.5px;color:var(--ink-dim)">
+      ⚠️ <span class="mk mk-r">미니맥스 영상(Hailuo)은 양자화가 불가능합니다</span><br>
+      <span style="display:inline-block;margin-top:10px">양자화는 <span class="c">가중치 파일을 압축</span>하는 기술입니다. 그런데 MiniMax는 영상 모델 가중치를 <span class="r">애초에 공개한 적이 없습니다.</span> 압축할 파일 자체가 손에 없습니다. 💸 <span class="y">돈을 얼마를 써도, 램을 얼마를 꽂아도 로컬에서는 불가능합니다.</span> 이건 하드웨어 문제가 아니라 라이선스 문제입니다.</span>
+    </p>
+  </div>
+
+  <div class="tbox">
+    <table>
+      <thead><tr><th>모델</th><th>원본</th><th>Q4 양자화 후</th><th>필요 메모리</th><th>내 4070 8GB</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="name">🎬 MiniMax 영상<br><small>Hailuo · video-01</small></td>
+          <td class="m"><span class="r">비공개</span></td><td class="m">—</td><td class="m">—</td>
+          <td class="nope">❌ 영구 불가<small>가중치가 없어 방법이 없음</small></td>
+        </tr>
+        <tr>
+          <td class="name">🧠 MiniMax-M2<br><small>230B MoE · 활성 10B</small></td>
+          <td class="m">약 460 GB</td><td class="m"><span class="y">약 115 GB</span></td>
+          <td class="m">RAM 128GB<br><small>GPU 아님, CPU 추론</small></td>
+          <td class="mid">🐌 램 사면 가능<small>활성 파라미터가 10B라 CPU로도 돌긴 함. 대신 매우 느림</small></td>
+        </tr>
+        <tr>
+          <td class="name">🧠 MiniMax-M1<br><small>456B MoE · 활성 46B</small></td>
+          <td class="m">약 900 GB</td><td class="m">약 230 GB</td>
+          <td class="m">RAM 256GB+<br><small>서버 보드 영역</small></td>
+          <td class="nope">❌ 사실상 불가</td>
+        </tr>
+        <tr>
+          <td class="name">🎥 HunyuanVideo 13B</td>
+          <td class="m">약 26 GB</td><td class="m"><span class="g">약 7 GB</span></td>
+          <td class="m">VRAM 8GB + block swap</td>
+          <td class="yes">⭕ 양자화하면 됨<small>GGUF Q4. 느리지만 실제로 돌아감</small></td>
+        </tr>
+        <tr>
+          <td class="name">🎥 Wan 2.2 14B</td>
+          <td class="m">약 28 GB</td><td class="m"><span class="g">약 8 GB</span></td>
+          <td class="m">VRAM 8GB 빠듯 / 12GB 편함</td>
+          <td class="mid">🔶 빠듯하게 됨<small>ComfyUI GGUF + block swap 필요</small></td>
+        </tr>
+        <tr>
+          <td class="name">🎥 Wan 2.1 1.3B</td>
+          <td class="m">약 3 GB</td><td class="m">약 1 GB</td>
+          <td class="m">VRAM 6GB</td>
+          <td class="yes">⭕ 양자화 없이도 됨</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="sub" style="margin-top:18px;margin-bottom:0">
+    💡 정리하면 — <span class="g">영상 모델은 양자화가 확실히 도움이 됩니다.</span> HunyuanVideo 13B가 8GB에 들어가는 건 순전히 GGUF Q4 덕분입니다.
+    반대로 <span class="r">미니맥스는 양자화로 해결되는 문제가 아닙니다.</span>
+  </p>
+</section>
+
+<!-- 신규: 비용 -->
+<section>
+  <div class="shead"><span class="snum">05</span><h2>💰 원화로 얼마를 더 쓰면 뭐가 되나</h2></div>
+  <p class="sub">⚠️ 아래 가격은 <span class="y">대략적인 시세 범위</span>입니다. 실제 구매 전에 다나와·중고나라에서 현재가를 꼭 확인하세요.</p>
+
+  <div class="tbox">
+    <table>
+      <thead><tr><th>지출</th><th>사는 것</th><th>그러면 되는 것</th><th>판단</th></tr></thead>
+      <tbody>
+        <tr style="background:rgba(180,255,57,.05)">
+          <td class="name"><span class="g">0원</span></td>
+          <td class="m">이미 있음<br><small>Pollo 크레딧 12,040</small></td>
+          <td>🏆 <span class="g">아레나 1위권 전부</span><small>Veo 3.1 · Sora 2 · Kling v3 · Seedance 2.5 · Hailuo 2.3 · Wan 3.0</small></td>
+          <td class="yes">✅ 여기부터<small>먼저 다 써보세요</small></td>
+        </tr>
+        <tr>
+          <td class="name"><span class="c">약 90~130만원</span></td>
+          <td class="m">RTX 3090 24GB<br><small>중고</small></td>
+          <td>🎥 로컬 영상 생성이 <span class="c">확 편해짐</span><small>Wan 14B, HunyuanVideo 양자화 없이. LoRA 학습도 가능</small></td>
+          <td class="yes">💎 가성비 1위<small>VRAM 24GB가 핵심</small></td>
+        </tr>
+        <tr>
+          <td class="name"><span class="y">약 50~80만원</span></td>
+          <td class="m">RAM 128GB<br><small>DDR5 키트</small></td>
+          <td>🐌 MiniMax-M2 Q4를 <span class="y">CPU로</span> 겨우<small>초당 몇 토큰 수준</small></td>
+          <td class="mid">🤔 비추천<small>느려서 실무에 못 씀</small></td>
+        </tr>
+        <tr>
+          <td class="name">약 350~450만원</td>
+          <td class="m">RTX 5090 32GB</td>
+          <td>🚀 로컬 영상 <span class="g">쾌적</span>, 대부분 양자화 불필요</td>
+          <td class="mid">💭 나중에<small>지금 우선순위 아님</small></td>
+        </tr>
+        <tr>
+          <td class="name">1,300만원~</td>
+          <td class="m">Mac Studio<br><small>512GB 통합메모리</small></td>
+          <td>🧠 대형 MoE LLM 로컬 실행</td>
+          <td class="nope">❌ 목적 불일치<small>영상 생성엔 오히려 느림</small></td>
+        </tr>
+        <tr style="background:rgba(255,77,94,.05)">
+          <td class="name"><span class="r">∞</span></td>
+          <td class="m">어떤 하드웨어든</td>
+          <td>🎬 <span class="r">MiniMax 영상 로컬 실행</span></td>
+          <td class="nope">❌ 불가능<small>돈 문제가 아님</small></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="sub" style="margin-top:20px;margin-bottom:0;max-width:none">
+    <span class="mk mk-y">지금은 0원짜리 칸부터 쓰는 게 맞습니다</span><br>
+    크레딧 <span class="p">12,040</span>이 남아 있고 구독이 <span class="y">2027년 8월</span>까지입니다.
+    이걸 다 쓰기 전에 하드웨어를 사면 <span class="r">같은 걸 두 번 사는 셈</span>입니다.
+    그래도 로컬이 필요해지는 순간이 오면 — 무제한 반복, LoRA 학습, 오프라인 소재 —
+    그때 <span class="c">RTX 3090 24GB 중고</span>가 가장 합리적인 첫 카드입니다. 🎯
+  </p>
+</section>
+
+<!-- 신규: 아레나 -->
+<section>
+  <div class="shead"><span class="snum">06</span><h2>🏆 아레나 1위권 영상 모델</h2></div>
+  <p class="sub">⚠️ 순위는 <span class="y">거의 매달 바뀝니다.</span> 구매나 결정 전에 <span class="c">artificialanalysis.ai</span> 의 Video Arena 에서 현재 순위를 직접 확인하세요. 아래는 큰 구도입니다.</p>
+
+  <div class="measure">
+    <div class="panel known" style="border-color:rgba(255,86,217,.4)">
+      <div class="ptop"><span class="ptitle">🔒 클로즈드 상위권</span><span class="pbadge ok" style="background:#B4FF39">이미 구독에 포함</span></div>
+      <div style="padding:16px">
+        <div class="modelgrid">
+          <span class="chip">🥇 Veo 3.1</span><span class="chip">🥇 Sora 2 Pro</span>
+          <span class="chip">🥈 Kling v3</span><span class="chip">🥈 Seedance 2.5</span>
+          <span class="chip">🥉 Hailuo 2.3</span><span class="chip">🥉 Runway Gen-4</span>
+        </div>
+        <p class="pnote" style="padding:14px 0 0">
+          상위권을 차지하는 모델들이 <span class="mk mk-g">전부 Pollo 구독 안에 있습니다</span>
+          <span style="display:block;margin-top:8px">즉 <span class="g">1위권을 쓰기 위해 추가로 살 게 없습니다.</span> 이미 접근 가능합니다. 🎉</span>
+        </p>
+      </div>
+    </div>
+
+    <div class="panel known">
+      <div class="ptop"><span class="ptitle">🔓 오픈웨이트 1위권</span><span class="pbadge ok">로컬 가능</span></div>
+      <div style="padding:16px">
+        <div class="modelgrid">
+          <span class="chip" style="background:rgba(43,245,228,.12);color:#7FF5EA;border-color:rgba(43,245,228,.3)">🥇 Wan 2.2 / 2.5 계열</span>
+          <span class="chip" style="background:rgba(43,245,228,.12);color:#7FF5EA;border-color:rgba(43,245,228,.3)">🥈 HunyuanVideo</span>
+          <span class="chip" style="background:rgba(43,245,228,.12);color:#7FF5EA;border-color:rgba(43,245,228,.3)">🥉 LTX-Video</span>
+          <span class="chip dim">FramePack</span><span class="chip dim">CogVideoX</span>
+        </div>
+        <p class="pnote" style="padding:14px 0 0">
+          <span class="c">Wan 계열</span>이 오픈웨이트에서 꾸준히 1위권입니다. 알리바바가 <span class="g">Apache 2.0</span>으로 풀어서 상업 이용도 자유롭습니다. 👍
+          <span style="display:block;margin-top:8px">다만 <span class="y">8GB에서 돌리는 Wan 1.3B</span>와 <span class="c">아레나 1위권인 Wan 14B / 2.5</span>는 <span class="r">완전히 다른 물건</span>입니다. 순위표의 그 Wan을 쓰려면 <span class="y">VRAM 24GB</span>가 필요합니다.</span>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <p class="sub" style="margin-top:20px;margin-bottom:0;max-width:none">
+    🧭 <b style="color:#E8EFF5">그래서 이렇게 됩니다.</b>
+    아레나 1위권 결과물이 필요하면 <span class="mk mk-p">Pollo로 지금 바로</span> — 추가 지출 0원.
+    로컬에서 1위권 오픈모델(Wan 14B)까지 돌리고 싶어지면 그때 <span class="c">3090 24GB</span>.
+    <span class="r">미니맥스 영상만은 어느 쪽으로도 로컬이 안 됩니다.</span>
   </p>
 </section>
 
 <!-- 4 -->
 <section>
-  <div class="shead"><span class="snum">04</span><h2>4070의 짐을 어디로 빼는가</h2></div>
-  <p class="sub">원안의 배치 자체는 좋습니다. 아래는 그 배치가 실제로 무엇을 바꾸는지입니다.</p>
+  <div class="shead"><span class="snum">07</span><h2>⚖️ 4070의 짐을 어디로 빼는가</h2></div>
+  <p class="sub">원안의 배치 자체는 좋습니다. 아래는 그 배치가 <span class="c">실제로 무엇을 바꾸는지</span>입니다.</p>
   <div class="loads">
     <div class="load">
       <h3>지금</h3>
       <div class="when">한 대가 전부 담당</div>
       <div class="bar">
-        <i style="width:26%;background:#3FD8C4"></i><i style="width:20%;background:#A78BFA"></i>
-        <i style="width:22%;background:#F2B544"></i><i style="width:18%;background:#FF7A6B"></i>
+        <i style="width:26%;background:#2BF5E4"></i><i style="width:20%;background:#FF56D9"></i>
+        <i style="width:22%;background:#FFE83D"></i><i style="width:18%;background:#FF4D5E"></i>
         <i style="width:14%;background:#7D91A0"></i>
       </div>
       <ul class="legend">
-        <li><span class="sw" style="background:#3FD8C4"></span>개발 · Obsidian<span class="pc">26%</span></li>
-        <li><span class="sw" style="background:#A78BFA"></span>AI · GPU 작업<span class="pc">20%</span></li>
-        <li><span class="sw" style="background:#F2B544"></span>Hermes · n8n · Docker<span class="pc">22%</span></li>
-        <li><span class="sw" style="background:#FF7A6B"></span>TTS · FFmpeg · 인코딩<span class="pc">18%</span></li>
+        <li><span class="sw" style="background:#2BF5E4"></span>개발 · Obsidian<span class="pc">26%</span></li>
+        <li><span class="sw" style="background:#FF56D9"></span>AI · GPU 작업<span class="pc">20%</span></li>
+        <li><span class="sw" style="background:#FFE83D"></span>Hermes · n8n · Docker<span class="pc">22%</span></li>
+        <li><span class="sw" style="background:#FF4D5E"></span>TTS · FFmpeg · 인코딩<span class="pc">18%</span></li>
         <li><span class="sw" style="background:#7D91A0"></span>저장 · 백업<span class="pc">14%</span></li>
       </ul>
     </div>
@@ -387,26 +551,26 @@ footer b{color:var(--ink-dim);font-weight:500}
       <h3>보조 3대 투입 후</h3>
       <div class="when">1차 · 오늘~이번 주</div>
       <div class="bar">
-        <i style="width:46%;background:#3FD8C4"></i><i style="width:34%;background:#A78BFA"></i>
-        <i style="width:20%;background:#1A242E"></i>
+        <i style="width:46%;background:#2BF5E4"></i><i style="width:34%;background:#FF56D9"></i>
+        <i style="width:20%;background:#B4FF39"></i>
       </div>
       <ul class="legend">
-        <li><span class="sw" style="background:#3FD8C4"></span>개발 · Obsidian<span class="pc">46%</span></li>
-        <li><span class="sw" style="background:#A78BFA"></span>AI · GPU 작업<span class="pc">34%</span></li>
-        <li><span class="sw" style="background:#1A242E;border:1px solid #26333F"></span>여유<span class="pc">20%</span></li>
+        <li><span class="sw" style="background:#2BF5E4"></span>개발 · Obsidian<span class="pc">46%</span></li>
+        <li><span class="sw" style="background:#FF56D9"></span>AI · GPU 작업<span class="pc">34%</span></li>
+        <li><span class="sw" style="background:#B4FF39"></span>여유<span class="pc">20%</span></li>
       </ul>
     </div>
     <div class="load">
       <h3>AMD 합류 후</h3>
       <div class="when">최종 · YH-HUB</div>
       <div class="bar">
-        <i style="width:40%;background:#3FD8C4"></i><i style="width:42%;background:#A78BFA"></i>
-        <i style="width:18%;background:#1A242E"></i>
+        <i style="width:40%;background:#2BF5E4"></i><i style="width:42%;background:#FF56D9"></i>
+        <i style="width:18%;background:#B4FF39"></i>
       </div>
       <ul class="legend">
-        <li><span class="sw" style="background:#3FD8C4"></span>개발 · 지휘<span class="pc">40%</span></li>
-        <li><span class="sw" style="background:#A78BFA"></span>GPU 전담<span class="pc">42%</span></li>
-        <li><span class="sw" style="background:#1A242E;border:1px solid #26333F"></span>여유<span class="pc">18%</span></li>
+        <li><span class="sw" style="background:#2BF5E4"></span>개발 · 지휘<span class="pc">40%</span></li>
+        <li><span class="sw" style="background:#FF56D9"></span>GPU 전담<span class="pc">42%</span></li>
+        <li><span class="sw" style="background:#B4FF39"></span>여유<span class="pc">18%</span></li>
       </ul>
     </div>
   </div>
@@ -415,11 +579,11 @@ footer b{color:var(--ink-dim);font-weight:500}
     <table>
       <thead><tr><th>별명</th><th>장비</th><th>담당</th><th>24시간</th><th>배정 전 확인</th></tr></thead>
       <tbody>
-        <tr><td class="name" style="color:#3FD8C4">YH-CTRL-GPU</td><td class="m">i9 · RTX4070 8GB · 32GB</td><td>개발, Obsidian, Codex/Claude, GPU 작업</td><td class="no">아니오</td><td class="m">—</td></tr>
-        <tr><td class="name" style="color:#A78BFA">YH-AUTO</td><td class="m">i3-10100F · 16GB</td><td>Hermes, n8n, Docker, cron</td><td class="yes">후보</td><td class="m">SSD 여부 · 에디션</td></tr>
-        <tr><td class="name" style="color:#F2B544">YH-FINISH</td><td class="m">GTX1650 4GB · 16GB</td><td>TTS, FFmpeg, 자막, 인코딩</td><td class="maybe">필요 시</td><td class="m" style="color:#FF7A6B">NVENC 유무 ← 필수</td></tr>
-        <tr><td class="name" style="color:#7D91A0">YH-STORE</td><td class="m">i7-6700 · 16GB</td><td>저장, 백업, 아카이브</td><td class="yes">후보</td><td class="m">디스크 용량 · 전력</td></tr>
-        <tr><td class="name" style="color:#63D68C">YH-HUB</td><td class="m">AMD (도착 예정)</td><td>AUTO + STORE 통합</td><td class="yes">최종</td><td class="m">RAM 16 → 32 가격</td></tr>
+        <tr><td class="name"><span class="c">YH-CTRL-GPU</span></td><td class="m">i9 · RTX4070 8GB · 32GB</td><td>개발, Obsidian, Codex/Claude, GPU 작업</td><td class="nope">아니오</td><td class="m">—</td></tr>
+        <tr><td class="name"><span class="p">YH-AUTO</span></td><td class="m">i3-10100F · 16GB</td><td>Hermes, n8n, Docker, cron</td><td class="yes">후보</td><td class="m">SSD 여부 · 에디션</td></tr>
+        <tr><td class="name"><span class="y">YH-FINISH</span></td><td class="m">GTX1650 4GB · 16GB</td><td>TTS, FFmpeg, 자막, 인코딩</td><td class="mid">필요 시</td><td class="m"><span class="r">NVENC 유무 ← 필수</span></td></tr>
+        <tr><td class="name"><span style="color:#7D91A0;font-weight:800">YH-STORE</span></td><td class="m">i7-6700 · 16GB</td><td>저장, 백업, 아카이브</td><td class="yes">후보</td><td class="m">디스크 용량 · 전력</td></tr>
+        <tr><td class="name"><span class="g">YH-HUB</span></td><td class="m">AMD (도착 예정)</td><td>AUTO + STORE 통합</td><td class="yes">최종</td><td class="m">RAM 16 → 32 가격</td></tr>
       </tbody>
     </table>
   </div>
@@ -427,94 +591,94 @@ footer b{color:var(--ink-dim);font-weight:500}
 
 <!-- 5 -->
 <section>
-  <div class="shead"><span class="snum">05</span><h2>고칠 것 아홉 가지</h2></div>
-  <p class="sub">앞의 계획에서 실제로 사고가 나거나 시간을 버리게 되는 지점만 골랐습니다.</p>
+  <div class="shead"><span class="snum">08</span><h2>🔴 고칠 것 아홉 가지</h2></div>
+  <p class="sub">앞의 계획에서 <span class="r">실제로 사고가 나거나</span> <span class="y">시간을 버리게 되는</span> 지점만 골랐습니다.</p>
 
   <div class="fixes">
 
     <div class="fix">
-      <div class="fix-h"><span class="dots">🔴🔴🔴</span><span class="code">C1</span><h3>400GB를 옮기기 전에, 먼저 지워야 합니다</h3></div>
-      <p>구글드라이브 이전이 1순위가 아닙니다. 캐시부터 비우면 통상 <b style="color:#E8EFF5">100~200GB가 옮길 필요 없이 사라집니다.</b> 특히 WSL·Docker의 <code>.vhdx</code>는 안에서 파일을 지워도 파일 크기가 안 줄어듭니다 — 별도로 축소해야 합니다.</p>
+      <div class="fix-h"><span class="dots">🔴🔴🔴</span><span class="code">C1</span><h3>400GB를 옮기기 전에, <span class="y">먼저 지워야</span> 합니다</h3></div>
+      <p>구글드라이브 이전이 1순위가 아닙니다. 캐시부터 비우면 통상 <span class="mk mk-y">100~200GB가 옮길 필요 없이 사라집니다</span> 특히 WSL·Docker의 <code>.vhdx</code>는 <span class="r">안에서 파일을 지워도 파일 크기가 안 줄어듭니다</span> — 별도로 축소해야 합니다.</p>
       <div class="wrong-right">
         <div class="wr x"><span class="lab">원안 순서</span>D: 정리 → 구글드라이브 업로드 → 나중에 캐시 정리</div>
-        <div class="wr o"><span class="lab">바꾼 순서</span>캐시 삭제 → vhdx 축소 → <b>남은 용량 재측정</b> → 그래도 부족하면 그때 업로드</div>
+        <div class="wr o"><span class="lab">바꾼 순서</span>캐시 삭제 → vhdx 축소 → <span class="g">남은 용량 재측정</span> → 그래도 부족하면 그때 업로드</div>
       </div>
-      <pre><span class="c"># 조회만 (아무것도 안 지움)</span>
+      <pre><span class="cm"># 조회만 (아무것도 안 지움)</span>
 .\02_YH_DISK_RECLAIM.ps1
-<span class="c"># 실제 삭제</span>
-.\02_YH_DISK_RECLAIM.ps1 <span class="k">-Apply</span></pre>
+<span class="cm"># 실제 삭제</span>
+.\02_YH_DISK_RECLAIM.ps1 <span class="w">-Apply</span></pre>
     </div>
 
     <div class="fix">
-      <div class="fix-h"><span class="dots">🔴🔴🔴</span><span class="code">C2</span><h3>구글 드라이브 데스크톱(스트리밍)은 쓰지 마세요</h3></div>
-      <p>모델 가중치와 ComfyUI 용도에 최악입니다. 로컬 캐시가 C:를 다시 채워서 용량을 비운 의미가 사라지고, 랜덤 읽기가 느려 LTX 시작할 때마다 기다리게 됩니다. <b style="color:#E8EFF5">rclone</b>으로 진짜 업로드하고 해시로 검증하세요.</p>
+      <div class="fix-h"><span class="dots">🔴🔴🔴</span><span class="code">C2</span><h3>구글 드라이브 <span class="r">데스크톱(스트리밍)</span>은 쓰지 마세요</h3></div>
+      <p>모델 가중치와 ComfyUI 용도에 최악입니다. <span class="r">로컬 캐시가 C:를 다시 채워서</span> 용량 비운 의미가 사라지고, 랜덤 읽기가 느려 LTX 시작할 때마다 기다리게 됩니다. <span class="mk mk-c">rclone</span> 으로 진짜 업로드하고 <span class="c">해시로 검증</span>하세요.</p>
       <div class="wrong-right">
         <div class="wr x"><span class="lab">보내면 안 되는 것</span>활성 git 저장소 · ComfyUI/LTX 모델 · Obsidian Vault 원본 · Docker 볼륨</div>
         <div class="wr o"><span class="lab">보내도 되는 것</span>archive · backup · 완료된 outputs · 참고자료 · 다운받은 영상 원본</div>
       </div>
-      <pre><span class="c"># 복사 → 검증 → 검증 통과해야만 원본 삭제</span>
+      <pre><span class="cm"># 복사 → 검증 → 검증 통과해야만 원본 삭제</span>
 .\04_YH_GDRIVE_ARCHIVE.ps1 -Source <span class="k">"D:\AI_DATA\archive"</span> -Dest <span class="k">"YH_ARCHIVE/archive"</span>
-.\04_YH_GDRIVE_ARCHIVE.ps1 -Source ... -Dest ... <span class="k">-Verify</span>
-.\04_YH_GDRIVE_ARCHIVE.ps1 -Source ... -Dest ... <span class="k">-DeleteSourceAfterVerify</span>
-<span class="c"># rclone sync 는 절대 쓰지 마세요 — 대상 파일을 지웁니다. copy 만.</span></pre>
+.\04_YH_GDRIVE_ARCHIVE.ps1 -Source ... <span class="w">-Verify</span>
+.\04_YH_GDRIVE_ARCHIVE.ps1 -Source ... <span class="w">-DeleteSourceAfterVerify</span>
+<span class="cm"># rclone sync 는 절대 금지 — 대상 파일을 지웁니다. copy 만.</span></pre>
     </div>
 
     <div class="fix">
-      <div class="fix-h"><span class="dots">🔴🔴🔴</span><span class="code">C3</span><h3>Tailscale은 이사용이 아니라 상시 운영용입니다</h3></div>
-      <p>"Tailscale 쓰면 옮기기 더 쉬운가?" — <b style="color:#E8EFF5">대량 이전에는 오히려 느립니다.</b> WireGuard 암복호화가 끼고, 직결에 실패하면 DERP 릴레이를 타면서 속도가 크게 떨어집니다. 같은 공유기에 물린 두 PC 사이라면 그냥 LAN이 빠릅니다.</p>
+      <div class="fix-h"><span class="dots">🔴🔴🔴</span><span class="code">C3</span><h3>Tailscale은 <span class="y">이사용이 아니라</span> <span class="g">상시 운영용</span>입니다</h3></div>
+      <p>"Tailscale 쓰면 옮기기 더 쉬운가?" — <span class="mk mk-r">대량 이전에는 오히려 느립니다</span> WireGuard 암복호화가 끼고, 직결에 실패하면 <span class="r">DERP 릴레이</span>를 타면서 속도가 크게 떨어집니다. 같은 공유기에 물린 두 PC 사이라면 <span class="g">그냥 LAN이 빠릅니다.</span></p>
       <div class="wrong-right">
-        <div class="wr x"><span class="lab">400GB 일괄 이전</span>Tailscale ✗ → 기가비트 LAN + robocopy / SMB</div>
-        <div class="wr o"><span class="lab">평상시 원격 조종</span>Tailscale ✓ → 포트포워딩 없이 SSH·RDP 안전 연결</div>
+        <div class="wr x"><span class="lab">400GB 일괄 이전</span>Tailscale <span class="r">✗</span> → 기가비트 LAN + robocopy / SMB</div>
+        <div class="wr o"><span class="lab">평상시 원격 조종</span>Tailscale <span class="g">✓</span> → 포트포워딩 없이 SSH·RDP 안전 연결</div>
       </div>
-      <pre>robocopy <span class="k">"D:\AI_DATA\archive"</span> <span class="k">"\\YH-STORE\d$\AI_DATA\archive"</span> /E /Z /MT:16 /R:2 /W:5</pre>
+      <pre>robocopy <span class="k">"D:\AI_DATA\archive"</span> <span class="k">"\\YH-STORE\d$\AI_DATA\archive"</span> <span class="w">/E /Z /MT:16</span> /R:2 /W:5</pre>
     </div>
 
     <div class="fix">
-      <div class="fix-h"><span class="dots">🔴🔴🔴</span><span class="code">C4</span><h3>ffmpeg와 hyperframe은 "같이 쓰는" 대상이 아닙니다</h3></div>
-      <p><code>hyperframe</code>은 HTTP/2 라이브러리(h2·httpx의 의존성)로 <b style="color:#E8EFF5">수십 KB짜리 pip 패키지</b>입니다. <code>ffmpeg</code>도 100MB 남짓한 단일 실행파일이고요. 네트워크로 공유할 크기도, 종류도 아닙니다. 그냥 각 PC에 설치하면 끝입니다.</p>
+      <div class="fix-h"><span class="dots">🔴🔴🔴</span><span class="code">C4</span><h3>ffmpeg와 hyperframe은 <span class="y">"같이 쓰는" 대상이 아닙니다</span></h3></div>
+      <p><code>hyperframe</code>은 HTTP/2 라이브러리(h2·httpx의 의존성)로 <span class="mk mk-y">수십 KB짜리 pip 패키지</span>입니다. <code>ffmpeg</code>도 100MB 남짓한 단일 실행파일이고요. <span class="r">네트워크로 공유할 크기도, 종류도 아닙니다.</span> 그냥 각 PC에 설치하면 끝입니다.</p>
       <div class="wrong-right">
         <div class="wr x"><span class="lab">하려던 것</span>400만원 PC의 ffmpeg·파이썬 패키지를 다른 PC에서 네트워크로 참조</div>
         <div class="wr o"><span class="lab">해야 할 것</span><code>pip freeze &gt; requirements.txt</code> 로 재현 · <code>winget install Gyan.FFmpeg</code> 로 각자 설치</div>
       </div>
-      <p style="margin-top:12px">진짜로 다른 PC의 <b>성능</b>이 필요한 거라면 파일 공유가 아니라 <b style="color:#3FD8C4">SSH 원격 실행</b>이 답입니다. 공유할 가치가 있는 건 모델 가중치와 미디어 파일뿐이고, 그마저도 자주 쓰는 모델은 각 PC 로컬 NVMe에 복제해 둬야 합니다.</p>
+      <p style="margin-top:12px">진짜로 다른 PC의 <span class="c">성능</span>이 필요한 거라면 파일 공유가 아니라 <span class="mk mk-c">SSH 원격 실행</span> 이 답입니다. 공유할 가치가 있는 건 <span class="g">모델 가중치와 미디어 파일</span>뿐이고, 그마저도 자주 쓰는 모델은 각 PC 로컬 NVMe에 복제해 둬야 합니다.</p>
       <pre>ssh YH-FINISH <span class="k">"ffmpeg -i D:\in.mp4 -c:v hevc_nvenc D:\out.mp4"</span></pre>
     </div>
 
     <div class="fix">
-      <div class="fix-h"><span class="dots">🔴🔴🔴</span><span class="code">C5</span><h3>GTX 1650에 인코딩을 맡기기 전에 재보세요</h3></div>
-      <p>GTX 1650은 리비전에 따라 NVENC 세대가 다르고, <b style="color:#E8EFF5">일부 초기 TU117 모델은 NVENC 자체가 없습니다.</b> 게다가 i9의 CPU 인코딩(libx264)이 1650 NVENC보다 화질·용량 효율이 좋은 경우가 흔합니다. "약한 PC에 인코딩"은 자동으로 옳은 배치가 아닙니다.</p>
-      <pre>ffmpeg -hide_banner -encoders | findstr nvenc
-<span class="c"># 아무것도 안 나오면 YH-FINISH 는 인코딩 담당이 될 수 없습니다.</span></pre>
+      <div class="fix-h"><span class="dots">🔴🔴🔴</span><span class="code">C5</span><h3>GTX 1650에 인코딩 맡기기 전에 <span class="y">재보세요</span></h3></div>
+      <p>GTX 1650은 리비전에 따라 NVENC 세대가 다르고, <span class="mk mk-r">일부 초기 TU117 모델은 NVENC 자체가 없습니다</span> 게다가 <span class="c">i9의 CPU 인코딩(libx264)</span>이 1650 NVENC보다 화질·용량 효율이 좋은 경우가 흔합니다. <span class="y">"약한 PC에 인코딩"은 자동으로 옳은 배치가 아닙니다.</span></p>
+      <pre>ffmpeg -hide_banner -encoders | findstr <span class="w">nvenc</span>
+<span class="cm"># 아무것도 안 나오면 YH-FINISH 는 인코딩 담당이 될 수 없습니다.</span></pre>
     </div>
 
     <div class="fix">
-      <div class="fix-h"><span class="dots">🔴🔴🔴</span><span class="code">C6</span><h3>Hermes Agent 명령어들은 확인이 안 됐습니다</h3></div>
-      <p><code>hermes gateway install</code>, Windows 네이티브 지원, <code>hermes backup</code> — 인용된 GitHub 링크로는 확인되지 않았습니다. <b style="color:#E8EFF5">이 위에 4대 아키텍처 전체를 얹기 전에</b> 실제 저장소와 문서에서 명령어가 존재하는지 먼저 확인하세요. 없으면 Docker 컨테이너로 돌리는 쪽이 안전합니다.</p>
+      <div class="fix-h"><span class="dots">🔴🔴🔴</span><span class="code">C6</span><h3>Hermes Agent 명령어들은 <span class="y">확인이 안 됐습니다</span></h3></div>
+      <p><code>hermes gateway install</code>, Windows 네이티브 지원, <code>hermes backup</code> — <span class="r">인용된 GitHub 링크로는 확인되지 않았습니다.</span> <span class="mk mk-y">이 위에 4대 아키텍처 전체를 얹기 전에</span> 실제 저장소와 문서에서 명령어가 존재하는지 먼저 확인하세요. 없으면 <span class="g">Docker 컨테이너로 돌리는 쪽</span>이 안전합니다.</p>
     </div>
 
     <div class="fix">
-      <div class="fix-h"><span class="dots">🔴🔴🔴</span><span class="code">C7</span><h3>원격 스택을 첫날 세 개 다 깔 필요 없습니다</h3></div>
+      <div class="fix-h"><span class="dots">🔴🔴🔴</span><span class="code">C7</span><h3>원격 스택을 <span class="y">첫날 세 개 다 깔 필요 없습니다</span></h3></div>
       <p>Windows 에디션에 따라 필요한 게 다릅니다. audit 결과를 보고 정하면 됩니다.</p>
       <div class="wrong-right">
-        <div class="wr o"><span class="lab">PRO / ENTERPRISE</span>Tailscale + 내장 RDP + SSH. <b>RustDesk 불필요</b> — 내장 RDP가 더 빠릅니다</div>
-        <div class="wr x"><span class="lab">HOME</span>RDP 호스트가 없음 → RustDesk 필요. 영구 비밀번호는 AI/채팅에 붙여넣지 마세요</div>
+        <div class="wr o"><span class="lab">PRO / ENTERPRISE</span>Tailscale + 내장 RDP + SSH. <span class="g">RustDesk 불필요</span> — 내장 RDP가 더 빠릅니다</div>
+        <div class="wr x"><span class="lab">HOME</span>RDP 호스트 없음 → RustDesk 필요. <span class="r">영구 비밀번호는 AI·채팅에 붙여넣지 마세요</span></div>
       </div>
     </div>
 
     <div class="fix">
-      <div class="fix-h"><span class="dots">🔴🔴🔴</span><span class="code">C8</span><h3>SSH·RDP 방화벽은 전체 개방이 아니라 Tailscale 대역만</h3></div>
-      <p>원안의 "Windows Firewall SSH rule"은 범위가 없습니다. 22번 포트를 그냥 열면 공유기 설정에 따라 인터넷에 노출될 수 있습니다. Tailscale 대역으로 잠그면 <b style="color:#E8EFF5">Tailscale에 로그인한 내 기기에서만</b> 접속됩니다.</p>
+      <div class="fix-h"><span class="dots">🔴🔴🔴</span><span class="code">C8</span><h3>방화벽은 전체 개방이 아니라 <span class="c">Tailscale 대역만</span></h3></div>
+      <p>원안의 "Windows Firewall SSH rule"은 <span class="r">범위가 없습니다.</span> 22번 포트를 그냥 열면 공유기 설정에 따라 인터넷에 노출될 수 있습니다. Tailscale 대역으로 잠그면 <span class="mk mk-c">Tailscale에 로그인한 내 기기에서만</span> 접속됩니다.</p>
       <pre>New-NetFirewallRule -DisplayName <span class="k">"YH SSH (Tailscale only)"</span> `
   -Direction Inbound -Protocol TCP -LocalPort 22 -Action Allow `
-  -RemoteAddress <span class="k">"100.64.0.0/10"</span></pre>
+  -RemoteAddress <span class="w">"100.64.0.0/10"</span></pre>
     </div>
 
     <div class="fix">
-      <div class="fix-h"><span class="dots">🔴🔴🔴</span><span class="code">C9</span><h3>관리자 계정은 authorized_keys가 무시됩니다</h3></div>
-      <p>Windows OpenSSH의 함정입니다. 관리자 그룹 계정이면 <code>~/.ssh/authorized_keys</code>를 아무리 잘 넣어도 키 인증이 안 됩니다. 여기서 반나절 날리는 사람이 많습니다.</p>
-      <pre><span class="c"># 관리자 계정은 이 경로에 넣어야 합니다</span>
-C:\ProgramData\ssh\administrators_authorized_keys
-<span class="c"># 권한도 Administrators / SYSTEM 만 남기고 상속 제거해야 동작합니다</span></pre>
+      <div class="fix-h"><span class="dots">🔴🔴🔴</span><span class="code">C9</span><h3>관리자 계정은 <span class="r">authorized_keys가 무시됩니다</span></h3></div>
+      <p>Windows OpenSSH의 함정입니다. 관리자 그룹 계정이면 <code>~/.ssh/authorized_keys</code>를 아무리 잘 넣어도 키 인증이 안 됩니다. <span class="y">여기서 반나절 날리는 사람이 많습니다.</span></p>
+      <pre><span class="cm"># 관리자 계정은 이 경로에 넣어야 합니다</span>
+<span class="w">C:\ProgramData\ssh\administrators_authorized_keys</span>
+<span class="cm"># 권한도 Administrators / SYSTEM 만 남기고 상속 제거해야 동작합니다</span></pre>
     </div>
 
   </div>
@@ -522,62 +686,62 @@ C:\ProgramData\ssh\administrators_authorized_keys
 
 <!-- 6 -->
 <section>
-  <div class="shead"><span class="snum">06</span><h2>그대로 두는 게 맞는 것</h2></div>
-  <p class="sub">원안에서 잘 잡힌 판단들입니다. 바꾸지 마세요.</p>
+  <div class="shead"><span class="snum">09</span><h2>✅ 그대로 두는 게 맞는 것</h2></div>
+  <p class="sub">원안에서 <span class="g">잘 잡힌 판단</span>들입니다. 바꾸지 마세요.</p>
   <div class="fixes">
     <div class="fix keep">
-      <div class="fix-h"><span class="dots">✅✅✅</span><span class="code">유지</span><h3>오늘 D: 삭제 · 포맷 · Ubuntu unregister 전부 금지</h3></div>
-      <p>D: 볼륨 레이블이 "UBUNTU 24_0"인 것과 WSL 배포판이 별개라는 지적, 정확합니다. 화면만 보고 지우면 복구가 안 됩니다. 그리고 <b style="color:#E8EFF5">COPY → 검증 → 그다음 원본 정리</b> 순서를 못 박은 것도 맞습니다. MOVE를 먼저 하면 동기화 사고 때 원본이 같이 날아갑니다.</p>
+      <div class="fix-h"><span class="dots">✅✅✅</span><span class="code">유지</span><h3>오늘 D: 삭제 · 포맷 · Ubuntu unregister <span class="g">전부 금지</span></h3></div>
+      <p>D: 볼륨 레이블이 "UBUNTU 24_0"인 것과 WSL 배포판이 <span class="c">별개</span>라는 지적, 정확합니다. 화면만 보고 지우면 복구가 안 됩니다. 그리고 <span class="mk mk-g">COPY → 검증 → 그다음 원본 정리</span> 순서를 못 박은 것도 맞습니다. MOVE를 먼저 하면 동기화 사고 때 원본이 같이 날아갑니다.</p>
     </div>
     <div class="fix keep">
-      <div class="fix-h"><span class="dots">✅✅✅</span><span class="code">유지</span><h3>Obsidian Vault는 4070에 원본 하나로</h3></div>
-      <p>Vault를 네트워크 드라이브에 올리거나 여러 PC가 동시 편집하면 인덱스와 그래프 링크가 꼬입니다. 원본은 4070, 나머지는 미러 — 이 구조가 맞습니다. 활성 프로젝트를 느린 PC로 안 보내는 판단도 마찬가지고요.</p>
+      <div class="fix-h"><span class="dots">✅✅✅</span><span class="code">유지</span><h3>Obsidian Vault는 4070에 <span class="g">원본 하나로</span></h3></div>
+      <p>Vault를 네트워크 드라이브에 올리거나 여러 PC가 동시 편집하면 <span class="r">인덱스와 그래프 링크가 꼬입니다.</span> 원본은 4070, 나머지는 미러 — 이 구조가 맞습니다. <span class="c">활성 프로젝트를 느린 PC로 안 보내는</span> 판단도 마찬가지고요.</p>
     </div>
     <div class="fix keep">
-      <div class="fix-h"><span class="dots">✅✅✅</span><span class="code">유지</span><h3>읽기 전용 점검을 먼저, 그 숫자로 역할 확정</h3></div>
-      <p>"i3와 i7 중 SSD 상태·용량·전력을 오늘 검사해보고 역할을 서로 바꿀 수 있다"는 대목이 이 계획에서 가장 좋은 부분입니다. 추측으로 배치하지 않겠다는 태도. Hermes 이전을 <b style="color:#E8EFF5">백업 → 신규 설치 → 검증 → 구 인스턴스 정지</b> 순으로 잡은 것도 정확합니다.</p>
+      <div class="fix-h"><span class="dots">✅✅✅</span><span class="code">유지</span><h3>읽기 전용 점검을 먼저, <span class="g">그 숫자로 역할 확정</span></h3></div>
+      <p>"i3와 i7 중 SSD 상태·용량·전력을 오늘 검사해보고 역할을 서로 바꿀 수 있다"는 대목이 <span class="y">이 계획에서 가장 좋은 부분</span>입니다. 추측으로 배치하지 않겠다는 태도. Hermes 이전을 <span class="mk mk-g">백업 → 신규 설치 → 검증 → 구 인스턴스 정지</span> 순으로 잡은 것도 정확합니다.</p>
     </div>
   </div>
 </section>
 
 <!-- 7 -->
 <section>
-  <div class="shead"><span class="snum">07</span><h2>용량 정리, 실제 순서</h2></div>
-  <p class="sub">왼쪽부터 오른쪽으로. 3번에서 이미 충분해지면 4번 이후는 안 해도 됩니다.</p>
+  <div class="shead"><span class="snum">10</span><h2>🗂️ 용량 정리, 실제 순서</h2></div>
+  <p class="sub">왼쪽부터 오른쪽으로. <span class="g">3번</span>에서 이미 충분해지면 <span class="y">4번 이후는 안 해도 됩니다.</span></p>
   <div class="flow">
-    <div class="step hi"><div class="o">01</div><h4>캐시 삭제</h4><p>pip · npm · torch · Temp · Windows Update. 전부 재생성되는 것들</p></div>
-    <div class="step hi"><div class="o">02</div><h4>vhdx 축소</h4><p>WSL·Docker 가상디스크. 파일 지워도 안 줄어들어서 따로 compact 필요</p></div>
-    <div class="step hi"><div class="o">03</div><h4>재측정</h4><p>여기서 목표 달성이면 <b style="color:#3FD8C4">끝</b>. 이사 자체가 불필요해집니다</p></div>
-    <div class="step"><div class="o">04</div><h4>LAN 이전</h4><p>보조 PC로 아카이브 이동. robocopy /MT:16</p></div>
-    <div class="step"><div class="o">05</div><h4>구글드라이브</h4><p>rclone copy. 장기 보관용만</p></div>
-    <div class="step danger"><div class="o">06</div><h4>검증</h4><p><code>rclone check</code> 통과 전에는 원본에 손대지 않음</p></div>
-    <div class="step danger"><div class="o">07</div><h4>원본 삭제</h4><p>검증 통과 후에만. 이 단계가 마지막인 이유</p></div>
+    <div class="step hi"><div class="o2">01</div><h4>캐시 삭제</h4><p>pip · npm · torch · Temp · Windows Update. 전부 재생성되는 것들</p></div>
+    <div class="step hi"><div class="o2">02</div><h4>vhdx 축소</h4><p>WSL·Docker 가상디스크. 파일 지워도 안 줄어들어 따로 compact 필요</p></div>
+    <div class="step hi"><div class="o2">03</div><h4>재측정</h4><p>여기서 목표 달성이면 <span class="g">끝.</span> 이사 자체가 불필요해집니다</p></div>
+    <div class="step"><div class="o2">04</div><h4>LAN 이전</h4><p>보조 PC로 아카이브 이동. robocopy /MT:16</p></div>
+    <div class="step"><div class="o2">05</div><h4>구글드라이브</h4><p>rclone copy. 장기 보관용만</p></div>
+    <div class="step danger"><div class="o2">06</div><h4>검증</h4><p><code>rclone check</code> 통과 전에는 원본에 손대지 않음</p></div>
+    <div class="step danger"><div class="o2">07</div><h4>원본 삭제</h4><p>검증 통과 후에만. 이 단계가 <span class="r">마지막인 이유</span></p></div>
   </div>
 </section>
 
 <!-- 8 -->
 <section>
-  <div class="shead"><span class="snum">08</span><h2>오늘 하는 건 세 가지뿐입니다</h2></div>
-  <p class="sub">파괴적인 작업은 하나도 없습니다. 전부 조회이거나 되돌릴 수 있는 설치입니다.</p>
+  <div class="shead"><span class="snum">11</span><h2>📋 오늘 하는 건 세 가지뿐입니다</h2></div>
+  <p class="sub"><span class="g">파괴적인 작업은 하나도 없습니다.</span> 전부 조회이거나 되돌릴 수 있는 설치입니다.</p>
   <div class="today">
     <div class="task">
-      <div class="r">4대 전부 · 각 5분</div>
+      <div class="rr">4대 전부 · 각 5분</div>
       <h4>사양 점검</h4>
-      <p>아무것도 삭제·변경하지 않습니다. 바탕화면에 결과 폴더가 생깁니다.</p>
+      <p><span class="g">아무것도 삭제·변경하지 않습니다.</span> 바탕화면에 결과 폴더가 생깁니다.</p>
       <pre>powershell -ExecutionPolicy Bypass `
-  -File .\01_YH_AUDIT.ps1</pre>
+  -File .\<span class="w">01_YH_AUDIT.ps1</span></pre>
     </div>
     <div class="task">
-      <div class="r">메인 PC · 조회만</div>
+      <div class="rr">메인 PC · 조회만</div>
       <h4>회수 가능 용량 확인</h4>
-      <p>지울 수 있는 캐시가 몇 GB인지 숫자로 나옵니다. <code>-Apply</code> 없이는 안 지웁니다.</p>
+      <p>지울 수 있는 캐시가 몇 GB인지 숫자로 나옵니다. <code>-Apply</code> 없이는 <span class="g">안 지웁니다.</span></p>
       <pre>powershell -ExecutionPolicy Bypass `
-  -File .\02_YH_DISK_RECLAIM.ps1</pre>
+  -File .\<span class="w">02_YH_DISK_RECLAIM.ps1</span></pre>
     </div>
     <div class="task">
-      <div class="r">폴더 복사</div>
+      <div class="rr">폴더 복사</div>
       <h4>결과 한곳에 모으기</h4>
-      <p>4개 <code>YH_AUDIT_*</code> 폴더를 메인 PC 한 폴더에 모아주세요. 그러면 어느 PC가 AUTO고 STORE인지 추측 없이 정할 수 있습니다.</p>
+      <p>4개 <code>YH_AUDIT_*</code> 폴더를 메인 PC 한 폴더에 모아주세요. 그러면 어느 PC가 AUTO고 STORE인지 <span class="c">추측 없이</span> 정할 수 있습니다.</p>
     </div>
   </div>
 </section>
@@ -585,7 +749,7 @@ C:\ProgramData\ssh\administrators_authorized_keys
 <!-- 9 -->
 <section>
   <div class="never">
-    <h3>끝날 때까지 하지 않는 것</h3>
+    <h3>🚫 끝날 때까지 하지 않는 것</h3>
     <ul>
       <li>D: 삭제 · 포맷 · 파티션 변경</li>
       <li>wsl --unregister</li>
