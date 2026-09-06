@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>실크로드편 체인 프리뷰</title>
+<style>
+:root{
+  --bg:#12171a; --panel:#1a2126; --line:#2b363d;
+  --ink:#e8e2d6; --dim:#8fa0a6; --warm:#c89a5b; --cool:#5b767b;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font:15px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans KR",sans-serif}
+.wrap{max-width:1200px;margin:0 auto;padding:32px 20px 80px}
+h1{font-size:26px;margin:0 0 4px;letter-spacing:-.02em}
+.sub{color:var(--dim);margin:0 0 28px;font-size:14px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:20px;margin-bottom:24px}
+h2{font-size:17px;margin:0 0 14px;color:var(--warm);letter-spacing:-.01em}
+video{width:100%;background:#000;border-radius:6px;display:block}
+.player{position:relative}
+.hud{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:12px;font-size:13px;color:var(--dim)}
+button{background:#243039;color:var(--ink);border:1px solid var(--line);
+  border-radius:6px;padding:7px 14px;font:inherit;font-size:13px;cursor:pointer}
+button:hover{background:#2c3a44}
+button:disabled{opacity:.4;cursor:default}
+.chip{padding:3px 9px;border:1px solid var(--line);border-radius:99px;font-size:12px}
+.chip.on{background:var(--warm);color:#14191c;border-color:var(--warm);font-weight:600}
+.chip.miss{opacity:.35}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:14px}
+figure{margin:0}
+figure img{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:6px;
+  border:1px solid var(--line);background:#0c1013;display:block}
+figcaption{font-size:12.5px;color:var(--dim);margin-top:7px;line-height:1.5}
+figcaption b{color:var(--ink);font-weight:600}
+.bar{height:7px;border-radius:99px;margin-top:5px;background:#0c1013;overflow:hidden}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--cool),var(--warm))}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--dim);font-weight:600;font-size:12.5px}
+code{background:#0c1013;padding:2px 6px;border-radius:4px;font-size:12.5px;color:var(--warm)}
+.note{color:var(--dim);font-size:13px;margin-top:12px}
+.miss-note{color:#d08a6a}
+@media(max-width:640px){.wrap{padding:20px 14px 60px}h1{font-size:21px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>실크로드편 — 체인 프리뷰</h1>
+<p class="sub">노드 10컷 · 링크 8편 · 전환 효과 없음. 앞 클립의 마지막 프레임 = 뒤 클립의 첫 프레임.</p>
+
+<div class="card">
+  <h2>연속 재생 — 40초가 하나의 이동으로 보이는지 확인</h2>
+  <div class="player"><video id="v" playsinline></video></div>
+  <div class="hud">
+    <button id="play">▶ 처음부터</button>
+    <button id="prev">← 이전</button>
+    <button id="next">다음 →</button>
+    <span id="now"></span>
+  </div>
+  <div class="hud" id="chips"></div>
+  <p class="note">이어붙인 지점에서 눈에 띄는 점프가 없으면 체이닝이 성공한 것입니다.
+  링크가 비어 있으면 자동으로 건너뜁니다.</p>
+</div>
+
+<div class="card">
+  <h2>노드 10컷 — 난색비율 곡선</h2>
+  <div class="grid" id="nodes"></div>
+  <p class="note">막대는 목표 난색비율입니다. 순서대로 보면
+  <b>28 → 40 → 48 → 35 → 50 → 57(정점) → 30 → 15 → 10(최저) → 57(회복)</b>.
+  잉카편 실측 곡선과 같은 모양입니다.</p>
+</div>
+
+<div class="card">
+  <h2>편집 조립 순서</h2>
+  <table>
+    <tr><th>#</th><th>시작 → 끝</th><th>무브</th><th>대본</th></tr>
+    <tr><td>L1</td><td>둔황 → 사막폭풍</td><td>마을 이탈 → 봉수대 스쳐 → 먼지벽 진입</td><td>0:00~0:50</td></tr>
+    <tr><td>L2</td><td>사막폭풍 → 카라반사라이</td><td>먼지벽 관통 → 거점 도착</td><td>0:50~1:10</td></tr>
+    <tr><td>L3</td><td>카라반사라이 → 사마르칸트</td><td>평원 저공 돌진 <em>(L4와 택일)</em></td><td>1:10~3:20</td></tr>
+    <tr><td>L4</td><td>빙하 → 사마르칸트</td><td>빙벽 급강하 → 강 따라 질주 <em>(L3과 택일)</em></td><td>2:00~3:20</td></tr>
+    <tr><td>L5</td><td>사마르칸트 → 아흐라르 영지</td><td>수로 따라 이탈 → 영지 전경</td><td>3:20~4:15</td></tr>
+    <tr><td>L6</td><td>아흐라르 영지 → 부산항</td><td><b>600년 시간점프</b></td><td>5:05</td></tr>
+    <tr><td>L7</td><td>부산항 → 북극항로</td><td>크레인 이탈 → 바다 → 유빙 도착</td><td>5:30~5:50</td></tr>
+    <tr><td>L8</td><td>북극 → 편지 회수</td><td>한기 → 금빛, 속도가 정적으로</td><td>8:15~8:30</td></tr>
+  </table>
+  <p class="note"><b>전환 효과를 넣지 마세요.</b> 디졸브·페이드 전부 불필요합니다 —
+  앞뒤 프레임이 같은 이미지라 그냥 붙이면 됩니다.</p>
+</div>
+
+<div class="card">
+  <h2>생성 조건</h2>
+  <table>
+    <tr><th></th><th>모델</th><th>설정</th><th>비용</th></tr>
+    <tr><td>이미지</td><td><code>google/nano-banana-2</code></td><td>16:9 · 1K</td><td><b>0크레딧</b></td></tr>
+    <tr><td>영상</td><td><code>minimax/minimax-h3</code></td><td>768p · 5초 · <code>image</code>+<code>imageTail</code></td><td><b>0크레딧</b></td></tr>
+  </table>
+  <p class="note">5초를 넘기면 과금됩니다(6초부터 30크레딧). 동시 생성은 계정당 4개.</p>
+</div>
+
+</div>
+
+<script>
+const CDN = "https://videocdn.pollo.ai/web-cdn/pollo/production/cmf20asu60gslb2k5fhlac2gn/ori/";
+
+const NODES = [
+  {id:"N1",  t:"둔황 오아시스 · 미우나이 모녀", time:"0:00", warm:28, f:"1788698295669-d47ff6b4-8ade-4429-81c4-14e90b33dd4f.png"},
+  {id:"N2",  t:"사막폭풍 속 카라반",            time:"0:50", warm:40, f:"1788698356324-8130d62c-da08-45b1-8336-86a834dbd1fe.png"},
+  {id:"N3",  t:"카라반사라이",                  time:"1:10", warm:48, f:"1788698044104-d55fce59-60ec-4a68-b400-5176deb7fc3b.png"},
+  {id:"N4",  t:"빙하 융빙수 → 오아시스",        time:"2:00", warm:35, f:"1788698302654-2d4799d7-b2fb-4f90-8b26-857286640fec.png"},
+  {id:"N5",  t:"사마르칸트 돔 도시",            time:"3:20", warm:50, f:"1788698050991-f7b420c7-69d7-4f8e-a419-17205c601fe2.png"},
+  {id:"N6",  t:"아흐라르 관개 영지 · 정점",     time:"4:15", warm:57, f:"1788698363753-5c79550f-332f-4853-884f-7622713f10a1.png"},
+  {id:"N7",  t:"낙타발 → 트럭바퀴 match cut",   time:"5:05", warm:30, f:""},
+  {id:"N8",  t:"부산항 컨테이너 터미널",        time:"5:30", warm:15, f:"1788698920404-b1cd8777-3f7f-4140-a62f-3b83f100da45.png"},
+  {id:"N9",  t:"북극 얼음 항로 · 최저",         time:"5:50", warm:10, f:"1788698926802-e80507ae-6142-4bc0-812b-a76455e7193c.png"},
+  {id:"N10", t:"편지 회수 · 회복",              time:"8:15", warm:57, f:"1788699127347-20586bc2-753a-4901-b844-b0c121c70f2e.png"},
+];
+
+// 링크 영상. f 가 비면 아직 URL 미수집 → 재생에서 건너뜀
+const LINKS = [
+  {id:"L1", t:"둔황 → 사막폭풍",            f:"1788698830994-7fb985f9-9046-45d9-ab77-569f929571e4.mp4"},
+  {id:"L2", t:"사막폭풍 → 카라반사라이",     f:""},
+  {id:"L3", t:"카라반사라이 → 사마르칸트",   f:""},
+  {id:"L5", t:"사마르칸트 → 아흐라르 영지",  f:""},
+  {id:"L6", t:"아흐라르 영지 → 부산항",      f:""},
+  {id:"L7", t:"부산항 → 북극",               f:""},
+  {id:"L8", t:"북극 → 편지 회수",            f:""},
+];
+
+const nodesEl = document.getElementById("nodes");
+NODES.forEach(n=>{
+  const fig = document.createElement("figure");
+  const img = document.createElement("img");
+  if(n.f) img.src = CDN + n.f; else img.alt = "(미수집)";
+  img.loading = "lazy";
+  const cap = document.createElement("figcaption");
+  cap.innerHTML = `<b>${n.id}</b> ${n.t}<br>${n.time} · 난색 ${n.warm}%
+    <span class="bar"><i style="width:${n.warm}%"></i></span>`;
+  fig.append(img, cap); nodesEl.append(fig);
+});
+
+const v = document.getElementById("v");
+const chipsEl = document.getElementById("chips");
+const nowEl = document.getElementById("now");
+const avail = LINKS.filter(l=>l.f);
+let i = 0;
+
+LINKS.forEach((l,idx)=>{
+  const s = document.createElement("span");
+  s.className = "chip" + (l.f ? "" : " miss");
+  s.textContent = l.id;
+  s.title = l.t + (l.f ? "" : " (URL 미수집)");
+  s.dataset.idx = idx;
+  if(l.f) s.onclick = ()=>{ i = avail.indexOf(l); load(); v.play(); };
+  chipsEl.append(s);
+});
+
+function load(){
+  if(!avail.length){ nowEl.textContent = "재생 가능한 링크 없음"; return; }
+  if(i < 0) i = 0;
+  if(i >= avail.length) i = avail.length - 1;
+  const l = avail[i];
+  v.src = CDN + l.f;
+  nowEl.textContent = `${l.id} · ${l.t}  (${i+1}/${avail.length})`;
+  [...chipsEl.children].forEach(c=>c.classList.toggle("on", c.textContent === l.id));
+  document.getElementById("prev").disabled = i === 0;
+  document.getElementById("next").disabled = i === avail.length - 1;
+}
+v.addEventListener("ended", ()=>{ if(i < avail.length-1){ i++; load(); v.play(); } });
+document.getElementById("play").onclick = ()=>{ i = 0; load(); v.play(); };
+document.getElementById("prev").onclick = ()=>{ i--; load(); v.play(); };
+document.getElementById("next").onclick = ()=>{ i++; load(); v.play(); };
+
+if(avail.length < LINKS.length){
+  const p = document.createElement("p");
+  p.className = "note miss-note";
+  p.textContent = `링크 ${LINKS.length - avail.length}개는 URL 미수집 상태라 재생에서 빠집니다. 수집되면 채워집니다.`;
+  chipsEl.after(p);
+}
+load();
+</script>
+</body>
+</html>
