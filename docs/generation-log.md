@@ -45,3 +45,30 @@
 - ② 돈의2막: 커튼 끝만 매우 작게
 - ③ 머니렌즈: 유리 가장자리 반사광만 미세하게
 - ⑥ TRUSTA RADAR: 렌즈 테두리의 반사광만 미세하게
+
+## 정책 변경 (2026-09-06, 사용자 지시)
+
+1. **영상 제외** — "영상은 하지마". minimax-h3 / kling-v3 / wan-v3-0-prime 미실행.
+2. **나노바나나 전용** — "앞으로 나노 바나나만 사용해라".
+   `bytedance/seedream-4-5` 는 C01 6장에서 중단하고, 이후 전부 `google/nano-banana-2`.
+3. **레퍼런스 체이닝 도입** — 문서의 `[일관성]` 조건(동일 소품 ID·재질·빛 방향·카메라 높이)은
+   텍스트 지시만으로는 장면마다 흔들린다. 각 사업의 C01(nano-banana-2) 출력을
+   C02~C06 요청의 `input.images` 레퍼런스로 넣어 실제로 묶는다.
+   레퍼런스를 포함해도 `discountCost: 0` 임을 사전 검증했다.
+
+### 사업별 레퍼런스 이미지 (nano-banana-2 C01)
+
+접두사 `https://videocdn.pollo.ai/web-cdn/pollo/production/cmf20asu60gslb2k5fhlac2gn/ori/`
+
+| 사업 | 레퍼런스 파일 |
+|---|---|
+| ① TRUSTA K-BEAUTY | `1788691332720-8c56a606-5107-4c56-bbfc-6fe404acd3cc.png` |
+| ② 돈의2막 | `1788691428637-00ebcdc9-cdc4-420d-add6-811503e27831.png` |
+| ③ 머니렌즈 | `1788691604043-7ab4e82a-3be3-432d-a76a-8ec72d76f98f.png` |
+| ④ 차트 시나리오 | taskId cmtpp51r43rz3lpeg506p27q4 (생성 중) |
+| ⑤ 하루한국어 | `1788691774561-7df4a978-022e-4af7-b7e9-df7ea2b1898c.png` |
+| ⑥ TRUSTA RADAR | `1788691653264-583aaec1-8f09-414d-ba1e-08339ef24f02.png` |
+
+### 남은 작업량
+
+nano-banana-2 로 C02~C06 × 6사업 = 30장. 동시 한도 4건이라 4장씩 롤링 제출한다.
