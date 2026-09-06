@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "stayfade/arrangement/1",
+  "type": "object",
+  "required": ["schema", "choices", "outputs"],
+  "properties": {
+    "schema": {"const": "stayfade/arrangement/1"},
+    "created_at": {"type": "string"},
+    "choices": {"type": "object", "additionalProperties": {"type": "string"}},
+    "decided_by": {"type": ["string", "null"]},
+    "note_edits_applied": {"type": "object"},
+    "intro": {"type": "object", "properties": {"bars": {"type": "integer"}, "seconds": {"type": "number"}}},
+    "bridge": {"type": "object", "properties": {"variant": {"type": "string"}, "bars": {"type": "integer"},
+                                                "inserted_at_sec": {"type": "number"}}},
+    "stem_reduction_db": {"type": "object", "additionalProperties": {"type": "number", "maximum": 0}},
+    "reduction_regions": {"type": ["array", "null"]},
+    "transition_ms": {"type": "number"},
+    "new_note_counts": {"type": "object", "additionalProperties": {"type": "integer"}},
+    "human_vocal_takes": {"type": "array", "items": {"type": "string"}},
+    "timeline": {"type": "object"},
+    "master_chain": {"type": "object"},
+    "outputs": {
+      "type": "object",
+      "required": ["master_wav"],
+      "properties": {"premaster": {"type": "string"}, "master_wav": {"type": "string"},
+                     "flac16": {"type": "string"}, "new_parts_midi": {"type": "string"}}
+    }
+  }
+}

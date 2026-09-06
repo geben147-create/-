@@ -1,0 +1,276 @@
+{
+  "schema": "stayfade/analysis/1",
+  "sr": 44100,
+  "duration_sec": 87.714,
+  "tempo": {
+    "bpm": 112.347,
+    "bpm_candidates": [
+      109.96,
+      112.35,
+      114.84,
+      120.19,
+      215.33,
+      224.69
+    ],
+    "beat_times": [
+      8.0457,
+      8.5798,
+      9.1138,
+      9.6479,
+      10.1936,
+      10.7276,
+      11.2617,
+      11.7957,
+      12.3298,
+      12.8639,
+      13.3979,
+      13.9436,
+      "... (총 146개, 생략)"
+    ],
+    "beat_count": 146,
+    "note": "BPM은 추정값입니다. 절반/두 배 오인식 가능 — 미리듣기에서 확인하세요."
+  },
+  "key": {
+    "key": "Ebm",
+    "tonic_pc": 3,
+    "mode": "minor",
+    "confidence": 0.323,
+    "ambiguous": false,
+    "relative_pair": [
+      "Gb",
+      "Ebm"
+    ],
+    "switch_note_ko": null,
+    "tonic_evidence": {
+      "C": 0.062,
+      "Db": 0.085,
+      "D": 0.062,
+      "Eb": 0.076,
+      "E": 0.116,
+      "F": 0.147,
+      "Gb": 0.127,
+      "G": 0.082,
+      "Ab": 0.067,
+      "A": 0.055,
+      "Bb": 0.056,
+      "B": 0.066
+    },
+    "alternatives": [
+      {
+        "key": "Gb",
+        "score": 0.323
+      },
+      {
+        "key": "Fm",
+        "score": 0.32
+      },
+      {
+        "key": "Db",
+        "score": 0.302
+      },
+      {
+        "key": "B",
+        "score": 0.275
+      }
+    ],
+    "caveat_ko": "나란한조(예: Ebm ↔ Gb)는 구성음이 같아 자동 판별이 자주 틀립니다. ambiguous=true 면 반드시 귀로 확인하고 analyze --key 로 지정하세요.",
+    "chroma_profile": [
+      0.0624,
+      0.0844,
+      0.0632,
+      0.0824,
+      0.1035,
+      0.1335,
+      0.1237,
+      0.0806,
+      0.0725,
+      0.0568,
+      0.0635,
+      0.0736
+    ],
+    "manual": true,
+    "auto_estimate": {
+      "key": "Gb",
+      "confidence": 0.323
+    },
+    "note_ko": "사용자가 직접 지정한 조성입니다."
+  },
+  "beats_per_bar": 4,
+  "bar_times": [
+    1.6023,
+    3.7501,
+    5.8979,
+    8.0457,
+    10.1936,
+    12.3298,
+    14.4776,
+    16.6139,
+    18.7617,
+    20.898,
+    23.0458,
+    25.1937,
+    "... (총 40개, 생략)"
+  ],
+  "bar_count": 40,
+  "sections": [
+    {
+      "index": 0,
+      "start": 1.602,
+      "end": 3.75,
+      "bars": 1,
+      "label": "intro",
+      "rms": 0.04422,
+      "label_note": "자동 추정 라벨 — 들어보고 human_decisions.json 에서 고치세요"
+    },
+    {
+      "index": 1,
+      "start": 3.75,
+      "end": 5.898,
+      "bars": 1,
+      "label": "breakdown?",
+      "rms": 0.0471,
+      "label_note": "자동 추정 라벨 — 들어보고 human_decisions.json 에서 고치세요"
+    },
+    {
+      "index": 2,
+      "start": 5.898,
+      "end": 8.046,
+      "bars": 1,
+      "label": "breakdown?",
+      "rms": 0.04499,
+      "label_note": "자동 추정 라벨 — 들어보고 human_decisions.json 에서 고치세요"
+    },
+    {
+      "index": 3,
+      "start": 8.046,
+      "end": 25.194,
+      "bars": 8,
+      "label": "verse?",
+      "rms": 0.24646,
+      "label_note": "자동 추정 라벨 — 들어보고 human_decisions.json 에서 고치세요"
+    },
+    {
+      "index": 4,
+      "start": 25.194,
+      "end": 40.194,
+      "bars": 7,
+      "label": "chorus?",
+      "rms": 0.31012,
+      "label_note": "자동 추정 라벨 — 들어보고 human_decisions.json 에서 고치세요"
+    },
+    {
+      "index": 5,
+      "start": 40.194,
+      "end": 61.626,
+      "bars": 10,
+      "label": "chorus?",
+      "rms": 0.26494,
+      "label_note": "자동 추정 라벨 — 들어보고 human_decisions.json 에서 고치세요"
+    },
+    {
+      "index": 6,
+      "start": 61.626,
+      "end": 76.614,
+      "bars": 7,
+      "label": "chorus?",
+      "rms": 0.3084,
+      "label_note": "자동 추정 라벨 — 들어보고 human_decisions.json 에서 고치세요"
+    },
+    {
+      "index": 7,
+      "start": 76.614,
+      "end": 85.194,
+      "bars": 4,
+      "label": "verse?",
+      "rms": 0.22297,
+      "label_note": "자동 추정 라벨 — 들어보고 human_decisions.json 에서 고치세요"
+    },
+    {
+      "index": 8,
+      "start": 85.194,
+      "end": 87.714,
+      "bars": 1,
+      "label": "outro",
+      "rms": 0.05248,
+      "label_note": "자동 추정 라벨 — 들어보고 human_decisions.json 에서 고치세요"
+    }
+  ],
+  "chords": [
+    {
+      "bar": 0,
+      "start": 1.602,
+      "end": 3.75,
+      "chord": "Bmaj7",
+      "root_pc": 11,
+      "quality": "maj7",
+      "confidence": 0.82
+    },
+    {
+      "bar": 1,
+      "start": 3.75,
+      "end": 5.898,
+      "chord": "Gbmaj7",
+      "root_pc": 6,
+      "quality": "maj7",
+      "confidence": 0.748
+    },
+    {
+      "bar": 2,
+      "start": 5.898,
+      "end": 8.046,
+      "chord": "Dbmaj7",
+      "root_pc": 1,
+      "quality": "maj7",
+      "confidence": 0.734
+    },
+    {
+      "bar": 3,
+      "start": 8.046,
+      "end": 10.194,
+      "chord": "Gbmaj7",
+      "root_pc": 6,
+      "quality": "maj7",
+      "confidence": 0.69
+    },
+    {
+      "bar": 4,
+      "start": 10.194,
+      "end": 12.33,
+      "chord": "Abm7",
+      "root_pc": 8,
+      "quality": "m7",
+      "confidence": 0.694
+    },
+    {
+      "bar": 5,
+      "start": 12.33,
+      "end": 14.478,
+      "chord": "Gbmaj7",
+      "root_pc": 6,
+      "quality": "maj7",
+      "confidence": 0.761
+    },
+    {
+      "bar": 6,
+      "start": 14.478,
+      "end": 16.614,
+      "chord": "Gbmaj7",
+      "root_pc": 6,
+      "quality": "maj7",
+      "confidence": 0.761
+    },
+    {
+      "bar": 7,
+      "start": 16.614,
+      "end": 18.762,
+      "chord": "Gbmaj7",
+      "root_pc": 6,
+      "quality": "maj7",
+      "confidence": 0.713
+    },
+    {
+      "note": "... 총 40개, 생략"
+    }
+  ],
+  "caveat_ko": "BPM·키·코드·섹션은 모두 자동 추정입니다. 미리듣기로 확인하세요."
+}

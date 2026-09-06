@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "stayfade/human_decisions/1",
+  "title": "사람 결정 기록 — 무엇을 누가 골랐고 어떤 음을 직접 고쳤는지",
+  "type": "object",
+  "required": ["schema", "status", "decisions"],
+  "properties": {
+    "schema": {"const": "stayfade/human_decisions/1"},
+    "status": {"type": "string", "enum": ["PENDING", "DECIDED"]},
+    "decided_by": {
+      "type": ["string", "null"],
+      "enum": ["human", "demo_auto", null],
+      "description": "human 이 아니면 인간 창작 증거로 쓸 수 없습니다"
+    },
+    "decided_at": {"type": ["string", "null"]},
+    "decisions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "choice"],
+        "properties": {
+          "id": {"type": "string"},
+          "question_ko": {"type": "string"},
+          "choice": {"type": ["string", "null"]},
+          "comment_ko": {"type": "string", "description": "왜 이걸 골랐는지 — 짧아도 남기면 좋은 기록"},
+          "note_edits": {"type": "array", "items": {"$ref": "#/$defs/note_edit"}}
+        }
+      }
+    },
+    "human_performance": {
+      "type": "object",
+      "properties": {
+        "files": {"type": "array", "items": {"type": "string"}, "description": "직접 녹음한 원본(dry) 파일"},
+        "description_ko": {"type": "string"},
+        "recorded_at": {"type": "string"},
+        "gear": {"type": "string"}
+      }
+    }
+  },
+  "allOf": [{
+    "if": {"properties": {"status": {"const": "DECIDED"}}, "required": ["status"]},
+    "then": {"required": ["decided_by"], "properties": {"decided_by": {"type": "string"}}}
+  }],
+  "$defs": {
+    "note_edit": {
+      "type": "object",
+      "required": ["op"],
+      "oneOf": [
+        {"properties": {"op": {"const": "transpose"}, "index": {"type": "integer"}, "semitones": {"type": "integer"}},
+         "required": ["op", "index", "semitones"], "additionalProperties": false},
+        {"properties": {"op": {"const": "transpose_range"}, "from": {"type": "integer"}, "to": {"type": "integer"},
+                        "semitones": {"type": "integer"}},
+         "required": ["op", "from", "to", "semitones"], "additionalProperties": false},
+        {"properties": {"op": {"const": "delete"}, "index": {"type": "integer"}},
+         "required": ["op", "index"], "additionalProperties": false},
+        {"properties": {"op": {"const": "move"}, "index": {"type": "integer"}, "delta_sec": {"type": "number"}},
+         "required": ["op", "index", "delta_sec"], "additionalProperties": false},
+        {"properties": {"op": {"const": "velocity"}, "index": {"type": "integer"},
+                        "value": {"type": "integer", "minimum": 1, "maximum": 127}},
+         "required": ["op", "index", "value"], "additionalProperties": false},
+        {"properties": {"op": {"const": "length"}, "index": {"type": "integer"}, "value": {"type": "number", "exclusiveMinimum": 0}},
+         "required": ["op", "index", "value"], "additionalProperties": false},
+        {"properties": {"op": {"const": "add"}, "start": {"type": "number"}, "dur": {"type": "number"},
+                        "pitch": {"type": "integer", "minimum": 0, "maximum": 127},
+                        "velocity": {"type": "integer", "minimum": 1, "maximum": 127}},
+         "required": ["op", "start", "pitch"], "additionalProperties": false}
+      ]
+    }
+  }
+}

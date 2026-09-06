@@ -1,0 +1,117 @@
+{
+  "schema": "stayfade/arrangement/1",
+  "created_at": "2026-09-06T23:27:17+00:00",
+  "choices": {
+    "drums": "B_halftime",
+    "bass": "C_syncopated",
+    "chords": "A_diatonic_sub",
+    "bridge": "A_arch",
+    "structure": "B_extended"
+  },
+  "decided_by": "demo_auto",
+  "note_edits_applied": {
+    "bass": [
+      {
+        "op": "transpose",
+        "index": 4,
+        "semitones": -1,
+        "applied": true
+      },
+      {
+        "op": "delete",
+        "index": 9,
+        "applied": true
+      },
+      {
+        "op": "velocity",
+        "index": 2,
+        "value": 118,
+        "applied": true
+      }
+    ],
+    "bridge_melody": [
+      {
+        "op": "transpose_range",
+        "from": 16,
+        "to": 19,
+        "semitones": -2,
+        "applied": false,
+        "error": "KeyError: 'index'"
+      },
+      {
+        "op": "move",
+        "index": 3,
+        "delta_sec": 0.04,
+        "applied": true
+      }
+    ]
+  },
+  "intro": {
+    "bars": 4,
+    "seconds": 8.591
+  },
+  "bridge": {
+    "variant": "A_arch",
+    "bars": 8,
+    "inserted_at_sec": 85.194
+  },
+  "stem_reduction_db": {
+    "drums": -1.5,
+    "bass": -3.0
+  },
+  "reduction_regions": [
+    {
+      "start": 8.046,
+      "end": 25.194
+    },
+    {
+      "start": 25.194,
+      "end": 40.194
+    },
+    {
+      "start": 40.194,
+      "end": 61.626
+    }
+  ],
+  "transition_ms": 180.0,
+  "new_note_counts": {
+    "drums": 1035,
+    "bass": 279,
+    "pad": 120,
+    "bridge_melody": 24
+  },
+  "human_vocal_takes": [],
+  "timeline": {
+    "intro_sec": 8.591,
+    "bridge_inserted_at": 93.785,
+    "bridge_sec": 17.09,
+    "total_sec": 112.855,
+    "xfade_ms": 180.0
+  },
+  "master_chain": {
+    "hpf_hz": 20.0,
+    "side_gain": 0.9,
+    "pre_normalize": {
+      "applied_db": -4.27,
+      "before_lufs": -8.73,
+      "target": -13.0
+    },
+    "limiter": {
+      "max_gain_reduction_db": -3.08,
+      "ceiling_dbtp_target": -1.0,
+      "oversample": 4
+    },
+    "final_normalize": {
+      "applied_db": -0.89,
+      "before_lufs": -13.11,
+      "target": -14.0
+    }
+  },
+  "outputs": {
+    "premaster": "<PROJECT>/06_mix/arranged_premaster.wav",
+    "master_wav": "<PROJECT>/07_master/arranged_master_44k1_24bit.wav",
+    "flac16": "<PROJECT>/07_master/distributor_candidate_44k1_16bit.flac",
+    "new_parts_midi": "<PROJECT>/05_edit/new_parts.mid"
+  },
+  "caveat_ko": "새 MIDI 는 자동 생성·편집 데이터입니다. 인간 실연이 아닙니다."
+}

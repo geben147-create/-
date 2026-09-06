@@ -1,0 +1,169 @@
+{
+  "schema": "stayfade/human_decisions/1",
+  "status": "DECIDED",
+  "decided_by": "demo_auto",
+  "decided_at": "2026-09-06T23:26:41+00:00",
+  "instructions_ko": [
+    "1. 04_render 폴더의 미리듣기 WAV를 전부 들어보세요.",
+    "2. 각 항목의 choice 에 고른 옵션 id 를 적으세요.",
+    "3. 최소 한 군데는 note_edits 로 직접 음을 고치세요. 고르기만 한 것보다 훨씬 강한 기록이 됩니다.",
+    "   예: {\"op\":\"transpose\",\"index\":12,\"semitones\":-1}",
+    "       {\"op\":\"delete\",\"index\":3}  {\"op\":\"move\",\"index\":7,\"delta_sec\":0.03}",
+    "4. 다 정했으면 status 를 DECIDED, decided_by 를 human 으로 바꾸고 저장하세요."
+  ],
+  "decisions": [
+    {
+      "id": "drums",
+      "question_ko": "드럼 패턴 A/B/C 중 어느 것이 곡에 맞습니까?",
+      "options": [
+        {
+          "id": "A_straight",
+          "label_ko": "A · 정박 팝/발라드 (킥 1·3, 스네어 2·4, 8비트 하이햇)",
+          "preview": "<PROJECT>/04_render/drums_A_straight.wav"
+        },
+        {
+          "id": "B_halftime",
+          "label_ko": "B · 하프타임 (스네어 3박, 싱코페이션 킥, 16비트 셰이커)",
+          "preview": "<PROJECT>/04_render/drums_B_halftime.wav"
+        },
+        {
+          "id": "C_broken",
+          "label_ko": "C · 브로큰비트 (스윙 하이햇, 당김 킥, 클랩 백비트)",
+          "preview": "<PROJECT>/04_render/drums_C_broken.wav"
+        }
+      ],
+      "choice": "B_halftime",
+      "note_edits": [],
+      "comment_ko": "데모 자동 선택 — 사람이 들은 결과가 아님"
+    },
+    {
+      "id": "bass",
+      "question_ko": "베이스 A/B/C 중 어느 것이 좋습니까? 음 하나라도 직접 고쳐보세요.",
+      "options": [
+        {
+          "id": "A_root_sustain",
+          "label_ko": "A · 루트 지속음 (한 마디에 한 음, 안정적·간섭 적음)",
+          "preview": "<PROJECT>/04_render/bass_A_root_sustain.wav"
+        },
+        {
+          "id": "B_octave_passing",
+          "label_ko": "B · 옥타브 + 경과음 (8비트, 코드 전환에 경과음)",
+          "preview": "<PROJECT>/04_render/bass_B_octave_passing.wav"
+        },
+        {
+          "id": "C_syncopated",
+          "label_ko": "C · 싱코페이션 16비트 (당김음 중심, 그루브 강함)",
+          "preview": "<PROJECT>/04_render/bass_C_syncopated.wav"
+        }
+      ],
+      "choice": "C_syncopated",
+      "note_edits": [
+        {
+          "op": "transpose",
+          "index": 4,
+          "semitones": -1
+        },
+        {
+          "op": "delete",
+          "index": 9
+        },
+        {
+          "op": "velocity",
+          "index": 2,
+          "value": 118
+        }
+      ],
+      "comment_ko": "데모 자동 선택 — 사람이 들은 결과가 아님"
+    },
+    {
+      "id": "chords",
+      "question_ko": "재화성 후보 — 원곡 보컬과 부딪히지 않는지 꼭 들어보세요.",
+      "options": [
+        {
+          "id": "A_diatonic_sub",
+          "label_ko": "A · 대리코드 (i↔III, iv↔VI)",
+          "preview": "<PROJECT>/04_render/chords_A_diatonic_sub.wav"
+        },
+        {
+          "id": "B_borrowed",
+          "label_ko": "B · 차용화음 (v→V, IV/iv 교체)",
+          "preview": "<PROJECT>/04_render/chords_B_borrowed.wav"
+        },
+        {
+          "id": "C_pedal_sus",
+          "label_ko": "C · 페달 + sus (긴장 유지)",
+          "preview": "<PROJECT>/04_render/chords_C_pedal_sus.wav"
+        }
+      ],
+      "choice": "A_diatonic_sub",
+      "note_edits": [],
+      "comment_ko": "데모 자동 선택 — 사람이 들은 결과가 아님"
+    },
+    {
+      "id": "bridge",
+      "question_ko": "새 브리지 8마디 후보 — 직접 허밍한 멜로디로 바꾸면 더 좋습니다.",
+      "options": [
+        {
+          "id": "A_arch",
+          "label_ko": "A · 아치형 (올라갔다 내려오는 8마디, 안정적)",
+          "preview": "<PROJECT>/04_render/bridge_A_arch.wav"
+        },
+        {
+          "id": "B_descend",
+          "label_ko": "B · 하행형 (높은 데서 시작해 내려오는 8마디, 애절함)",
+          "preview": "<PROJECT>/04_render/bridge_B_descend.wav"
+        },
+        {
+          "id": "C_call_response",
+          "label_ko": "C · 콜앤리스폰스 (짧은 동기 + 응답, 리듬감)",
+          "preview": "<PROJECT>/04_render/bridge_C_call_response.wav"
+        }
+      ],
+      "choice": "A_arch",
+      "note_edits": [
+        {
+          "op": "transpose_range",
+          "from": 16,
+          "to": 19,
+          "semitones": -2
+        },
+        {
+          "op": "move",
+          "index": 3,
+          "delta_sec": 0.04
+        }
+      ],
+      "comment_ko": "데모 자동 선택 — 사람이 들은 결과가 아님"
+    },
+    {
+      "id": "structure",
+      "question_ko": "구조 변경 폭을 고르세요.",
+      "options": [
+        {
+          "id": "A_minimal",
+          "label_ko": "A · 최소 변경 (새 인트로 + 브리지 1개 삽입, 원곡 순서 유지)",
+          "preview": null
+        },
+        {
+          "id": "B_extended",
+          "label_ko": "B · 확장 (긴 인트로 + 브리지 + 후반 브레이크다운)",
+          "preview": null
+        },
+        {
+          "id": "C_rebuilt",
+          "label_ko": "C · 재조립 (구간 순서 변경 + 브리지 + 새 아웃트로)",
+          "preview": null
+        }
+      ],
+      "choice": "B_extended",
+      "note_edits": [],
+      "comment_ko": "데모 자동 선택 — 사람이 들은 결과가 아님"
+    }
+  ],
+  "human_performance": {
+    "files": [],
+    "description_ko": "직접 녹음한 보컬/연주 파일 경로를 넣으세요 (없으면 비워둠)"
+  },
+  "created_at": "2026-09-06T23:26:26+00:00",
+  "demo_warning_ko": "이 파일의 선택은 파이프라인 검증용 자동 선택입니다. 인간 창작 증거가 아닙니다."
+}

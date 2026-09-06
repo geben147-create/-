@@ -1,0 +1,33 @@
+{
+  "python": "3.11.15",
+  "platform": "Linux-6.18.44-fc-v24-x86_64-with-glibc2.39",
+  "time": "2026-09-06T23:27:40+00:00",
+  "packages": {
+    "numpy": "1.26.4",
+    "scipy": "1.17.1",
+    "librosa": "0.11.0",
+    "soundfile": "0.14.0",
+    "pyloudnorm": "installed",
+    "mido": "installed",
+    "pretty_midi": "0.2.11.post0",
+    "basic_pitch": "installed",
+    "onnxruntime": "1.29.0",
+    "tensorflow": "2.15.0",
+    "torch": null,
+    "demucs": null,
+    "matchering": "2.0.6",
+    "yaml": "6.0.3",
+    "jsonschema": "4.26.0"
+  },
+  "binaries": {
+    "ffmpeg": {
+      "path": "/usr/bin/ffmpeg",
+      "version_line": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers"
+    },
+    "fluidsynth": {
+      "path": "/usr/bin/fluidsynth",
+      "version_line": "FluidSynth runtime version 2.3.4"
+    },
+    "demucs": null
+  }
+}

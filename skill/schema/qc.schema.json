@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "stayfade/qc/1",
+  "type": "object",
+  "required": ["schema", "before", "after", "spec_check"],
+  "properties": {
+    "schema": {"const": "stayfade/qc/1"},
+    "measured_at": {"type": "string"},
+    "before": {"$ref": "#/$defs/measurement"},
+    "after": {"$ref": "#/$defs/measurement"},
+    "after_flac16": {"$ref": "#/$defs/measurement"},
+    "comparison": {"type": "object"},
+    "spec_check": {
+      "type": "object",
+      "required": ["verdict", "checks"],
+      "properties": {
+        "distributor": {"type": "string"},
+        "verdict": {"type": "string", "enum": ["PASS", "FAIL"]},
+        "fail_count": {"type": "integer"}, "warn_count": {"type": "integer"},
+        "checks": {
+          "type": "array",
+          "items": {"type": "object", "required": ["check", "pass"],
+                    "properties": {"check": {"type": "string"}, "pass": {"type": "boolean"},
+                                   "detail": {"type": "string"},
+                                   "severity": {"type": "string", "enum": ["info", "warn", "fail"]}}}
+        }
+      }
+    },
+    "ab_preview": {"type": "object"}
+  },
+  "$defs": {
+    "measurement": {
+      "type": "object",
+      "required": ["duration_sec", "true_peak_dbtp"],
+      "properties": {
+        "duration_sec": {"type": "number"},
+        "lufs_i": {"type": ["number", "null"]},
+        "lra_lu": {"type": ["number", "null"]},
+        "true_peak_dbtp": {"type": "number"},
+        "sample_peak_dbfs": {"type": "number"},
+        "crest_db": {"type": "number"},
+        "dc_offset_max_abs": {"type": "number"},
+        "samples_at_or_over_0dbfs": {"type": "integer"},
+        "silence_head_sec": {"type": "number"},
+        "silence_tail_sec": {"type": "number"},
+        "stereo": {"type": "object"}
+      }
+    }
+  }
+}

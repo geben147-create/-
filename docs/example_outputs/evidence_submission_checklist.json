@@ -1,0 +1,88 @@
+{
+  "checklist": [
+    {
+      "id": "rights_receipt",
+      "ko": "생성 서비스 영수증 / 당시 구독 상태 캡처",
+      "required": true,
+      "why_ko": "유료 구독 중 생성된 출력만 상업 이용권이 인정됩니다.",
+      "status": "PENDING"
+    },
+    {
+      "id": "song_url_id",
+      "ko": "원곡 URL·곡 ID·생성일",
+      "required": true,
+      "why_ko": "RouteNote는 사용한 AI 플랫폼 링크 제출을 요구합니다.",
+      "status": "PENDING"
+    },
+    {
+      "id": "original_download",
+      "ko": "원본 다운로드 파일 + SHA-256",
+      "required": true,
+      "why_ko": "동일성 증명",
+      "status": "PENDING"
+    },
+    {
+      "id": "lyrics_provenance",
+      "ko": "가사 초안 → AI 제안 → 최종본 변경 이력",
+      "required": false,
+      "why_ko": "가사에 대한 인간 기여를 보여주는 가장 쉬운 자료",
+      "status": "PENDING"
+    },
+    {
+      "id": "human_raw_takes",
+      "ko": "사람이 녹음한 원본(dry) 보컬/연주 테이크",
+      "required": false,
+      "why_ko": "실연 기여의 직접 증거. 보정본과 함께 보관",
+      "status": "PENDING"
+    },
+    {
+      "id": "human_decisions",
+      "ko": "human_decisions.json (선택·수정 이력)",
+      "required": false,
+      "why_ko": "무엇을 사람이 정했는지 남기는 기록",
+      "status": "PENDING"
+    },
+    {
+      "id": "qc_json",
+      "ko": "qc.json (기술 측정)",
+      "required": false,
+      "why_ko": "기술 문제로 인한 반려 예방",
+      "status": "PENDING"
+    },
+    {
+      "id": "ai_disclosure",
+      "ko": "AI 공시 문안 (유통사 양식에 맞춰 재작성)",
+      "required": true,
+      "why_ko": "DistroKid AI Credits / Symphonic AI Disclosure 등에서 필수",
+      "status": "PENDING"
+    },
+    {
+      "id": "artwork",
+      "ko": "커버 아트 3000x3000, 텍스트·상표 규정 확인",
+      "required": true,
+      "why_ko": "메타데이터 반려 사유 1순위",
+      "status": "PENDING"
+    },
+    {
+      "id": "metadata",
+      "ko": "아티스트명·C/P line·언어·explicit·발매일·ISRC/UPC",
+      "required": true,
+      "why_ko": "제출 폼 필수 항목",
+      "status": "PENDING"
+    },
+    {
+      "id": "full_listening",
+      "ko": "전체 인간 청취 (박자·불협화음·발음·분리 아티팩트)",
+      "required": true,
+      "why_ko": "수치 검사로는 절대 대체되지 않습니다.",
+      "status": "PENDING"
+    }
+  ],
+  "arrangement_choices": {
+    "drums": "B_halftime",
+    "bass": "C_syncopated",
+    "chords": "A_diatonic_sub",
+    "bridge": "A_arch",
+    "structure": "B_extended"
+  }
+}

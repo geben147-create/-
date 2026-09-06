@@ -1,0 +1,142 @@
+{
+  "analysis": {
+    "bpm": 112.347,
+    "key": "Ebm",
+    "key_manual": true,
+    "key_auto": {
+      "key": "Gb",
+      "confidence": 0.323
+    },
+    "bars": 40,
+    "sections": 9,
+    "chords_estimated": 40
+  },
+  "separation": {
+    "engine": "hpss_fallback",
+    "sum_correlation": 1.0,
+    "relative_rms_error": 0.00024
+  },
+  "arrangement": {
+    "choices": {
+      "drums": "B_halftime",
+      "bass": "C_syncopated",
+      "chords": "A_diatonic_sub",
+      "bridge": "A_arch",
+      "structure": "B_extended"
+    },
+    "decided_by": "demo_auto",
+    "note_edits": {
+      "bass": 3,
+      "bridge_melody": 1
+    },
+    "new_notes": {
+      "drums": 1035,
+      "bass": 279,
+      "pad": 120,
+      "bridge_melody": 24
+    },
+    "intro": {
+      "bars": 4,
+      "seconds": 8.591
+    },
+    "bridge": {
+      "variant": "A_arch",
+      "bars": 8,
+      "inserted_at_sec": 85.194
+    },
+    "stem_reduction_db": {
+      "drums": -1.5,
+      "bass": -3.0
+    },
+    "timeline": {
+      "intro_sec": 8.591,
+      "bridge_inserted_at": 93.785,
+      "bridge_sec": 17.09,
+      "total_sec": 112.855,
+      "xfade_ms": 180.0
+    },
+    "limiter": {
+      "max_gain_reduction_db": -3.08,
+      "ceiling_dbtp_target": -1.0,
+      "oversample": 4
+    },
+    "final_norm": {
+      "applied_db": -0.89,
+      "before_lufs": -13.11,
+      "target": -14.0
+    }
+  },
+  "qc": {
+    "before": {
+      "duration_sec": 87.714,
+      "lufs_i": -9.67,
+      "lra_lu": 3.4,
+      "true_peak_dbtp": 1.28,
+      "sample_peak_dbfs": -1.01,
+      "crest_db": 10.35,
+      "dc_offset_max_abs": 0.002103419,
+      "samples_at_or_over_0dbfs": 0,
+      "silence_head_sec": 0.0,
+      "silence_tail_sec": 1.153
+    },
+    "after": {
+      "duration_sec": 112.855,
+      "lufs_i": -14.0,
+      "lra_lu": 11.49,
+      "true_peak_dbtp": -1.83,
+      "sample_peak_dbfs": -1.83,
+      "crest_db": 13.93,
+      "dc_offset_max_abs": 1.1251e-05,
+      "samples_at_or_over_0dbfs": 0,
+      "silence_head_sec": 1.655,
+      "silence_tail_sec": 0.0
+    },
+    "before_stereo": {
+      "overall": 0.8319,
+      "negative_window_ratio_active": 0.0,
+      "active_windows": 87,
+      "min_window": 0.019,
+      "note_ko": "참고 검사입니다. 모노 청취를 대체하지 않습니다."
+    },
+    "after_stereo": {
+      "overall": 0.8532,
+      "negative_window_ratio_active": 0.9,
+      "active_windows": 111,
+      "min_window": -0.0756,
+      "note_ko": "참고 검사입니다. 모노 청취를 대체하지 않습니다."
+    },
+    "flac16": {
+      "lufs_i": -14.0,
+      "true_peak_dbtp": -1.83,
+      "duration_sec": 112.855
+    },
+    "spec_verdict": "PASS",
+    "fails": 0,
+    "warns": 0,
+    "ab": {
+      "path": "/home/user/-/work/demo_project/08_qc/AB_original_vs_arranged.wav",
+      "original_lufs": -10.29,
+      "arranged_lufs": -14.27,
+      "matched_to_lufs": -14.27,
+      "seconds_each": 24.0,
+      "order_ko": "원본 → 무음 1초 → 편곡"
+    }
+  },
+  "vocal_demo": {
+    "raw": "work/vocal_demo_raw.wav",
+    "processed": "/home/user/-/work/vocal_demo_out/vocal_demo_raw_processed.wav",
+    "cents_off_before": 30.0,
+    "cents_off_after": 9.2,
+    "notes_detected": 6,
+    "notes_corrected": 5,
+    "compressor": {
+      "makeup_db": 5.14,
+      "max_reduction_db": -7.53
+    },
+    "deesser": {
+      "freq": 6500.0,
+      "min_gain_db": 0.0
+    },
+    "harmony": "3도/5도 자동 생성 (인간 실연 아님)"
+  }
+}

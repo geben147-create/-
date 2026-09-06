@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "stayfade/analysis/1",
+  "type": "object",
+  "required": ["schema", "sr", "tempo", "key", "bar_times", "sections"],
+  "properties": {
+    "schema": {"const": "stayfade/analysis/1"},
+    "sr": {"type": "integer"},
+    "duration_sec": {"type": "number"},
+    "beats_per_bar": {"type": "integer", "minimum": 2, "maximum": 12},
+    "tempo": {
+      "type": "object",
+      "required": ["bpm", "beat_times"],
+      "properties": {
+        "bpm": {"type": "number", "exclusiveMinimum": 0},
+        "bpm_candidates": {"type": "array", "items": {"type": "number"}},
+        "beat_times": {"type": "array", "items": {"type": "number"}},
+        "beat_count": {"type": "integer"}
+      }
+    },
+    "key": {
+      "type": "object",
+      "required": ["key", "tonic_pc", "mode"],
+      "properties": {
+        "key": {"type": "string"},
+        "tonic_pc": {"type": "integer", "minimum": 0, "maximum": 11},
+        "mode": {"type": "string", "enum": ["major", "minor"]},
+        "confidence": {"type": "number"},
+        "ambiguous": {"type": "boolean", "description": "true 면 나란한조 혼동 가능 — 사람 확인 필요"},
+        "relative_pair": {"type": "array", "items": {"type": "string"}, "minItems": 2, "maxItems": 2},
+        "manual": {"type": "boolean"}
+      }
+    },
+    "bar_times": {"type": "array", "items": {"type": "number"}},
+    "bar_count": {"type": "integer"},
+    "sections": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["index", "start", "end", "label"],
+        "properties": {
+          "index": {"type": "integer"}, "start": {"type": "number"}, "end": {"type": "number"},
+          "bars": {"type": "integer"},
+          "label": {"type": "string", "description": "자동 추정 라벨. 사람이 고쳐야 함"},
+          "rms": {"type": "number"}
+        }
+      }
+    },
+    "chords": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["bar", "chord", "root_pc"],
+        "properties": {
+          "bar": {"type": "integer"}, "start": {"type": "number"}, "end": {"type": "number"},
+          "chord": {"type": "string"}, "root_pc": {"type": "integer", "minimum": 0, "maximum": 11},
+          "quality": {"type": "string"}, "confidence": {"type": "number"}
+        }
+      }
+    }
+  }
+}

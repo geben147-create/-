@@ -1,0 +1,71 @@
+{
+  "generated_at": "2026-09-06T23:27:45+00:00",
+  "project": "<PROJECT>",
+  "meta": {
+    "schema": "stayfade/project/1",
+    "title": "Test Track (Ebm)",
+    "artist": "(demo)",
+    "created_at": "2026-09-06T23:21:18+00:00",
+    "source_file": "<PROJECT>/00_original/testtrack_Ebm_112.wav",
+    "source_original_path": "<REPO>/work/testtrack_Ebm_112.wav",
+    "source_hash": "34969c86878e00c0459cd7e6e9d793dcf611c7313c6ce6e4d136feba9553743a",
+    "source_info": {
+      "path": "<PROJECT>/00_original/testtrack_Ebm_112.wav",
+      "samplerate": 44100,
+      "channels": 2,
+      "frames": 3868199,
+      "duration_sec": 87.714,
+      "subtype": "PCM_24",
+      "format": "WAV",
+      "bytes": 23209238
+    },
+    "target_lufs": -14.0,
+    "side_gain": 0.9,
+    "ceiling_dbtp": -1.0,
+    "distributor_spec": "routenote",
+    "source_description": "합성 테스트 트랙 (실제 원곡 아님)",
+    "rights_evidence": "",
+    "seed": 7,
+    "listening_status": "PENDING",
+    "rights_status": "UNVERIFIED",
+    "submission_status": "NOT SUBMITTED",
+    "warning_ko": "원본 파일은 00_original 에서 수정하지 마세요. 모든 작업은 사본에서 합니다."
+  },
+  "tooling": {
+    "packages": {
+      "numpy": "1.26.4",
+      "scipy": "1.17.1",
+      "librosa": "0.11.0",
+      "soundfile": "0.14.0",
+      "pyloudnorm": "installed",
+      "mido": "installed",
+      "pretty_midi": "0.2.11.post0",
+      "basic_pitch": "installed",
+      "onnxruntime": "1.29.0",
+      "tensorflow": "2.15.0",
+      "torch": null,
+      "demucs": null,
+      "matchering": "2.0.6",
+      "yaml": "6.0.3",
+      "jsonschema": "4.26.0"
+    },
+    "binaries": {
+      "ffmpeg": "/usr/bin/ffmpeg",
+      "fluidsynth": "/usr/bin/fluidsynth",
+      "demucs": null
+    }
+  },
+  "decisions_summary": {
+    "count": 5,
+    "decided_by": "demo_auto",
+    "note_edits": 5
+  },
+  "qc_verdict": "PASS",
+  "warnings_ko": [
+    "decided_by 가 'human' 이 아닙니다 — 이 산출물은 인간 창작 증거로 쓸 수 없습니다.",
+    "새 인간 실연(보컬/연주) 파일이 없습니다 — 실연 기여 0.",
+    "생성 서비스 영수증·구독 증빙이 비어 있습니다 — 유통 심사에서 1순위 요구 항목입니다."
+  ],
+  "not_certified_ko": "이 파일은 저작권 소유나 유통 승인을 증명하지 않습니다.",
+  "hashed_files": 60
+}

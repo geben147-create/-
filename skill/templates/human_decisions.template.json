@@ -1,0 +1,28 @@
+{
+  "schema": "stayfade/human_decisions/1",
+  "status": "PENDING",
+  "decided_by": null,
+  "decided_at": null,
+  "instructions_ko": [
+    "1. 04_render 폴더의 미리듣기 WAV를 전부 들어보세요.",
+    "2. choice 에 고른 옵션 id 를 적으세요.",
+    "3. 최소 한 군데는 note_edits 로 직접 음을 고치세요.",
+    "4. status=DECIDED, decided_by=human 으로 바꾸고 저장하세요."
+  ],
+  "decisions": [
+    {"id": "drums", "choice": null, "comment_ko": "", "note_edits": []},
+    {"id": "bass", "choice": null, "comment_ko": "", "note_edits": [
+      {"op": "transpose", "index": 4, "semitones": -1},
+      {"op": "delete", "index": 9}
+    ]},
+    {"id": "chords", "choice": null, "comment_ko": "", "note_edits": []},
+    {"id": "bridge", "choice": null, "comment_ko": "", "note_edits": []},
+    {"id": "structure", "choice": null, "comment_ko": "", "note_edits": []}
+  ],
+  "human_performance": {
+    "files": [],
+    "description_ko": "직접 녹음한 보컬/연주 원본(dry) 파일 경로",
+    "recorded_at": "",
+    "gear": "예: 휴대폰 + 헤드폰 모니터링"
+  }
+}

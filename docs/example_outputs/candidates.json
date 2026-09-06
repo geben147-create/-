@@ -1,0 +1,249 @@
+{
+  "schema": "stayfade/candidates/1",
+  "created_at": "2026-09-06T23:26:25+00:00",
+  "seed": 7,
+  "preview_window": {
+    "start": 27.341,
+    "end": 44.489,
+    "bars": 8
+  },
+  "groups": {
+    "drums": {
+      "question_ko": "드럼 패턴 A/B/C 중 어느 것이 곡에 맞습니까?",
+      "options": [
+        {
+          "id": "A_straight",
+          "label_ko": "A · 정박 팝/발라드 (킥 1·3, 스네어 2·4, 8비트 하이햇)",
+          "note_count": 110,
+          "midi": "<PROJECT>/03_variants/drums_A_straight.mid",
+          "preview": "<PROJECT>/04_render/drums_A_straight.wav"
+        },
+        {
+          "id": "B_halftime",
+          "label_ko": "B · 하프타임 (스네어 3박, 싱코페이션 킥, 16비트 셰이커)",
+          "note_count": 203,
+          "midi": "<PROJECT>/03_variants/drums_B_halftime.mid",
+          "preview": "<PROJECT>/04_render/drums_B_halftime.wav"
+        },
+        {
+          "id": "C_broken",
+          "label_ko": "C · 브로큰비트 (스윙 하이햇, 당김 킥, 클랩 백비트)",
+          "note_count": 192,
+          "midi": "<PROJECT>/03_variants/drums_C_broken.mid",
+          "preview": "<PROJECT>/04_render/drums_C_broken.wav"
+        }
+      ]
+    },
+    "bass": {
+      "question_ko": "베이스 A/B/C 중 어느 것이 좋습니까? 음 하나라도 직접 고쳐보세요.",
+      "options": [
+        {
+          "id": "A_root_sustain",
+          "label_ko": "A · 루트 지속음 (한 마디에 한 음, 안정적·간섭 적음)",
+          "note_count": 8,
+          "midi": "<PROJECT>/03_variants/bass_A_root_sustain.mid",
+          "preview": "<PROJECT>/04_render/bass_A_root_sustain.wav"
+        },
+        {
+          "id": "B_octave_passing",
+          "label_ko": "B · 옥타브 + 경과음 (8비트, 코드 전환에 경과음)",
+          "note_count": 40,
+          "midi": "<PROJECT>/03_variants/bass_B_octave_passing.mid",
+          "preview": "<PROJECT>/04_render/bass_B_octave_passing.wav"
+        },
+        {
+          "id": "C_syncopated",
+          "label_ko": "C · 싱코페이션 16비트 (당김음 중심, 그루브 강함)",
+          "note_count": 56,
+          "midi": "<PROJECT>/03_variants/bass_C_syncopated.mid",
+          "preview": "<PROJECT>/04_render/bass_C_syncopated.wav"
+        }
+      ]
+    },
+    "chords": {
+      "question_ko": "재화성 후보 — 원곡 보컬과 부딪히지 않는지 꼭 들어보세요.",
+      "options": [
+        {
+          "id": "A_diatonic_sub",
+          "label_ko": "A · 대리코드 (i↔III, iv↔VI)",
+          "progression": [
+            "Abm",
+            "Ebm",
+            "Bbm",
+            "Ebm",
+            "B",
+            "Ebm",
+            "Ebm",
+            "Ebm"
+          ],
+          "midi": "<PROJECT>/03_variants/chords_A_diatonic_sub.mid",
+          "preview": "<PROJECT>/04_render/chords_A_diatonic_sub.wav"
+        },
+        {
+          "id": "B_borrowed",
+          "label_ko": "B · 차용화음 (v→V, IV/iv 교체)",
+          "progression": [
+            "C",
+            "Gb",
+            "D",
+            "Gb",
+            "Ab",
+            "Gb",
+            "Gb",
+            "Gb"
+          ],
+          "midi": "<PROJECT>/03_variants/chords_B_borrowed.mid",
+          "preview": "<PROJECT>/04_render/chords_B_borrowed.wav"
+        },
+        {
+          "id": "C_pedal_sus",
+          "label_ko": "C · 페달 + sus (긴장 유지)",
+          "progression": [
+            "B",
+            "Gbsus4",
+            "Db",
+            "Gbsus4",
+            "Abm",
+            "Gbsus4",
+            "Gb",
+            "Gbsus4"
+          ],
+          "midi": "<PROJECT>/03_variants/chords_C_pedal_sus.mid",
+          "preview": "<PROJECT>/04_render/chords_C_pedal_sus.wav"
+        }
+      ]
+    },
+    "bridge": {
+      "question_ko": "새 브리지 8마디 후보 — 직접 허밍한 멜로디로 바꾸면 더 좋습니다.",
+      "options": [
+        {
+          "id": "A_arch",
+          "label_ko": "A · 아치형 (올라갔다 내려오는 8마디, 안정적)",
+          "bars": 8,
+          "progression": [
+            "Abm",
+            "B",
+            "Gb",
+            "Bbm",
+            "Abm",
+            "B",
+            "Gb",
+            "Bbm"
+          ],
+          "midi": "<PROJECT>/03_variants/bridge_A_arch.mid",
+          "preview": "<PROJECT>/04_render/bridge_A_arch.wav"
+        },
+        {
+          "id": "B_descend",
+          "label_ko": "B · 하행형 (높은 데서 시작해 내려오는 8마디, 애절함)",
+          "bars": 8,
+          "progression": [
+            "B",
+            "Bb",
+            "Abm",
+            "Ebm",
+            "B",
+            "Bb",
+            "Abm",
+            "Ebm"
+          ],
+          "midi": "<PROJECT>/03_variants/bridge_B_descend.mid",
+          "preview": "<PROJECT>/04_render/bridge_B_descend.wav"
+        },
+        {
+          "id": "C_call_response",
+          "label_ko": "C · 콜앤리스폰스 (짧은 동기 + 응답, 리듬감)",
+          "bars": 8,
+          "progression": [
+            "Ebm",
+            "Db",
+            "B",
+            "Bb",
+            "Ebm",
+            "Db",
+            "B",
+            "Bb"
+          ],
+          "midi": "<PROJECT>/03_variants/bridge_C_call_response.mid",
+          "preview": "<PROJECT>/04_render/bridge_C_call_response.wav"
+        }
+      ]
+    },
+    "structure": {
+      "question_ko": "구조 변경 폭을 고르세요.",
+      "options": [
+        {
+          "id": "A_minimal",
+          "label_ko": "A · 최소 변경 (새 인트로 + 브리지 1개 삽입, 원곡 순서 유지)",
+          "risk_ko": "가장 안전. 편곡 변화량은 작음",
+          "spec": {
+            "variant": "A_minimal",
+            "label_ko": "A · 최소 변경 (새 인트로 + 브리지 1개 삽입, 원곡 순서 유지)",
+            "intro_bars": 2,
+            "insert_bridge_before_last": true,
+            "reorder": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8
+            ],
+            "risk_ko": "가장 안전. 편곡 변화량은 작음"
+          }
+        },
+        {
+          "id": "B_extended",
+          "label_ko": "B · 확장 (긴 인트로 + 브리지 + 후반 브레이크다운)",
+          "risk_ko": "보컬 흐름 확인 필요",
+          "spec": {
+            "variant": "B_extended",
+            "label_ko": "B · 확장 (긴 인트로 + 브리지 + 후반 브레이크다운)",
+            "intro_bars": 4,
+            "insert_bridge_before_last": true,
+            "breakdown_section": 7,
+            "reorder": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8
+            ],
+            "risk_ko": "보컬 흐름 확인 필요"
+          }
+        },
+        {
+          "id": "C_rebuilt",
+          "label_ko": "C · 재조립 (구간 순서 변경 + 브리지 + 새 아웃트로)",
+          "risk_ko": "가사 문맥이 깨질 수 있음 — 반드시 전체 청취",
+          "spec": {
+            "variant": "C_rebuilt",
+            "label_ko": "C · 재조립 (구간 순서 변경 + 브리지 + 새 아웃트로)",
+            "intro_bars": 3,
+            "insert_bridge_before_last": true,
+            "reorder": [
+              0,
+              4,
+              1,
+              2,
+              3,
+              5,
+              6,
+              7,
+              8
+            ],
+            "risk_ko": "가사 문맥이 깨질 수 있음 — 반드시 전체 청취"
+          }
+        }
+      ]
+    }
+  },
+  "note_ko": "여기 있는 것은 전부 자동 생성 후보입니다. 고르고 고치는 것은 사람이 합니다."
+}

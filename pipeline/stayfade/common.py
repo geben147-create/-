@@ -1,0 +1,243 @@
+from __future__ import annotations
+import csv
+import datetime as _dt
+import hashlib
+import json
+import os
+import platform
+import shutil
+import subprocess
+import sys
+from pathlib import Path
+
+import numpy as np
+import soundfile as sf
+
+STEP_DIRS = {
+    "original": "00_original",
+    "stems": "01_stems",
+    "midi": "02_midi",
+    "variants": "03_variants",
+    "human": "03_human_raw",
+    "render": "04_render",
+    "edit": "05_edit",
+    "mix": "06_mix",
+    "master": "07_master",
+    "qc": "08_qc",
+    "evidence": "09_evidence",
+}
+
+
+def now_iso() -> str:
+    return _dt.datetime.now(_dt.timezone.utc).astimezone().isoformat(timespec="seconds")
+
+
+def sha256(path: Path | str, chunk: int = 1 << 20) -> str:
+    h = hashlib.sha256()
+    with open(path, "rb") as f:
+        while True:
+            b = f.read(chunk)
+            if not b:
+                break
+            h.update(b)
+    return h.hexdigest()
+
+
+def jdump(obj, path: Path | str) -> None:
+    Path(path).parent.mkdir(parents=True, exist_ok=True)
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(obj, f, ensure_ascii=False, indent=2, default=_json_default)
+
+
+def _json_default(o):
+    if isinstance(o, (np.floating,)):
+        return float(o)
+    if isinstance(o, (np.integer,)):
+        return int(o)
+    if isinstance(o, np.ndarray):
+        return o.tolist()
+    if isinstance(o, Path):
+        return str(o)
+    return str(o)
+
+
+def jload(path: Path | str):
+    with open(path, "r", encoding="utf-8") as f:
+        return json.load(f)
+
+
+def db(x: float) -> float:
+    return 20.0 * np.log10(max(abs(float(x)), 1e-12))
+
+
+def lin(db_value: float) -> float:
+    return float(10.0 ** (db_value / 20.0))
+
+
+class Project:
+    """프로젝트 폴더 = 한 곡의 모든 산출물. root/ 아래 STEP_DIRS 구조."""
+
+    def __init__(self, root: Path | str):
+        self.root = Path(root).resolve()
+        self.root.mkdir(parents=True, exist_ok=True)
+        self.log_path = self.root / "pipeline.log"
+        self.state_path = self.root / "pipeline_state.json"
+
+    def dir(self, key: str) -> Path:
+        p = self.root / STEP_DIRS[key]
+        p.mkdir(parents=True, exist_ok=True)
+        return p
+
+    def log(self, msg: str) -> None:
+        line = f"[{now_iso()}] {msg}"
+        print(line, flush=True)
+        with open(self.log_path, "a", encoding="utf-8") as f:
+            f.write(line + "\n")
+
+    def state(self) -> dict:
+        if self.state_path.exists():
+            return jload(self.state_path)
+        return {"steps": {}, "created": now_iso()}
+
+    def set_state(self, step: str, status: str, **extra) -> None:
+        st = self.state()
+        st["steps"][step] = {"status": status, "time": now_iso(), **extra}
+        st["updated"] = now_iso()
+        jdump(st, self.state_path)
+
+    def info(self) -> dict:
+        p = self.root / "project.json"
+        return jload(p) if p.exists() else {}
+
+
+# ---------- audio io ----------
+
+def load_audio(path: Path | str, sr: int | None = None, mono: bool = False):
+    """returns (y[channels, n] float32, sr). always 2-D."""
+    y, file_sr = sf.read(str(path), dtype="float32", always_2d=True)
+    y = y.T  # (channels, n)
+    if sr is not None and sr != file_sr:
+        import librosa
+        y = librosa.resample(y, orig_sr=file_sr, target_sr=sr, res_type="soxr_hq")
+        file_sr = sr
+    if mono:
+        y = y.mean(axis=0, keepdims=True)
+    return np.ascontiguousarray(y, dtype=np.float32), int(file_sr)
+
+
+def to_stereo(y: np.ndarray) -> np.ndarray:
+    y = np.atleast_2d(y)
+    if y.shape[0] == 1:
+        y = np.vstack([y, y])
+    return y[:2]
+
+
+def save_wav(path: Path | str, y: np.ndarray, sr: int, subtype: str = "PCM_24") -> Path:
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    y = np.atleast_2d(y)
+    sf.write(str(path), np.clip(y.T, -1.0, 1.0), sr, subtype=subtype)
+    return path
+
+
+def save_flac16(path: Path | str, y: np.ndarray, sr: int, dither: bool = True, seed: int = 7) -> Path:
+    y = np.atleast_2d(np.asarray(y, dtype=np.float64))
+    if dither:
+        rng = np.random.default_rng(seed)
+        lsb = 1.0 / 32768.0
+        tpdf = (rng.random(y.shape) - rng.random(y.shape)) * lsb
+        y = y + tpdf
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    sf.write(str(path), np.clip(y.T, -1.0, 1.0), sr, subtype="PCM_16", format="FLAC")
+    return path
+
+
+def audio_info(path: Path | str) -> dict:
+    i = sf.info(str(path))
+    return {
+        "path": str(path),
+        "samplerate": i.samplerate,
+        "channels": i.channels,
+        "frames": i.frames,
+        "duration_sec": round(i.frames / i.samplerate, 3),
+        "subtype": i.subtype,
+        "format": i.format,
+        "bytes": os.path.getsize(path),
+    }
+
+
+def fmt_time(sec: float) -> str:
+    m = int(sec // 60)
+    s = sec - 60 * m
+    return f"{m:02d}:{s:05.2f}"
+
+
+# ---------- tools ----------
+
+def which(name: str) -> str | None:
+    return shutil.which(name)
+
+
+def run_cmd(cmd: list[str], timeout: int = 3600) -> tuple[int, str]:
+    try:
+        p = subprocess.run(cmd, capture_output=True, text=True, timeout=timeout)
+        return p.returncode, (p.stdout or "") + (p.stderr or "")
+    except Exception as e:  # noqa: BLE001
+        return 1, f"{type(e).__name__}: {e}"
+
+
+def tool_versions() -> dict:
+    out = {
+        "python": sys.version.split()[0],
+        "platform": platform.platform(),
+        "time": now_iso(),
+        "packages": {},
+        "binaries": {},
+    }
+    for mod in ["numpy", "scipy", "librosa", "soundfile", "pyloudnorm", "mido", "pretty_midi",
+                "basic_pitch", "onnxruntime", "tensorflow", "torch", "demucs", "matchering", "yaml", "jsonschema"]:
+        try:
+            m = __import__(mod)
+            out["packages"][mod] = getattr(m, "__version__", "installed")
+        except Exception:  # noqa: BLE001
+            out["packages"][mod] = None
+    for b, args in {"ffmpeg": ["-version"], "fluidsynth": ["--version"], "demucs": ["--help"]}.items():
+        path = which(b)
+        if path:
+            rc, txt = run_cmd([path] + args, timeout=60)
+            out["binaries"][b] = {"path": path, "version_line": (txt.strip().splitlines() or [""])[0][:120]}
+        else:
+            out["binaries"][b] = None
+    return out
+
+
+def write_hashes_csv(root: Path, out_csv: Path, skip_dirs: tuple[str, ...] = ()) -> int:
+    rows = []
+    for p in sorted(root.rglob("*")):
+        if p.is_dir():
+            continue
+        rel = p.relative_to(root)
+        if any(str(rel).startswith(s) for s in skip_dirs):
+            continue
+        if p == out_csv:
+            continue
+        rows.append((str(rel), os.path.getsize(p), sha256(p)))
+    out_csv.parent.mkdir(parents=True, exist_ok=True)
+    with open(out_csv, "w", newline="", encoding="utf-8") as f:
+        w = csv.writer(f)
+        w.writerow(["relative_path", "bytes", "sha256"])
+        w.writerows(rows)
+    return len(rows)
+
+
+NOTE_NAMES_SHARP = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
+NOTE_NAMES_FLAT = ["C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"]
+
+
+def pc_name(pc: int, flats: bool = True) -> str:
+    return (NOTE_NAMES_FLAT if flats else NOTE_NAMES_SHARP)[pc % 12]
+
+
+def midi_name(m: int, flats: bool = True) -> str:
+    return f"{pc_name(m % 12, flats)}{m // 12 - 1}"

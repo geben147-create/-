@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "stayfade/project/1",
+  "title": "stayfade project",
+  "type": "object",
+  "required": ["schema", "title", "source_file", "source_hash", "target_lufs"],
+  "properties": {
+    "schema": {"const": "stayfade/project/1"},
+    "title": {"type": "string"},
+    "artist": {"type": "string"},
+    "created_at": {"type": "string"},
+    "source_file": {"type": "string", "description": "00_original 안의 보존 사본"},
+    "source_original_path": {"type": "string"},
+    "source_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "source_info": {"type": "object"},
+    "target_lufs": {"type": "number", "maximum": 0},
+    "side_gain": {"type": "number", "minimum": 0, "maximum": 2},
+    "ceiling_dbtp": {"type": "number", "maximum": 0},
+    "distributor_spec": {"type": "string", "enum": ["routenote", "distrokid", "generic"]},
+    "source_description": {"type": "string"},
+    "rights_evidence": {"type": "string", "description": "생성 서비스 영수증·구독 증빙 경로. 비어 있으면 제출 금지"},
+    "seed": {"type": "integer"},
+    "listening_status": {"type": "string", "enum": ["PENDING", "PARTIAL", "DONE"]},
+    "rights_status": {"type": "string", "enum": ["UNVERIFIED", "PARTIAL", "VERIFIED"]},
+    "submission_status": {"type": "string", "enum": ["NOT SUBMITTED", "SUBMITTED", "LIVE", "REJECTED"]}
+  }
+}

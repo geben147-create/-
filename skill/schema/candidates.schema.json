@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "stayfade/candidates/1",
+  "type": "object",
+  "required": ["schema", "groups"],
+  "properties": {
+    "schema": {"const": "stayfade/candidates/1"},
+    "created_at": {"type": "string"},
+    "seed": {"type": "integer", "description": "같은 시드 → 같은 후보. 재현성 확보"},
+    "preview_window": {
+      "type": "object",
+      "properties": {"start": {"type": "number"}, "end": {"type": "number"}, "bars": {"type": "integer"}}
+    },
+    "groups": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "object",
+        "required": ["question_ko", "options"],
+        "properties": {
+          "question_ko": {"type": "string"},
+          "options": {
+            "type": "array", "minItems": 2,
+            "items": {
+              "type": "object",
+              "required": ["id"],
+              "properties": {
+                "id": {"type": "string"}, "label_ko": {"type": "string"},
+                "note_count": {"type": "integer"}, "midi": {"type": "string"},
+                "preview": {"type": "string", "description": "미리듣기 WAV 경로"},
+                "progression": {"type": "array", "items": {"type": "string"}},
+                "spec": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

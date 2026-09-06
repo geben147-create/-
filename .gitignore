@@ -1,0 +1,11 @@
+work/
+node_modules/
+__pycache__/
+*.pyc
+*.wav
+*.flac
+*.mp3
+!docs/**/*.svg
+shot.js
+package.json
+package-lock.json
