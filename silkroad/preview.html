@@ -119,12 +119,17 @@ const NODES = [
 // 링크 영상. f 가 비면 아직 URL 미수집 → 재생에서 건너뜀
 const LINKS = [
   {id:"L1", t:"둔황 → 사막폭풍",            f:"1788698830994-7fb985f9-9046-45d9-ab77-569f929571e4.mp4"},
-  {id:"L2", t:"사막폭풍 → 카라반사라이",     f:""},
-  {id:"L3", t:"카라반사라이 → 사마르칸트",   f:""},
-  {id:"L5", t:"사마르칸트 → 아흐라르 영지",  f:""},
+  {id:"L2", t:"사막폭풍 → 카라반사라이",     f:"1788698706600-71329b66-532f-497a-8fa4-aa0070f5a0ea.mp4"},
+  {id:"L3", t:"카라반사라이 → 사마르칸트",   f:"1788698690253-3f18c1cf-916c-48e0-abee-8ae688e61743.mp4"},
+  {id:"L5", t:"사마르칸트 → 아흐라르 영지",  f:"1788698981333-784ba432-07c7-4128-835c-7ca197cde9f3.mp4"},
   {id:"L6", t:"아흐라르 영지 → 부산항",      f:""},
-  {id:"L7", t:"부산항 → 북극",               f:""},
-  {id:"L8", t:"북극 → 편지 회수",            f:""},
+  {id:"L7", t:"부산항 → 북극",               f:"1788699448465-238bda12-9794-4675-927a-32cb77c2ee4e.mp4"},
+  {id:"L8", t:"북극 → 편지 회수",            f:"1788699583611-74be8757-4a77-450b-83d9-364f6cfdf55b.mp4"},
+];
+
+// L4 는 L3 의 대안 (둘 다 사마르칸트 도착). 물 연구 구간을 살리려면 L3 대신 이걸 쓴다.
+const ALT = [
+  {id:"L4", t:"빙하 융빙수 → 사마르칸트",    f:"1788698722468-6676d978-e9ff-4d41-a3d4-f23880a227f8.mp4"},
 ];
 
 const nodesEl = document.getElementById("nodes");
@@ -170,6 +175,16 @@ v.addEventListener("ended", ()=>{ if(i < avail.length-1){ i++; load(); v.play();
 document.getElementById("play").onclick = ()=>{ i = 0; load(); v.play(); };
 document.getElementById("prev").onclick = ()=>{ i--; load(); v.play(); };
 document.getElementById("next").onclick = ()=>{ i++; load(); v.play(); };
+
+ALT.forEach(a=>{
+  if(!a.f) return;
+  const s2 = document.createElement("span");
+  s2.className = "chip"; s2.style.borderStyle = "dashed";
+  s2.textContent = a.id + " (대안)"; s2.title = a.t;
+  s2.onclick = ()=>{ v.src = CDN + a.f; nowEl.textContent = a.id + " · " + a.t + "  (L3 대안)";
+    [...chipsEl.children].forEach(c=>c.classList.remove("on")); s2.classList.add("on"); v.play(); };
+  chipsEl.append(s2);
+});
 
 if(avail.length < LINKS.length){
   const p = document.createElement("p");
