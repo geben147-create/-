@@ -433,6 +433,15 @@ bash skill/scripts/run_unix.sh ~/Music/곡.wav mysong Ebm</pre>
 
 <section id="steps">
   <h2><span class="em">📦</span>단계별 실행 — 0번부터 따라 하면 됩니다</h2>
+  <div class="ok">
+    <h4>내 곡으로 바로 시작하려면 (Windows)</h4>
+    <p>설치를 마쳤다면 이 한 줄이면 됩니다. 파일 경로만 바꾸세요.</p>
+    <pre style="margin-top:10px">powershell -ExecutionPolicy Bypass -File skill\scripts\run_windows.ps1 ^
+  -Audio <span class="k">"C:\Users\llorr\Music\Stay with the fade(Ebm)_original.wav"</span> ^
+  -Name stayfade -Key Ebm</pre>
+    <p>원본이 MP3여도 됩니다. 조성을 모르면 <code>-Key</code>를 빼고 실행하면 추정값과 함께
+      “귀로 확인하세요” 경고가 나옵니다.</p>
+  </div>
   <p class="lede"><span class="num">🤖</span> 표시는 자동, <span class="num">🎤</span> 표시는 사람이 해야 하는 단계입니다.
     사람 단계는 딱 두 곳뿐이고, 둘 다 뒤쪽에 있습니다.</p>
   <div class="rule"></div>
