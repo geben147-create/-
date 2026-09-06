@@ -1,11 +1,71 @@
-<div align="center">
+# 2026 AI 영상 마스터 클래스 — 시네마틱 스크롤 랜딩
 
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
+섹션마다 다른 AI 생성 클립을 스크롤 위치에 물리는 시네마틱 랜딩 페이지.
+배경 영상은 전부 **Pollo AI** 로 실제 생성했고, 웹 조립은 파이프라인 가이드의
+세이프존·스크림·스택 컨텍스트 규칙을 그대로 따랐다.
 
-  <h1>Built with AI Studio</h2>
+```
+기획 → 첫 프레임 → 영상 생성 → 웹 인코딩 → 웹 조립 → 텍스트 레이어 → 검수
+샷 리스트  nano-banana-pro  kling-v2-5-turbo  ffmpeg   HTML/CSS/JS  컬러 토큰  PC·모바일
+```
 
-  <p>The fastest path from prompt to production with Gemini.</p>
+## 파일 구조
 
-  <a href="https://aistudio.google.com/apps">Start building</a>
+| 경로 | 역할 |
+|---|---|
+| `index.html` | 렌더된 랜딩 페이지 (`render.py` 산출물 — 직접 수정하지 말 것) |
+| `index.template.html` | **소스 원본.** 미디어 자리는 `{{TOKEN}}` |
+| `render.py` | 토큰 치환 — `remote`(CDN) / `local`(자체 호스팅) |
+| `build.sh` | 원본 다운로드 + ffmpeg 웹 인코딩 + local 모드 전환 |
+| `media/manifest.json` | 샷별 이미지/영상 원본 URL, 프롬프트, 모델, 크레딧 |
+| `pipeline.html` | 전체 제작 파이프라인 문서 (실제 수치 포함) |
+| `assets/css/site.css` | 컬러 토큰 · 스크림 · 레이어 |
+| `assets/js/site.js` | 지연 로딩 · 스크럽 · 진입 페이드 |
 
-</div>
+## 바로 보기
+
+```bash
+python3 -m http.server 8000
+# → http://localhost:8000
+```
+
+`index.html` 은 기본적으로 **remote 모드** 로 렌더되어 있어 Pollo CDN 에서 영상을
+직접 불러온다. 별도 준비 없이 바로 열린다.
+
+## 자체 호스팅으로 전환 (권장)
+
+CDN 의존을 없애고 용량·캐시를 직접 통제하려면:
+
+```bash
+./build.sh        # 다운로드 → ffmpeg 인코딩 → index.html 을 local 모드로 재생성
+```
+
+`build.sh` 가 하는 일:
+
+- 루프 배경 → `libx264 crf24 + faststart` mp4 와 `vp9` webm 두 벌
+- 스크럽 클립 → `keyint=1` **전 프레임 키프레임** (이게 없으면 스크럽이 뚝뚝 끊긴다)
+- 모바일 세로 히어로 → 1080px 별도 소스
+- 포스터 `.webp` 추출 (없으면 iOS 저전력 모드에서 검은 화면)
+
+> 이 저장소를 만든 실행 환경은 조직 egress 정책이 `videocdn.pollo.ai` 를 차단해
+> 인코딩 단계를 대신 수행하지 못했다. 네트워크가 열린 로컬에서 `./build.sh` 를
+> 돌리면 그 단계가 그대로 완료된다.
+
+## 설계 규칙 (지키지 않으면 깨지는 것들)
+
+- **영상 안에 글자를 넣지 않는다.** 글자는 전부 HTML 레이어. AI 모델은 한글을 제대로 못 쓰고, 반응형·SEO·번역·접근성이 전부 죽는다.
+- **`isolation:isolate`** — 히어로/섹션마다 스택 컨텍스트를 의도적으로 만들고 그 안에서 `영상 0 / 스크림 1 / 텍스트 2`. `z-index:9999` 는 해결책이 아니다.
+- **조상에 `transform`·`filter`·`opacity<1` 금지.** 걸리는 순간 `position:fixed` 자식이 뷰포트가 아니라 그 조상 기준이 되어 핀이 깨진다. 그래서 스크럽 핀은 GSAP 이 아니라 `position:sticky` 로 걸었다.
+- **세이프존** — 16:9 소스는 모바일 세로에서 가로의 **32%** 만 보인다. 핵심 피사체는 중앙 26% × 76% 안에.
+- **스크림 알파** — 헤드라인 0.50, 본문 0.62 이상. 평균 프레임이 아니라 **최악(가장 밝은) 프레임** 기준.
+- **순백 `#FFFFFF` 금지** → `#F2F5F9`. **`text-shadow` 금지** → 그라디언트 스크림. **영상 위 컬러 텍스트 금지.**
+- `min-height:100vh` 금지 → `78vh` (모바일 주소창 + 노트북 세로 공간).
+
+## 크레딧
+
+| 항목 | 모델 | 건수 | 크레딧 |
+|---|---|---|---|
+| 첫 프레임 이미지 | `google / nano-banana-pro` (2K) | 7 | **0** (Ultra 무제한) |
+| 배경 영상 | `kling-ai / kling-v2-5-turbo` (pro, 5s) | 7 | 30 × 7 = **210** |
+
+이미지는 무제한 플랜이라 0크레딧. 영상만 기존 잔액에서 차감했고 **추가 결제는 없다.**

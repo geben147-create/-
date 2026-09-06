@@ -1,0 +1,340 @@
+/* ============================================================
+   2026 AI 영상 마스터 클래스 — 시네마틱 스크롤 랜딩
+   토큰/스크림 수치는 파이프라인 가이드 09번 계산표를 그대로 따름.
+   ============================================================ */
+
+:root{
+  /* 스크림 — 순검정(#000)이 아니라 아주 살짝 푸른 검정 */
+  --scrim: 8, 10, 14;
+
+  --ink-0:  #06080B;   /* 페이지 바닥 */
+  --ink-1:  #0B0E14;   /* 섹션 바닥 */
+  --ink-2:  #131822;   /* 카드 바닥 */
+  --line:   rgba(242,245,249,.12);
+  --line-2: rgba(242,245,249,.07);
+
+  /* 영상 위 텍스트 — 순백 금지 */
+  --on-video:       #F2F5F9;
+  --on-video-2:     rgba(242,245,249,.74);
+  --on-video-label: rgba(242,245,249,.56);
+
+  /* 액센트는 영상 위 본문에 쓰지 않는다. 버튼·라인·작은 라벨만. */
+  --accent:     #E8A33D;
+  --accent-ink: #171009;
+
+  --maxw: 1200px;
+  --font: "Noto Sans KR", -apple-system, BlinkMacSystemFont, "Segoe UI",
+          "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+}
+
+*,*::before,*::after{ box-sizing:border-box; }
+
+html{ scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
+
+body{
+  margin:0;
+  background: var(--ink-0);
+  color: var(--on-video);
+  font-family: var(--font);
+  font-size:17px;
+  line-height:1.72;
+  font-weight:400;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+
+img,video{ display:block; max-width:100%; }
+a{ color:inherit; }
+
+h1,h2,h3{ margin:0; font-weight:700; letter-spacing:-.02em; line-height:1.2; }
+p{ margin:0; }
+
+.wrap{ width:100%; max-width:var(--maxw); margin-inline:auto; padding-inline:clamp(20px,5vw,48px); }
+
+/* 아이브로우 / 라벨 — 자간 0.16em, 굵기 500 */
+.eyebrow{
+  font-size:12px; font-weight:500; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--on-video-label);
+  margin:0 0 18px;
+}
+.eyebrow--accent{ color:var(--accent); }
+
+/* ---------- 버튼 ---------- */
+.btn{
+  display:inline-flex; align-items:center; gap:10px;
+  padding:15px 30px; border-radius:999px;
+  font-size:15px; font-weight:600; letter-spacing:.01em;
+  text-decoration:none; border:1px solid transparent;
+  transition:transform .18s ease, background-color .18s ease, border-color .18s ease;
+}
+.btn:focus-visible{ outline:2px solid var(--accent); outline-offset:3px; }
+.btn--primary{ background:var(--accent); color:var(--accent-ink); }
+.btn--primary:hover{ transform:translateY(-2px); background:#F0B255; }
+.btn--ghost{ border-color:rgba(242,245,249,.30); color:var(--on-video); }
+.btn--ghost:hover{ border-color:rgba(242,245,249,.62); background:rgba(242,245,249,.06); }
+
+/* ============================================================
+   내비게이션 — body 직속. 조상에 transform 을 절대 걸지 않는다.
+   ============================================================ */
+.nav{
+  position:fixed; inset:0 0 auto 0; z-index:100;
+  display:flex; align-items:center; justify-content:space-between;
+  gap:16px; padding:16px clamp(20px,5vw,48px);
+  background:linear-gradient(to bottom, rgba(6,8,11,.86), rgba(6,8,11,0));
+  backdrop-filter:blur(2px);
+}
+.nav__brand{ font-size:13px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; text-decoration:none; }
+.nav__links{ display:flex; gap:26px; align-items:center; }
+.nav__links a{ font-size:13px; font-weight:500; color:var(--on-video-2); text-decoration:none; }
+.nav__links a:hover{ color:var(--on-video); }
+.nav__cta{ padding:9px 18px; font-size:13px; }
+@media (max-width:860px){ .nav__links a:not(.nav__cta){ display:none; } }
+
+/* ============================================================
+   히어로 — isolation:isolate 로 스택 컨텍스트를 의도적으로 만든다.
+   영상 0 / 스크림 1 / 텍스트 2
+   ============================================================ */
+.hero{
+  position:relative;
+  isolation:isolate;              /* ★ z-index 사고 방지의 핵심 */
+  min-height:78vh;                /* 100vh 금지 — 모바일 주소창 */
+  display:grid; align-items:end;
+  overflow:hidden;
+  background:var(--ink-0);
+}
+.hero__bg{
+  position:absolute; inset:0;
+  width:100%; height:100%;
+  object-fit:cover; object-position:50% 45%;
+  z-index:0; pointer-events:none;
+}
+.hero__scrim{
+  position:absolute; inset:0; z-index:1; pointer-events:none;
+  background:
+    linear-gradient(to top,
+      rgba(var(--scrim),.88) 0%,
+      rgba(var(--scrim),.72) 26%,
+      rgba(var(--scrim),.34) 55%,
+      rgba(var(--scrim),.08) 100%),
+    linear-gradient(to right,
+      rgba(var(--scrim),.62) 0%,
+      rgba(var(--scrim),.14) 48%,
+      rgba(var(--scrim),0) 74%);
+}
+.hero__copy{
+  position:relative; z-index:2;    /* ★ 항상 맨 위 */
+  width:100%; max-width:var(--maxw); margin-inline:auto;
+  padding:0 clamp(20px,5vw,48px) clamp(64px,10vh,112px);
+}
+.hero__copy .inner{ max-width:46ch; }
+.hero h1{ font-size:clamp(34px,6vw,68px); font-weight:700; letter-spacing:-.02em; }
+.hero__lede{
+  margin:22px 0 34px; max-width:44ch;
+  font-size:clamp(17px,1.5vw,19px); font-weight:400; color:var(--on-video-2);
+}
+.hero__actions{ display:flex; flex-wrap:wrap; gap:12px; }
+.hero__meta{
+  margin-top:38px; padding-top:22px; border-top:1px solid var(--line);
+  display:flex; flex-wrap:wrap; gap:28px;
+}
+.hero__meta div{ font-size:13px; font-weight:500; color:var(--on-video-label); }
+.hero__meta b{ display:block; font-size:22px; font-weight:600; color:var(--on-video); letter-spacing:-.01em; }
+
+/* ============================================================
+   영상 배경 섹션 (공통)
+   ============================================================ */
+.vsec{
+  position:relative; isolation:isolate;
+  overflow:hidden; background:var(--ink-1);
+  padding-block:clamp(96px,16vh,180px);
+}
+.vsec__bg{
+  position:absolute; inset:0; width:100%; height:100%;
+  object-fit:cover; object-position:50% 50%;
+  z-index:0; pointer-events:none;
+}
+.vsec__scrim{
+  position:absolute; inset:0; z-index:1; pointer-events:none;
+  background:
+    linear-gradient(to bottom,
+      rgba(var(--scrim),.80) 0%,
+      rgba(var(--scrim),.62) 40%,
+      rgba(var(--scrim),.70) 100%),
+    linear-gradient(to right,
+      rgba(var(--scrim),.58) 0%,
+      rgba(var(--scrim),.16) 55%,
+      rgba(var(--scrim),0) 80%);
+}
+.vsec__copy{ position:relative; z-index:2; }
+.vsec h2{ font-size:clamp(26px,4vw,42px); font-weight:600; letter-spacing:-.015em; }
+.vsec__body{ margin-top:22px; max-width:52ch; font-size:clamp(17px,1.4vw,19px); color:var(--on-video-2); }
+
+/* ============================================================
+   스크럽 섹션 — 핀 + currentTime 제어
+   ============================================================ */
+.scrub{ position:relative; background:var(--ink-0); }
+.scrub__stage{
+  position:relative; isolation:isolate;
+  height:100vh; min-height:560px; overflow:hidden;
+  display:grid; place-items:center;
+}
+.scrub__video{
+  position:absolute; inset:0; width:100%; height:100%;
+  object-fit:cover; z-index:0; pointer-events:none;
+}
+.scrub__scrim{
+  position:absolute; inset:0; z-index:1; pointer-events:none;
+  background:
+    radial-gradient(120% 78% at 50% 52%,
+      rgba(var(--scrim),.24) 0%, rgba(var(--scrim),.72) 68%, rgba(var(--scrim),.92) 100%),
+    linear-gradient(to bottom, rgba(var(--scrim),.55) 0%, rgba(var(--scrim),.20) 34%, rgba(var(--scrim),.78) 100%);
+}
+.scrub__copy{
+  position:relative; z-index:2; text-align:center;
+  width:100%; max-width:var(--maxw); padding-inline:clamp(20px,5vw,48px);
+}
+.scrub__copy h2{ font-size:clamp(28px,4.6vw,50px); font-weight:700; letter-spacing:-.02em; }
+.scrub__copy p{ margin:22px auto 0; max-width:46ch; font-size:clamp(17px,1.4vw,19px); color:var(--on-video-2); }
+
+/* 파이프라인 스텝 — 스크럽 진행에 맞춰 점등 */
+.steps{
+  margin-top:44px; display:flex; flex-wrap:wrap; justify-content:center;
+  gap:10px 8px;
+}
+.step{
+  display:inline-flex; align-items:center; gap:8px;
+  padding:9px 16px; border-radius:999px;
+  border:1px solid rgba(242,245,249,.16);
+  background:rgba(var(--scrim),.55);
+  font-size:13px; font-weight:500; color:var(--on-video-label);
+  transition:color .3s ease, border-color .3s ease, background-color .3s ease;
+}
+.step.is-on{
+  color:var(--accent-ink); background:var(--accent);
+  border-color:var(--accent);
+}
+.scrub__progress{
+  margin:34px auto 0; width:min(420px,80%); height:2px;
+  background:rgba(242,245,249,.16); border-radius:2px; overflow:hidden;
+}
+.scrub__progress i{ display:block; height:100%; width:0%; background:var(--accent); }
+
+/* ============================================================
+   스타일 카드 3종 (짧은 루프)
+   ============================================================ */
+.styles{ background:var(--ink-0); padding-block:clamp(96px,15vh,160px); }
+.styles__head{ max-width:56ch; margin-bottom:clamp(40px,6vh,64px); }
+.styles__head h2{ font-size:clamp(26px,4vw,42px); font-weight:600; }
+.styles__head p{ margin-top:20px; color:var(--on-video-2); }
+.cards{ display:grid; gap:20px; grid-template-columns:repeat(auto-fit,minmax(290px,1fr)); }
+.card{
+  position:relative; isolation:isolate;
+  border-radius:16px; overflow:hidden;
+  border:1px solid var(--line-2);
+  background:var(--ink-2);
+  min-height:420px; display:flex; flex-direction:column; justify-content:flex-end;
+}
+.card__bg{
+  position:absolute; inset:0; width:100%; height:100%;
+  object-fit:cover; z-index:0; pointer-events:none;
+}
+.card__scrim{
+  position:absolute; inset:0; z-index:1; pointer-events:none;
+  background:linear-gradient(to top,
+    rgba(var(--scrim),.92) 0%,
+    rgba(var(--scrim),.76) 34%,
+    rgba(var(--scrim),.34) 68%,
+    rgba(var(--scrim),.10) 100%);
+}
+.card__body{ position:relative; z-index:2; padding:28px 26px 30px; }
+.card h3{ font-size:21px; font-weight:600; letter-spacing:-.01em; }
+.card p{ margin-top:12px; font-size:15px; color:var(--on-video-2); }
+.card ul{ margin:18px 0 0; padding:0; list-style:none; display:grid; gap:7px; }
+.card li{ font-size:13.5px; font-weight:500; color:var(--on-video-label); padding-left:15px; position:relative; }
+.card li::before{ content:""; position:absolute; left:0; top:.62em; width:5px; height:5px; border-radius:50%; background:var(--accent); opacity:.85; }
+
+/* ============================================================
+   신뢰 구간 — 의도적으로 영상이 없는 섹션
+   ============================================================ */
+.trust{ background:var(--ink-1); border-block:1px solid var(--line-2); padding-block:clamp(96px,15vh,160px); }
+.trust__head{ max-width:54ch; margin-bottom:clamp(44px,7vh,72px); }
+.trust__head h2{ font-size:clamp(26px,4vw,42px); font-weight:600; }
+.trust__head p{ margin-top:20px; color:var(--on-video-2); }
+.stats{ display:grid; gap:1px; grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+        background:var(--line-2); border:1px solid var(--line-2); border-radius:14px; overflow:hidden; }
+.stat{ background:var(--ink-1); padding:26px 22px; }
+.stat b{ display:block; font-size:clamp(28px,3.4vw,38px); font-weight:700; letter-spacing:-.02em; color:var(--on-video); }
+.stat span{ display:block; margin-top:6px; font-size:13px; font-weight:500; color:var(--on-video-label); }
+
+.tutors{ margin-top:clamp(44px,7vh,72px); display:grid; gap:16px; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); }
+.tutor{ padding:24px 22px; border:1px solid var(--line-2); border-radius:14px; background:var(--ink-2); }
+.tutor h4{ margin:0; font-size:16px; font-weight:600; letter-spacing:-.01em; }
+.tutor span{ display:block; margin-top:4px; font-size:12px; font-weight:500; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); }
+.tutor p{ margin-top:12px; font-size:14px; color:var(--on-video-2); line-height:1.66; }
+
+.curri{ margin-top:clamp(44px,7vh,72px); border:1px solid var(--line-2); border-radius:14px; overflow:hidden; }
+.curri__row{ display:flex; gap:16px; align-items:baseline; padding:15px 22px; border-top:1px solid var(--line-2); font-size:14.5px; }
+.curri__row:first-child{ border-top:0; }
+.curri__row b{ flex:0 0 62px; font-size:12px; font-weight:600; letter-spacing:.08em; color:var(--accent); }
+.curri__row span{ flex:1; color:var(--on-video-2); }
+.curri__row i{ font-style:normal; font-size:12.5px; font-weight:500; color:var(--on-video-label); white-space:nowrap; }
+
+/* ============================================================
+   CTA — 히어로와 같은 세계로 회귀
+   ============================================================ */
+.cta{ min-height:74vh; align-items:center; }
+.cta .hero__copy{ padding-block:clamp(80px,12vh,120px); text-align:center; }
+.cta .inner{ max-width:none; }
+.cta h2{ font-size:clamp(30px,5vw,56px); font-weight:700; letter-spacing:-.02em; }
+.cta__lede{ margin:22px auto 0; max-width:44ch; font-size:clamp(17px,1.4vw,19px); color:var(--on-video-2); }
+.price{ margin:38px auto 32px; display:inline-flex; flex-direction:column; align-items:center; gap:6px; }
+.price s{ font-size:15px; color:var(--on-video-label); text-decoration-thickness:1px; }
+.price b{ font-size:clamp(30px,4.6vw,46px); font-weight:700; letter-spacing:-.02em; }
+.price em{ font-style:normal; font-size:13px; font-weight:500; letter-spacing:.02em; color:var(--accent); }
+.cta__actions{ display:flex; flex-wrap:wrap; gap:12px; justify-content:center; }
+.cta__fine{ margin-top:26px; font-size:12.5px; color:var(--on-video-label); }
+
+/* ---------- 푸터 ---------- */
+.foot{ background:var(--ink-0); border-top:1px solid var(--line-2); padding-block:44px; }
+.foot__in{ display:flex; flex-wrap:wrap; gap:18px 32px; align-items:center; justify-content:space-between; }
+.foot p{ font-size:12.5px; color:var(--on-video-label); }
+.foot a{ font-size:12.5px; font-weight:500; color:var(--on-video-2); text-decoration:none; }
+.foot a:hover{ color:var(--on-video); }
+
+/* ============================================================
+   모바일 — 가로 세이프존이 32%뿐이므로 좌우 스크림을 세로형으로 교체
+   ============================================================ */
+@media (max-width:768px){
+  body{ font-size:16px; }
+  .hero__bg{ object-position:50% 40%; }
+  .hero__scrim{
+    background:linear-gradient(to top,
+      rgba(var(--scrim),.92) 0%,
+      rgba(var(--scrim),.78) 38%,
+      rgba(var(--scrim),.40) 68%,
+      rgba(var(--scrim),.12) 100%);
+  }
+  .vsec__scrim{
+    background:linear-gradient(to bottom,
+      rgba(var(--scrim),.86) 0%,
+      rgba(var(--scrim),.72) 45%,
+      rgba(var(--scrim),.84) 100%);
+  }
+  .card{ min-height:360px; }
+  .scrub__stage{ height:88vh; min-height:520px; }
+}
+
+/* ============================================================
+   접근성 — 동작 줄이기: 영상 정지, 포스터만
+   ============================================================ */
+@media (prefers-reduced-motion:reduce){
+  html{ scroll-behavior:auto; }
+  .hero__bg,.vsec__bg,.card__bg,.scrub__video{ display:none; }
+  .hero{ background:url("../../media/s1-hero-poster.webp") center/cover, var(--ink-0); }
+  .vsec[data-poster]{ background-size:cover; background-position:center; }
+  .btn{ transition:none; }
+}
+
+:focus-visible{ outline:2px solid var(--accent); outline-offset:3px; border-radius:4px; }
+.skip{ position:absolute; left:-9999px; }
+.skip:focus{ left:12px; top:12px; z-index:200; padding:10px 16px; background:var(--accent); color:var(--accent-ink); border-radius:8px; }
