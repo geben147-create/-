@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>무료 이미지 모델 비교</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f6f6f4; --panel:#fff; --panel2:#eeeeeb; --ink:#191917; --ink2:#5c5c56; --ink3:#8c8c85;
+  --line:#e2e2dd; --accent:#2f6f5e; --accent-soft:#e6f0ec; --warn:#a8620f; --danger:#a33232;
+  --sans:"Noto Sans KR",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){
+  --bg:#141416; --panel:#1c1c1f; --panel2:#26262a; --ink:#ededec; --ink2:#a9a9a4; --ink3:#78786f;
+  --line:#2f2f34; --accent:#63b79c; --accent-soft:#182b26; --warn:#d69646; --danger:#e07b73;
+}}
+:root[data-theme=dark]{
+  --bg:#141416; --panel:#1c1c1f; --panel2:#26262a; --ink:#ededec; --ink2:#a9a9a4; --ink3:#78786f;
+  --line:#2f2f34; --accent:#63b79c; --accent-soft:#182b26; --warn:#d69646; --danger:#e07b73;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.7 var(--sans)}
+header{padding:26px 30px 18px;border-bottom:1px solid var(--line);background:var(--panel)}
+h1{margin:0 0 6px;font-size:23px;letter-spacing:-.02em}
+header p{margin:0;color:var(--ink2);font-size:14px;max-width:74ch}
+.bar{display:flex;flex-wrap:wrap;gap:9px;align-items:center;padding:14px 30px;
+  border-bottom:1px solid var(--line);background:var(--panel);position:sticky;top:0;z-index:9}
+button{font:600 13.5px var(--sans);padding:8px 14px;border-radius:8px;border:1px solid var(--line);
+  background:var(--panel2);color:var(--ink);cursor:pointer}
+button:hover{border-color:var(--ink3)}
+button.on{background:var(--accent);color:#fff;border-color:transparent}
+.spacer{flex:1}
+main{padding:24px 30px 90px}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+@media(max-width:1200px){.grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:660px){.grid{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:13px;overflow:hidden;
+  display:flex;flex-direction:column}
+.card.picked{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent)}
+.head{padding:11px 14px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:8px}
+.head b{font-size:14px}
+.pill{font:700 10.5px var(--mono);padding:2px 7px;border-radius:5px;background:var(--accent-soft);
+  color:var(--accent)}
+.shot{position:relative;aspect-ratio:9/16;background:#0d0d10;cursor:zoom-in;overflow:hidden}
+.shot img{width:100%;height:100%;object-fit:cover;display:block}
+.shot .err{position:absolute;inset:0;display:none;align-items:center;justify-content:center;
+  padding:20px;text-align:center;color:#bbb;font-size:12.5px;line-height:1.6}
+/* --- overlays --- */
+.zone{position:absolute;left:0;right:0;top:0;height:50%;display:none;
+  background:linear-gradient(180deg,rgba(47,111,94,.20),rgba(47,111,94,.05));
+  border-bottom:2px dashed rgba(255,255,255,.75)}
+.zone::after{content:"자막 영역 · 여기가 비어야 함";position:absolute;left:8px;bottom:6px;
+  font:700 10px var(--sans);color:#fff;text-shadow:0 1px 3px #000}
+.safe{position:absolute;inset:0;display:none;border:0}
+.safe i{position:absolute;left:0;right:0;background:repeating-linear-gradient(45deg,
+  rgba(220,60,60,.30) 0 6px,transparent 6px 12px);border-block:1px solid rgba(220,60,60,.6)}
+.safe i.t{top:0;height:11%}
+.safe i.b{bottom:0;height:19%}
+.cap{position:absolute;left:0;right:0;top:0;display:none;pointer-events:none;
+  padding:0 8%;text-align:center}
+.cap .k{display:inline-block;margin-top:7.8%;padding:.28em .7em;border-radius:5px;
+  background:#ffc53d;color:#201a16;font:900 clamp(8px,2.1cqw,15px)/1.2 var(--sans)}
+.cap .t{margin-top:4.2%;color:#fff;font:900 clamp(13px,3.9cqw,28px)/1.32 var(--sans);
+  text-shadow:0 0 5px rgba(0,0,0,.85),0 2px 10px rgba(0,0,0,.6)}
+.shot{container-type:inline-size}
+.show-zone .zone,.show-safe .safe,.show-cap .cap{display:block}
+.show-safe .safe i{display:block}
+.meta{padding:11px 14px;font-size:12.5px;color:var(--ink2);border-top:1px solid var(--line)}
+.meta div{display:flex;justify-content:space-between;gap:10px;padding:1.5px 0}
+.meta b{color:var(--ink);font-family:var(--mono);font-size:12px;font-weight:700}
+.acts{padding:10px 14px;display:flex;gap:8px;border-top:1px solid var(--line)}
+.acts a{flex:1;text-align:center;padding:7px;border-radius:7px;border:1px solid var(--line);
+  color:var(--ink2);text-decoration:none;font-size:12.5px}
+.acts a:hover{color:var(--ink);border-color:var(--ink3)}
+.acts button{flex:1}
+.note{margin:26px 0 0;padding:15px 18px;border:1px solid var(--line);border-left:3px solid var(--accent);
+  border-radius:0 11px 11px 0;background:var(--panel)}
+.note.warn{border-left-color:var(--warn)}
+.note h3{margin:0 0 7px;font-size:14.5px}
+.note ol,.note ul{margin:0;padding-left:19px} .note li{margin:4px 0;font-size:13.5px}
+table{border-collapse:collapse;width:100%;margin:14px 0 0;font-size:13px}
+th,td{border:1px solid var(--line);padding:7px 10px;text-align:left}
+th{background:var(--panel2);font-size:12px}
+.free{color:var(--accent);font-weight:700} .paid{color:var(--danger);font-weight:700}
+dialog{border:none;border-radius:12px;padding:0;background:transparent;max-width:96vw;max-height:96vh}
+dialog::backdrop{background:rgba(0,0,0,.88)}
+dialog img{max-width:96vw;max-height:92vh;display:block;border-radius:10px}
+dialog .cl{position:fixed;top:14px;right:18px}
+code{font:12px var(--mono);background:var(--panel2);padding:1px 5px;border-radius:4px}
+</style>
+</head>
+<body>
+<header>
+  <h1>무료 이미지 모델 비교 · S1 훅 컷</h1>
+  <p>같은 프롬프트를 그대로 넣었습니다. <b>견적이 0 크레딧인 모델만</b> 있습니다.
+  미드저니(3)와 2K(5)는 0원이 아니라서 뺐습니다.</p>
+</header>
+
+<div class="bar">
+  <button id="bZone" class="on">자막 영역 표시</button>
+  <button id="bCap" class="on">실제 자막 얹기</button>
+  <button id="bSafe">인스타 UI 가림 영역</button>
+  <div class="spacer"></div>
+  <span style="font-size:12.5px;color:var(--ink3)" id="pickTxt">고른 모델 없음</span>
+  <button id="bTheme">◐</button>
+</div>
+
+<main>
+<div class="grid show-zone show-cap" id="grid"></div>
+
+<div class="note">
+  <h3>고를 때 볼 것 — 위에서부터 중요한 순서</h3>
+  <ol>
+    <li><b>상단 절반이 진짜 비어 있는가.</b> "실제 자막 얹기"를 켜고 보세요.
+        글자가 얼굴이나 소품과 겹치면 그 모델은 탈락입니다. 9컷 내내 같은 문제가 납니다.</li>
+    <li><b>이미지 안에 글자가 없는가.</b> 프롬프트마다 <code>no text</code>를 넣었지만 어기는 모델이 있습니다.
+        한 글자라도 있으면 탈락 — 모델은 한글을 반드시 틀립니다.</li>
+    <li><b>액세서리가 살아 있는가.</b> 별 핀 · 십자 핀 · 하트 귀걸이 · 고양이 초커.
+        여기가 흐릿하면 뒤 8컷에서 캐릭터가 무너집니다.</li>
+    <li><b>질감이 하나로 잠기는가.</b> 광택 · 피부 · 가장자리. 나머지 8컷과 붙어야 합니다.</li>
+  </ol>
+</div>
+
+<div class="note warn">
+  <h3>견적 (2026-09-06 · Ultra 구독 · 잔액 12,040)</h3>
+  <table>
+  <thead><tr><th>모델</th><th>정가</th><th>실제 청구</th><th>모드</th><th>사용</th></tr></thead>
+  <tbody>
+    <tr><td><code>openai/gpt-image-2</code></td><td>1</td><td class="free">0</td><td>unlimited</td><td>✅</td></tr>
+    <tr><td><code>google/nano-banana-2</code> 1K</td><td>8</td><td class="free">0</td><td>unlimited</td><td>✅</td></tr>
+    <tr><td><code>bytedance/seedream-5-lite</code></td><td>4</td><td class="free">0</td><td>unlimited</td><td>✅</td></tr>
+    <tr><td><code>bytedance/seedream-4-5</code></td><td>4</td><td class="free">0</td><td>unlimited</td><td>✅</td></tr>
+    <tr><td><code>google/nano-banana-2</code> 2K</td><td>11</td><td class="paid">5</td><td>discount 50%</td><td>❌</td></tr>
+    <tr><td><code>midjourney/midjourney-v8-2</code></td><td>6.25</td><td class="paid">3</td><td>discount 50%</td><td>❌</td></tr>
+    <tr><td><code>openai/gpt-image-1-5</code></td><td>—</td><td>—</td><td>—</td><td>❌ 9:16 미지원</td></tr>
+  </tbody></table>
+</div>
+
+<div class="note">
+  <h3>이미지가 안 보이면</h3>
+  <p style="margin:0;font-size:13.5px">Pollo CDN에서 직접 불러옵니다. 로그인 세션이 만료됐거나 링크가
+  만료되면 빈 칸이 됩니다. 각 카드의 <b>원본 열기</b>를 누르면 Pollo에서 바로 볼 수 있습니다.</p>
+</div>
+</main>
+
+<dialog id="dlg"><button class="cl" onclick="dlg.close()">닫기 ✕</button><img id="dimg" alt=""></dialog>
+
+<script>
+const CDN = "https://videocdn.pollo.ai/web-cdn/pollo/production/cmf20asu60gslb2k5fhlac2gn/ori/";
+const MODELS = [
+  {name:"gpt-image-2", brand:"openai", cost:"0 (정가 1)", note:"GPT 계열",
+   img:CDN+"1788663910515-093a2ede-b7be-46a7-93c5-0e86720cdb81.png",
+   page:"https://pollo.ai/v/cmtp883oz2iulfw7qb527880e"},
+  {name:"nano-banana-2", brand:"google", cost:"0 (정가 8)", note:"현재 9컷이 이걸로 생성됨",
+   img:CDN+"1788663533262-47d73864-c33c-47f3-94c0-cd4014f51b3f.png",
+   page:"https://pollo.ai/v/cmtp82un12ionj89cwqfzz84r"},
+  {name:"seedream-5-lite", brand:"bytedance", cost:"0 (정가 4)", note:"",
+   img:CDN+"1788664113684-bae9376d-ff71-4c2b-9c8d-d4c18ac15417.png",
+   page:"https://pollo.ai/v/cmtp8c8kx2j9mtz3fzzknpev0"},
+  {name:"seedream-4-5", brand:"bytedance", cost:"0 (정가 4)", note:"",
+   img:CDN+"1788664099091-0aac4dba-7e55-40d1-8131-3811ca5b772e.jpeg",
+   page:"https://pollo.ai/v/cmtp8cdr72jauj89cdolikeoq"}
+];
+const KICKER = "돈의 원리 3분 정리";
+const TITLE  = "통장은 그대로인데<br>왜 자꾸 부족할까?";
+
+const grid = document.getElementById("grid");
+grid.innerHTML = MODELS.map((m,i)=>`
+  <div class="card" data-i="${i}">
+    <div class="head"><b>${m.name}</b><span class="pill">${m.brand}</span></div>
+    <div class="shot" data-src="${m.img}">
+      <img src="${m.img}" alt="${m.name} 결과" loading="eager">
+      <div class="err">이미지를 불러오지 못했습니다.<br>아래 <b>원본 열기</b>로 확인하세요.</div>
+      <div class="zone"></div>
+      <div class="safe"><i class="t"></i><i class="b"></i></div>
+      <div class="cap"><span class="k">${KICKER}</span><div class="t">${TITLE}</div></div>
+    </div>
+    <div class="meta">
+      <div><span>실제 청구</span><b>${m.cost}</b></div>
+      <div><span>비율 · 해상도</span><b>9:16 · 1K</b></div>
+      ${m.note?`<div><span>비고</span><b>${m.note}</b></div>`:""}
+    </div>
+    <div class="acts">
+      <a href="${m.page}" target="_blank" rel="noopener">원본 열기 ↗</a>
+      <button data-pick="${m.name}">이걸로 결정</button>
+    </div>
+  </div>`).join("");
+
+// broken image -> show the fallback message instead of a silent black box
+grid.querySelectorAll(".shot img").forEach(im=>{
+  im.addEventListener("error",()=>{ im.style.display="none";
+    im.parentElement.querySelector(".err").style.display="flex"; });
+});
+
+const dlg=document.getElementById("dlg"), dimg=document.getElementById("dimg");
+grid.querySelectorAll(".shot").forEach(s=>s.addEventListener("click",e=>{
+  if(e.target.closest("button,a"))return;
+  dimg.src=s.dataset.src; dlg.showModal();
+}));
+
+function toggle(btn,cls){ btn.addEventListener("click",()=>{
+  const on=grid.classList.toggle(cls); btn.classList.toggle("on",on); }); }
+toggle(document.getElementById("bZone"),"show-zone");
+toggle(document.getElementById("bCap"),"show-cap");
+toggle(document.getElementById("bSafe"),"show-safe");
+
+const pickTxt=document.getElementById("pickTxt");
+function setPick(name){
+  grid.querySelectorAll(".card").forEach(c=>
+    c.classList.toggle("picked", c.querySelector("[data-pick]").dataset.pick===name));
+  pickTxt.textContent="고른 모델: "+name;
+  try{ localStorage.setItem("ugc_model", name); }catch(e){}
+}
+grid.querySelectorAll("[data-pick]").forEach(b=>
+  b.addEventListener("click",()=>setPick(b.dataset.pick)));
+try{ const p=localStorage.getItem("ugc_model"); if(p) setPick(p); }catch(e){}
+
+document.getElementById("bTheme").addEventListener("click",()=>{
+  const cur=document.documentElement.getAttribute("data-theme");
+  const dark=cur?cur==="dark":matchMedia("(prefers-color-scheme:dark)").matches;
+  document.documentElement.setAttribute("data-theme",dark?"light":"dark");
+});
+</script>
+</body>
+</html>
