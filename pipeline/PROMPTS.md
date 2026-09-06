@@ -121,3 +121,30 @@ extra objects appearing
 모바일 세로(9:16)는 히어로만 별도 생성했습니다. 나머지 섹션은 가로 소스를
 `object-position`으로 밀어 처리합니다 — 가이드가 말하는 임시방편이고,
 그렇게 해도 되는 이유는 그 섹션들의 피사체가 이미 중앙 26% 안에 있기 때문입니다.
+
+## 생성물 확인 링크
+
+이 저장소를 만든 컨테이너는 `videocdn.pollo.ai` 에 접근할 수 없어 **결과물을
+한 번도 열어보지 못했습니다.** 구도·컷·톤이 지시대로 나왔는지는 아래에서
+직접 확인하시고, 어긋난 것만 같은 프롬프트로 재생성하면 됩니다
+(샷당 3~4회 뽑는 게 정상입니다).
+
+| 클립 | 첫 프레임 (0 견적) | 영상 |
+|---|---|---|
+| `s1-hero` 16:9 | [보기](https://pollo.ai/v/cmtp93qyx2kgc13snvsis2e4b) | [보기](https://pollo.ai/v/cmtp9kcdl2m68zjleawe0m1nv) |
+| `s1-hero` 9:16 모바일 | [보기](https://pollo.ai/v/cmtp93uwj2l2ltz3fs620ktc7) | [보기](https://pollo.ai/v/cmtp9khe22mp0ux0hce9o2cr6) |
+| `s2-broken` | [보기](https://pollo.ai/v/cmtp988vp2l0vp398y6ta0wtb) | [보기](https://pollo.ai/v/cmtp9kmup2mbhcac288c7cwlc) |
+| `s3-corridor` 스크럽 | [보기](https://pollo.ai/v/cmtp9a1732m2p13fs021xvwvr) | [보기](https://pollo.ai/v/cmtp9ksdy2lsqpk4ce3a8mgmn) |
+| `s4-a` | [보기](https://pollo.ai/v/cmtp9ikei2mibycuekglw94z0) | [보기](https://pollo.ai/v/cmtp9phpf2n3gmb0x610ge6cs) |
+| `s4-b` | [보기](https://pollo.ai/v/cmtp9iovy2lp7p398jktfqlpu) | [보기](https://pollo.ai/v/cmtp9ps292n6itpwk80k57ogb) |
+| `s4-c` | [보기](https://pollo.ai/v/cmtp9ishl2lnkpk4cp5g1llqt) | [보기](https://pollo.ai/v/cmtp9qup42lz1ine5tpg4nunh) |
+| `s6-cta` | [보기](https://pollo.ai/v/cmtp9a5yb2m02ycuemqibfqpd) | [보기](https://pollo.ai/v/cmtp9p7nd2luzlpegpju2gx0i) |
+
+특히 다음 세 가지를 봐 주세요:
+
+1. **컷이 들어갔는가.** 프롬프트·네거티브 양쪽에 막아뒀지만 모델이 넣을 때가 있습니다.
+   배경 루프에 컷이 있으면 그 클립은 못 씁니다.
+2. **피사체가 중앙 26% 안에 있는가.** 벗어났다면 모바일에서 사라집니다.
+3. **`s1-hero` 와 `s6-cta` 의 첫/끝 프레임이 실제로 닫히는가.**
+   `imageTail` 로 고정했지만 pro 모드에서도 완벽하진 않습니다. 이음매가 보이면
+   ffmpeg 로 앞뒤 0.2초를 크로스페이드하거나 클립을 짧게 자르세요.
