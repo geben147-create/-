@@ -116,3 +116,81 @@ elegant and monumental, cinematic character art, digital oil painting quality
 | 영상 | `alibaba/wan-v3-0-prime` | 480p / 5초 | 720p부터 45 |
 
 **5초가 무료 상한선이다.** 6초만 돼도 과금된다. 동시 생성은 계정 전체 4개까지.
+
+---
+
+# 추가 탐색 스타일 (v5~v8)
+
+## v5 — 사진 · 안개 협곡 등천로
+
+```
+photographic, cinematic, high dynamic range, long lens compression, deep
+atmospheric perspective stacking distance into pale layers of blue and cream,
+extremely fine detail in stonework and mist, muted sophisticated palette:
+cool blue-grey mist and slate rock against warm gold and amber light,
+serene, monumental, quietly epic
+```
+- 등롱 늘어선 절벽 石道 → 능선의 문루. 새벽 안개
+- 스케일감이 가장 크다. 여는 컷·챕터 전환에 적합
+
+## v6 — 3D 아이소메트릭 미니어처 디오라마 + 플로팅 UI
+
+```
+highly detailed 3D isometric miniature diorama on a softly rounded floating
+base, soft clay-like toy rendering, gentle tilt-shift miniature focus, clean
+soft studio lighting with a warm rim, hundreds of tiny warm amber window
+lights against a deep navy background, a few translucent glassmorphic UI
+panels floating around the model showing charts and icons only
+```
+- **대본의 Money X-ray 구간에 최적.** 항만→환적→창고→철도 계층을 한 화면에 보여줌
+- 카라반사라이 구조 설명(하루 이동거리 30~40km 거점)에도 강함
+- ⚠️ UI 패널에 **글자를 넣지 말 것.** AI가 쓰면 깨진 문자가 나온다. 아이콘·차트만
+- 배경 남색 + 창문 호박색이 마침 채널 실측 팔레트와 일치
+
+## v7 — 3D 카툰 광고 (피시아이 액션)
+
+```
+glossy 3D CGI cartoon advertising illustration, stylized characters with
+exaggerated proportions and expressive poses, extreme wide-angle fisheye
+perspective with strong barrel distortion, dynamic action with objects flying
+toward the camera, bright saturated colours, soft global illumination with
+crisp specular highlights, busy energetic composition, comedic commercial
+energy, high-end mobile-game key art quality
+```
+- **소그드 상인 = 원조 배송업자** 라는 개념이 대본 주제(연결·물류·거점)와 정확히 맞는다
+- 과거(카라반)와 현재(항만) 대응 구도를 코믹하게 만들 수 있음
+- ⚠️ 채널 실측 룩에서 가장 멀다. 짧은 삽입 구간용
+
+## v8 — 유목 인물 회화 (중앙아시아 민족지)
+
+```
+soft painterly semi-realistic digital art, delicate visible brushwork, muted
+desaturated palette of sage green / dusty teal / pale cream / rust terracotta,
+gentle diffused light, shallow depth of field, quiet atmospheric mood,
+ethnographic costume detail rendered with care - embroidery, fur, beadwork,
+braided hair - refined character illustration, contemplative and dignified
+```
+- **팔레트가 실측값과 가장 가깝다.** 세이지·틸 + 크림 + 러스트 = 한색 우세 + 난색 악센트
+- 미우나이를 인물로 세우기에 최적. 복식 고증 디테일이 신뢰감을 만듦
+- ⚠️ 정면 초상은 「얼굴 예산 5% 미만」 규칙과 충돌. **총 25초 안에서만** 쓸 것.
+  나머지는 3/4 측면·뒷모습·손·소품 인서트로 돌릴 것
+
+---
+
+# 스타일 8종 요약 — 어디에 쓸 것인가
+
+| | 스타일 | 실측 룩과의 거리 | 최적 용도 |
+|---|---|---|---|
+| v1 | 다큐 사진사실 | **0 (실측 그대로)** | 현대 구간 · 사실 근거 |
+| v2 | 고채도 바로크 | 멂 | 감정 최고점 1~2컷만 |
+| v3 | 수채·과슈 | 가까움(색 관계) | 감정 구간 · 도입/마무리 |
+| v4 | 인물 회화(단색면) | 중간 | 인물 소개 카드 |
+| v5 | 사진 안개 협곡 | 가까움 | 여는 컷 · 챕터 전환 |
+| v6 | 3D 디오라마+UI | 중간 | **Money X-ray · 구조 설명** |
+| v7 | 3D 카툰 피시아이 | 가장 멂 | 짧은 코믹 삽입 |
+| v8 | 유목 인물 회화 | **가장 가까움(팔레트)** | 미우나이 · 인물 서사 |
+
+**8종 전부 0크레딧으로 생성했습니다.** 비용 없이 비교하고 고르시면 됩니다.
+
+스타일이 몇 개든, §5 의 실측 규칙 5가지는 바뀌지 않습니다 —
+난색 곡선 · 통과 전환 25.4% · 얼굴 예산 5% 미만 · 한색 우세 64.7% · 장면 길이.
