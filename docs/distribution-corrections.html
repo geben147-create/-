@@ -1,0 +1,579 @@
+<title>AI 음원 유통 정정본</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;700;900&family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<style>
+:root{
+  --ground:#071410; --surface:#0C1F19; --surface-2:#102A22; --sunk:#04100C; --raised:#143229;
+  --ink:#E9F5EF; --ink-2:#B4CEC2; --muted:#75948A;
+  --line:#1A392F; --line-2:#285244; --line-3:#356857;
+  --acc:#3DDC84; --acc-2:#7BF0AE; --acc-dim:#0F3A27; --acc-glow:rgba(61,220,132,.14);
+  --ok:#3DDC84; --ok-bg:#0F3323;
+  --warn:#E8B44A; --warn-bg:#33280E;
+  --bad:#FF7A6B; --bad-bg:#3A1A17;
+  --f-d:"Noto Serif KR",Georgia,serif;
+  --f-b:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+  --f-m:"JetBrains Mono","SFMono-Regular",Consolas,monospace;
+}
+*{box-sizing:border-box}
+body{background:var(--ground);color:var(--ink);font-family:var(--f-b);font-size:16px;line-height:1.75;font-weight:400;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px 110px}
+h1,h2,h3,h4{margin:0;line-height:1.3;text-wrap:balance}
+p{margin:0}
+em{font-style:normal;color:var(--acc-2)}
+a{color:var(--acc);text-underline-offset:3px;text-decoration-thickness:1px}
+a:focus-visible,button:focus-visible{outline:2px solid var(--acc);outline-offset:3px;border-radius:3px}
+
+/* masthead */
+.mast{border-bottom:1px solid var(--line-2);background:
+  radial-gradient(120% 140% at 12% 0%, var(--acc-glow) 0%, transparent 58%), var(--sunk)}
+.mast-in{max-width:1120px;margin:0 auto;padding:52px 20px 40px;display:flex;flex-direction:column;gap:20px}
+.kicker{font-family:var(--f-m);font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--acc);display:flex;align-items:center;gap:11px;flex-wrap:wrap}
+.kicker::before{content:"";width:26px;height:1px;background:var(--acc);flex:none}
+h1{font-family:var(--f-d);font-weight:900;font-size:clamp(29px,6.2vw,52px);letter-spacing:-.02em;color:var(--ink)}
+h1 span{color:var(--acc)}
+.lede{font-size:clamp(15px,2.3vw,17.5px);color:var(--ink-2);font-weight:300;max-width:64ch;line-height:1.78}
+.meta{display:flex;flex-wrap:wrap;gap:8px 22px;padding-top:14px;border-top:1px solid var(--line);font-family:var(--f-m);font-size:11.5px;color:var(--muted)}
+.meta b{color:var(--ink-2);font-weight:500}
+
+/* nav */
+nav{position:sticky;top:0;z-index:30;background:rgba(7,20,16,.93);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav-in{max-width:1120px;margin:0 auto;padding:0 20px;display:flex;gap:1px;overflow-x:auto;scrollbar-width:none}
+.nav-in::-webkit-scrollbar{display:none}
+.nav-in a{flex:none;font-family:var(--f-m);font-size:11px;letter-spacing:.04em;color:var(--muted);text-decoration:none;padding:13px 12px;border-bottom:2px solid transparent;white-space:nowrap}
+.nav-in a:hover{color:var(--acc-2);border-bottom-color:var(--line-3)}
+
+section{padding-top:62px;scroll-margin-top:50px}
+.sh{display:flex;gap:15px;align-items:baseline;margin-bottom:9px}
+.sn{font-family:var(--f-m);font-size:12px;font-weight:700;color:var(--acc);flex:none;padding-top:5px}
+h2{font-family:var(--f-d);font-weight:700;font-size:clamp(23px,4.3vw,32px);letter-spacing:-.015em}
+.snote{color:var(--muted);font-size:14.5px;margin:0 0 26px 35px;max-width:66ch;line-height:1.72}
+@media(max-width:620px){.snote{margin-left:0}}
+h3{font-size:17.5px;font-weight:600;margin:38px 0 13px;letter-spacing:-.005em;display:flex;gap:10px;align-items:baseline}
+h3 .hn{font-family:var(--f-m);font-size:12px;color:var(--acc);font-weight:700;flex:none}
+.prose{max-width:72ch}
+.prose p+p{margin-top:15px}
+
+/* correction cards */
+.fixes{display:grid;gap:14px}
+.fix{background:var(--surface);border:1px solid var(--line-2);border-left:3px solid var(--bad);padding:20px 22px;display:grid;gap:11px}
+.fix.soft{border-left-color:var(--warn)}
+.fix-h{font-family:var(--f-m);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--bad);font-weight:700}
+.fix.soft .fix-h{color:var(--warn)}
+.row{display:grid;grid-template-columns:26px 1fr;gap:4px 12px;align-items:start}
+.mk{font-family:var(--f-m);font-size:15px;font-weight:700;line-height:1.5}
+.mk.x{color:var(--bad)}
+.mk.o{color:var(--ok)}
+.mk.q{color:var(--warn)}
+.wrong{color:var(--muted);text-decoration:line-through;text-decoration-color:rgba(255,122,107,.6);font-size:14.5px;line-height:1.65}
+.right{font-size:15px;line-height:1.7;color:var(--ink)}
+.right b{color:var(--acc-2);font-weight:600}
+.why{grid-column:2;font-size:13.5px;color:var(--muted);line-height:1.62;padding-top:2px}
+@media(max-width:620px){.row{grid-template-columns:22px 1fr}.why{grid-column:1/-1}}
+
+/* tables */
+.sc{overflow-x:auto;border:1px solid var(--line-2);background:var(--surface);margin-top:20px;border-radius:2px}
+table{border-collapse:collapse;width:100%;min-width:660px;font-size:13.7px}
+thead th{background:var(--sunk);text-align:left;font-family:var(--f-m);font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--acc);padding:12px 14px;border-bottom:1px solid var(--line-3);white-space:nowrap;vertical-align:bottom}
+tbody td{padding:13px 14px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.6;color:var(--ink-2)}
+tbody tr:last-child td{border-bottom:0}
+tbody tr:hover td{background:var(--surface-2)}
+td.nm{font-weight:600;color:var(--ink);white-space:nowrap}
+td.nm small{display:block;font-weight:400;color:var(--muted);font-size:12px;white-space:normal;line-height:1.45;margin-top:2px}
+td.n{font-family:var(--f-m);font-variant-numeric:tabular-nums;white-space:nowrap;font-size:12.5px;color:var(--ink)}
+tr.top td{background:var(--acc-dim)}
+tr.top:hover td{background:var(--acc-dim)}
+tr.top td.nm{color:var(--acc-2)}
+
+/* chips */
+.c{display:inline-block;font-family:var(--f-m);font-size:10px;font-weight:700;letter-spacing:.05em;padding:3px 8px;border-radius:2px;white-space:nowrap}
+.c.y{background:var(--ok-bg);color:var(--ok)}
+.c.n{background:var(--bad-bg);color:var(--bad)}
+.c.p{background:var(--warn-bg);color:var(--warn)}
+.c.g{background:var(--surface-2);color:var(--muted)}
+
+/* rank meter */
+.mt{display:inline-flex;gap:2.5px;vertical-align:middle}
+.mt i{width:8px;height:15px;background:var(--line-2);border-radius:1px;display:block}
+.mt i.on{background:var(--acc)}
+.mt.m i.on{background:var(--warn)}
+.mt.l i.on{background:var(--bad)}
+.ml{font-family:var(--f-m);font-size:10.5px;color:var(--muted);margin-left:8px;vertical-align:middle}
+
+/* callouts */
+.call{background:var(--bad-bg);border:1px solid rgba(255,122,107,.32);padding:20px 22px;margin-top:24px;display:grid;gap:10px;border-radius:2px}
+.call.w{background:var(--warn-bg);border-color:rgba(232,180,74,.32)}
+.call.g{background:var(--ok-bg);border-color:rgba(61,220,132,.3)}
+.call .ch{font-family:var(--f-m);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--bad)}
+.call.w .ch{color:var(--warn)}
+.call.g .ch{color:var(--ok)}
+.call p,.call li{font-size:14.5px;line-height:1.72;color:var(--ink-2)}
+.call ul{margin:0;padding-left:20px;display:grid;gap:7px}
+.call b{color:var(--ink);font-weight:600}
+
+/* cards */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(258px,1fr));gap:14px;margin-top:22px}
+.card{background:var(--surface);border:1px solid var(--line-2);padding:20px;display:flex;flex-direction:column;gap:10px;border-radius:2px}
+.card.hi{border-color:var(--acc);background:linear-gradient(180deg,var(--acc-dim) 0%,var(--surface) 46%)}
+.card .ct{font-weight:600;font-size:15.5px;display:flex;justify-content:space-between;gap:10px;align-items:baseline;color:var(--ink)}
+.card .cp{font-family:var(--f-m);font-size:11.5px;color:var(--acc);white-space:nowrap;font-weight:500}
+.card .cd{font-size:14px;color:var(--ink-2);line-height:1.66;flex:1}
+.card ul{margin:0;padding-left:18px;font-size:13.3px;color:var(--muted);display:grid;gap:5px;line-height:1.58}
+
+/* code */
+pre{background:var(--sunk);border:1px solid var(--line-2);padding:18px;overflow-x:auto;margin-top:18px;font-family:var(--f-m);font-size:12.5px;line-height:1.75;color:var(--ink-2);border-radius:2px}
+code{font-family:var(--f-m);font-size:.89em;background:var(--surface-2);padding:2px 6px;border-radius:2px;color:var(--acc-2)}
+pre code{background:none;padding:0;color:inherit;font-size:inherit}
+.cm{color:var(--muted)}
+.kw{color:var(--acc)}
+
+/* flow */
+.flow{display:grid;gap:0;margin-top:22px;border-left:2px solid var(--line-2);margin-left:9px}
+.fi{padding:0 0 26px 26px;position:relative}
+.fi:last-child{padding-bottom:0}
+.fi::before{content:"";position:absolute;left:-7px;top:8px;width:12px;height:12px;border-radius:50%;background:var(--acc);border:3px solid var(--ground)}
+.fi.hum::before{background:var(--warn)}
+.fw{font-family:var(--f-m);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--acc);font-weight:700}
+.fi.hum .fw{color:var(--warn)}
+.ft{font-weight:600;font-size:15.5px;margin-top:3px;color:var(--ink)}
+.fd{font-size:14px;color:var(--ink-2);margin-top:5px;line-height:1.68}
+
+/* sources */
+.srcs{margin-top:20px;border-top:1px solid var(--line-2)}
+.src{display:grid;grid-template-columns:auto 1fr;gap:3px 15px;padding:12px 0;border-bottom:1px solid var(--line);align-items:baseline}
+.src .sn2{font-family:var(--f-m);font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums}
+.src a{font-size:14px;font-weight:500}
+.src .sd{grid-column:2;font-size:12.5px;color:var(--muted);line-height:1.55}
+@media(max-width:620px){.src{grid-template-columns:1fr}.src .sd{grid-column:1}}
+
+footer{margin-top:70px;padding-top:26px;border-top:1px solid var(--line-2);color:var(--muted);font-size:13.2px;line-height:1.75}
+footer b{color:var(--ink-2)}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<header class="mast">
+  <div class="mast-in">
+    <div class="kicker">정정 · 팩트체크 · MCP 실행 매트릭스 · 2026-09-06</div>
+    <h1>AI 음원 유통 <span>정정 도시에</span></h1>
+    <p class="lede">지난 브리핑에서 <strong>틀린 부분을 X로 표시하고 고쳤습니다.</strong> 그리고 붙여주신 분석을 항목별로 팩트체크했습니다. 마지막으로 가장 중요한 질문 — 승인 확률 상위 기법 중 어디까지를 제가 MCP로 실제 실행할 수 있는지 — 을 순위별로 답합니다.</p>
+    <div class="meta">
+      <span><b>정정</b> 5건 (치명 2건)</span>
+      <span><b>팩트체크</b> 12항목</span>
+      <span><b>확인 실패</b> 노션·유튜브 (망 차단)</span>
+      <span><b>통화</b> USD</span>
+    </div>
+  </div>
+</header>
+
+<nav><div class="nav-in">
+  <a href="#fix">정정</a>
+  <a href="#time">승인 기간</a>
+  <a href="#check">팩트체크</a>
+  <a href="#mcp">MCP 매트릭스</a>
+  <a href="#tune">보컬 튜닝</a>
+  <a href="#hum">허밍·묻힌 보컬</a>
+  <a href="#stack">툴 3종 비교</a>
+  <a href="#voice">보컬 AI 비교</a>
+  <a href="#dist">유통사 재비교</a>
+  <a href="#split">90% vs Content ID</a>
+  <a href="#cmd">실전 명령</a>
+  <a href="#limit">근거의 한계</a>
+  <a href="#src">출처</a>
+</div></nav>
+
+<div class="wrap">
+
+<section id="fix">
+  <div class="sh"><span class="sn">01</span><h2>정정 — 제가 틀렸던 것</h2></div>
+  <p class="snote">보내주신 Symphonic 가입 화면이 결정적이었습니다. 앞의 두 건은 결론 자체를 바꾸는 오류입니다.</p>
+
+  <div class="fixes">
+    <div class="fix">
+      <div class="fix-h">치명 01 · 결론이 바뀜</div>
+      <div class="row"><span class="mk x">✕</span><span class="wrong">"싸면서 Content ID 수수료 0% → RouteNote Premium $9.99/년이 가장 저렴한 선택"</span></div>
+      <div class="row"><span class="mk o">✓</span><span class="right">RouteNote는 AI 콘텐츠를 <b>Content Recognition(=YouTube Content ID) · 한국 파트너 스토어(멜론·지니·벅스·플로·바이브) · Amazon</b> 세 곳 모두에 배포할 수 없습니다.</span></div>
+      <div class="row"><span class="mk"></span><span class="why">즉 한국 시장을 보는 유통사에게 RouteNote는 AI 카탈로그로는 <strong>Content ID도 국내 스토어도 둘 다 막힌</strong> 경로입니다. 수수료가 0%인 건 맞지만, 0%를 적용할 대상 자체가 없습니다. 이건 편곡을 아무리 많이 해도 열리지 않는 <strong>정책 게이트</strong>입니다.</span></div>
+    </div>
+
+    <div class="fix">
+      <div class="fix-h">치명 02 · 유통사는 쓸 수 없음</div>
+      <div class="row"><span class="mk x">✕</span><span class="wrong">"AI 비중이 높아도 Content ID까지 → Symphonic Starter $19.99/년"</span></div>
+      <div class="row"><span class="mk o">✓</span><span class="right">Starter는 <b>연 $29.99</b>이고, <b>아티스트 전용</b>입니다. 계정 내 모든 릴리스에 <b>primary artist를 1명만</b> 쓸 수 있고, <b>레이블·유통사는 Partner 프로그램에 별도 신청</b>해야 합니다.</span></div>
+      <div class="row"><span class="mk"></span><span class="why">보내주신 화면의 마지막 줄이 정확히 이 문장입니다 — "Symphonic Starter는 아티스트 전용 프로그램입니다. 레이블은 파트너 프로그램을 통해 신청해 주세요." Partner는 신청 심사제이고 아티스트 수 무제한, 요율은 커스텀입니다. <strong>유통사라면 처음부터 Partner로 가야 합니다.</strong></span></div>
+    </div>
+
+    <div class="fix soft">
+      <div class="fix-h">하향 03 · 근거 강도를 낮춥니다</div>
+      <div class="row"><span class="mk q">△</span><span class="wrong">"Symphonic은 AI 콘텐츠를 Content ID에서 제외하지 않는 유일한 유통사"</span></div>
+      <div class="row"><span class="mk o">✓</span><span class="right">이 문장의 출처는 <b>제3자 리뷰 블로그</b>입니다. Symphonic <b>공식 문서에서 "AI 트랙에 Content ID를 제공한다"는 명시 문구는 확인하지 못했습니다.</b></span></div>
+      <div class="row"><span class="mk"></span><span class="why">공식 문서에서 확인된 것은 (a) 생성형 AI 업로드를 지원하되 공시 필수, (b) 사칭·무단 목소리 합성 불가, (c) UGC·소셜 수익은 70/30 — 여기까지입니다. <strong>"AI에 Content ID를 붙여준다"는 계약 전 서면 확인 대상이지, 확정 사실로 쓰면 안 됩니다.</strong> 제가 앞 문서에서 이걸 확정처럼 적은 게 잘못입니다.</span></div>
+    </div>
+
+    <div class="fix soft">
+      <div class="fix-h">누락 04</div>
+      <div class="row"><span class="mk x">✕</span><span class="wrong">승인 기간을 "1–5영업일 / 24–48시간" 수준으로만 적음</span></div>
+      <div class="row"><span class="mk o">✓</span><span class="right">RouteNote는 현재 <b>25–27 영업일</b>이고, AI 콘텐츠는 <b>추가 심사</b>가 붙습니다. 다음 섹션에 전체 표를 새로 넣었습니다.</span></div>
+    </div>
+
+    <div class="fix soft">
+      <div class="fix-h">누락 05</div>
+      <div class="row"><span class="mk x">✕</span><span class="wrong">한국 저작권 등록(KOMCA) 상황을 아예 다루지 않음</span></div>
+      <div class="row"><span class="mk o">✓</span><span class="right">KOMCA는 2026년 8월 3일 AI 활용 음악 등록 기준을 발표했다가 <b>8월 25일 제8차 이사회에서 철회</b>했습니다. 신규 AI 활용곡은 새 기준 마련 시까지 <b>등록 유보</b>입니다.</span></div>
+      <div class="row"><span class="mk"></span><span class="why">문화체육관광부가 8월 18일 공문으로 문화예술계 전반 공론화를 권고한 것이 배경입니다. 다만 KOMCA는 이 철회가 논의 중단이나 100% AI 생성물 신탁 등록 허용을 뜻하지는 않는다고 못박았습니다. <strong>유통 승인과 저작권 등록은 완전히 별개의 관문입니다.</strong></span></div>
+    </div>
+  </div>
+</section>
+
+<section id="time">
+  <div class="sh"><span class="sn">02</span><h2>승인 기간</h2></div>
+  <p class="snote">"얼마나 걸리나"는 유통사 선택에서 가격만큼 중요합니다. AI 콘텐츠는 거의 모든 곳에서 추가 심사가 붙습니다.</p>
+  <div class="sc"><table>
+    <thead><tr><th>유통사</th><th>일반 심사</th><th>AI 콘텐츠 추가</th><th>스토어 반영</th><th>체감 총 소요</th></tr></thead>
+    <tbody>
+      <tr class="top"><td class="nm">DistroKid</td><td class="n">24–48시간</td><td>자동 스크리닝<br><span class="c p">플래그 시 지연</span></td><td class="n">포함</td><td class="n">1–3일</td></tr>
+      <tr><td class="nm">Amuse<small>Pro / ASAP Release</small></td><td class="n">24–72시간<br>ASAP 24h 이내</td><td><span class="c g">미확인</span></td><td class="n">포함</td><td class="n">1–3일<br><span style="color:var(--muted)">무료·베이직은 2–4주</span></td></tr>
+      <tr><td class="nm">Symphonic</td><td class="n">1–5영업일<br>보통 3–5일</td><td>공시 검토</td><td class="n">+24–48시간</td><td class="n">3–7일</td></tr>
+      <tr><td class="nm">RouteNote</td><td class="n">25–27 영업일</td><td>AI 스크리닝<br><span class="c p">+4–7영업일</span></td><td class="n">포함</td><td class="n">약 5–7주</td></tr>
+      <tr><td class="nm">포크라노스 · 미러볼뮤직<small>국내 인디 유통</small></td><td class="n">심사제</td><td><span class="c n">AI 대량 부적합</span></td><td class="n">—</td><td class="n">신청 적체<br>통과 불확실</td></tr>
+    </tbody>
+  </table></div>
+  <div class="call w">
+    <div class="ch">이 표에서 읽어야 할 것</div>
+    <p>RouteNote의 <b>25–27 영업일</b>은 달력으로 약 5주입니다. 여기에 AI 추가 심사 4–7영업일이 더 붙습니다. "무료니까 일단 RouteNote"로 시작하면 <b>한 곡 결과를 확인하는 데만 6~7주</b>가 걸립니다. 파일럿 테스트를 여기서 돌리면 안 되는 이유입니다. 속도로 검증하려면 DistroKid(1–3일), 본계약은 Symphonic Partner로 가는 구조가 맞습니다.</p>
+  </div>
+</section>
+
+<section id="check">
+  <div class="sh"><span class="sn">03</span><h2>붙여주신 분석 팩트체크</h2></div>
+  <p class="snote">12개 항목을 원문 대조했습니다. <span class="c y">확인</span> = 1차 자료로 검증됨, <span class="c p">부분</span> = 일부 틀림, <span class="c n">오류</span> = 사실과 다름.</p>
+  <div class="sc"><table>
+    <thead><tr><th>주장</th><th>판정</th><th>확인된 사실</th></tr></thead>
+    <tbody>
+      <tr><td class="nm">RouteNote가 AI를 한국 스토어·<br>Amazon·Content Recognition에서 차단</td><td><span class="c y">확인</span></td><td>정확합니다. 차단 스토어는 <strong>멜론·지니·벅스·플로·바이브</strong>, 그리고 Amazon, Content Recognition. 2026-01-06 정책은 상업권 확인·AI 플랫폼 링크 제출·아티스트 사칭 금지도 요구합니다.</td></tr>
+      <tr><td class="nm">KOMCA 8월 3일 기준 →<br>8월 25일 철회</td><td><span class="c y">확인</span></td><td>정확합니다. 제8차 이사회에서 규정·신탁계약약관 개정 철회 의결. 문체부 8월 18일 공문의 공론화 권고가 배경. <strong>단 KOMCA는 "논의 중단이나 100% AI 생성물 등록 허용을 뜻하지 않는다"고 명시</strong>했습니다.</td></tr>
+      <tr><td class="nm">RouteNote 심사 25–27 영업일</td><td><span class="c y">확인</span></td><td>정확합니다. 제출량 증가로 평소보다 길어졌다는 안내도 함께 있습니다.</td></tr>
+      <tr><td class="nm">Seed-VC가 1–30초 레퍼런스로<br>zero-shot 가창 변환</td><td><span class="c y">확인</span></td><td>정확합니다. 추가로 <strong>실시간 변환(알고리즘 지연 ~300ms)</strong>도 지원하고, 파인튜닝은 <strong>화자당 최소 1발화·100스텝(T4에서 2분)</strong>으로도 됩니다. 생각보다 문턱이 훨씬 낮습니다.</td></tr>
+      <tr><td class="nm">Basic Pitch는 무료·오픈소스</td><td><span class="c y">확인</span></td><td>정확합니다. Spotify Audio Intelligence Lab 제작. 브라우저 데모, pip·npm 라이브러리 모두 제공. <strong>크레딧 제도나 횟수 제한이 없습니다.</strong></td></tr>
+      <tr><td class="nm">미국 저작권청 — 프롬프트만으로는<br>저작자성 불충분</td><td><span class="c y">확인</span></td><td>정확합니다. 2025-01-29 보고서 2부. "현재 기술로는 프롬프트만으로 출력물의 저작자가 되기에 충분한 인간의 통제를 제공하지 못한다." 다만 <strong>AI 생성물의 창의적 선택·조정·배열, 그리고 출력물의 창의적 수정은 저작권 대상</strong>이라고 명시합니다. 사안별 판단.</td></tr>
+      <tr><td class="nm">Suno가 저작권 보호를 보장하지 않음</td><td><span class="c y">확인</span></td><td>정확합니다. 유료 구독 중 생성곡에 상업 이용권은 주지만 저작권 성립은 보증하지 않습니다.</td></tr>
+      <tr><td class="nm">Moises 무료 계정 월 10회 분리</td><td><span class="c p">부분</span></td><td><strong>DAW 플러그인</strong>에서 월 10회가 맞습니다. 하지만 <strong>웹 무료 계정은 2026-08-11 기준 월 5파일</strong>이고, <strong>5분 초과 오디오는 잘립니다.</strong> Hi-Fi 분리 모델은 유료($3.99/월 · $39.99/년) 전용이라 무료는 복잡한 믹스에서 블리딩이 더 많습니다.</td></tr>
+      <tr><td class="nm">Kits Starter $8 / Producer $16</td><td><span class="c n">오류</span></td><td>확인된 값은 <strong>무료 플랜(변환 15분) → 유료 $10/월부터 → $30/월 티어</strong>입니다. $8·$16이라는 값은 확인되지 않습니다. Instant Clone은 15–30초, Professional Clone은 10–60분 dry·모노 보컬 권장.</td></tr>
+      <tr><td class="nm">ACE Studio 약 ₩22,800/월</td><td><span class="c n">오류</span></td><td>Artist 플랜 <strong>$12.42/월(연간 결제)</strong>부터 상업 이용이 열립니다. 14일 무료 체험 있음. 140종 이상 로열티프리 AI 보이스 포함.</td></tr>
+      <tr><td class="nm">"현재 62/100", "보완 후 82–90%"<br>같은 승인 확률 수치</td><td><span class="c n">주의</span></td><td>붙여주신 글도 스스로 "실제 통계가 아닌 추정치"라고 밝히고 있습니다. <strong>RouteNote·KOMCA·유튜브 어디도 승인률 통계를 공개하지 않습니다.</strong> 의사결정 근거로 쓰지 마세요. 제가 앞 문서에서 쓴 "승인 확률" 미터도 같은 성격의 <strong>상대적 순위</strong>이지 확률값이 아닙니다.</td></tr>
+      <tr><td class="nm">"AI detector 점수를 낮추자"는<br>방향은 잘못</td><td><span class="c y">확인</span></td><td>동의합니다. 탐지는 스펙트럼 지문·음색 일관성·하모닉 패턴·생성 아티팩트를 봅니다. 출처를 감추는 가공은 유통사 약관 위반 소지이고, DistroKid는 2026년에 <strong>소급 집행</strong>을 도입했습니다.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="mcp">
+  <div class="sh"><span class="sn">04</span><h2>MCP 실행 매트릭스 — 제가 어디까지 하나</h2></div>
+  <p class="snote">가장 중요한 질문에 순위별로 답합니다. 앞 문서의 <strong>승인 확률 순위</strong>를 그대로 가져와, 각 항목을 <strong>제가 MCP로 실행할 수 있는지</strong>를 붙였습니다.</p>
+
+  <div class="sc"><table>
+    <thead><tr><th>순위</th><th>기법</th><th>승인 기여</th><th>MCP 실행</th><th>쓰는 도구</th><th>사람이 반드시 할 것</th></tr></thead>
+    <tbody>
+      <tr><td class="n">1</td><td class="nm">보컬 재녹음</td><td><span class="mt"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></td><td><span class="c p">부분 — 노래만 사람</span></td><td>reaper-mcp + Graillon 3 Free</td><td><strong>노래 부르기.</strong> 폰 녹음도 가능. 이후 정렬·튜닝·믹스는 전부 제가.</td></tr>
+      <tr><td class="n">2</td><td class="nm">실연 악기 오버더빙</td><td><span class="mt"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></td><td><span class="c p">부분 — 연주만 사람</span></td><td>reaper-mcp</td><td><strong>한 트랙만 실제 연주.</strong> 타이밍 보정·톤·배치는 제가.</td></tr>
+      <tr class="top"><td class="n">3</td><td class="nm">스템 분리 후 재편곡</td><td><span class="mt"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></td><td><span class="c y">100% 가능</span></td><td>Demucs · UVR5 · Basic Pitch · reaper-mcp</td><td>A/B/C 안 중 <strong>고르기</strong>만.</td></tr>
+      <tr><td class="n">4</td><td class="nm">사람 작곡 틀 + AI 편곡</td><td><span class="mt"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></td><td><span class="c p">후보 생성만</span></td><td>reaper-mcp MIDI 툴</td><td><strong>어느 멜로디·코드가 좋은지 판단.</strong> 이건 대신 못 합니다.</td></tr>
+      <tr class="top"><td class="n">5</td><td class="nm">구조 재편성</td><td><span class="mt m"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span></td><td><span class="c y">100% 가능</span></td><td>ffmpeg · librosa · reaper-mcp</td><td>듣고 승인.</td></tr>
+      <tr class="top"><td class="n">6</td><td class="nm">믹스 · 마스터링</td><td><span class="mt m"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span></td><td><span class="c y">100% 가능</span></td><td>reaper-mcp 마스터링 체인 · Matchering</td><td>A/B 듣고 승인.</td></tr>
+      <tr class="top"><td class="n">7</td><td class="nm">신스 · 드럼 레이어</td><td><span class="mt m"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span></td><td><span class="c y">100% 가능</span></td><td>reaper-mcp 패턴 생성</td><td>패턴 고르기.</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="call g">
+    <div class="ch">핵심 답 — 3·5·6·7위는 제가 전부 합니다</div>
+    <p>승인 확률 <b>3위부터 7위까지는 제가 MCP로 끝까지 실행할 수 있습니다.</b> 사람이 반드시 해야 하는 건 <b>1위(노래)와 2위(연주), 그리고 모든 단계의 "이게 더 좋다"는 판단</b>뿐입니다. 그리고 1·2위조차 "부르기/연주하기"만 사람이고, 그 뒤 처리는 전부 제 몫입니다.</p>
+    <p>바꿔 말하면 — <b>당신이 하는 일은 폰으로 노래 한 번 부르고, 제가 만든 3개 안 중에 하나 고르는 것</b>입니다. 나머지 전부는 제가 돌립니다.</p>
+  </div>
+
+  <h3><span class="hn">▸</span>reaper-mcp가 실제로 가진 것</h3>
+  <div class="prose"><p>REAPER용 MCP 서버는 현재 <strong>172~182개 툴, 26개 모듈</strong>을 노출합니다. 트랜스포트, 트랙, MIDI, 패턴(드럼·코드 진행), 루프 라이브러리, 보컬 챱, FX, 엔벨로프, 사이드체인, 믹싱, 마스터링, 버스 파이프라인, 객관적 오디오 분석, 포스트프로덕션까지 들어있습니다. MIDI 편집만 14개 툴 — 트랜스포즈, 스윙 퀀타이즈, 휴머나이즈, 스케일 스냅, 스트레치, 레가토, 스트럼, 벨로시티 램프. FX는 추가·삭제·<strong>파라미터 읽기/쓰기</strong>·프리셋까지 되고, 트랙 FX와 아이템별 테이크 FX 양쪽을 다룹니다. 그리고 전부 <strong>내 컴퓨터 안에서만</strong> 돕니다 — REAPER 내부의 Lua IPC 브리지를 쓰기 때문에 프로젝트·오디오·MIDI가 밖으로 나가지 않습니다.</p>
+  <p style="margin-top:15px"><strong>"FX 파라미터를 읽고 쓸 수 있다"가 결정적입니다.</strong> 무료 오토튠 플러그인을 걸어놓고 제가 파라미터를 직접 조절할 수 있다는 뜻이니까요. 다음 섹션이 그 얘기입니다.</p></div>
+</section>
+
+<section id="tune">
+  <div class="sh"><span class="sn">05</span><h2>못 불러도 튜닝이 되나</h2></div>
+  <p class="snote">"내가 엉망으로 불러도 잘 다듬어줄 수 있냐" — 됩니다. 다만 되는 것과 안 되는 것이 명확히 갈립니다.</p>
+
+  <div class="cards">
+    <div class="card hi">
+      <div class="ct">되는 것 <span class="cp">MCP로 전부</span></div>
+      <ul>
+        <li><strong>음정 보정</strong> — Graillon 3 Free Edition(무료, Win·Mac·Linux, VST/AU/LV2)을 걸고 제가 파라미터 조절</li>
+        <li><strong>포먼트 보정</strong> — MAutoPitch(무료, 포먼트 시프트 내장)</li>
+        <li><strong>타이밍 정렬</strong> — 박자에 맞춰 음절 밀고 당기기</li>
+        <li><strong>컴핑</strong> — 여러 테이크에서 좋은 구간만 골라 이어붙이기</li>
+        <li><strong>디노이즈·디에서·EQ·컴프레서</strong></li>
+        <li><strong>더블링·하모니 생성</strong> — 3도·5도 화음 자동 생성</li>
+        <li><strong>음색 변환</strong> — Seed-VC(무료). 20~30초 깨끗한 내 목소리를 레퍼런스로</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="ct">안 되는 것 <span class="cp">한계</span></div>
+      <ul>
+        <li><strong>완전히 다른 음을 불렀을 때</strong> — 반음 정도는 붙지만 3도 이상 어긋나면 튜닝이 아니라 재녹음</li>
+        <li><strong>박자를 통째로 놓쳤을 때</strong> — 늘리고 줄이면 포먼트가 뭉개집니다</li>
+        <li><strong>감정·프레이징</strong> — 이건 원본에 있어야 합니다. 만들어낼 수 없습니다</li>
+        <li><strong>반주 새어들어간 녹음</strong> — 헤드폰 필수. 스피커로 들으면서 부르면 반주가 섞여 튜닝이 망가집니다</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="call g">
+    <div class="ch">실무적으로 — 이 정도면 충분합니다</div>
+    <p>음정이 <b>반음 안쪽</b>으로만 들어오면 나머지는 제가 다 만듭니다. 가수들이 실제로 쓰는 파이프라인(피치 보정 → 타이밍 보정 → 컴핑 → 디노이즈 → EQ/컴프)을 그대로 돌리는 거고, <b>보정을 썼다고 사람이 부른 사실이 사라지지 않습니다.</b> 다만 이건 <b>실연(performance) 기여</b>이지 작곡 저작권과는 별개라는 점만 기억하세요.</p>
+  </div>
+</section>
+
+<section id="hum">
+  <div class="sh"><span class="sn">06</span><h2>허밍 · 반복 가사 · 묻힌 보컬 — 인정되나</h2></div>
+  <p class="snote">직접 물어보신 부분입니다. 세 갈래로 나눠서 정확히 답하겠습니다.</p>
+
+  <h3><span class="hn">Q1</span>"Stay with me"를 5번 반복하는 것도 가사로 치나?</h3>
+  <div class="prose">
+    <p><strong>유통 관점에서는 문제없습니다.</strong> DistroKid의 AI 공시 항목은 <em>가사 · 보컬 · 악기 연주 · 전체 작곡</em> 네 가지로 나뉩니다. 허밍이나 짧은 반복구는 "가사"가 아니라 <strong>"보컬"</strong> 항목에 들어갑니다. 그리고 가사가 없다는 것 자체는 유통 거절 사유가 아닙니다 — 인스트루멘털 트랙도 정상 유통됩니다. 메타데이터에 instrumental 플래그를 붙이면 되고, 보컬 버전과 인스트루멘털 버전은 각각 다른 ISRC를 받습니다.</p>
+    <p><strong>저작권 관점은 다릅니다.</strong> 허밍이 <em>새로운 멜로디</em>라면 작곡 기여가 생기지만, 원곡 멜로디를 그대로 따라 부른 허밍은 새 창작이 아닙니다. 오히려 남의 곡 멜로디를 허밍으로 따라하면 그 자체가 저작권 클레임 대상이 될 수 있습니다.</p>
+  </div>
+
+  <h3><span class="hn">Q2</span>AI 보컬 밑에 내 목소리를 아주 작게 깔면?</h3>
+  <div class="call">
+    <div class="ch">여기가 함정입니다 — 솔직하게 말씀드립니다</div>
+    <p>기술적으로는 제가 <b>완벽하게 자연스럽게 깔아드릴 수 있습니다.</b> 레벨 매칭, 타이밍 정렬, EQ로 AI 보컬과 주파수 안 겹치게 파주기, 살짝 늦게 붙여서 두께만 더하기 — 전부 MCP로 됩니다. 그건 문제가 아닙니다.</p>
+    <p><b>문제는 그게 승인 기준을 못 넘는다는 것입니다.</b> TuneCore의 기준은 사람 창작이 <b>"명확하고, 입증 가능하며, 지배적(clear, provable and dominant)"</b>일 것입니다. 거의 안 들리게 묻힌 레이어는 세 조건 다 못 넘깁니다. 그리고 "안 들리게 숨긴다"는 발상 자체가 <b>탐지 회피</b> 방향이라, 앞 섹션에서 확인한 대로 소급 집행 대상이 되는 쪽입니다.</p>
+  </div>
+
+  <h3><span class="hn">Q3</span>그럼 어떻게 하면 되나 — 이게 답입니다</h3>
+  <div class="prose"><p>같은 노력, 같은 녹음 분량으로 <strong>훨씬 강한 결과</strong>를 만드는 방법이 있습니다. 목소리를 <strong>숨기지 말고 들리게</strong> 쓰는 것입니다.</p></div>
+  <div class="sc"><table>
+    <thead><tr><th>쓰는 방식</th><th>녹음 부담</th><th>기여 강도</th><th>왜</th></tr></thead>
+    <tbody>
+      <tr><td class="nm">AI 보컬 밑에 묻어서 깔기</td><td class="n">적음</td><td><span class="mt l"><i class="on"></i><i></i><i></i><i></i><i></i></span></td><td>안 들리면 "지배적"이 아님. 탐지 회피로 읽힐 위험</td></tr>
+      <tr><td class="nm">후렴 하모니로 <em>들리게</em> 얹기</td><td class="n">적음<br>(후렴만)</td><td><span class="mt m"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span></td><td>같은 녹음량인데 실제로 들림. 3도·5도는 제가 자동 생성</td></tr>
+      <tr class="top"><td class="nm">애드리브 · 콜앤리스폰스</td><td class="n">적음</td><td><span class="mt"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></td><td>"oh" "yeah" "stay" 같은 짧은 것도 <strong>전면에 나오면</strong> 명확한 실연</td></tr>
+      <tr class="top"><td class="nm">프리코러스 8마디를 내 목소리로 교체</td><td class="n">중간</td><td><span class="mt"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></td><td>한 구간이 통째로 사람 보컬. 가장 가성비 높은 지점</td></tr>
+      <tr class="top"><td class="nm">브릿지 15–20초 직접 부르기</td><td class="n">중간</td><td><span class="mt"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></td><td>새 구간 + 사람 실연 + 새 멜로디. 세 가지가 한 번에</td></tr>
+    </tbody>
+  </table></div>
+  <div class="call g">
+    <div class="ch">정리</div>
+    <p>허밍이든 "stay with me" 반복이든 <b>상관없습니다. 길이도 상관없습니다.</b> 20초짜리 프리코러스 하나면 충분합니다. 중요한 건 딱 하나 — <b>들려야 합니다.</b> 숨기려고 작게 까는 것보다, 짧아도 전면에 내놓는 쪽이 모든 면에서 강합니다. 그리고 그 20초를 자연스럽게 곡에 녹이는 건 제가 합니다.</p>
+  </div>
+</section>
+
+<section id="stack">
+  <div class="sh"><span class="sn">07</span><h2>툴 3종 비교 — 뭘 깔아야 하나</h2></div>
+  <p class="snote">MCP 연결이 되는지, 얼마인지, 뭘 할 수 있는지 순으로 정렬했습니다.</p>
+  <div class="sc"><table>
+    <thead><tr><th>순위</th><th>구성</th><th>비용</th><th>MCP</th><th>장점</th><th>단점</th></tr></thead>
+    <tbody>
+      <tr class="top">
+        <td class="n">1</td>
+        <td class="nm">REAPER + reaper-mcp<br>+ Graillon 3 Free<small>+ MAutoPitch, Demucs, Basic Pitch</small></td>
+        <td class="n">$60<br>60일 무료 평가<br>플러그인 전부 $0</td>
+        <td><span class="c y">172–182 툴</span></td>
+        <td>MIDI·FX·믹스·마스터링·렌더까지 전부 제어. FX 파라미터 읽기/쓰기 되므로 <strong>오토튠을 제가 직접 조절</strong>. 전부 로컬 처리. ReaScript로 무한 확장</td>
+        <td>60일 후 $60. 인터페이스가 투박함</td>
+      </tr>
+      <tr>
+        <td class="n">2</td>
+        <td class="nm">CLI 무료 스택<small>Demucs + Basic Pitch + Matchering + ffmpeg + librosa</small></td>
+        <td class="n">$0</td>
+        <td><span class="c y">Bash로 직접</span></td>
+        <td>완전 무료. <strong>배치가 최강</strong> — 100곡 한 번에 처리. GUI 없이 제가 스크립트로 전부. 유통사 규모에 유일하게 맞는 구조</td>
+        <td>실시간 청취·미세 조정이 불편. 보컬 튜닝은 REAPER 쪽이 훨씬 나음</td>
+      </tr>
+      <tr>
+        <td class="n">3</td>
+        <td class="nm">Cakewalk Sonar Free<br>또는 Waveform Free</td>
+        <td class="n">$0</td>
+        <td><span class="c n">없음</span></td>
+        <td>완전 무료 DAW. 무제한 트랙, VST 지원. Sonar는 Windows, Waveform은 Win·Mac·Linux</td>
+        <td><strong>MCP 서버가 없어 제가 조작 못 합니다.</strong> 전부 손으로</td>
+      </tr>
+      <tr>
+        <td class="n">참고</td>
+        <td class="nm">Ableton Live + AbletonMCP</td>
+        <td class="n">Live 정품<br>$99~$599</td>
+        <td><span class="c y">약 2,500★</span></td>
+        <td>트랙·클립·디바이스·MIDI 제어. 커뮤니티 최대 규모</td>
+        <td>Live 본체가 비쌈. 공식 Ableton 커넥터는 <strong>매뉴얼 답변용이라 조작 안 됨</strong></td>
+      </tr>
+      <tr>
+        <td class="n">비추</td>
+        <td class="nm">Studio One</td>
+        <td class="n">유료</td>
+        <td><span class="c n">확인 안 됨</span></td>
+        <td>—</td>
+        <td>MCP 서버나 공개 스크립팅 API를 <strong>찾지 못했습니다.</strong> 이 목적에는 REAPER가 압도적으로 낫습니다</td>
+      </tr>
+    </tbody>
+  </table></div>
+  <div class="call g">
+    <div class="ch">제 추천 — 이 조합 하나면 끝납니다</div>
+    <p><b>REAPER + reaper-mcp + Graillon 3 Free + Demucs + Basic Pitch.</b> 60일은 완전 무료로 검증할 수 있고, 쓸 만하다 싶으면 $60 한 번입니다. 배치가 필요해지면 2번 CLI 스택을 옆에 붙이면 됩니다 — 둘은 같은 파일을 주고받으므로 충돌하지 않습니다. <b>Studio One은 이 용도로는 사지 마세요.</b> 제가 조작할 수 없습니다.</p>
+  </div>
+</section>
+
+<section id="voice">
+  <div class="sh"><span class="sn">08</span><h2>보컬 AI 비교</h2></div>
+  <p class="snote">확인된 가격만 적었습니다. 붙여주신 표의 Kits·ACE 가격은 앞 섹션에서 정정한 값입니다.</p>
+  <div class="sc"><table>
+    <thead><tr><th>도구</th><th>비용</th><th>내 목소리 데이터</th><th>용도</th><th>비고</th></tr></thead>
+    <tbody>
+      <tr class="top"><td class="nm">Seed-VC<small>Plachtaa/seed-vc</small></td><td class="n">$0<br>오픈소스</td><td class="n">1–30초<br>zero-shot</td><td>내가 부른 걸 내 음색으로 변환</td><td>실시간 지원(~300ms). 파인튜닝 최소 1발화·100스텝(T4 2분). <strong>발매용이면 20–30초 이상 깨끗한 샘플 권장</strong></td></tr>
+      <tr><td class="nm">Kits AI</td><td class="n">무료(변환 15분)<br>$10/월 · $30/월</td><td class="n">Instant 15–30초<br>Pro 10–60분</td><td>보컬 변환 중심</td><td>유료 티어에서 상업 이용권. 반주·노이즈·리버브·하모니 없는 dry 모노 보컬 권장</td></tr>
+      <tr><td class="nm">ACE Studio</td><td class="n">Artist $12.42/월<br>(연간 결제)</td><td class="n">다수의 clean vocal</td><td>MIDI+가사 → 노래 합성</td><td>14일 무료 체험. 140종 이상 로열티프리 AI 보이스. <strong>한국어 커스텀 보이스는 결제 전 샘플 테스트 권장</strong></td></tr>
+      <tr><td class="nm">OpenUtau + DiffSinger</td><td class="n">$0</td><td class="n">많이 필요</td><td>보이스뱅크 직접 제작</td><td>한국어 phonemizer 지원. 데이터셋·학습 필요해서 난이도 최상</td></tr>
+    </tbody>
+  </table></div>
+  <div class="call w">
+    <div class="ch">중요한 구분</div>
+    <p><b>A. 내가 실제로 부르고 → 보정/음색 변환</b> = 사람 실연이 남습니다. 승인·저작권 양쪽에서 훨씬 강합니다.<br>
+    <b>B. 내 목소리를 학습시켜 → AI가 새로 부르게</b> = 목소리 사용권 문제는 깨끗해지지만, <b>사람 실연은 없습니다.</b> AI 합성 보컬이 인간 실연으로 바뀌지는 않습니다.<br>
+    유통 승인이 목적이면 <b>무조건 A</b>입니다. Seed-VC가 A에 최적화된 도구이고 무료입니다.</p>
+  </div>
+</section>
+
+<section id="dist">
+  <div class="sh"><span class="sn">09</span><h2>유통사 재비교 — 정정 반영</h2></div>
+  <p class="snote">앞 섹션의 정정을 전부 반영한 표입니다. 한국 스토어 열이 새로 추가됐습니다.</p>
+  <div class="sc"><table>
+    <thead><tr><th>유통사</th><th>비용</th><th>AI 유통</th><th>AI에 Content ID</th><th>AI → 한국 스토어</th><th>승인 기간</th><th>유통사·레이블 가능</th></tr></thead>
+    <tbody>
+      <tr class="top"><td class="nm">Symphonic Partner<small>레이블·물량 계정</small></td><td class="n">커스텀 요율<br>신청 심사제</td><td><span class="c y">허용</span></td><td><span class="c p">서면 확인 필요</span></td><td><span class="c p">확인 필요</span></td><td class="n">신청 심사<br>+3–7일</td><td><span class="c y">✓ 이쪽</span></td></tr>
+      <tr><td class="nm">Symphonic Starter</td><td class="n">$29.99/년</td><td><span class="c y">허용</span></td><td><span class="c p">서면 확인 필요</span></td><td><span class="c p">확인 필요</span></td><td class="n">3–7일</td><td><span class="c n">✕ 아티스트 전용<br>primary artist 1명</span></td></tr>
+      <tr><td class="nm">DistroKid</td><td class="n">$22.99/년~<br>CID 곡 $4.95<br>+ 수익 20%</td><td><span class="c y">권리 입증 시</span></td><td><span class="c p">심사 통과 시</span></td><td><span class="c g">미확인</span></td><td class="n">1–3일<br><strong>가장 빠름</strong></td><td><span class="c p">레이블 플랜 별도</span></td></tr>
+      <tr><td class="nm">RouteNote Free</td><td class="n">$0 · 수수료 15%</td><td><span class="c y">허용</span></td><td><span class="c n">✕ 차단</span></td><td><span class="c n">✕ 차단</span></td><td class="n">약 5–7주</td><td><span class="c p">개인 계정</span></td></tr>
+      <tr><td class="nm">RouteNote Premium</td><td class="n">$9.99/년 · 0%</td><td><span class="c y">허용</span></td><td><span class="c n">✕ 차단</span></td><td><span class="c n">✕ 차단</span></td><td class="n">약 5–7주</td><td><span class="c p">개인 계정</span></td></tr>
+      <tr><td class="nm">TuneCore</td><td class="n">플랜별<br>CID 무료 + 20%</td><td><span class="c n">100% AI 거부</span></td><td><span class="c p">AI-assisted만</span></td><td><span class="c g">미확인</span></td><td class="n">—</td><td><span class="c p">—</span></td></tr>
+      <tr><td class="nm">Amuse</td><td class="n">$23.99/년~</td><td><span class="c p">7일당 10릴리스</span></td><td><span class="c n">✕ 제외</span></td><td><span class="c g">미확인</span></td><td class="n">Pro 1–3일<br>무료 2–4주</td><td><span class="c p">—</span></td></tr>
+      <tr><td class="nm">LANDR</td><td class="n">플랜별</td><td><span class="c p">월 12곡</span></td><td><span class="c n">✕ 제외</span></td><td><span class="c g">미확인</span></td><td class="n">—</td><td><span class="c p">—</span></td></tr>
+      <tr><td class="nm">CD Baby</td><td class="n">건당</td><td><span class="c n">완전 AI 거부</span></td><td><span class="c n">—</span></td><td><span class="c n">—</span></td><td class="n">—</td><td><span class="c p">—</span></td></tr>
+    </tbody>
+  </table></div>
+  <div class="call">
+    <div class="ch">결론이 바뀌었습니다</div>
+    <p>유통사를 운영하신다면 갈 곳은 하나입니다 — <b>Symphonic Partner 신청.</b> Starter는 primary artist 1명 제한이라 애초에 쓸 수 없고, RouteNote는 AI 카탈로그에 대해 Content ID와 한국 스토어를 둘 다 막습니다. Partner는 신청 심사제이고 요율이 커스텀이므로, <b>신청서에서 "생성형 AI 사운드 레코딩의 Content ID 레퍼런스 등록 가부"를 명시적으로 질의</b>하세요. 여기 답이 이 사업의 전제입니다.</p>
+  </div>
+</section>
+
+<section id="split">
+  <div class="sh"><span class="sn">10</span><h2>90% 통과 vs Content ID 통과</h2></div>
+  <p class="snote">두 관문은 난이도가 완전히 다릅니다. 요청하신 대로 분리했습니다.</p>
+  <div class="cards">
+    <div class="card">
+      <div class="ct">관문 1 · 유통 승인 <span class="cp">90%+ 통과</span></div>
+      <div class="cd">대부분의 유통사에서 통과되는 수준. 순수 AI 생성물도 조건만 맞추면 됩니다.</div>
+      <ul>
+        <li>유료 구독 중 생성한 증빙 (영수증·생성일·곡 ID)</li>
+        <li>AI 툴·모델·회사 정직하게 공시</li>
+        <li>실존 아티스트 사칭·무단 목소리 합성 없음</li>
+        <li>커버·리믹스·제3자 소재 없음</li>
+        <li>기술 스펙 (스테레오 FLAC/MP3, 16bit, 44.1kHz, 클리핑 없음)</li>
+        <li>대량 업로드 자제 — 릴리스 수량 제한 준수</li>
+      </ul>
+    </div>
+    <div class="card hi">
+      <div class="ct">관문 2 · Content ID <span class="cp">훨씬 어려움</span></div>
+      <div class="cd">"원본 자료의 상당 부분에 대한 <strong>독점권</strong>" 요건. 순수 AI로는 구조적으로 못 넘습니다.</div>
+      <ul>
+        <li>관문 1의 <strong>전부</strong> +</li>
+        <li><strong>최종 믹스에 사람이 만든 오디오</strong> — 이게 핵심</li>
+        <li>독립 창작 입증 가능한 제작 기록</li>
+        <li>같은 모델 출력물과 구별되는 고유성</li>
+        <li>Content ID를 제외하지 않는 유통사</li>
+        <li>레퍼런스 충돌·분쟁 대응 체계</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="ct">관문 3 · KOMCA 등록 <span class="cp">현재 유보</span></div>
+      <div class="cd">2026년 8월 25일 기준 AI 활용 음악 신규 등록이 <strong>유보</strong>됐습니다. 새 기준이 나올 때까지 이 관문은 열려 있지 않습니다.</div>
+      <ul>
+        <li>국회·정부 차원 법·제도 마련 대기 중</li>
+        <li>유통 승인과는 <strong>완전히 별개</strong></li>
+        <li>지금 준비할 것 = 제작 기록 축적</li>
+      </ul>
+    </div>
+  </div>
+  <div class="call w">
+    <div class="ch">DistroKid는 정확히 뭘 허용한다고 했나</div>
+    <p>DistroKid는 <b>권리를 보유하고 있다면 AI 생성곡 업로드를 허용</b>합니다. 다만 스트림 조작과 저작권 침해를 막기 위한 엄격한 운영 지침 아래에서입니다. 그리고 <b>상업권의 절대적 증빙을 요구</b>합니다 — 오디오를 생성한 시점에 <b>유료 구독 상태</b>였어야 상업적 소유권을 주장할 수 있습니다. 업로드 시 AI 공시 단계에서 <b>가사·보컬·악기 연주·전체 작곡</b> 중 어디에 AI가 관여했는지 지정하며, 이 질문은 <b>신규 업로드에만</b> 적용되고 기존 발매작에는 소급 적용되지 않습니다. (단 스크리닝 자체의 소급 집행은 2026년에 도입됐습니다.)</p>
+  </div>
+</section>
+
+<section id="cmd">
+  <div class="sh"><span class="sn">11</span><h2>실전 — 저한테 이렇게 시키시면 됩니다</h2></div>
+  <p class="snote">설치부터 제출용 마스터까지. 사람이 하는 건 ★ 표시된 두 줄뿐입니다.</p>
+  <div class="flow">
+    <div class="fi"><div class="fw">Step 0 · 1회만</div><div class="ft">설치</div><div class="fd">REAPER 설치(60일 무료) → reaper-mcp 설치 → Graillon 3 Free·MAutoPitch 설치 → <code>pip install demucs basic-pitch matchering librosa soundfile pydub</code>. 이 단계도 명령어를 제가 다 써드립니다.</div></div>
+    <div class="fi"><div class="fw">Step 1</div><div class="ft">"이 곡 스템 분리하고 구조 분석해줘"</div><div class="fd">Demucs로 보컬·드럼·베이스·기타 분리 → librosa로 BPM·키·섹션 검출 → 어디가 후렴이고 어디에 브릿지를 넣으면 좋은지 제가 제안합니다.</div></div>
+    <div class="fi"><div class="fw">Step 2</div><div class="ft">"드럼·베이스 A/B/C 3안 만들어줘"</div><div class="fd">Basic Pitch로 MIDI 추출 → reaper-mcp 패턴 툴로 리듬·옥타브·싱코페이션이 서로 다른 3안 생성 → 3개 렌더해서 들려드립니다.</div></div>
+    <div class="fi hum"><div class="fw">★ 사람 1</div><div class="ft">"B가 좋다. 4번째 음은 빼줘"</div><div class="fd">이 한 줄이 <strong>창작 결정</strong>입니다. 제가 반영하고 <code>human_decisions.json</code>에 기록합니다 — 나중에 분쟁 났을 때 독립 창작을 입증할 자산입니다.</div></div>
+    <div class="fi hum"><div class="fw">★ 사람 2</div><div class="ft">프리코러스 8마디 또는 브릿지 20초 부르기</div><div class="fd">헤드폰 끼고 폰으로 녹음해서 파일만 주세요. 허밍이든 "stay with me" 반복이든 상관없습니다. <strong>음정이 반음 안쪽이면 충분합니다.</strong></div></div>
+    <div class="fi"><div class="fw">Step 3</div><div class="ft">"이 보컬 튜닝해서 자연스럽게 얹어줘"</div><div class="fd">Graillon으로 음정 보정 → 타이밍 정렬 → 디노이즈·EQ·컴프 → 하모니 3도·5도 생성 → 원곡에 자연스럽게 배치. 필요하면 Seed-VC로 음색까지.</div></div>
+    <div class="fi"><div class="fw">Step 4</div><div class="ft">"믹스하고 마스터링해서 유통 스펙으로 뽑아줘"</div><div class="fd">reaper-mcp 마스터링 체인 또는 Matchering → 라우드니스 정규화 → 스테레오 FLAC 16bit/44.1kHz. 클리핑·DC·트루피크·앞뒤 무음까지 QC.</div></div>
+    <div class="fi"><div class="fw">Step 5</div><div class="ft">"제작 기록 정리해줘"</div><div class="fd">사용한 AI 툴·모델·버전, AI 관여 요소, 사람이 만든 요소, 원본 dry 보컬, MIDI, 결정 로그, 파일 해시, 타임스탬프 → CSV 한 장. 공시할 때 그대로 씁니다.</div></div>
+  </div>
+</section>
+
+<section id="limit">
+  <div class="sh"><span class="sn">12</span><h2>근거의 한계 — 확인 못 한 것</h2></div>
+  <p class="snote">요청하신 것 중 답을 못 드린 부분을 그대로 적습니다.</p>
+  <div class="fixes">
+    <div class="fix soft">
+      <div class="fix-h">확인 실패 01</div>
+      <div class="row"><span class="mk q">△</span><span class="right"><b>유통사 커뮤니티·전문가 포럼의 1차 증언</b> — "실제로 이 방법으로 Content ID를 통과했고 장기간 유지했다"는 <b>검증된 개인 증언을 찾지 못했습니다.</b></span></div>
+      <div class="row"><span class="mk"></span><span class="why">이 환경의 망 정책이 Reddit·Gearspace 등 커뮤니티 직접 접근을 차단합니다. 검색으로 나온 것은 전부 상업 블로그·유통사 마케팅 글이라 <strong>1차 증언으로 쓸 수 없습니다.</strong> 오히려 검색 결과에는 "2026년 초 기준 AI 음원은 대체로 Content ID DB에 등록되지 않아 클레임이 안 걸린다"는 상반된 서술도 있습니다 — 이건 <strong>등록이 쉽다는 뜻이 아니라 아무도 등록을 못 하고 있다는 뜻</strong>에 가깝습니다.</span></div>
+    </div>
+    <div class="fix soft">
+      <div class="fix-h">확인 실패 02</div>
+      <div class="row"><span class="mk q">△</span><span class="right">보내주신 <b>노션 페이지</b>(cake-narcissus-fda.notion.site)와 <b>유튜브 영상 25개</b> — 둘 다 망 차단으로 열지 못했습니다.</span></div>
+      <div class="row"><span class="mk"></span><span class="why">붙여주신 텍스트에 영상별 요약이 들어있어서 그 <em>내용</em>은 팩트체크에 반영했지만, <strong>영상 자체를 확인한 것은 아닙니다.</strong> 노션 내용을 반영하려면 본문을 붙여넣어 주세요.</span></div>
+    </div>
+    <div class="fix soft">
+      <div class="fix-h">주의 03</div>
+      <div class="row"><span class="mk q">△</span><span class="right">이 문서의 <b>모든 "확률"·"순위"·미터 표시는 정책 문서를 근거로 한 상대적 판단</b>이지, 승인 통계가 아닙니다.</span></div>
+      <div class="row"><span class="mk"></span><span class="why">RouteNote·Symphonic·유튜브 어디도 승인률을 공개하지 않습니다. "82~90%" 같은 숫자를 보면 출처를 의심하세요 — 붙여주신 글도 스스로 추정치라고 밝히고 있습니다.</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="src">
+  <div class="sh"><span class="sn">13</span><h2>출처</h2></div>
+  <p class="snote">정책은 3주 만에 뒤집힐 수 있습니다(KOMCA가 실제 사례). 계약 직전 원문 재확인은 필수입니다.</p>
+  <div class="srcs">
+    <div class="src"><span class="sn2">01</span><a href="https://support.routenote.com/kb-article/can-i-upload-ai-releases/">RouteNote Support — Can I upload AI releases?</a><span class="sd">한국 파트너 스토어·Amazon·Content Recognition 배포 불가 명시</span></div>
+    <div class="src"><span class="sn2">02</span><a href="https://support.routenote.com/kb-article/how-long-will-i-be-waiting-for-my-release-to-go-live/">RouteNote Support — 심사 소요 기간</a><span class="sd">25–27 영업일, 제출량 증가로 지연 중</span></div>
+    <div class="src"><span class="sn2">03</span><a href="https://www.khan.co.kr/article/202608251836001/">경향신문 — 음저협 AI 활용 음악 저작권 등록 철회 (2026-08-25)</a><span class="sd">제8차 이사회 의결, 문체부 8/18 공문, "논의 중단 아님"</span></div>
+    <div class="src"><span class="sn2">04</span><a href="https://sports.khan.co.kr/article/202608251932003/">스포츠경향 — 음저협, AI 활용 음악 기준 국회·정부와 다시 세운다</a><span class="sd">8월 3일 기준 발표 → 22일 만에 철회 경위</span></div>
+    <div class="src"><span class="sn2">05</span><a href="https://support.symdistro.com/hc/en-us/articles/9220840169485-Symphonic-Starter-FAQ">Symphonic Help Desk — Starter FAQ</a><span class="sd">$29.99/년, 아티스트 전용, primary artist 1명 제한</span></div>
+    <div class="src"><span class="sn2">06</span><a href="https://support.symdistro.com/hc/en-us/articles/30398387318669-Symphonic-Partner-FAQ">Symphonic Help Desk — Partner FAQ</a><span class="sd">신청 심사제, 아티스트 무제한, 커스텀 요율</span></div>
+    <div class="src"><span class="sn2">07</span><a href="https://support.symdistro.com/hc/en-us/articles/31610957692173-Symphonic-s-AI-Disclosure-Generative-AI-Stance">Symphonic — AI Disclosure &amp; Generative AI Stance</a><span class="sd">AI 툴·모델·회사 공시 의무, 사칭·무단 목소리 합성 금지</span></div>
+    <div class="src"><span class="sn2">08</span><a href="https://www.musicinafrica.net/magazine/distrokid-introduces-ai-disclosure-process-new-music-uploads">Music In Africa — DistroKid AI 공시 절차 도입</a><span class="sd">공시 항목 4종: 가사·보컬·악기 연주·전체 작곡. 신규 업로드만 적용</span></div>
+    <div class="src"><span class="sn2">09</span><a href="https://www.trackwasher.com/distrokid-ai-music">DistroKid AI Music Policy Explained (2026)</a><span class="sd">권리 보유 시 허용, 생성 시점 유료 구독 상태 요구</span></div>
+    <div class="src"><span class="sn2">10</span><a href="https://github.com/Plachtaa/seed-vc">GitHub — Plachtaa/seed-vc</a><span class="sd">1–30초 zero-shot 가창 변환, 실시간 ~300ms, 최소 1발화·100스텝 파인튜닝</span></div>
+    <div class="src"><span class="sn2">11</span><a href="https://github.com/xDarkzx/Reaper-MCP">GitHub — xDarkzx/Reaper-MCP</a><span class="sd">172개 툴, 작곡·믹싱·마스터링·배치 편집·오디오 QC·ReaScript 자동화</span></div>
+    <div class="src"><span class="sn2">12</span><a href="https://github.com/TwelveTake-Studios/reaper-mcp">GitHub — TwelveTake-Studios/reaper-mcp</a><span class="sd">176~182 툴, 26 모듈, 로컬 Lua IPC 브리지, MIDI 14툴·FX 파라미터 제어</span></div>
+    <div class="src"><span class="sn2">13</span><a href="https://rysupaudio.com/blogs/news/best-free-auto-tune-plugins-2026">Best Free Auto-Tune Alternatives 2026</a><span class="sd">Graillon 3 Free Edition 1위, VST·AAX·AU·LV2, Win·Mac·Linux</span></div>
+    <div class="src"><span class="sn2">14</span><a href="https://bedroomproducersblog.com/free-vst-plugins/autotune/">Bedroom Producers Blog — Free Autotune VST Plugins</a><span class="sd">MAutoPitch 포먼트 보정·스테레오 와이드닝</span></div>
+    <div class="src"><span class="sn2">15</span><a href="https://github.com/spotify/basic-pitch">GitHub — spotify/basic-pitch</a><span class="sd">무료 오픈소스 오디오→MIDI, 피치벤드 검출, 횟수 제한 없음</span></div>
+    <div class="src"><span class="sn2">16</span><a href="https://moises.ai/products/integrations/">Moises — DAW Integrations</a><span class="sd">DAW 플러그인 무료 월 10회 분리</span></div>
+    <div class="src"><span class="sn2">17</span><a href="https://stemsplit.io/blog/moises-ai-review">Moises AI Review 2026</a><span class="sd">웹 무료 월 5파일(2026-08-11), 5분 초과 절단, Hi-Fi는 유료 $3.99/월</span></div>
+    <div class="src"><span class="sn2">18</span><a href="https://www.aicentralresources.com/tool/kits-ai">Kits AI Review 2026</a><span class="sd">무료 15분 변환, 유료 $10·$30/월, Instant 15–30초 / Pro 10–60분</span></div>
+    <div class="src"><span class="sn2">19</span><a href="https://www.saasworthy.com/product/ace-studio-ai/pricing">ACE Studio Pricing (2026-09)</a><span class="sd">Artist $12.42/월 연간 결제, 14일 체험, 140종 로열티프리 보이스</span></div>
+    <div class="src"><span class="sn2">20</span><a href="https://www.copyright.gov/ai/">U.S. Copyright Office — AI 보고서 2부 (2025-01-29)</a><span class="sd">프롬프트만으로는 불충분, 창의적 선택·배열·수정은 저작권 대상</span></div>
+    <div class="src"><span class="sn2">21</span><a href="https://www.finnegan.com/en/insights/ip-updates/us-copyright-office-ai-prompts-alone-provide-insufficient-control-over-expression-to-protect-ai-generated-content.html">Finnegan — USCO: 프롬프트만으로는 표현 통제 불충분</a><span class="sd">원문 인용 및 사안별 판단 원칙</span></div>
+    <div class="src"><span class="sn2">22</span><a href="https://support.google.com/youtube/answer/1311402?hl=ko">YouTube — Content ID 자격 요건</a><span class="sd">독점권 요건, 증빙 제출, 동의서 조항</span></div>
+    <div class="src"><span class="sn2">23</span><a href="https://undetectr.com/blog/tunecore-ai-music-policy-2026">TuneCore AI Music Policy 2026</a><span class="sd">"clear, provable and dominant" 사람 창작 기준</span></div>
+    <div class="src"><span class="sn2">24</span><a href="https://dynamoi.com/learn/ai-music-distribution/ai-music-youtube-content-id">AI Music + YouTube Content ID (2026)</a><span class="sd">거부 사유, 현재 AI 음원의 Content ID DB 미등록 상태</span></div>
+  </div>
+
+  <footer>
+    <p><b>확인 못 한 것.</b> 보내주신 노션 페이지와 유튜브 영상 25개는 이 실행 환경의 망 정책이 해당 도메인을 차단해 열지 못했습니다. 붙여주신 텍스트 안의 서술은 팩트체크에 반영했지만, 원본 영상·페이지를 직접 확인한 것은 아닙니다. 내용을 반영하려면 본문을 텍스트로 붙여넣어 주세요.</p>
+    <p style="margin-top:14px"><b>이 문서의 성격.</b> 공개된 정책 문서와 보도를 근거로 한 실무 정리이며 법률 자문이 아닙니다. 어떤 유통사의 승인·스토어 등재·Content ID 자격도 보장하지 않습니다. 특히 <b>Symphonic의 AI 트랙 Content ID 제공 여부</b>는 공식 문서에서 확인되지 않았으므로 계약 전 서면 질의가 필요합니다. KOMCA 기준이 22일 만에 뒤집힌 것처럼 이 분야는 매우 빠르게 움직입니다.</p>
+  </footer>
+</section>
+
+</div>
