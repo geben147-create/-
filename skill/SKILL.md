@@ -20,7 +20,21 @@ description: AI 생성곡(Suno 등) 파생 트랙을 사람이 결정하는 재�
 3. 조성 추정이 `ambiguous: true` 면(나란한조 혼동) 사용자에게 확인받고 `analyze --key` 로 지정할 것. 틀린 조성으로 편곡하면 전곡이 불협이 된다.
 4. 권리 증빙(생성 서비스 영수증·구독 상태·곡 URL·생성일)이 없으면 제출 단계로 넘어가지 말 것.
 
-## 실행 순서
+## 한 번에 실행 (권장)
+
+```powershell
+# Windows — 사람 결정 앞에서 자동으로 멈추고, 미리듣기 폴더와 결정 파일을 열어 줍니다
+powershell -ExecutionPolicy Bypass -File skill\scripts\run_windows.ps1 -Audio "C:\Users\나\Music\곡.wav" -Name mysong -Key Ebm
+```
+
+```bash
+# macOS / Linux
+bash skill/scripts/run_unix.sh ~/Music/곡.wav mysong Ebm
+```
+
+결정 파일을 채운 뒤 같은 명령을 다시 실행하면 이어서 끝까지 진행합니다.
+
+## 실행 순서 (단계별로 직접)
 
 ```bash
 export PYTHONPATH=/path/to/pipeline
@@ -103,3 +117,8 @@ python skill/scripts/validate.py ./work/<곡이름>
 | 키가 나란한조로 잘못 | 구성음이 같음 | `analyze --key Ebm` 로 지정 |
 | 마디가 늦게 시작 | 드럼 없는 인트로 | 자동으로 0초까지 그리드 연장됨. 어긋나면 `--beats-per-bar` 조정 |
 | 보컬 보정이 부자연 | 반음 이상 어긋난 음 | 보정 한계. 재녹음이 빠름 |
+| `⛔ 아직 실행하지 않은 단계가 있습니다` | 단계를 건너뜀 | 메시지가 알려주는 명령을 먼저 실행 |
+| `⛔ 조성을 해석할 수 없습니다` | `--key` 표기 오류 | `Ebm` `Gb` `C#m` 형식으로. 단조는 뒤에 `m` |
+
+오류가 나면 같은 명령에 `--debug` 를 붙이면 전체 추적 정보가 나옵니다.
+실행 기록은 프로젝트 폴더의 `pipeline.log` 에 쌓입니다.

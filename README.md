@@ -31,8 +31,21 @@ Suno 같은 AI 생성곡에서 출발한 트랙을 **사람이 결정하는 재�
 
 ## 빠른 시작
 
+```powershell
+# Windows — 설치 후 한 줄. 사람이 고를 차례가 되면 알아서 멈춥니다
+powershell -ExecutionPolicy Bypass -File skill\scripts\install_windows.ps1
+powershell -ExecutionPolicy Bypass -File skill\scripts\run_windows.ps1 -Audio "C:\Users\나\Music\곡.wav" -Name mysong -Key Ebm
+```
+
 ```bash
-bash skill/scripts/install_linux_mac.sh          # 또는 skill/scripts/install_windows.ps1
+# macOS / Linux
+bash skill/scripts/install_linux_mac.sh
+bash skill/scripts/run_unix.sh ~/Music/곡.wav mysong Ebm
+```
+
+### 단계별로 직접 실행하려면
+
+```bash
 export PYTHONPATH=$PWD/pipeline
 
 python -m stayfade --project ./work/mysong init 원본.wav --title "곡 제목" --artist "이름"

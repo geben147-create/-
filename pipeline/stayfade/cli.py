@@ -31,6 +31,31 @@ def _proj(args) -> Project:
     return Project(args.project)
 
 
+STEP_HINT = {
+    "project.json": ("init", "python -m stayfade --project {p} init <원본.wav>"),
+    "separation.json": ("analyze", "python -m stayfade --project {p} analyze"),
+    "analysis.json": ("analyze", "python -m stayfade --project {p} analyze"),
+    "candidates.json": ("candidates", "python -m stayfade --project {p} candidates"),
+    "human_decisions.json": ("gate", "python -m stayfade --project {p} gate"),
+    "arrangement_manifest.json": ("build", "python -m stayfade --project {p} build"),
+    "qc.json": ("qc", "python -m stayfade --project {p} qc"),
+}
+
+
+def require(project: Project, *files: str) -> None:
+    """이전 단계 산출물이 없으면 무엇을 먼저 해야 하는지 알려주고 종료한다."""
+    missing = [f for f in files if not (project.root / f).exists()]
+    if not missing:
+        return
+    lines = [f"⛔ 아직 실행하지 않은 단계가 있습니다: {project.root}"]
+    for f in missing:
+        step, cmd = STEP_HINT.get(f, ("?", "?"))
+        lines.append(f"   · {f} 없음 → 먼저 실행하세요:  {cmd.format(p=project.root)}")
+    if not (project.root / "project.json").exists():
+        lines.append("   (프로젝트 폴더 경로가 맞는지도 확인하세요. --project 로 지정합니다)")
+    sys.exit("\n".join(lines))
+
+
 # ---------- 00 ----------
 def cmd_init(args):
     p = Project(args.project)
@@ -74,6 +99,7 @@ def cmd_init(args):
 # ---------- 01-03 ----------
 def cmd_analyze(args):
     p = _proj(args)
+    require(p, "project.json")
     meta = p.info()
     src = Path(meta["source_file"])
     sep = separate.run(p, src, prefer=args.separator)
@@ -91,7 +117,12 @@ def cmd_analyze(args):
         bass_mono = by[0]
     key = A.estimate_key(mono, sr, bass_mono=bass_mono)
     if getattr(args, "key", None):
-        key = A.override_key(key, args.key)
+        try:
+            key = A.override_key(key, args.key)
+        except ValueError:
+            sys.exit(f"⛔ 조성을 해석할 수 없습니다: {args.key}\n"
+                     "   이렇게 적어주세요:  Ebm  Gb  C#m  A  Fm  (m 이 붙으면 단조)\n"
+                     f"   자동 추정값은 {key['key']} 입니다. 그대로 쓰려면 --key 를 빼세요.")
         p.log(f"조성 수동 지정: {key['key']}")
     bars = A.downbeats_from_beats(tempo["beat_times"], args.beats_per_bar,
                                   duration=len(mono) / sr)
@@ -103,6 +134,9 @@ def cmd_analyze(args):
                 "caveat_ko": "BPM·키·코드·섹션은 모두 자동 추정입니다. 미리듣기로 확인하세요."}
     jdump(analysis, p.root / "analysis.json")
     p.set_state("02_analyze", "ok", bpm=tempo["bpm"], key=key["key"])
+    if len(bars) < 8 or analysis["duration_sec"] < 20:
+        print(f"⚠ 곡이 짧거나({analysis['duration_sec']}초) 마디를 적게 찾았습니다({len(bars)}마디). "
+              "편곡 후보가 빈약해집니다. 20초 이상, 8마디 이상 되는 파일을 권합니다.")
 
     tr = {}
     if not args.no_transcribe:
@@ -127,6 +161,7 @@ def cmd_analyze(args):
 # ---------- 04-05 ----------
 def cmd_candidates(args):
     p = _proj(args)
+    require(p, "project.json", "analysis.json")
     meta, an = p.info(), jload(p.root / "analysis.json")
     sr = an["sr"]
     seed = meta.get("seed", 7)
@@ -232,6 +267,7 @@ def cmd_candidates(args):
 # ---------- 06 ----------
 def cmd_gate(args):
     p = _proj(args)
+    require(p, "candidates.json")
     cands = jload(p.root / "candidates.json")
     path = p.root / "human_decisions.json"
     dec, ready = HG.load_or_create(cands, path)
@@ -254,6 +290,7 @@ def cmd_gate(args):
 # ---------- 07-08 ----------
 def cmd_build(args):
     p = _proj(args)
+    require(p, "project.json", "analysis.json", "candidates.json", "separation.json", "human_decisions.json")
     meta, an = p.info(), jload(p.root / "analysis.json")
     cands = jload(p.root / "candidates.json")
     sep = jload(p.root / "separation.json")
@@ -374,6 +411,7 @@ def cmd_build(args):
 # ---------- 09 ----------
 def cmd_qc(args):
     p = _proj(args)
+    require(p, "project.json", "analysis.json", "arrangement_manifest.json")
     meta, an = p.info(), jload(p.root / "analysis.json")
     arr = jload(p.root / "arrangement_manifest.json")
     src = Path(meta["source_file"])
@@ -406,6 +444,7 @@ def cmd_qc(args):
 # ---------- 10 ----------
 def cmd_evidence(args):
     p = _proj(args)
+    require(p, "project.json")
     meta = p.info()
     dec = jload(p.root / "human_decisions.json") if (p.root / "human_decisions.json").exists() else {}
     qcd = jload(p.root / "qc.json") if (p.root / "qc.json").exists() else {}
@@ -438,6 +477,7 @@ def cmd_all(args):
 def build_parser():
     ap = argparse.ArgumentParser(prog="stayfade", description="AI 파생곡 재편곡·QC·증빙 파이프라인")
     ap.add_argument("--project", default="./work/project", help="프로젝트 폴더")
+    ap.add_argument("--debug", action="store_true", help="오류가 나면 전체 추적 정보를 그대로 보여줍니다")
     sub = ap.add_subparsers(dest="cmd", required=True)
 
     i = sub.add_parser("init"); i.add_argument("audio")
@@ -496,7 +536,24 @@ def build_parser():
 
 def main(argv=None):
     args = build_parser().parse_args(argv)
-    args.func(args)
+    if getattr(args, "debug", False):
+        args.func(args)
+        return
+    try:
+        args.func(args)
+    except SystemExit:
+        raise
+    except KeyboardInterrupt:
+        sys.exit("\n중단했습니다. 지금까지 만든 파일은 프로젝트 폴더에 남아 있습니다.")
+    except FileNotFoundError as e:
+        sys.exit(f"⛔ 파일을 찾을 수 없습니다: {e.filename or e}\n"
+                 "   경로를 확인하세요. 경로에 공백이 있으면 따옴표로 감싸야 합니다.")
+    except MemoryError:
+        sys.exit("⛔ 메모리가 부족합니다. 곡을 짧게 자르거나 --no-transcribe 로 다시 시도하세요.")
+    except Exception as e:  # noqa: BLE001
+        sys.exit(f"⛔ {type(e).__name__}: {e}\n"
+                 "   자세한 내용을 보려면 같은 명령에 --debug 를 붙여 다시 실행하세요.\n"
+                 "   실행 기록은 프로젝트 폴더의 pipeline.log 에 있습니다.")
 
 
 if __name__ == "__main__":
