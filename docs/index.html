@@ -161,14 +161,15 @@ footer .wrap{display:grid;gap:10px}
   <a href="#gates"><span class="n">01</span>먼저 알 3가지</a>
   <a href="#did"><span class="n">02</span>이번에 한 것</a>
   <a href="#money"><span class="n">03</span>유통사 비교(원화)</a>
-  <a href="#contentid"><span class="n">04</span>Content ID 뜻</a>
-  <a href="#install"><span class="n">05</span>설치 (무료 순위)</a>
-  <a href="#steps"><span class="n">06</span>단계별 실행</a>
-  <a href="#numbers"><span class="n">07</span>실측 결과</a>
-  <a href="#human"><span class="n">08</span>내가 할 일 🎤</a>
-  <a href="#reuse"><span class="n">09</span>다음 곡에 재사용</a>
-  <a href="#fixes"><span class="n">10</span>정정·한계</a>
-  <a href="#links"><span class="n">11</span>링크 전부</a>
+  <a href="#payout"><span class="n">04</span>멜론·지니 내 몫 💵</a>
+  <a href="#contentid"><span class="n">05</span>Content ID 뜻</a>
+  <a href="#install"><span class="n">06</span>설치 (무료 순위)</a>
+  <a href="#steps"><span class="n">07</span>단계별 실행</a>
+  <a href="#numbers"><span class="n">08</span>실측 결과</a>
+  <a href="#human"><span class="n">09</span>내가 할 일 🎤</a>
+  <a href="#reuse"><span class="n">10</span>다음 곡에 재사용</a>
+  <a href="#fixes"><span class="n">11</span>정정·한계</a>
+  <a href="#links"><span class="n">12</span>링크 전부</a>
 </nav>
 
 <main>
@@ -257,11 +258,12 @@ footer .wrap{display:grid;gap:10px}
       <th>AI 음원</th><th>AI → Content ID</th><th>AI → 한국 스토어</th><th class="n">심사</th><th>메모</th>
     </tr></thead>
     <tbody>
-      <tr><td class="rank">1</td><td><b>DistroKid</b> Musician</td><td class="n">약 33,700</td><td class="n yes">100%</td>
-        <td class="yes">허용(권리 보유 시)</td><td class="maybe">직접 만들지 않은 오디오 있으면 부적격</td><td class="maybe">미확인</td>
+      <tr><td class="rank">1</td><td><b>DistroKid</b> Musician</td><td class="n">약 33,700<br><span class="rank">+ Content ID 싱글 약 6,700/년</span></td><td class="n yes">100%</td>
+        <td class="yes">허용(권리 보유 시)</td><td class="maybe">직접 만들지 않은 오디오 있으면 부적격<br><span class="rank">수익의 20%를 DistroKid가 가져감</span></td>
+        <td class="no">멜론·지니·벅스 미지원<br><span class="rank">FLO만 (2차 출처)</span></td>
         <td class="n">1–3일</td><td>가장 빠름. 업로드 시 AI 공시 항목 선택</td></tr>
       <tr><td class="rank">2</td><td><b>DistroKid</b> Musician Plus</td><td class="n">약 60,700</td><td class="n yes">100%</td>
-        <td class="yes">동일</td><td class="maybe">동일</td><td class="maybe">미확인</td><td class="n">1–3일</td>
+        <td class="yes">동일</td><td class="maybe">동일</td><td class="no">동일</td><td class="n">1–3일</td>
         <td>아티스트명 2개, 발매일 지정</td></tr>
       <tr><td class="rank">3</td><td><b>RouteNote</b> Free</td><td class="n yes">0</td><td class="n">85%</td>
         <td class="yes">허용</td><td class="no">차단</td><td class="no">차단</td><td class="n no">25–27 영업일</td>
@@ -313,6 +315,47 @@ footer .wrap{display:grid;gap:10px}
         <li>레이블로 간다고 AI 곡의 Content ID가 열리지 않습니다</li>
       </ul>
     </div>
+  </div>
+</section>
+
+<section id="payout">
+  <h2><span class="em">💵</span>멜론·지니에서 내 몫은 얼마인가</h2>
+  <p class="lede">“내 곡이 멜론에서 재생되면 나한테도 돈이 오나?” — 옵니다. 다만 한 곡의 재생료가
+    <strong>네 갈래로 쪼개져서</strong> 서로 다른 경로로 들어옵니다.</p>
+  <div class="rule"></div>
+  <div class="scroll">
+  <table>
+    <thead><tr><th>누구 몫</th><th class="n">비율</th><th>당신이 받는 경우</th><th>어디를 통해 들어오나</th></tr></thead>
+    <tbody>
+      <tr><td>🟣 서비스 사업자 (멜론·지니 등)</td><td class="n">35%</td><td class="no">해당 없음</td><td>플랫폼이 가져감</td></tr>
+      <tr><td>🔵 음반제작자 (마스터 권리)</td><td class="n yes">48.25%</td><td class="yes">내가 마스터 권리자면</td>
+        <td>유통사 정산 → 내 통장 (<b>유통사 수수료 차감 후</b>)</td></tr>
+      <tr><td>🟢 작사·작곡 (저작권)</td><td class="n">10.5%</td><td class="maybe">사람이 만든 부분 권리가 있고 등록·징수될 때</td>
+        <td>음저협 등 신탁단체 → 별도 지급</td></tr>
+      <tr><td>🟡 실연자 (가수·연주자)</td><td class="n">6.25%</td><td class="maybe">내가 실제로 부르거나 연주했을 때</td>
+        <td>음실연 등 단체 → 별도 지급</td></tr>
+      <tr><td><b>권리자 합계</b></td><td class="n yes"><b>65%</b></td><td colspan="2">나머지 35%가 플랫폼 몫입니다</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p>실제 체감은 이렇습니다. 월정액 스트리밍에서 한 번 재생될 때 발생하는 금액이 대략 <span class="num">7원</span> 수준이고,
+    그중 <span class="num">2원대 중반</span>이 플랫폼, <span class="num">4원대 중반</span>이 권리자 몫으로 갑니다.
+    작사·작곡 몫은 곡당 약 <span class="num">0.7원</span>, 가수·연주자 몫은 약 <span class="num">0.4원</span>대입니다.
+    (<a href="https://kpia.or.kr/board/board.php?bo_table=media&idx=747">한국음악콘텐츠산업협회 팩트체크 자료</a> ·
+     <a href="https://www.mcst.go.kr/site/s_notice/press/pressView.jsp?pMenuCD=0302000000&amp;pSeq=16742">문체부 징수규정 개정</a>)</p>
+  <div class="ok">
+    <h4>당신이 다 하면 세 갈래를 동시에 받을 수 있습니다</h4>
+    <p>내가 작사·작곡하고(10.5%) · 내가 부르고(6.25%) · 내가 마스터 권리자면(48.25%),
+      이론상 <strong>권리자 몫 65% 전체</strong>가 당신 쪽으로 향합니다.
+      단 <mark>세 갈래는 서로 다른 창구</mark>에서 들어오고, 저작권·실연 몫은 단체 등록이 되어 있어야 지급됩니다.
+      그리고 지금은 AI 활용곡의 음저협 신규 등록이 유보 상태라, <span class="num">10.5%</span> 부분이 특히 불확실합니다.</p>
+  </div>
+  <div class="gate">
+    <h4>그런데 지금 곡으로는 멜론·지니에 못 올라갑니다</h4>
+    <p>위 계산은 <em>한국 스토어에 올라갔을 때</em> 이야기입니다. RouteNote는 AI 음원을 한국 스토어로 보내지 않고,
+      DistroKid는 애초에 멜론·지니·벅스를 지원하지 않습니다(2차 출처 기준 FLO만).
+      국내 스토어를 원하면 <a href="https://www.soundrepublica.com/">사운드리퍼블리카</a> 같은 국내 유통사에
+      <strong>AI 활용곡 수용 여부를 먼저 문의</strong>해야 합니다.</p>
   </div>
 </section>
 
@@ -693,15 +736,16 @@ FLAC: 07_master\distributor_candidate_44k1_16bit.flac
       일반 심사가 25~27 영업일이고, 승인 후 스토어 반영에 7~14일이 더 붙습니다.</li>
     <li><b>Symphonic Partner로 간다고 AI 곡의 Content ID가 열리지 않습니다.</b>
       생성형 AI 제한 파트너 목록에 YouTube Content ID가 들어 있습니다.</li>
+    <li><b>DistroKid는 멜론·지니·벅스를 지원하지 않습니다.</b> 국내는 FLO만 연결된 것으로 보입니다(2차 출처).
+      “DistroKid로 한국 스토어”를 기대하면 안 됩니다.</li>
+    <li><b>DistroKid Content ID는 별도 유료입니다.</b> 싱글 연 약 6,700원 + 발생 수익의 20%를 가져갑니다.</li>
     <li><b>Suno는 다운로드 횟수 제한이 생겼습니다.</b> 2026-09-03부터 적용이라고 안내되어 있습니다.
       유료 구독 중 생성분에 상업 이용권이 붙지만, 저작권 성립은 보장하지 않습니다.</li>
   </ul>
   <h3>확인하지 못한 것 — 추측으로 채우지 않았습니다</h3>
   <ul class="clean">
-    <li><b>국내 스트리밍 세부 분배율</b> (음반제작자 48.25% / 저작권 10.5% / 실연 6.25%)은 이번 조사에서
-      1차 자료로 확인하지 못했습니다. 확인된 것은 <mark>권리자 65% : 사업자 35%</mark> 구조뿐입니다
-      (<a href="https://www.mcst.go.kr/site/s_notice/press/pressView.jsp?pMenuCD=0302000000&pSeq=16742">문체부 징수규정 개정 보도자료</a>).
-      세부 비율은 협회 공식 자료로 다시 확인하세요.</li>
+    <li><b>2025년 논의된 분배율 개정안</b>(권리자 68.42% : 사업자 31.58%)이 실제로 승인·시행됐는지는 확인하지 못했습니다.
+      이 문서는 보수적으로 <mark>65 : 35</mark> 기준으로 썼습니다.</li>
     <li><b>사운드리퍼블리카의 AI 음원 수용 여부와 수수료율</b>은 공개 페이지에 없습니다. 직접 문의해야 합니다.
       물어볼 문장: “유료 Suno 출력 + 사람 리드 보컬 + 사람 편곡이 포함된 AI-assisted 트랙을 멜론·지니·벅스·FLO·VIBE에 배포할 수 있습니까?”</li>
     <li><b>유튜브 영상 24개의 제목·자막</b>은 이 실행 환경의 네트워크 정책상 youtube.com에 접근할 수 없어 확인하지 못했습니다.</li>
