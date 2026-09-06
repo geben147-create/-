@@ -1,0 +1,118 @@
+{
+  "project": "2026 AI 영상 마스터 클래스 — 시네마틱 스크롤 랜딩",
+  "generated_by": "Pollo AI (MCP)",
+  "models": {
+    "image": "google / nano-banana-pro",
+    "video": "kling-ai / kling-v2-5-turbo"
+  },
+  "palette": {
+    "scrim": "#080A0E",
+    "on_video": "#F2F5F9",
+    "accent": "#E8A33D",
+    "accent_ink": "#171009"
+  },
+  "safe_zone": {
+    "absolute": "가로 중앙 26% × 세로 중앙 76%",
+    "recommended": "가로 중앙 42% × 세로 중앙 84%"
+  },
+  "credits": {
+    "image_count": 7,
+    "video_count": 7,
+    "per_video": 30,
+    "video_total": 210,
+    "balance_before": 12040
+  },
+  "shots": {
+    "s1_hero": {
+      "id": "S1",
+      "title": "히어로 — 문이 열린다",
+      "mode": "loop",
+      "ratio": "16:9",
+      "duration": "5초",
+      "intent": "이 회사가 다루는 세계가 어떤 곳인지 5초 안에 느끼게 한다. 어두운 대문이 좌우를 덮어 그대로 텍스트 자리가 되고, 밝은 중앙 개구부에 피사체가 놓인다.",
+      "img": "https://videocdn.pollo.ai/web-cdn/pollo/production/cmf20asu60gslb2k5fhlac2gn/ori/1788665106815-87db149f-491f-43a4-bfff-4aa56537c65d.png",
+      "vid": null,
+      "vid_prompt": "Keep the composition of the attached image exactly as it is. Blossom petals drift gently, the water surface ripples very softly, warm sunlight shifts almost imperceptibly. Camera: an extremely slow forward dolly push through the open gate, barely perceptible — one movement only, no shake, no zoom. The subject stays inside the frame for the entire shot and never leaves it. Overall close to slow motion: very little changes across the five seconds. The last frame returns to almost the same state as the first frame. Colour, lighting and texture stay identical to the first frame. One single continuous take, no cuts.",
+      "neg_prompt": "cut, scene change, transition, fade, text, letters, subtitles, logo, watermark, UI elements, human face, fast camera movement, zoom in, zoom out, handheld shake, camera shake, split screen, subject leaving the frame, oversaturation, heavy lens flare, distortion, morphing, warping",
+      "loop_closed": true
+    },
+    "s2_problem": {
+      "id": "S2",
+      "title": "문제 제기 — 흩어진 배움",
+      "mode": "loop",
+      "ratio": "16:9",
+      "duration": "5초",
+      "intent": "어둡고 무거운 톤. 정지에 가까운 미세 모션만. 밝기가 낮아 스크림 알파를 얇게 써도 글자가 읽힌다.",
+      "img": "https://videocdn.pollo.ai/web-cdn/pollo/production/cmf20asu60gslb2k5fhlac2gn/ori/1788665368651-fa6115e5-0014-4bdc-9d38-4085208ef401.png",
+      "vid": null,
+      "vid_prompt": "Keep the composition of the attached image exactly as it is. Dust motes float slowly through the air, the faint monitor glow flickers almost imperceptibly. Camera: an extremely slow lateral drift to the right — one movement only, no shake, no zoom. The subject stays inside the frame for the entire shot and never leaves it. Overall close to slow motion: very little changes across the five seconds. The last frame returns to almost the same state as the first frame. Colour, lighting and texture stay identical to the first frame. One single continuous take, no cuts.",
+      "neg_prompt": "cut, scene change, transition, fade, text, letters, subtitles, logo, watermark, UI elements, human face, fast camera movement, zoom in, zoom out, handheld shake, camera shake, split screen, subject leaving the frame, oversaturation, heavy lens flare, distortion, morphing, warping",
+      "loop_closed": true
+    },
+    "s3_solve": {
+      "id": "S3",
+      "title": "해결책 — 하나로 연결된다",
+      "mode": "scrub",
+      "ratio": "16:9",
+      "duration": "5초",
+      "intent": "변화·전환이 보이는 샷. 이 섹션만 스크럽으로 승격했다. 루프가 아니라 진행이 필요하므로 끝 프레임을 고정하지 않았다.",
+      "img": "https://videocdn.pollo.ai/web-cdn/pollo/production/cmf20asu60gslb2k5fhlac2gn/ori/1788665583845-012f828c-eca2-413c-ba08-0e737c91656c.png",
+      "vid": null,
+      "vid_prompt": "Keep the composition of the attached image exactly as it is. The figure rises very slowly and steadily out of the water, fine golden sparks drift upward, white petals ripple outward across the mirror-still surface. Camera: an extremely slow vertical rise — one movement only, no shake, no zoom. The figure stays inside the frame for the entire shot and never leaves it, and the face is never visible. Overall close to slow motion, a single continuous progression from start to end. Colour, lighting and texture stay identical to the first frame. One single continuous take, no cuts.",
+      "neg_prompt": "cut, scene change, transition, fade, text, letters, subtitles, logo, watermark, UI elements, human face, fast camera movement, zoom in, zoom out, handheld shake, camera shake, split screen, subject leaving the frame, oversaturation, heavy lens flare, distortion, morphing, warping",
+      "loop_closed": false
+    },
+    "s4a_brand": {
+      "id": "S4a",
+      "title": "브랜딩 · 제품",
+      "mode": "loop",
+      "ratio": "16:9",
+      "duration": "5초",
+      "intent": "카드 안에 작게 들어가는 짧은 루프. 제품 질감·재질감을 대표한다.",
+      "img": null,
+      "vid": null,
+      "vid_prompt": "Keep the composition of the attached image exactly as it is. The petals breathe almost imperceptibly, the water droplet trembles slightly, soft backlight shifts. Camera: an extremely slow macro drift across the petals — one movement only, no shake, no zoom. The subject stays inside the frame for the entire shot and never leaves it. Overall close to slow motion: very little changes across the five seconds. The last frame returns to almost the same state as the first frame. Colour, lighting and texture stay identical to the first frame. One single continuous take, no cuts.",
+      "neg_prompt": "cut, scene change, transition, fade, text, letters, subtitles, logo, watermark, UI elements, human face, fast camera movement, zoom in, zoom out, handheld shake, camera shake, split screen, subject leaving the frame, oversaturation, heavy lens flare, distortion, morphing, warping",
+      "loop_closed": true
+    },
+    "s4b_char": {
+      "id": "S4b",
+      "title": "캐릭터 · 애니메이션",
+      "mode": "loop",
+      "ratio": "16:9",
+      "duration": "5초",
+      "intent": "카드용 짧은 루프. 작화와 자연스러운 움직임을 대표한다.",
+      "img": null,
+      "vid": null,
+      "vid_prompt": "Keep the composition of the attached image exactly as it is. Long hair and the coat lift slowly in the wind, light particles drift past, distant city lights twinkle faintly. Camera: an extremely slow push in — one movement only, no shake, no zoom. The subject stays inside the frame for the entire shot and never leaves it. Overall close to slow motion: very little changes across the five seconds. The last frame returns to almost the same state as the first frame. Colour, lighting and texture stay identical to the first frame. One single continuous take, no cuts.",
+      "neg_prompt": "cut, scene change, transition, fade, text, letters, subtitles, logo, watermark, UI elements, human face, fast camera movement, zoom in, zoom out, handheld shake, camera shake, split screen, subject leaving the frame, oversaturation, heavy lens flare, distortion, morphing, warping",
+      "loop_closed": true
+    },
+    "s4c_vfx": {
+      "id": "S4c",
+      "title": "VFX · 3D · 타이포",
+      "mode": "loop",
+      "ratio": "16:9",
+      "duration": "5초",
+      "intent": "카드용 짧은 루프. 파티클·빛 효과를 대표한다. 순흑 배경이라 카드 스크림과 자연스럽게 붙는다.",
+      "img": null,
+      "vid": null,
+      "vid_prompt": "Keep the composition of the attached image exactly as it is. Golden particles expand outward very slowly and settle back, faint smoke drifts across the frame. Camera: an extremely slow push in — one movement only, no shake, no zoom. The subject stays inside the frame for the entire shot and never leaves it. Overall close to slow motion: very little changes across the five seconds. The last frame returns to almost the same state as the first frame. Colour, lighting and texture stay identical to the first frame. One single continuous take, no cuts.",
+      "neg_prompt": "cut, scene change, transition, fade, text, letters, subtitles, logo, watermark, UI elements, human face, fast camera movement, zoom in, zoom out, handheld shake, camera shake, split screen, subject leaving the frame, oversaturation, heavy lens flare, distortion, morphing, warping",
+      "loop_closed": true
+    },
+    "s1_hero_v": {
+      "id": "S1-V",
+      "title": "히어로 모바일 세로 소스",
+      "mode": "loop",
+      "ratio": "9:16",
+      "duration": "5초",
+      "intent": "16:9 하나로 두 화면을 덮으려는 시도가 '피사체가 사라지는' 원인이다. 같은 세계를 세로로 다시 잡은 별도 소스.",
+      "img": null,
+      "vid": null,
+      "vid_prompt": "Keep the composition of the attached image exactly as it is. Blossom petals drift gently, the water surface ripples very softly, warm sunlight shifts almost imperceptibly. Camera: an extremely slow forward dolly push through the open gate, barely perceptible — one movement only, no shake, no zoom. The subject stays inside the frame for the entire shot and never leaves it. Overall close to slow motion: very little changes across the five seconds. The last frame returns to almost the same state as the first frame. Colour, lighting and texture stay identical to the first frame. One single continuous take, no cuts.",
+      "neg_prompt": "cut, scene change, transition, fade, text, letters, subtitles, logo, watermark, UI elements, human face, fast camera movement, zoom in, zoom out, handheld shake, camera shake, split screen, subject leaving the frame, oversaturation, heavy lens flare, distortion, morphing, warping",
+      "loop_closed": true
+    }
+  }
+}
