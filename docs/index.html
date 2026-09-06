@@ -148,8 +148,8 @@ footer .wrap{display:grid;gap:10px}
       <div><b>0원</b><span>설치한 도구 비용</span></div>
       <div><b>11단계</b><span>00 보존 → 10 증빙</span></div>
       <div><b>PASS</b><span>기술 QC 결과</span></div>
-      <div><b class="warn">+1.28 → −1.83</b><span>True Peak dBTP</span></div>
-      <div><b>30 → 9.2</b><span>보컬 음정 오차 cents</span></div>
+      <div><b class="warn">+1.28 → −2.06</b><span>True Peak dBTP</span></div>
+      <div><b>30 → 5.0</b><span>보컬 음정 오차 cents</span></div>
       <div><b class="warn">0%</b><span>AI 음원 → 멜론·지니</span></div>
     </div>
   </div>
@@ -552,7 +552,7 @@ python -m stayfade --project .\work\mysong <span class="k">analyze</span> --key 
       <h4>내가 부른 파일이 있으면 다듬는다</h4>
       <p>노이즈 제거 → 게이트 → <strong>음정 보정</strong> → 타이밍 정렬 → 디에서 → EQ → 컴프레서 →
         (선택) 3도·5도 하모니 생성. 원본 RAW는 절대 덮어쓰지 않습니다.</p>
-      <div class="out">테스트: 일부러 30 cents 어긋나게 만든 5음 → 보정 후 9.2 cents (6음 감지, 5음 보정)</div>
+      <div class="out">테스트: 일부러 30 cents 어긋나게 만든 5음 → 보정 후 5.0 cents (6음 감지, 5음 보정)</div>
     </div>
   </div>
 
@@ -567,7 +567,7 @@ python -m stayfade --project .\work\mysong <span class="k">analyze</span> --key 
       <pre>python -m stayfade --project .\work\mysong <span class="k">build</span> --drum-reduce-db -1.5 --bass-reduce-db -3.0</pre>
       <div class="out">마스터: 07_master\arranged_master_44k1_24bit.wav
 FLAC: 07_master\distributor_candidate_44k1_16bit.flac
-길이 112.855초 (리미터 최대 3.08 dB 감쇠)</div>
+길이 112.855초 (리미터 최대 2.87 dB 감쇠)</div>
     </div>
   </div>
 
@@ -578,7 +578,7 @@ FLAC: 07_master\distributor_candidate_44k1_16bit.flac
       <h4>유통 규격에 맞는지 12가지를 검사한다</h4>
       <p>샘플레이트·비트뎁스·채널·포맷·클리핑·True Peak·앞뒤 무음·길이·DC·스테레오 상관·LUFS를 검사하고,
         원본 대비 A/B 파일(원본 24초 → 무음 1초 → 편곡 24초, 음량 맞춤)까지 만들어 줍니다.</p>
-      <div class="out">QC PASS · 원본 -9.67 LUFS → 편곡 -14.0 LUFS · TP -1.83 dBTP · 상관 0.8532 · 실패 0 경고 0</div>
+      <div class="out">QC PASS · 원본 -9.67 LUFS → 편곡 -14.0 LUFS · TP -2.06 dBTP · 상관 0.8534 · 실패 0 경고 0</div>
     </div>
   </div>
 
@@ -607,14 +607,14 @@ FLAC: 07_master\distributor_candidate_44k1_16bit.flac
     <tbody>
       <tr><td>길이</td><td class="n">87.71초</td><td class="n">112.86초</td><td>새 인트로 8.59초 + 브리지 17.09초가 붙음</td></tr>
       <tr><td>LUFS-I</td><td class="n">−9.67</td><td class="n">−14.00</td><td>목표값. 유통사 합격선이 아니라 이번 작업 설정</td></tr>
-      <tr><td>LRA</td><td class="n">3.4 LU</td><td class="n">11.49 LU</td><td>다이내믹 폭. 편곡·무음 변화도 함께 영향</td></tr>
-      <tr><td><b>True Peak</b></td><td class="n no">+1.28 dBTP</td><td class="n yes">−1.83 dBTP</td>
+      <tr><td>LRA</td><td class="n">3.4 LU</td><td class="n">11.67 LU</td><td>다이내믹 폭. 편곡·무음 변화도 함께 영향</td></tr>
+      <tr><td><b>True Peak</b></td><td class="n no">+1.28 dBTP</td><td class="n yes">−2.06 dBTP</td>
         <td><mark class="g">원본은 0을 넘어 인터샘플 클리핑 위험</mark>. 마스터에서 해결됨</td></tr>
-      <tr><td>Sample Peak</td><td class="n">−1.01 dBFS</td><td class="n">−1.83 dBFS</td><td>파일 안 최대값</td></tr>
-      <tr><td>Crest factor</td><td class="n">10.35 dB</td><td class="n">13.93 dB</td><td>클수록 여유 있는 소리</td></tr>
-      <tr><td>스테레오 상관</td><td class="n">0.8319</td><td class="n">0.8532</td><td>−1에 가까우면 모노에서 소리가 사라짐</td></tr>
+      <tr><td>Sample Peak</td><td class="n">−1.01 dBFS</td><td class="n">−2.06 dBFS</td><td>파일 안 최대값</td></tr>
+      <tr><td>Crest factor</td><td class="n">10.35 dB</td><td class="n">13.70 dB</td><td>클수록 여유 있는 소리</td></tr>
+      <tr><td>스테레오 상관</td><td class="n">0.8319</td><td class="n">0.8534</td><td>−1에 가까우면 모노에서 소리가 사라짐</td></tr>
       <tr><td>음(−) 상관 1초 구간</td><td class="n">0.0%</td><td class="n">0.9%</td><td>참고 검사. 모노 청취를 대체 못 함</td></tr>
-      <tr><td>DC 오프셋</td><td class="n">0.0021</td><td class="n yes">0.0000113</td><td>20 Hz HPF로 제거됨</td></tr>
+      <tr><td>DC 오프셋</td><td class="n">0.0021</td><td class="n yes">0.000025</td><td>20 Hz HPF로 제거됨</td></tr>
       <tr><td>0 dBFS 이상 샘플</td><td class="n">0</td><td class="n">0</td><td>디지털 클리핑 없음</td></tr>
       <tr><td>앞 / 뒤 무음</td><td class="n">0 / 1.15초</td><td class="n">1.66 / 0초</td><td>8초 넘으면 반려 사유</td></tr>
       <tr><td>규격 검사</td><td class="n">—</td><td class="n yes">PASS (실패 0 · 경고 0)</td><td>16bit/44.1kHz 스테레오 FLAC 기준</td></tr>
@@ -657,7 +657,7 @@ FLAC: 07_master\distributor_candidate_44k1_16bit.flac
     <div class="a">
       <h4>✅ 프로그램이 고쳐줍니다</h4>
       <ul>
-        <li><b>음정</b> — 반음 안쪽으로 들어오면 스케일 음으로 붙입니다 (실측 30 → 9.2 cents)</li>
+        <li><b>음정</b> — 반음 안쪽으로 들어오면 스케일 음으로 붙입니다 (실측 30 → 5.0 cents)</li>
         <li><b>타이밍</b> — 온셋을 그리드로 최대 90 ms 당기고 밀기</li>
         <li><b>노이즈·잡음</b> — 스펙트럼 차감 + 게이트</li>
         <li><b>치찰음</b> — 6.5 kHz 디에서</li>

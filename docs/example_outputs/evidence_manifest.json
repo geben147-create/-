@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T23:27:45+00:00",
+  "generated_at": "2026-09-06T23:55:58+00:00",
   "project": "<PROJECT>",
   "meta": {
     "schema": "stayfade/project/1",
@@ -67,5 +67,5 @@
     "생성 서비스 영수증·구독 증빙이 비어 있습니다 — 유통 심사에서 1순위 요구 항목입니다."
   ],
   "not_certified_ko": "이 파일은 저작권 소유나 유통 승인을 증명하지 않습니다.",
-  "hashed_files": 60
+  "hashed_files": 61
 }

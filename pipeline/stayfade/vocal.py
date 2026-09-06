@@ -32,20 +32,35 @@ def denoise(y: np.ndarray, sr: int, strength: float = 1.0, n_fft: int = 2048) ->
     return out[: len(x)].astype(np.float32)
 
 
+def _smooth_asym(target: np.ndarray, attack_samples: int, release_samples: int,
+                 release_db: float = 60.0) -> np.ndarray:
+    """엔벌로프 추종기: 즉시 상승 + 선형 dB 하강, 그다음 어택 시상수로 평활.
+
+    하강부는 재귀식  v[i] = max(x_db[i], v[i-1] - step)  의 닫힌 형태
+        w[i] = x_db[i] + i*step,  v[i] = cummax(w)[i] - i*step
+    로 계산하므로 파이썬 루프 없이 정확합니다.
+    """
+    x = np.asarray(target, dtype=np.float64)
+    if x.size == 0:
+        return x.astype(np.float32)
+    step = release_db / max(release_samples, 1)
+    x_db = 20.0 * np.log10(np.maximum(np.abs(x), 1e-9))
+    idx = np.arange(x.size, dtype=np.float64)
+    v = np.maximum.accumulate(x_db + idx * step) - idx * step
+    env = 10.0 ** (v / 20.0)
+    if attack_samples > 1:
+        ca = float(np.exp(-1.0 / attack_samples))
+        env = sig.lfilter([1 - ca], [1.0, -ca], env, zi=[env[0] * ca])[0]
+    return np.minimum(env, np.maximum(np.abs(x).max(), 1e-9)).astype(np.float64)
+
+
 def gate(y: np.ndarray, sr: int, threshold_db: float = -48.0, attack_ms: float = 5,
          release_ms: float = 120) -> np.ndarray:
     x = _mono(y)
     env = np.abs(sig.hilbert(x)) if len(x) < 3_000_000 else np.abs(x)
     thr = lin(threshold_db)
-    target = (env > thr).astype(np.float32)
-    a = int(sr * attack_ms / 1000); r = int(sr * release_ms / 1000)
-    sm = np.copy(target)
-    coef_a = np.exp(-1 / max(a, 1)); coef_r = np.exp(-1 / max(r, 1))
-    cur = 0.0
-    for i in range(len(sm)):
-        t = target[i]
-        cur = coef_a * cur + (1 - coef_a) * t if t > cur else coef_r * cur + (1 - coef_r) * t
-        sm[i] = cur
+    target = (env > thr).astype(np.float64)
+    sm = _smooth_asym(target, int(sr * attack_ms / 1000), int(sr * release_ms / 1000))
     return (x * sm).astype(np.float32)
 
 
@@ -193,13 +208,8 @@ def _peaking(x, sr, f0, gain_db, q=1.0):
 def compress(y: np.ndarray, sr: int, threshold_db: float = -20.0, ratio: float = 3.0,
              attack_ms: float = 8, release_ms: float = 120, makeup_db: float | None = None):
     x = _mono(y)
-    env = np.abs(x)
-    a = np.exp(-1 / max(sr * attack_ms / 1000, 1)); r = np.exp(-1 / max(sr * release_ms / 1000, 1))
-    sm = np.empty_like(env); cur = 0.0
-    for i in range(len(env)):
-        e = env[i]
-        cur = a * cur + (1 - a) * e if e > cur else r * cur + (1 - r) * e
-        sm[i] = cur
+    env = np.abs(x).astype(np.float64)
+    sm = _smooth_asym(env, int(sr * attack_ms / 1000), int(sr * release_ms / 1000))
     thr = lin(threshold_db)
     over_db = 20 * np.log10(np.maximum(sm / thr, 1e-9))
     gain_db_arr = np.where(over_db > 0, -over_db * (1 - 1 / ratio), 0.0)
@@ -244,13 +254,15 @@ def process_take(src: Path, out_dir: Path, sr_target: int = 44100, scale_pcs: li
     x, dinfo = deesser(x, sr); steps["deesser"] = dinfo
     x = eq(x, sr); steps["eq"] = "HPF 90 Hz / 300 Hz -2 dB / 3.5 kHz +2 dB"
     x, cinfo = compress(x, sr); steps["compressor"] = cinfo
-    peak = float(np.abs(x).max())
-    if peak > 0:
-        x = x * (lin(-3.0) / peak)
     stereo = np.vstack([x, x]).astype(np.float32)
     if do_harmony:
         stereo = stereo + harmony(x, sr)
         steps["harmony"] = "3도/5도 자동 생성 (인간 실연 아님)"
+    # 레벨 정리는 하모니를 더한 뒤에 — 그 전에 하면 합쳐지면서 클리핑이 납니다
+    peak = float(np.abs(stereo).max())
+    if peak > 0:
+        stereo = (stereo * (lin(-3.0) / peak)).astype(np.float32)
+    steps["output_peak_dbfs"] = -3.0
     out_dir = Path(out_dir); out_dir.mkdir(parents=True, exist_ok=True)
     out_path = out_dir / f"{Path(src).stem}_processed.wav"
     save_wav(out_path, stereo, sr, subtype="PCM_24")

@@ -1,6 +1,6 @@
 {
   "schema": "stayfade/qc/1",
-  "measured_at": "2026-09-06T23:27:39+00:00",
+  "measured_at": "2026-09-06T23:55:53+00:00",
   "before": {
     "file": {
       "path": "<PROJECT>/00_original/testtrack_Ebm_112.wav",
@@ -49,21 +49,21 @@
     "duration_sec": 112.855,
     "duration_mmss": "01:52.86",
     "lufs_i": -14.0,
-    "lra_lu": 11.49,
-    "true_peak_dbtp": -1.83,
-    "sample_peak_dbfs": -1.83,
-    "crest_db": 13.93,
+    "lra_lu": 11.67,
+    "true_peak_dbtp": -2.06,
+    "sample_peak_dbfs": -2.06,
+    "crest_db": 13.7,
     "stereo": {
-      "overall": 0.8532,
+      "overall": 0.8534,
       "negative_window_ratio_active": 0.9,
       "active_windows": 111,
       "min_window": -0.0756,
       "note_ko": "참고 검사입니다. 모노 청취를 대체하지 않습니다."
     },
-    "dc_offset_max_abs": 1.1251e-05,
+    "dc_offset_max_abs": 2.4966e-05,
     "dc_per_channel": [
-      1.1251e-05,
-      9.764e-06
+      2.4966e-05,
+      2.2745e-05
     ],
     "samples_at_or_over_0dbfs": 0,
     "silence_head_sec": 1.655,
@@ -78,26 +78,26 @@
       "duration_sec": 112.855,
       "subtype": "PCM_16",
       "format": "FLAC",
-      "bytes": 9673173
+      "bytes": 9667596
     },
     "duration_sec": 112.855,
     "duration_mmss": "01:52.86",
     "lufs_i": -14.0,
-    "lra_lu": 11.49,
-    "true_peak_dbtp": -1.83,
-    "sample_peak_dbfs": -1.83,
-    "crest_db": 13.93,
+    "lra_lu": 11.67,
+    "true_peak_dbtp": -2.06,
+    "sample_peak_dbfs": -2.06,
+    "crest_db": 13.7,
     "stereo": {
-      "overall": 0.8532,
+      "overall": 0.8534,
       "negative_window_ratio_active": 0.9,
       "active_windows": 111,
       "min_window": -0.0756,
       "note_ko": "참고 검사입니다. 모노 청취를 대체하지 않습니다."
     },
-    "dc_offset_max_abs": 1.1304e-05,
+    "dc_offset_max_abs": 2.5011e-05,
     "dc_per_channel": [
-      1.1304e-05,
-      9.807e-06
+      2.5011e-05,
+      2.2788e-05
     ],
     "samples_at_or_over_0dbfs": 0,
     "silence_head_sec": 1.655,
@@ -111,18 +111,18 @@
     },
     "lra_lu": {
       "before": 3.4,
-      "after": 11.49,
-      "delta": 8.09
+      "after": 11.67,
+      "delta": 8.27
     },
     "true_peak_dbtp": {
       "before": 1.28,
-      "after": -1.83,
-      "delta": -3.11
+      "after": -2.06,
+      "delta": -3.34
     },
     "crest_db": {
       "before": 10.35,
-      "after": 13.93,
-      "delta": 3.58
+      "after": 13.7,
+      "delta": 3.35
     },
     "duration_sec": {
       "before": 87.714,
@@ -131,7 +131,7 @@
     },
     "stereo_correlation": {
       "before": 0.8319,
-      "after": 0.8532
+      "after": 0.8534
     },
     "negative_corr_ratio_pct": {
       "before": 0.0,
@@ -139,7 +139,7 @@
     },
     "dc_offset_max_abs": {
       "before": 0.002103419,
-      "after": 1.1251e-05
+      "after": 2.4966e-05
     },
     "note_ko": "LRA·crest 변화에는 편곡·무음 길이 변화도 함께 영향을 줍니다."
   },
@@ -180,7 +180,7 @@
       {
         "check": "True Peak ≤ -1.0 dBTP",
         "pass": true,
-        "detail": "-1.83 dBTP",
+        "detail": "-2.06 dBTP",
         "severity": "info"
       },
       {
@@ -204,13 +204,13 @@
       {
         "check": "DC 오프셋 < 0.001",
         "pass": true,
-        "detail": "1.1304e-05",
+        "detail": "2.5011e-05",
         "severity": "info"
       },
       {
         "check": "스테레오 상관 > -0.3 (모노 호환)",
         "pass": true,
-        "detail": "0.8532",
+        "detail": "0.8534",
         "severity": "info"
       },
       {
@@ -228,8 +228,8 @@
   "ab_preview": {
     "path": "<PROJECT>/08_qc/AB_original_vs_arranged.wav",
     "original_lufs": -10.29,
-    "arranged_lufs": -14.27,
-    "matched_to_lufs": -14.27,
+    "arranged_lufs": -14.29,
+    "matched_to_lufs": -14.29,
     "seconds_each": 24.0,
     "order_ko": "원본 → 무음 1초 → 편곡"
   },

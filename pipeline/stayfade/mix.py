@@ -66,34 +66,39 @@ def crossfade_concat(pieces: list[np.ndarray], sr: int, xfade_ms: float = 180.0)
     return out.astype(np.float32)
 
 
+def _release_envelope(need: np.ndarray, release_samples: int, release_db: float = 20.0) -> np.ndarray:
+    """즉시 감쇠(attack) + 선형 dB 복귀(release) 게인 곡선.
+
+    재귀식  v[i] = min(need_db[i], v[i-1] + step)  를 그대로 만족하는 닫힌 형태:
+        w[i] = need_db[i] - i*step,   v[i] = i*step + cummin(w)[i]
+    파이썬 루프 없이 정확히 같은 결과가 나오고, 곡 길이에 비례해 선형으로만 느려진다.
+    """
+    if len(need) == 0:
+        return need
+    step = release_db / max(release_samples, 1)          # 샘플당 복귀량 (dB)
+    need_db = 20.0 * np.log10(np.maximum(need, 1e-9))
+    idx = np.arange(len(need), dtype=np.float64)
+    v = idx * step + np.minimum.accumulate(need_db - idx * step)
+    return 10.0 ** (np.minimum(v, 0.0) / 20.0)
+
+
 def limiter(y: np.ndarray, sr: int, ceiling_db: float = -1.0, oversample: int = 4,
             lookahead_ms: float = 5.0, release_ms: float = 80.0) -> tuple[np.ndarray, dict]:
     """오버샘플 피크 리미터 (인터샘플 피크 억제)."""
+    from scipy.ndimage import minimum_filter1d
+
     y = to_stereo(y).astype(np.float64)
-    ceiling = lin(ceiling_db)
+    # 다운샘플 필터의 링잉으로 최종 트루피크가 약간 올라갈 수 있어 0.2 dB 여유를 둔다
+    ceiling = lin(ceiling_db - 0.2)
     up = sig.resample_poly(y, oversample, 1, axis=-1)
     peak = np.max(np.abs(up), axis=0)
     la = max(1, int(lookahead_ms / 1000.0 * sr * oversample))
     rel = max(1, int(release_ms / 1000.0 * sr * oversample))
-    # required gain per sample
     need = np.minimum(1.0, ceiling / np.maximum(peak, 1e-9))
-    # lookahead: minimum over forward window
-    k = np.ones(la)
-    need_min = -sig.maximum_filter1d(-need, size=la, mode="nearest") if hasattr(sig, "maximum_filter1d") else None
-    if need_min is None:
-        from scipy.ndimage import minimum_filter1d
-        need_min = minimum_filter1d(need, size=la, mode="nearest")
-    # smooth release (one-pole)
-    a = np.exp(-1.0 / rel)
-    g = np.empty_like(need_min)
-    cur = 1.0
-    for i in range(len(need_min)):
-        target = need_min[i]
-        cur = target if target < cur else a * cur + (1 - a) * target
-        g[i] = cur
+    need_min = minimum_filter1d(need, size=la, mode="nearest")   # lookahead
+    g = _release_envelope(need_min, rel)
     up = up * g
     out = sig.resample_poly(up, 1, oversample, axis=-1)[:, : y.shape[1]]
-    # safety clip
     gain_reduction_db = float(20 * np.log10(max(g.min(), 1e-9)))
     out = np.clip(out, -0.999969, 0.999969)
     return out.astype(np.float32), {"max_gain_reduction_db": round(gain_reduction_db, 2),
@@ -126,10 +131,18 @@ def master_chain(y: np.ndarray, sr: int, target_lufs: float = -14.0, side_gain: 
     log["limiter"] = linfo
     y, ninfo2 = normalize_lufs(y, sr, target_lufs)
     log["final_normalize"] = ninfo2
+    # 최종 안전장치: 샘플 피크와 트루피크(4배 오버샘플) 모두 천장 아래로
     peak = float(np.abs(y).max())
     if peak > lin(ceiling_db):
         y = y * (lin(ceiling_db) / peak)
         log["post_trim_db"] = round(20 * np.log10(lin(ceiling_db) / peak), 3)
+    tp_lin = float(np.abs(sig.resample_poly(to_stereo(y).astype(np.float64), 4, 1, axis=-1)).max())
+    if tp_lin > lin(ceiling_db):
+        factor = lin(ceiling_db) / tp_lin
+        y = (y * factor).astype(np.float32)
+        log["true_peak_trim_db"] = round(20 * np.log10(factor), 3)
+    log["final_true_peak_dbtp"] = round(20 * np.log10(max(float(np.abs(
+        sig.resample_poly(to_stereo(y).astype(np.float64), 4, 1, axis=-1)).max()), 1e-12)), 2)
     return y, log
 
 

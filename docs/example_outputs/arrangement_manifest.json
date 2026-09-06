@@ -1,6 +1,6 @@
 {
   "schema": "stayfade/arrangement/1",
-  "created_at": "2026-09-06T23:27:17+00:00",
+  "created_at": "2026-09-06T23:55:39+00:00",
   "choices": {
     "drums": "B_halftime",
     "bass": "C_syncopated",
@@ -97,15 +97,16 @@
       "target": -13.0
     },
     "limiter": {
-      "max_gain_reduction_db": -3.08,
+      "max_gain_reduction_db": -2.87,
       "ceiling_dbtp_target": -1.0,
       "oversample": 4
     },
     "final_normalize": {
-      "applied_db": -0.89,
-      "before_lufs": -13.11,
+      "applied_db": -0.96,
+      "before_lufs": -13.04,
       "target": -14.0
-    }
+    },
+    "final_true_peak_dbtp": -2.06
   },
   "outputs": {
     "premaster": "<PROJECT>/06_mix/arranged_premaster.wav",
