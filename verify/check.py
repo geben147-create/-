@@ -64,6 +64,20 @@ def contrast(fg, bg):
     lo, hi = sorted((l1, l2))
     return (hi + 0.05) / (lo + 0.05)
 
+def parse_css_color(css):
+    """'rgb(a) r,g,b[,a]' → (r,g,b,alpha)"""
+    nums = re.findall(r"[\d.]+", css or "")
+    if len(nums) < 3:
+        return (242, 245, 249, 1.0)
+    r, g, b = (int(float(n)) for n in nums[:3])
+    a = float(nums[3]) if len(nums) > 3 else 1.0
+    return (r, g, b, a)
+
+def composite(fg, bg):
+    """반투명 전경색을 배경 위에 올렸을 때 눈에 보이는 실제 색."""
+    r, g, b, a = fg
+    return tuple(round(c * a + bc * (1 - a)) for c, bc in zip((r, g, b), bg[:3]))
+
 def worst_bg_in(img, box, pad=2):
     """box 영역에서 가장 밝은(=최악) 배경 픽셀을 찾는다."""
     x, y, w, h = (int(box["x"]) + pad, int(box["y"]) + pad,
@@ -166,6 +180,9 @@ def main():
                 continue
             # ::before 로 그린 액센트 불릿은 텍스트가 아니라 장식이다.
             # padding-left 만큼 잘라내야 '글자 뒤 배경'만 측정된다.
+            # 요소의 '실제' 렌더링 색을 읽는다. --on-video-label 처럼 알파가 섞인
+            # 색을 #F2F5F9 로 가정하면 검사가 실제보다 관대해진다.
+            fg_css = page.evaluate("el => getComputedStyle(el).color", el)
             pl = page.evaluate("el => parseFloat(getComputedStyle(el).paddingLeft) || 0", el)
             if pl > 0:
                 b = {"x": b["x"] + pl, "y": b["y"], "width": max(2, b["width"] - pl), "height": b["height"]}
@@ -175,9 +192,11 @@ def main():
             shot = Image.open(io.BytesIO(page.screenshot()))
             page.evaluate("el => el.remove()", tag)
             bg = worst_bg_in(shot, b)
-            cr = contrast(ON_VIDEO, bg)
+            fg = composite(parse_css_color(fg_css), bg)   # 반투명 글자색을 배경 위에 합성
+            cr = contrast(fg, bg)
             ok = cr >= need
             report["contrast"].append({"element": name, "selector": sel,
+                                       "fg": "#%02X%02X%02X" % fg, "fg_css": fg_css,
                                        "worst_bg": "#%02X%02X%02X" % bg,
                                        "ratio": round(cr, 2), "required": need, "pass": ok})
             if not ok: fail(f"대비 미달: {name} {cr:.2f}:1 < {need}:1 (최악 배경 #%02X%02X%02X)" % bg)
@@ -280,8 +299,8 @@ def main():
               f" · 카피 {'들어감' if v['hero_copy_fits'] else '벗어남'} · 콘솔 {v['console_errors']}")
     print("\n[ 대비비 · 순백 프레임 위 ]")
     for c in report["contrast"]:
-        print(f"  {'OK ' if c['pass'] else '!! '}{c['element']:<14} {c['ratio']:>6.2f} : 1   "
-              f"(기준 {c['required']}:1, 최악 배경 {c['worst_bg']})")
+        print(f"  {'OK ' if c['pass'] else '!! '}{c['element']:<16} {c['ratio']:>6.2f} : 1   "
+              f"(기준 {c['required']}:1, 글자 {c['fg']} / 최악 배경 {c['worst_bg']})")
     print("\n[ 스택 컨텍스트 ]")
     for h in report["stacking"]:
         print(f"  {'OK ' if h['ok'] else '!! '}{h['sel']:<18} → {h.get('hit')}")
