@@ -130,4 +130,8 @@ def run(project: Project, src: Path, prefer: str = "auto") -> dict:
         project.log("스템 분리: HPSS 폴백 사용 (근사)")
         res = separate_fallback(Path(src), out_dir)
     res["recombination"] = check_recombination(Path(src), res["stems"])
+    if res["engine"] == "hpss_fallback":
+        res["recombination"]["meaningless_ko"] = (
+            "폴백 엔진에서는 other = 원본 - (bass+vocals+drums) 로 만들기 때문에 "
+            "합산 상관이 1.0 이 나오는 것이 당연합니다. 분리 품질의 근거가 아닙니다.")
     return res

@@ -469,6 +469,9 @@ python -m stayfade --project .\work\mysong <span class="k">init</span> "원본.w
       <p>Demucs가 있으면 Demucs, 없으면 HPSS 폴백이 돌아갑니다. 스템을 다시 합쳐 원본과 얼마나 같은지도 함께 검사합니다.
         <strong>분리물은 원본 멀티트랙이 아닙니다.</strong> 감산 편집에 쓰기 전에 꼭 들어보세요.</p>
       <div class="out">스템 합산 상관 1.0 · 상대 RMS 오차 0.00024 (엔진: hpss_fallback)</div>
+      <p class="note">⚠ 이 1.0 은 자랑거리가 아닙니다. 폴백 엔진은 <code>other = 원본 − (나머지 스템)</code> 으로 만들기 때문에
+        합산이 원본과 같아지는 것이 당연합니다. 분리 품질의 근거가 아니며, 프로그램도 그렇게 기록합니다.
+        Demucs 가 설치된 환경에서는 이 값이 진짜 검사가 됩니다.</p>
     </div>
   </div>
 
@@ -607,7 +610,8 @@ FLAC: 07_master\distributor_candidate_44k1_16bit.flac
     <tbody>
       <tr><td>길이</td><td class="n">87.71초</td><td class="n">112.86초</td><td>새 인트로 8.59초 + 브리지 17.09초가 붙음</td></tr>
       <tr><td>LUFS-I</td><td class="n">−9.67</td><td class="n">−14.00</td><td>목표값. 유통사 합격선이 아니라 이번 작업 설정</td></tr>
-      <tr><td>LRA</td><td class="n">3.4 LU</td><td class="n">11.67 LU</td><td>다이내믹 폭. 편곡·무음 변화도 함께 영향</td></tr>
+      <tr><td>LRA <span class="rank">(근사)</span></td><td class="n">3.4 LU</td><td class="n">11.67 LU</td>
+        <td>다이내믹 폭. 3초 블록 10~95 백분위 근사이고, 편곡·무음 변화도 함께 영향</td></tr>
       <tr><td><b>True Peak</b></td><td class="n no">+1.28 dBTP</td><td class="n yes">−2.06 dBTP</td>
         <td><mark class="g">원본은 0을 넘어 인터샘플 클리핑 위험</mark>. 마스터에서 해결됨</td></tr>
       <tr><td>Sample Peak</td><td class="n">−1.01 dBFS</td><td class="n">−2.06 dBFS</td><td>파일 안 최대값</td></tr>

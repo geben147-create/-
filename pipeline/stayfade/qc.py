@@ -87,6 +87,7 @@ def measure(path: Path | str, sr_target: int | None = None) -> dict:
         "duration_mmss": f"{int(info['duration_sec'] // 60):02d}:{info['duration_sec'] % 60:05.2f}",
         "lufs_i": round(float(lufs_i), 2) if np.isfinite(lufs_i) else None,
         "lra_lu": round(float(lra), 2) if lra is not None else None,
+        "lra_note_ko": "LRA 는 3초 블록의 10~95 백분위로 계산한 근사치입니다 (EBU R128 정식 게이팅과 다를 수 있음).",
         "true_peak_dbtp": round(tp, 2),
         "sample_peak_dbfs": round(db(sample_peak), 2),
         "crest_db": crest,
