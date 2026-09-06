@@ -1,0 +1,515 @@
+/* ============================================================
+   Cinematic Pipeline — light build
+   Layer contract:  video 0  /  scrim 1  /  copy 2   inside isolation:isolate
+   Nothing above .stage may carry transform / filter / opacity<1 / will-change.
+   ============================================================ */
+
+:root{
+  /* --- scrim ---------------------------------------------------------
+     Not pure white. Pure #FFF reads as a hole punched in the render, the
+     same way pure #000 does on a dark build. This is white pulled a few
+     points toward the render's own lavender-grey. */
+  --scrim: 247, 247, 250;                  /* #F7F7FA */
+
+  /* --- text over video ------------------------------------------------
+     Not pure #000: pure black on a bright render vibrates at small sizes.
+     Alphas below are from pipeline/contrast.py, worst frame = pure BLACK. */
+  --ink:        #0E1116;                   /* headline + body over video   */
+  --ink-2:      #4A505A;                   /* secondary — NEVER over video
+                                              below scrim alpha .78        */
+  --ink-3:      #6B7280;                   /* labels on solid paper only   */
+
+  /* --- accent — buttons and hairlines only, never body text ---------- */
+  --gold:       #8A6212;                   /* on paper: 6.1:1 vs --paper   */
+  --gold-lit:   #D9A441;                   /* the render's own gold        */
+  --gold-ink:   #1A1305;                   /* text on a gold fill          */
+
+  --paper:      #F7F7FA;
+  --paper-2:    #EFEFF4;
+  --line:       rgba(14,17,22,.10);
+  --line-2:     rgba(14,17,22,.18);
+
+  --maxw: 1180px;
+  --gut:  clamp(20px, 5vw, 72px);
+
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          "Apple SD Gothic Neo", "Pretendard", "Noto Sans KR",
+          "Malgun Gothic", sans-serif;
+  --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+          "Liberation Mono", monospace;
+}
+
+*,*::before,*::after{ box-sizing: border-box; }
+
+html{ scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+@media (prefers-reduced-motion: reduce){ html{ scroll-behavior: auto; } }
+
+body{
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: 17px;
+  line-height: 1.72;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  /* `hidden` here would compute overflow-y:auto and silently break every
+     position:sticky on the page. `clip` does not create a scroll container. */
+  overflow-x: hidden;
+  overflow-x: clip;
+}
+
+img,video{ display:block; max-width:100%; }
+
+::selection{ background: rgba(217,164,65,.28); }
+
+:where(a,button,summary,[tabindex]):focus-visible{
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+/* ============================================================
+   NAV — a direct child of <body>.
+   position:fixed resolves against the viewport ONLY while no ancestor
+   carries a transform. Keeping it at body level is what guarantees that.
+   ============================================================ */
+.nav{
+  position: fixed; inset: 0 0 auto 0;
+  z-index: 100;
+  display: flex; align-items: center; gap: 28px;
+  padding: 14px var(--gut);
+  background: rgba(247,247,250,.72);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  border-bottom: 1px solid transparent;
+  transition: border-color .3s ease, background .3s ease;
+}
+.nav[data-stuck="true"]{ border-bottom-color: var(--line); background: rgba(247,247,250,.9); }
+.nav__mark{
+  display:flex; align-items:center; gap:9px;
+  font-weight:700; font-size:15px; letter-spacing:-.01em; margin-right:auto;
+}
+.nav__dot{
+  width:11px; height:11px; border-radius:50%;
+  background: radial-gradient(circle at 32% 30%, #F3D18A, var(--gold-lit) 58%, #A9762A);
+  box-shadow: 0 1px 4px rgba(217,164,65,.5);
+  flex: none;
+}
+.nav__links{ display:flex; gap:24px; }
+.nav a{
+  color: var(--ink-2); text-decoration:none;
+  font-size:13.5px; font-weight:500; letter-spacing:.01em;
+  transition: color .2s ease;
+}
+.nav a:hover{ color: var(--ink); }
+@media (max-width: 860px){ .nav__links{ display:none; } }
+
+/* ============================================================
+   STAGE — every section that carries a video
+   ============================================================ */
+.stage{
+  position: relative;
+  isolation: isolate;        /* ★ the whole z-index contract lives here */
+  overflow: hidden;
+  display: grid;
+}
+
+.stage__bg{
+  position:absolute; inset:0;
+  width:100%; height:100%;
+  object-fit: cover;
+  object-position: 50% 50%;
+  z-index: 0;
+  pointer-events:none;
+  background: var(--paper-2);
+}
+.stage__scrim{
+  position:absolute; inset:0;
+  z-index: 1;                /* above video, below copy — always */
+  pointer-events:none;
+}
+.stage__copy{
+  position:relative;
+  z-index: 2;                /* ★ never needs to be 9999 */
+  padding: 0 var(--gut);
+  width:100%;
+}
+
+/* ---- HERO -------------------------------------------------- */
+.hero{
+  min-height: 78vh;          /* not 100vh — the mobile URL bar makes 100vh lie */
+  min-height: 78svh;
+  align-items: end;
+  padding-top: 96px;
+}
+.hero .stage__bg{ object-position: 50% 46%; }
+
+/* alpha .50 where the headline sits (4.51:1 on a pure-black frame),
+   alpha .62 across the button/lede band (6.66:1),
+   falling to .04 at the top so the render is actually visible. */
+.hero .stage__scrim{
+  background:
+    linear-gradient(to top,
+      rgba(var(--scrim),.90) 0%,
+      rgba(var(--scrim),.62) 30%,
+      rgba(var(--scrim),.50) 52%,
+      rgba(var(--scrim),.18) 78%,
+      rgba(var(--scrim),.04) 100%),
+    linear-gradient(to right,
+      rgba(var(--scrim),.58) 0%,
+      rgba(var(--scrim),.16) 46%,
+      rgba(var(--scrim),0) 74%);
+}
+.hero__copy{ max-width: 48ch; padding-bottom: clamp(56px, 9vh, 108px); }
+
+.eyebrow{
+  font-size: 12.5px; font-weight: 600; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--gold);
+  margin: 0 0 18px;
+}
+h1{
+  font-size: clamp(34px, 6vw, 68px);
+  line-height: 1.1;
+  font-weight: 700;
+  letter-spacing: -.022em;
+  margin: 0 0 22px;
+  word-break: keep-all;
+}
+.lede{
+  font-size: clamp(17px, 2vw, 19px);
+  line-height: 1.68;
+  margin: 0 0 32px;
+  max-width: 44ch;
+  word-break: keep-all;
+}
+/* over video, secondary text stays at full --ink: --ink-2 needs alpha .78
+   and that much scrim kills the render. */
+.stage .lede{ color: var(--ink); }
+
+.btnrow{ display:flex; flex-wrap:wrap; gap:12px; }
+.btn{
+  display:inline-flex; align-items:center; gap:9px;
+  padding: 13px 24px; border-radius: 999px;
+  font-size:15px; font-weight:600; letter-spacing:.01em;
+  text-decoration:none; border:1px solid transparent;
+  transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+}
+.btn--primary{
+  background: var(--ink); color: var(--paper);
+  box-shadow: 0 2px 14px rgba(14,17,22,.16);
+}
+.btn--primary:hover{ transform: translateY(-1px); box-shadow: 0 6px 22px rgba(14,17,22,.22); }
+.btn--ghost{
+  background: rgba(247,247,250,.86); color: var(--ink);
+  border-color: var(--line-2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+.btn--ghost:hover{ background: #fff; transform: translateY(-1px); }
+
+/* ============================================================
+   PAPER SECTIONS — no video
+   ============================================================ */
+.sheet{ padding: clamp(76px, 11vh, 132px) var(--gut); }
+.sheet--tint{ background: var(--paper-2); }
+.wrap{ max-width: var(--maxw); margin: 0 auto; }
+.wrap--narrow{ max-width: 780px; }
+
+.sec-no{
+  font-family: var(--mono);
+  font-size: 12px; font-weight: 600; letter-spacing: .12em;
+  color: var(--gold); margin: 0 0 12px;
+}
+h2{
+  font-size: clamp(26px, 4vw, 42px);
+  line-height: 1.22;
+  font-weight: 600;
+  letter-spacing: -.018em;
+  margin: 0 0 18px;
+  word-break: keep-all;
+}
+h3{
+  font-size: clamp(19px, 2.2vw, 23px);
+  line-height: 1.4; font-weight: 600; letter-spacing:-.012em;
+  margin: 0 0 12px; word-break: keep-all;
+}
+.sheet p{ margin: 0 0 18px; max-width: 74ch; word-break: keep-all; }
+.sheet p.dim{ color: var(--ink-2); }
+
+.rule{ height:1px; background: var(--line); border:0; margin: 48px 0; }
+
+/* ---- pipeline diagram -------------------------------------- */
+.flow{
+  display:grid;
+  grid-template-columns: repeat(7, minmax(0,1fr));
+  gap: 10px; margin: 40px 0 8px;
+}
+.flow__step{
+  position:relative;
+  padding: 18px 14px 20px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  min-width: 0;
+}
+.flow__step[data-key]{ border-top: 2px solid var(--gold-lit); }
+.flow__n{
+  font-family: var(--mono); font-size:11px; font-weight:600;
+  color: var(--ink-3); letter-spacing:.1em; display:block; margin-bottom:7px;
+}
+.flow__t{ font-size:14.5px; font-weight:600; line-height:1.35; margin:0 0 6px; word-break:keep-all; }
+.flow__d{ font-size:12.5px; line-height:1.5; color: var(--ink-2); margin:0; word-break:keep-all; }
+.flow__note{
+  margin-top:10px; padding-top:9px; border-top:1px dashed var(--line-2);
+  font-size:11.5px; line-height:1.45; color: var(--gold); font-weight:500;
+  word-break: keep-all;
+}
+@media (max-width: 1080px){ .flow{ grid-template-columns: repeat(3, minmax(0,1fr)); } }
+@media (max-width: 620px){ .flow{ grid-template-columns: repeat(2, minmax(0,1fr)); gap:8px; } }
+
+/* ---- concept cards ----------------------------------------- */
+.cards{ display:grid; gap:16px; grid-template-columns: repeat(3, minmax(0,1fr)); }
+.cards--2{ grid-template-columns: repeat(2, minmax(0,1fr)); }
+@media (max-width: 900px){ .cards, .cards--2{ grid-template-columns: 1fr; } }
+.card{
+  background:#fff; border:1px solid var(--line); border-radius:14px;
+  padding: 26px 24px 28px; min-width:0;
+}
+.card__k{
+  font-family: var(--mono); font-size:11.5px; font-weight:600;
+  letter-spacing:.1em; color: var(--gold); margin:0 0 10px;
+}
+.card p{ margin:0; font-size:15.5px; line-height:1.66; color: var(--ink-2); word-break:keep-all; }
+.card p + p{ margin-top:12px; }
+
+/* ---- tables ------------------------------------------------- */
+.tablewrap{ overflow-x:auto; margin: 26px 0 8px; border:1px solid var(--line); border-radius:12px; background:#fff; }
+table{ border-collapse: collapse; width:100%; min-width: 620px; font-size:14.5px; }
+caption{
+  text-align:left; padding: 16px 20px 0; font-size:13px;
+  color: var(--ink-3); font-weight:500;
+}
+th,td{ padding: 13px 18px; text-align:left; vertical-align: top; border-bottom:1px solid var(--line); word-break:keep-all; }
+thead th{
+  font-size:12px; font-weight:600; letter-spacing:.08em; text-transform:uppercase;
+  color: var(--ink-3); background: var(--paper-2); white-space:nowrap;
+}
+tbody tr:last-child td{ border-bottom:0; }
+tbody tr:hover{ background: rgba(217,164,65,.045); }
+td.num, th.num{ font-family: var(--mono); font-variant-numeric: tabular-nums; white-space:nowrap; }
+.pass{ color:#1B6B3A; font-weight:600; }
+.warn{ color:#8A6212; font-weight:600; }
+.fail{ color:#A32020; font-weight:600; }
+tr[data-pick="1"]{ background: rgba(217,164,65,.10); }
+tr[data-pick="1"] td:first-child{ box-shadow: inset 3px 0 0 var(--gold-lit); }
+
+/* ---- code --------------------------------------------------- */
+.code{
+  position:relative;
+  background:#111418; color:#E4E7EB; border-radius:12px;
+  padding: 20px 22px; overflow-x:auto; margin: 22px 0;
+  font-family: var(--mono); font-size:13px; line-height:1.72;
+  -webkit-overflow-scrolling: touch;
+}
+.code b{ color:#F0C674; font-weight:600; }
+.code i{ color:#7C8794; font-style:normal; }
+.code em{ color:#8FD3A0; font-style:normal; }
+.code__tag{
+  position:absolute; top:0; right:0;
+  font-size:10.5px; letter-spacing:.1em; text-transform:uppercase;
+  color:#8992A0; padding:8px 14px;
+}
+
+/* ---- callouts ----------------------------------------------- */
+.note{
+  border-left: 3px solid var(--gold-lit);
+  background: rgba(217,164,65,.07);
+  padding: 18px 22px; border-radius: 0 10px 10px 0;
+  margin: 26px 0; font-size:15.5px; line-height:1.7;
+}
+.note strong{ font-weight:600; }
+.note--stop{ border-left-color:#A32020; background: rgba(163,32,32,.055); }
+
+.dont{ list-style:none; padding:0; margin: 22px 0 0; }
+.dont li{
+  position:relative; padding: 12px 0 12px 30px;
+  border-bottom: 1px solid var(--line); font-size:15.5px; line-height:1.65;
+  color: var(--ink-2); word-break:keep-all;
+}
+.dont li:last-child{ border-bottom:0; }
+.dont li::before{
+  content:"×"; position:absolute; left:6px; top:11px;
+  color:#A32020; font-weight:700; font-size:17px;
+}
+.dont li b{ color: var(--ink); font-weight:600; }
+
+/* ============================================================
+   SAFE-ZONE FIGURE
+   ============================================================ */
+.safe{
+  position:relative; margin: 34px 0 10px;
+  border:1px solid var(--line); border-radius:12px; overflow:hidden;
+  background:#fff;
+}
+.safe__frame{ position:relative; aspect-ratio: 16/9; background:#EDEEF2; }
+.safe__img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+.safe__band{ position:absolute; top:0; bottom:0; background: rgba(163,32,32,.20); }
+.safe__band--l{ left:0;  width:37%; }
+.safe__band--r{ right:0; width:37%; }
+.safe__cut{ position:absolute; left:0; right:0; height:12%; background: rgba(163,32,32,.20); }
+.safe__cut--t{ top:0; } .safe__cut--b{ bottom:0; }
+.safe__box{
+  position:absolute; left:37%; right:37%; top:12%; bottom:12%;
+  border:1.5px dashed var(--gold-lit);
+  display:grid; place-items:center; text-align:center;
+}
+.safe__box span{
+  font-size:12px; font-weight:600; letter-spacing:.06em;
+  color: var(--gold); background: rgba(247,247,250,.92);
+  padding: 5px 10px; border-radius:6px; line-height:1.5;
+}
+.safe__cap{ padding: 14px 18px; font-size:13px; color: var(--ink-2); border-top:1px solid var(--line); }
+.safe__cap b{ color: var(--ink); }
+
+/* ============================================================
+   S3 — SCRUB (pinned)
+   ============================================================ */
+/* the tall parent is the scroll distance; the stage sticks inside it */
+.scrubwrap{ position: relative; height: 260vh; }
+.scrub{
+  position: sticky; top: 0;
+  height: 100vh; height: 100svh;
+  align-items: center;
+}
+@media (max-width: 768px){ .scrubwrap{ height: 220vh; } }
+@media (prefers-reduced-motion: reduce){ .scrubwrap{ height: auto; } .scrub{ position: static; height: auto; min-height: 78vh; padding: 64px 0; } }
+.scrub .stage__scrim{
+  background:
+    linear-gradient(to right,
+      rgba(var(--scrim),.88) 0%,
+      rgba(var(--scrim),.72) 26%,
+      rgba(var(--scrim),.30) 52%,
+      rgba(var(--scrim),.06) 80%),
+    linear-gradient(to top,
+      rgba(var(--scrim),.42) 0%,
+      rgba(var(--scrim),.06) 40%);
+}
+.scrub__copy{ max-width: 42ch; }
+.scrub__steps{ list-style:none; margin: 26px 0 0; padding:0; }
+.scrub__steps li{
+  padding: 11px 0 11px 34px; position:relative;
+  border-top:1px solid rgba(14,17,22,.14);
+  font-size:15.5px; line-height:1.6; color: var(--ink);
+  opacity:.34; transition: opacity .35s ease;
+  word-break: keep-all;
+}
+.scrub__steps li[data-on="1"]{ opacity:1; }
+.scrub__steps li::before{
+  content: attr(data-n);
+  position:absolute; left:0; top:11px;
+  font-family: var(--mono); font-size:11.5px; font-weight:600;
+  color: var(--gold);
+}
+.scrub__bar{
+  position:absolute; left: var(--gut); right: var(--gut); bottom: 40px;
+  height:2px; background: rgba(14,17,22,.14); z-index:2;
+}
+.scrub__bar i{ display:block; height:100%; width:0%; background: var(--gold-lit); }
+
+/* ============================================================
+   S4 — service cards with tiny loops
+   ============================================================ */
+.tiles{ display:grid; gap:18px; grid-template-columns: repeat(3, minmax(0,1fr)); margin-top:40px; }
+@media (max-width: 900px){ .tiles{ grid-template-columns: 1fr; } }
+.tile{
+  border:1px solid var(--line); border-radius:14px; overflow:hidden;
+  background:#fff; display:flex; flex-direction:column; min-width:0;
+}
+.tile__media{ position:relative; isolation:isolate; aspect-ratio: 16/10; overflow:hidden; background: var(--paper-2); }
+.tile__media video, .tile__media img{
+  position:absolute; inset:0; width:100%; height:100%;
+  object-fit:cover; z-index:0;
+}
+.tile__media::after{        /* the tile's own scrim */
+  content:""; position:absolute; inset:0; z-index:1;
+  background: linear-gradient(to top, rgba(var(--scrim),.62), rgba(var(--scrim),0) 62%);
+  pointer-events:none;
+}
+.tile__body{ padding: 22px 22px 26px; }
+.tile__k{ font-family:var(--mono); font-size:11px; letter-spacing:.1em; color:var(--gold); margin:0 0 9px; font-weight:600; }
+.tile h3{ margin:0 0 10px; font-size:18px; }
+.tile p{ margin:0; font-size:14.5px; line-height:1.65; color: var(--ink-2); word-break:keep-all; }
+
+/* ============================================================
+   S6 — CTA
+   ============================================================ */
+.cta{ min-height: 70vh; min-height: 70svh; align-items:center; text-align:center; }
+.cta .stage__scrim{
+  background:
+    linear-gradient(to bottom,
+      rgba(var(--scrim),.30) 0%,
+      rgba(var(--scrim),.62) 34%,
+      rgba(var(--scrim),.62) 72%,
+      rgba(var(--scrim),.86) 100%);
+}
+.cta__copy{ max-width: 56ch; margin: 0 auto; }
+.cta .btnrow{ justify-content:center; }
+
+/* ---- checklist ---------------------------------------------- */
+.check{ list-style:none; padding:0; margin: 30px 0 0; display:grid; gap:10px; }
+.check li{
+  display:flex; gap:14px; align-items:flex-start;
+  background:#fff; border:1px solid var(--line); border-radius:10px;
+  padding: 15px 18px; font-size:15px; line-height:1.6;
+  text-align:left; word-break:keep-all;
+}
+.check li b{ display:block; font-size:12.5px; letter-spacing:.05em; color:var(--gold); margin-bottom:3px; font-weight:600; }
+.check input[type=checkbox]{ margin-top:4px; accent-color: var(--gold-lit); width:16px; height:16px; flex:none; }
+
+/* ---- footer -------------------------------------------------- */
+.foot{
+  padding: 46px var(--gut) 60px; border-top:1px solid var(--line);
+  font-size:13.5px; color: var(--ink-3); background: var(--paper-2);
+}
+.foot .wrap{ display:flex; flex-wrap:wrap; gap: 14px 32px; align-items:baseline; }
+.foot b{ color: var(--ink-2); font-weight:600; }
+
+/* ============================================================
+   MOBILE — horizontal safe zone collapses to 32%, so the
+   side gradient is replaced by a vertical one.
+   ============================================================ */
+@media (max-width: 768px){
+  body{ font-size:16px; }
+  .hero{ min-height: 84svh; }
+  .hero .stage__bg{ object-position: 50% 42%; }
+  .hero .stage__scrim{
+    background: linear-gradient(to top,
+      rgba(var(--scrim),.94) 0%,
+      rgba(var(--scrim),.78) 34%,
+      rgba(var(--scrim),.56) 60%,
+      rgba(var(--scrim),.16) 86%,
+      rgba(var(--scrim),.04) 100%);
+  }
+  .scrub .stage__scrim{
+    background: linear-gradient(to top,
+      rgba(var(--scrim),.92) 0%,
+      rgba(var(--scrim),.74) 42%,
+      rgba(var(--scrim),.34) 74%,
+      rgba(var(--scrim),.08) 100%);
+  }
+  .scrub{ align-items:end; }
+  .scrub__copy{ padding-bottom: 92px; }
+  .scrub__bar{ bottom: 28px; }
+  .stage .lede{ font-size:16.5px; }
+}
+
+/* ============================================================
+   REDUCED MOTION — stop every video, fall back to the poster.
+   ============================================================ */
+@media (prefers-reduced-motion: reduce){
+  .stage__bg, .tile__media video{ display:none !important; }
+  .stage__poster, .tile__media img.fallback{ display:block !important; }
+}
+.stage__poster{ display:none; }
+.tile__media img.fallback{ display:none; }
