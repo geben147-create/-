@@ -31,7 +31,7 @@ key = """<div class="callout"><b class="red">핵심 정정 6가지 (한국어 �
 <li>TuneCore의 “clear, provable and dominant”는 <b>공식 문서가 아니라 인터뷰/3자 보도 표현</b>. 공식 문구는 “100% AI 생성물은 배포하지 않는다” + “완전 라이선스 데이터셋 GenAI만”.</li>
 <li>한국 스트리밍 정산 <b>35 / 48.25 / 10.5 / 6.25</b>는 맞음(2019-01-01 시행). “68.42/31.58 개정안”은 <b>어떤 출처에서도 확인되지 않음</b> → 문서에서 삭제. KOMCA 8/3 도입 → 8/25 철회·유보는 확인.</li>
 </ol></div>"""
-BASE = C["sections"]["factcheck"]["html"].split('<div class="callout">')[0].split("{{fc}}")[0]  # idempotent: keep only the intro paragraph
+BASE = C["sections"]["factcheck"]["html"].split(chr(60)+"div class=\"callout\"")[0].split("{{fc}}")[0]
 C["sections"]["factcheck"]["html"] = BASE + key + summary + "{{fc}}"
 json.dump(C, open(os.path.join(ROOT, "docs", "content.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
 print("factcheck rows:", len(rows), counts)

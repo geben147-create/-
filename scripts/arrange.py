@@ -128,7 +128,12 @@ def arrange(track_dir: str, analysis: dict, stems_dir: str) -> dict:
 
     # ---- 1. structure: intro length, tail trim
     intro_bars = int(dec.get("intro_bars", 2))
-    intro_len = intro_bars * bar_len
+    # end the intro exactly where the song's first DOWNBEAT is, so the new bar lines, the hat
+    # pick-up and the riser line up with the song's bars (the original often starts with a pickup)
+    first_db = float(analysis["downbeat_times"][0]) if analysis.get("downbeat_times") else 0.0
+    intro_len = max(0.0, intro_bars * bar_len - first_db)
+    while intro_len < bar_len * 0.5 and intro_bars > 0:
+        intro_len += bar_len
     off = int(round(intro_len * sr))
     tail = 0.0
     a = np.max(np.abs(x), axis=1); idx = np.where(a > 10 ** (-60 / 20))[0]
@@ -166,11 +171,8 @@ def arrange(track_dir: str, analysis: dict, stems_dir: str) -> dict:
         sb = [b for b in bars if b["beats"][0] >= s["start"] - 0.05 and b["beats"][0] < s["end"] - 0.05]
         if not sb:
             continue
-        ev = drums_variant(dv, sb, sec_end_bars)
-        for e in ev:  # tag bar/beat so a human can refer to hits
-            bi = max((b for b in sb if b["beats"][0] <= e["time"] + 1e-6), key=lambda b: b["beats"][0], default=sb[0])
-            e["bar"] = bi["bar"]; e["beat"] = round(1 + (e["time"] - bi["beats"][0]) / max(1e-6, (bi["end"] - bi["beats"][0])) * 4, 2)
-        drum_events += ev
+        # bar/beat tags come from the generator (nominal positions), not re-derived from time
+        drum_events += drums_variant(dv, sb, sec_end_bars)
         bass_notes += bass_variant(bv, sb, [bchords[b["bar"]] for b in sb])
         if dec["pad"]["enabled"]:
             for b in sb:
@@ -246,21 +248,35 @@ def arrange(track_dir: str, analysis: dict, stems_dir: str) -> dict:
         "pad": place(pad_new),
         "riser": place(riser_track),
     }
-    premaster = bed_out + sum(parts.values())
+    ed = os.path.join(track_dir, "04_edits")
+    npdir = os.path.join(ed, "new_parts")
+    os.makedirs(npdir, exist_ok=True)
+    vocal_parts = {}
+    for f in sorted(os.listdir(npdir)):
+        if f.startswith("vocal_") and f.endswith(".wav"):
+            v, _ = load_audio(os.path.join(npdir, f), sr)
+            o = np.zeros((n_out, 2)); L = min(len(v), n_out); o[:L] = v[:L]
+            vocal_parts[os.path.splitext(f)[0]] = o
+    premaster = bed_out + sum(parts.values()) + (sum(vocal_parts.values()) if vocal_parts else 0)
     peak = float(np.max(np.abs(premaster)))
     if peak > 0.98:  # keep 0.2 dB below full scale before mastering
         premaster *= 0.98 / peak
         bed_out *= 0.98 / peak
         for k in parts:
             parts[k] *= 0.98 / peak
+        for k in vocal_parts:
+            vocal_parts[k] *= 0.98 / peak
 
     # ---- 6. write files
-    ed = os.path.join(track_dir, "04_edits")
-    os.makedirs(os.path.join(ed, "new_parts"), exist_ok=True)
+    for f in os.listdir(npdir):  # drop the previous variant's renders; keep vocal_*.wav (human takes)
+        if f.endswith(".wav") and not f.startswith("vocal_"):
+            os.remove(os.path.join(npdir, f))
     save_wav(os.path.join(ed, "bed_original_stems_automated.wav"), bed_out, sr, subtype="FLOAT")
     for k, v in parts.items():
         if np.any(v):
-            save_wav(os.path.join(ed, "new_parts", f"{k}.wav"), v, sr, subtype="FLOAT")
+            save_wav(os.path.join(npdir, f"{k}.wav"), v, sr, subtype="FLOAT")
+    for k, v in vocal_parts.items():  # re-normalised copies of the placed human takes
+        save_wav(os.path.join(npdir, f"{k}.wav"), v, sr, subtype="FLOAT")
     save_wav(os.path.join(track_dir, "05_mix", "premaster.wav"), premaster, sr, subtype="FLOAT")
     os.makedirs(os.path.join(ed, "midi"), exist_ok=True)
     shifted_ev = [dict(e, time=e["time"] + intro_len) for e in drum_events]
@@ -285,6 +301,11 @@ def arrange(track_dir: str, analysis: dict, stems_dir: str) -> dict:
         "breakdown": ({**breakdown, "output_range": [round(breakdown["orig_start"] + intro_len, 3), round(breakdown["orig_end"] + intro_len, 3)]} if breakdown else None),
         "events": events_log,
         "new_midi_counts": {"drum_events": len(drum_events), "bass_notes": len(bass_notes), "pad_chords": len(pad_chunks)},
+        "premaster_parts": sorted(list(parts.keys()) + list(vocal_parts.keys())),
+        "human_vocal_parts": sorted(vocal_parts.keys()),
+        "beat_corrections": analysis.get("beat_corrections", []),
+        "edit_index_source": "04_edits/midi/new_notes.json (drum_events[].index / bass_notes[].index). "
+                             "03_proposals/*_notes.json is an 8-bar audition of the SAME pattern and its indices differ.",
         "levels": levels,
         "sections_output_time": [{**s, "start": round(s["start"] + intro_len, 3), "end": round(s["end"] + intro_len, 3)} for s in sections],
         "duration_out_s": round(T, 3), "duration_in_s": round(n_orig / sr, 3),

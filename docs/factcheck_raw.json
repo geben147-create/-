@@ -1,272 +1,482 @@
 [
  {
-  "group": "",
+  "group": "routenote",
   "claim": "RouteNote accepts some AI-generated releases but will NOT deliver AI content to Korean partner stores (Melon, Genie, Bugs, FLO, VIBE), Amazon, or Content Recognition (YouTube Content ID).",
   "status": "confirmed",
   "correction": "Accurate as of 2026-09-06, per search-engine snippets of RouteNote's KB article (the live page is blocked from this environment, so re-check directly before publishing). RouteNote states it 'will accept some AI-generated content' but that AI-generated content cannot be delivered to its Content Recognition DSP options (which include YouTube Content ID), to the Korean partner stores Melon, Genie, Bugs, FLO and VIBE, or to Amazon. A companion article ('Why is my release blocked on Korean stores?', https://support.routenote.com/kb-article/why-is-my-release-blocked-on-korean-stores/) repeats that Korean partner stores do not accept AI-generated releases; releases made with AI aid are allowed on RouteNote but are blocked from Korean stores. Two additional conditions worth adding to the guide: (1) you must be prepared to provide links to the AI-generation sites you used, or RouteNote may be unable to approve the content, and RouteNote asks that you use services with ethical training models; (2) releases containing AI-generated or AI-assisted content 'may be subject to additional review and may take longer than the standard moderation timeframe.'",
   "evidence_quote": "AI-generated content is unable to be delivered to RouteNote's Content Recognition DSP options as well as Korean partner stores (Melon, Genie, Bugs, Flo, and Vibe) and Amazon.",
   "evidence_url": "https://support.routenote.com/kb-article/can-i-upload-ai-releases/",
-  "checked_date": "2026-09-06"
+  "checked_date": "2026-09-06",
+  "skeptic": "재확인: Correction holds. Independent corroboration via search-engine snippets of third-party coverage: dynamoi.com's RouteNote AI policy page (policy dated January 6, 2026) states RouteNote accepts AI music on free and paid tiers, requires links to the AI platforms used, requires tools with ethical training practices, and excludes AI tracks from Content Recognition; once.app's comparison page says RouteN"
  },
  {
-  "group": "",
+  "group": "routenote",
   "claim": "RouteNote release review currently takes 25-27 business days, plus 7-14 days for store ingestion.",
   "status": "partially_correct",
   "correction": "Substantially correct but time-sensitive, and only verifiable via search-engine snippets because the live page is blocked from this environment. The most recent snippet (search engine reported the page as 'updated 5 days ago' relative to 2026-09-06) reads: moderation team 'currently approving content within 25-27 working days (Monday-Friday) after submission', described as longer than usual due to a high volume of submissions. An older cached snippet of the same page read '23-25 working days ... roughly 5 weeks', so the figure changes frequently; the guide should cite it with a 'checked on' date and link readers to the article rather than hard-coding the number. RouteNote's own wording is 'working days (Monday-Friday)', not 'business days', and the estimate assumes no further action is required from the uploader. Store ingestion: after approval the distribution team sends the release to stores within 24 hours; it can take 7-14 days from the approval date to be fully ingested; Spotify and Apple Music are typically live within 5 days of approval. Directly relevant to this guide: AI-generated or AI-assisted releases may be subject to additional review and take longer than the standard timeframe, and a release sent back for changes will be delayed further.",
   "evidence_quote": "The RouteNote moderation team are currently approving content within 25-27 working days (Monday-Friday) after submission ... It can take 7-14 days from your approved date for your release to be fully ingested into your selected stores.",
   "evidence_url": "https://support.routenote.com/kb-article/how-long-will-i-be-waiting-for-my-release-to-go-live/",
-  "checked_date": "2026-09-06"
+  "checked_date": "2026-09-06",
+  "skeptic": "재확인: Correction holds, with the time-sensitivity caveat strengthened. Multiple fresh search-engine snippets of the KB article (reported as 'updated 5 days ago' relative to 2026-09-06) consistently read 'currently approving content within 25-27 working days (Monday-Friday) after submission', 'longer than usual due to a recent high volume of submissions', and 'AI-generated or AI-assisted content may be s"
  },
  {
-  "group": "",
+  "group": "routenote",
   "claim": "RouteNote Free pays 85% of revenue; RouteNote Premium pays 100% and costs about $9.99 per year per single (check the current price). RouteNote audio spec: stereo FLAC or MP3, 16-bit, 44.1 kHz; flags clipping, over 8 s of leading/trailing silence.",
   "status": "partially_correct",
   "correction": "Revenue split and audio spec are accurate; the Premium price wording needs correcting. As of 2026-09-06 (via search-engine snippets of RouteNote support articles; live pages blocked from this environment): Free plan pays 85% of net revenue (RouteNote keeps 15%); Premium pays 100% (RouteNote keeps 0%) — source https://support.routenote.com/kb-article/what-percentage-does-routenote-take/. Premium pricing is a one-off first-year fee by release size, then a renewal: $10 Single (1 track), $20 EP (2-6 tracks), $30 Album (7-18 tracks), $45 Extended Album (19+ tracks), and 'after your first year, there's a $9.99 annual subscription fee if you choose to keep the release Premium' — so a single is $10 upfront, then $9.99/year, not a flat $9.99/year (source https://support.routenote.com/kb-article/how-much-does-premium-cost/). Audio spec confirmed: 'Audio must be formatted in stereo as a FLAC or MP3 file at 320kbps/16 bit with a sample rate of 44.1kHz' (https://support.routenote.com/kb-article/what-are-the-audio-file-requirements/). Quality standards confirmed: RouteNote flags clipped/peaking audio, and 'Tracks should not have more than eight seconds of silence at the start or end'; it also lists muffled/muddy recordings, hum/buzz/hiss, room echo, heavy compression, audio that is too quiet/loud, and skipping audio as rejection risks (https://support.routenote.com/kb-article/does-my-audio-meet-routenotes-quality-standards/). Minimum lengths: release total 30 s or longer; each track 3 s or longer.",
   "evidence_quote": "$10 – Single [1 Track] ... $20 – EP [2 – 6 Tracks] ... $30 – Album [7 – 18 Tracks] ... $45 – Extended Album [19+ Tracks]. After your first year, there's a $9.99 annual subscription fee if you choose to keep the release Premium. | Audio must be formatted in stereo as a FLAC or MP3 file at 320kbps/16 bit with a sample rate of 44.1kHz. | Tracks should not have more than eight seconds of silence at the start or end.",
   "evidence_url": "https://support.routenote.com/kb-article/how-much-does-premium-cost/",
-  "checked_date": "2026-09-06"
+  "checked_date": "2026-09-06",
+  "skeptic": "재확인: Correction holds on every element. Pricing: independent search snippets from SoundCloud's 'RouteNote Pricing' topic page, TheBestMusicDistributors.com (2026 guide), botify.vip (2026 review), music.loop.fans ('Plans & Fees Explained for 2026'), theblackturn.com and onestowatch.com all state the same structure — Free keeps 85% (RouteNote takes 15%); Premium keeps 100% for one-off fees of $10 single,"
  },
  {
-  "group": "",
+  "group": "routenote",
   "claim": "RouteNote Dolby Track Mastering costs $7.99 per track with a free 30 s preview.",
   "status": "confirmed",
   "correction": "Accurate as of 2026-09-06, per search-engine snippets of RouteNote's support article and launch blog post (live pages blocked from this environment). Full-track Dolby Track Mastering costs $7.99 per track; a 30-second mastered preview is free, and the user chooses which 30-second section to preview (RouteNote suggests a section with both quiet and loud parts). Extra details for the guide: there is no requirement to distribute the mastered song through RouteNote; input can be uploaded from a computer, via URL, or chosen from an existing RouteNote release; accepted input formats are AAC, AIFF, FLAC, MP3, OPUS, VORBIS and WAV, and you can choose the output format. Blog source: https://routenote.com/blog/routenote-launches-dolby-track-mastering/",
   "evidence_quote": "If you would like to master the whole track, the cost is $7.99 per track. | You can hear a 30-second mastered preview for free before deciding whether you want to master the full track.",
   "evidence_url": "https://support.routenote.com/kb-article/how-can-i-use-dolby-track-mastering/",
-  "checked_date": "2026-09-06"
+  "checked_date": "2026-09-06",
+  "skeptic": "재확인: Correction holds. Independent search snippets from allaboutai.com's news write-up ('RouteNote Launches Dolby Track Mastering Service'), LabelGrid's 'Best RouteNote Alternatives (2026)' guide, the RouteNote Create blog, the RouteNote Radar page, and the later 'RouteNote upgrades Dolby Track Mastering' post all give $7.99 per full track with a free 30-second mastered preview of a user-chosen section"
  },
  {
-  "group": "",
+  "group": "korea",
   "claim": "KOMCA (Korea Music Copyright Association) announced AI-assisted music registration criteria on 2026-08-03 and withdrew them on 2026-08-25 at its 8th board meeting; new AI-assisted works are on hold until new rules. Sources: https://www.khan.co.kr/article/202608251836001/ and https://sports.khan.co.kr/article/202608251932003/",
   "status": "confirmed",
   "correction": "Accurate as of 2026-09-06. KOMCA's new 'AI-assisted musical work' filing/registration criteria (human must have substantially and leadingly participated in lyrics/composition/arrangement; 100% prompt-only AI output excluded) took effect on 2026-08-03 (press coverage dated Aug 3-4, 2026). On 2026-08-25, at its 8th board meeting (제8회 이사회), KOMCA voted to withdraw the related amendments to the '음악저작물 신고·등록에 관한 규정' and '음악저작권 신탁계약약관', citing an MCST letter (Aug 18) and National Assembly requests for broader cultural-sector consensus first. Per the coverage: works received but not yet registered are held (유보) until a new policy exists; works that were registered during the ~3-week window are subject to registration-cancellation procedures. KOMCA frames this as a temporary pause, not a denial of AI-assisted copyright. Caveat: both Khan URLs were egress-blocked in this environment; the facts were verified through search-engine summaries of those same Khan articles plus Korea JoongAng Daily, Asiae (English), MLex and keyzard.cc snippets, which all agree on the dates and board-meeting number.",
   "evidence_quote": "한국음악저작권협회(음저협)는 8월 25일 제8회 이사회를 열고 '음악저작물 신고·등록에 관한 규정'과 '음악저작권 신탁계약약관'의 관련 개정을 철회하기로 의결했습니다. ... 음저협은 8월 3일 AI를 활용한 음악 가운데 인간 창작자가 작사·작곡·편곡 과정에 실질적이고 주도적으로 참여한다면 인간이 창작한 부분에 한해 신탁 등록할 수 있다는 새로운 기준을 발표했습니다. ... 접수는 마쳤지만 등록이 완료되지 않은 저작물은 새 정책이 마련될 때까지 등록 절차가 유보됩니다.",
   "evidence_url": "https://www.khan.co.kr/article/202608251836001/",
-  "checked_date": "2026-09-06"
+  "checked_date": "2026-09-06",
+  "skeptic": "재확인: Correction holds against independent outlets. Korea JoongAng Daily (12843828): 'Korea's music copyright association on Tuesday withdrew a rule that allowed AI-assisted songs to be copyrighted' (Tuesday = 2026-08-25) and the MCST 'sent an official letter to Komca on Aug. 18'. MLex/aimusicpreneur: 'KOMCA's board voted on August 25, 2026 to withdraw the AI music registration rules it began applying o → Criteria took effect 2026-08-03 (KOMCA press announcement 2026-08-04); withdrawn by KOMCA's 8th board meeting on Tuesday 2026-08-25 after an MCST letter of 2026-08-18; registered works face cancellati"
  },
  {
-  "group": "",
+  "group": "korea",
   "claim": "Korean subscription streaming revenue split under the MCST-approved rules: platform 35%, producers/master 48.25%, songwriters/publishing 10.5%, performers 6.25%. A 2025 proposal to change to 68.42/31.58 was discussed for June 2026 but its approval status is unclear.",
   "status": "partially_correct",
   "correction": "The split figures are correct; the '68.42/31.58 proposal' could not be found anywhere. Current rule: MCST approved the amended 음원 전송사용료 징수규정 of the four music CMOs (KOMCA, KOSCAP, FKMP, RIAK) on 2018-06-20, effective 2019-01-01, raising the on-demand streaming rights-holder share from 60:40 to 65:35 (download stays 70:30). Within the 65% rights-holder share: record producers/masters 48.25%, authors (composers/lyricists) 10.5%, performers 6.25%; the service provider keeps 35%. This 35/48.25/10.5/6.25 breakdown is confirmed as still the operative framework in coverage dated Dec 2025 (Asiae) and by the Korea Music Content Association's 2021 fact-check. No source in six targeted searches (Korean and English) mentions any 68.42% / 31.58% ratio, any proposal to adopt it, or a June 2026 decision on it; treat that sentence as unsupported and remove or re-source it. What does exist: on 2025-12-24 MCST opened public comment (through 2026-01-08) on a KOMCA 사용료 징수규정 amendment covering on-demand streaming unit price, a revised music-usage-fee rate, and a new short-form (숏폼) fee; its approval status as of 2026-09-06 could not be verified because mcst.go.kr and copyright.or.kr are blocked here. Caveat: all primary pages (mcst.go.kr, korea.kr, copyright.or.kr, findcopyright.or.kr) were egress-blocked; figures verified via search-engine summaries of those pages.",
   "evidence_quote": "현재 전송 음원사용료 징수규정에 따른 음원 전송사용료 분배율은 음악 서비스사업자 35%, 음반제작자 48.25%, 작사가·작곡가 10.5%, 실연자(가수, 세션) 6.25%입니다. ... 문화체육관광부는 6월 20일(수), 음악 분야 4개 신탁관리단체의 음원 전송사용료 징수규정 개정안을 최종적으로 승인했습니다. ... The amendment was implemented on January 1, 2019. ... the specific numbers \"68.42\" and \"31.58\" do not appear in the search results.",
   "evidence_url": "https://www.mcst.go.kr/site/s_notice/press/pressView.jsp?pMenuCD=0302000000&pSeq=16742",
-  "checked_date": "2026-09-06"
+  "checked_date": "2026-09-06",
+  "skeptic": "재확인: Correction holds. Independent 2018 coverage of the MCST approval (ZDNet Korea 2018-06-20 '음원 수익 창작자 몫 60%→65% 확대', Herald Corp 2018-06-21, inews24) confirms: approved 2018-06-20, streaming 60:40 → 65:35, download 70:30 maintained, and '시장 적응 기간을 고려해 2019년 1월 1일부터 시행'. The 48.25/10.5/6.25/35 breakdown is independently stated by the K-MCA fact-check (Dec 2021), Hankyung/ETNews (2021-12-17), Yonhap's → Platform 35% / record producers 48.25% / authors 10.5% / performers 6.25% (MCST approval 2018-06-20, effective 2019-01-01; download stays 70:30). No 68.42/31.58 proposal exists in any reachable source"
  },
  {
-  "group": "",
+  "group": "korea",
   "claim": "Sound Republica distributes to Melon, Bugs, FLO, Genie, VIBE plus Spotify/Apple/YouTube and accepts applications from individuals (Personal) and companies; requested release date must be at least 14 days after application. Source: https://www.soundrepublica.com/",
   "status": "partially_correct",
   "correction": "Only part of this could be verified, and the vendor site itself was unreachable. Verified via search-engine summaries of press coverage and Sound Republica's own LinkedIn/PR text: Sound Republica (founded 2018, Seoul) distributes to Korean DSPs including Melon, Bugs and Genie Music and to global platforms including Apple Music/iTunes and Spotify; it reports direct deals with YouTube (CMS Tier A), Spotify, Apple Music, Meta, TikTok, CapCut and Tencent, covering 200+ platforms in 180+ countries (earlier reports: 120+ sites); individuals who own their own recordings can apply for distribution, and it serves both artists and music companies via an online one-stop distribution-to-settlement platform. NOT verifiable from any reachable source: (a) FLO and VIBE by name (very likely, as they are standard Korean DSP delivery targets, but no citation found); (b) the exact applicant categories 'Personal' vs company; (c) any rule that the requested release date must be at least 14 days after application; (d) fees/pricing in USD or KRW. www.soundrepublica.com, my.soundrepublica.com, sync.soundrepublica.com and help/support subdomains are all blocked by the egress proxy, and no search snippet surfaces the FAQ text. Recommend the author re-check the 14-day rule and the Personal/Company wording directly on my.soundrepublica.com before publishing, and state distribution fees only after reading the current pricing page.",
   "evidence_quote": "사운드리퍼블리카는 멜론, 벅스, 지니뮤직 등 국내를 포함해 애플뮤직, 아이튠즈, 스포티파이 등 전 세계 180여 개국, 120여 개 스트리밍 사이트로 디지털 음원을 배급하는 글로벌 음원 유통사입니다. ... 개인 음원을 보유하고 있으면 사운드리퍼블리카에 유통 신청할 수 있습니다. ... having signed direct contracts with major global platforms, including YouTube CMS Tier A, Spotify, Apple Music, Meta, TikTok, CapCut, and Tencent. ... the search results do not contain specific information about the submission requirements, release dates 14 days prior, or details about solo business operators.",
   "evidence_url": "https://marketin.edaily.co.kr/News/Read?newsId=01758086628946256",
-  "checked_date": "2026-09-06"
+  "checked_date": "2026-09-06",
+  "skeptic": "재확인: Correction holds; nothing found contradicts it. Independent sources (Wowtale 2022-06-29, D-Startup, NextUnicorn, Jebowang) repeat the same text: '멜론, 벅스, 지니뮤직 등 국내를 포함해 애플뮤직, 아이튠즈, 스포티파이 등 전 세계 180여 개국, 120여 개 스트리밍 사이트로 디지털 음원을 배급'; a Threads post and the Studio Nol indie-label guide confirm individuals/개인사업자 can apply. One search summary attributed to Sound Republica-related coverage says release → Verified: Melon, Bugs, Genie, Apple Music/iTunes, Spotify (plus YouTube via direct deal); individuals and companies can apply. FLO weakly supported by one unopened article; VIBE, a Personal/Company ap"
  },
  {
-  "group": "",
+  "group": "symphonic",
   "claim": "Symphonic Starter costs $29.99/year.",
   "status": "confirmed",
   "correction": "As of 2026-09-06, Symphonic Starter is USD $29.99 per year. This is the rate for new Starter subscriptions since May 11, 2026 (a price increase tied to new features such as the Release Campaign Builder); existing subscribers moved to it no earlier than August 9, 2026 or at their next renewal, so by today it applies to everyone. There are no per-release fees. NOTE: the source page could not be opened directly (host blocked by this session's egress policy); wording is taken from search-engine snippets of Symphonic's own pages.",
   "evidence_url": "https://support.symdistro.com/hc/en-us/articles/9220840169485-Symphonic-Starter-FAQ",
   "evidence_quote": "The plan is for one primary artist for $29.99 annually. [...] There are no additional fees per release. / Symphonic blog, 2026-05-11: \"Starting May 11, 2026, new Starter subscriptions are $29.99 per year. Existing clients won't see this change until August 9, 2026, at the earliest, and annual subscribers will stay on their current rate until their next renewal cycle.\"",
-  "checked_date": "2026-09-06"
+  "checked_date": "2026-09-06",
+  "skeptic": "재확인: Correction holds. Independently corroborated by Symphonic's own blog post of 2026-05-11 ('Starting May 11, 2026, new Starter subscriptions are $29.99 per year. Existing clients won't see this change until August 9, 2026, at the earliest, and annual subscribers will stay on their current rate until their next renewal cycle'), by the separate help-desk article 'Understanding Your Starter Account Sub → USD $29.99 per year (Symphonic phrases it as '$29.99 a year per Primary Artist'); auto-renews annually on the subscription anniversary; no per-release fees. New-subscriber rate since 2026-05-11; exist"
  },
  {
-  "group": "",
+  "group": "symphonic",
   "claim": "Symphonic Starter is artist-only (one primary artist across the account).",
   "status": "confirmed",
   "correction": "Accurate. Starter accounts are limited to one primary artist on all releases and one label name per account; unlimited featuring/remixer artists are allowed. Anyone wanting more than one primary artist must apply for/upgrade to Partner. Minor precision point for the guide: a single-artist self-run label can still use Starter (one label per account is permitted); it is multiple primary artists, not the word 'label', that forces Partner. (Read via search-engine snippet; host blocked.)",
   "evidence_url": "https://support.symdistro.com/hc/en-us/articles/9220840169485-Symphonic-Starter-FAQ",
   "evidence_quote": "Starter clients must utilize one primary artist on all releases under the account. [...] Symphonic Starter accounts are currently only eligible to have one label per account. [...] You can bring on as many featuring and remixer artists as you'd like. [...] If you'd like to have more than one primary artist, you can upgrade to Partner or apply when you're ready.",
-  "checked_date": "2026-09-06"
+  "checked_date": "2026-09-06",
+  "skeptic": "재확인: Correction holds. A different help-desk article, 'Changing or Adding Label Names and Accounts', states: 'Starter plans do not allow additional labels. If you are on a Starter plan and want to use a different label name, please consider creating a separate account,' while 'Symphonic Partner accounts can have unlimited sub-labels.' The help-desk 'Pricing' article and symphonic.com/starter repeat 'St → One primary artist and one label name per Starter account; unlimited featuring/remixer artists. A second primary artist requires either a separate Starter account/subscription or moving to Partner."
  },
  {
-  "group": "",
+  "group": "symphonic",
   "claim": "Symphonic Starter pays 100% of DSP revenue.",
   "status": "partially_correct",
   "correction": "Correct for DSP/streaming-store royalties (Spotify, Apple Music, Deezer, Pandora, etc.): Starter pays 100%. However, Symphonic states that User Generated Content revenue collection (e.g., YouTube) carries percentage fees, so '100% of all revenue' would be inaccurate; say '100% of DSP royalties; UGC/YouTube collection is subject to a percentage fee'. (Read via search-engine snippet; host blocked.)",
   "evidence_url": "https://support.symdistro.com/hc/en-us/articles/9220840169485-Symphonic-Starter-FAQ",
   "evidence_quote": "You will keep 100% of royalties from the distribution of your music to Apple, Spotify, Deezer, Pandora and many more. Like most of the industry, there are some percentage fees for User Generated Content revenue collection such as YouTube.",
-  "checked_date": "2026-09-06"
+  "checked_date": "2026-09-06",
+  "skeptic": "재확인: Correction holds and can be sharpened. symphonic.com/starter and the help-desk 'Pricing' article confirm '100% of royalties from the distribution of your music to Apple, Spotify, Deezer, Pandora and many more' with 'some percentage fees for User Generated Content revenue collection such as YouTube.' Independent sources quantify that fee: the help-desk article 'YouTube Content ID Earnings & Percent → 100% of DSP/streaming-store royalties (Spotify, Apple Music, Deezer, Pandora, etc.); UGC/rights-management revenue (YouTube Content ID, TikTok, Facebook, Instagram, Snapchat) is subject to a Symphonic"
  },
  {
-  "group": "",
+  "group": "symphonic",
   "claim": "Labels must apply to the Symphonic Partner program (application-based, custom rates, unlimited artists, exclusive multi-year term).",
   "status": "partially_correct",
   "correction": "Substantially accurate, with two refinements. (1) Partner is by application only, is a custom percentage deal (Symphonic describes it as a flat rate for distribution plus separately priced add-on services, and 'a custom percentage plan depending on your needs'), allows unlimited artists and unlimited sub-labels (sub-label requests subject to approval), and is an exclusive deal for a three-year term (say 'three-year' rather than the vaguer 'multi-year'); you retain ownership of your masters. (2) 'Labels must' is slightly too strong: Symphonic says Partner is 'a great option for Record Labels and/or volume heavy accounts' and is required once you need more than one primary artist; a one-artist label can remain on Starter. (Read via search-engine snippets; hosts blocked.)",
   "evidence_url": "https://support.symdistro.com/hc/en-us/articles/30398387318669-Symphonic-Partner-FAQ",
   "evidence_quote": "Partner is a custom deal offered upon application with a flat rate for distribution, and additional services available at separate rates. [...] The Partner plan is by application only and includes personalized support and marketing to DSPs. Symphonic charges a percentage for that level of support, and you can have unlimited artists. [...] The Partner plan is an exclusive deal for a three-year term. However, you still own your music and keep your rights. / symphonic.com/pricing: \"Partner is a custom percentage plan depending on your needs and where you are at in your career. It is a great option for Record Labels and/or volume heavy accounts. It is for application only.\"",
-  "checked_date": "2026-09-06"
+  "checked_date": "2026-09-06",
+  "skeptic": "재확인: Correction holds; one refinement. Independent Symphonic pages corroborate every element: help-desk 'Pricing' article: 'Symphonic's standard Partner plan is an 85/15 percentage split of the royalties from distributing your music to DSPs ... the Partner plan percentage is customized per agreement'; 'Partner percentages explained' and 'What Percentage Do Partners Take?' explain the split is taken fro → Partner is application-only, exclusive for a three-year term, with a percentage deal (standard 85/15 split, customized per agreement; add-on services priced separately), unlimited artists and sub-labe"
  },
  {
-  "group": "",
+  "group": "symphonic",
   "claim": "Symphonic's AI Disclosure & Generative AI Stance was updated around 2026-08-21.",
   "status": "unverifiable",
   "correction": "Could not confirm an August 21, 2026 revision. Search-engine indexing of the help-desk article (in two separate queries) reports it as 'updated July 2, 2026', and no source surfaced an August 21 update; the nearest August item is Symphonic's blog explainer 'What Creators Should Know About Distributing AI Music in 2026', dated August 20, 2026. Because the live page could not be opened (host blocked) and search indexes can lag, a later August edit cannot be ruled out. Recommendation: cite the article's on-page 'updated' stamp at time of publication rather than a fixed date, or write 'last revised mid-2026'.",
   "evidence_url": "https://support.symdistro.com/hc/en-us/articles/31610957692173-Symphonic-s-AI-Disclosure-Generative-AI-Stance",
   "evidence_quote": "Search-engine summary of the help-desk listing: \"The help desk article 'Symphonic's AI Disclosure & Generative AI Stance' (Article ID: 31610957692173) was updated on July 2, 2026.\" No result contained an August 21, 2026 date.",
-  "checked_date": "2026-09-06"
+  "checked_date": "2026-09-06",
+  "skeptic": "재확인: Not in scope for refutation (previous status was 'unverifiable'), but a fresh, separate search on 2026-09-06 again returns the help-desk listing for article 31610957692173 as 'Updated: July 2, 2026', and the only August-2026 Symphonic item found is the blog post 'What Creators Should Know About Distributing AI Music in 2026' dated 2026-08-20. No source surfaced an August 21 revision. Live page and → Help-desk article indexed as updated July 2, 2026; companion blog explainer published August 20, 2026. Cite the on-page 'updated' stamp at publication time."
  },
  {
-  "group": "",
+  "group": "symphonic",
   "claim": "The policy requires disclosing AI tools/models/companies.",
   "status": "partially_correct",
   "correction": "Mandatory disclosure is narrower than stated: at upload in SymphonicMS you must indicate whether generative AI was used in the audio and in the artwork, and whether the content is fully AI-generated or AI-assisted. Naming the tools, models, or companies is conditional -- Symphonic says clients 'may be asked' for that information -- not an unconditional requirement. Separately, AI models/services used must meet Symphonic's licensing and authorization requirements, and for music videos certain partners (Apple Music, Vevo) require AI-use disclosure. Symphonic may also supplement self-disclosure with detection/fingerprinting/provenance technology. (Read via search-engine snippets; host blocked.)",
   "evidence_url": "https://support.symdistro.com/hc/en-us/articles/31610957692173-Symphonic-s-AI-Disclosure-Generative-AI-Stance",
   "evidence_quote": "During the asset upload process, you will be asked to indicate whether generative AI was used in the creation of audio and artwork for new tracks. [...] Whether content is fully AI-generated or AI-assisted, clients may be asked to provide information about the tools, models, or companies used in the creative process. [...] AI models and services used in the creation of content must also meet Symphonic's applicable licensing and authorization requirements.",
-  "checked_date": "2026-09-06"
+  "checked_date": "2026-09-06",
+  "skeptic": "재확인: Correction holds. Independent Symphonic pages confirm the mandatory element is a yes/no-plus-degree indication, not tool names: the help-desk 'Full upload guide (Every field explained)' describes the SymphonicMS fields 'Audio AI Usage' ('What amount of generative AI tools were used in the creation of the stereo track') and 'Artwork AI Usage' ('What amount of generative AI tools were used in the cr → At upload you must indicate whether (and to what degree) generative AI was used for audio and for artwork, i.e., fully AI-generated vs AI-assisted; Symphonic may additionally ask for the tools, models"
  },
  {
-  "group": "",
+  "group": "symphonic",
   "claim": "The policy bans impersonation and unauthorized voice cloning.",
   "status": "confirmed",
   "correction": "Accurate in substance. The stance article prohibits content that intentionally mimics or impersonates real artists, brands, or individuals without authorization, and lists preventing 'fraud, impersonation, and misleading or abusive use of AI' as a core principle; generative-AI uploads (including Suno) are accepted only if there is no impersonation, fraud, or misleading representation. The explicit voice language -- prohibiting AI recordings that use or depict an artist's recognizable or synthetic voice without consent, and requiring prior written rightsholder consent for any voice modeling -- appears in Symphonic's companion Content Guidelines / AI & Dataset Licensing pages rather than verbatim as 'voice cloning' in the stance article, so cite those alongside it. (Read via search-engine snippets; host blocked.)",
   "evidence_url": "https://support.symdistro.com/hc/en-us/articles/31610957692173-Symphonic-s-AI-Disclosure-Generative-AI-Stance",
   "evidence_quote": "Symphonic prohibits content that intentionally mimics or impersonates real artists, brands, or individuals without authorization. [...] Platform Integrity: we actively work to prevent fraud, impersonation, and misleading or abusive use of AI. / Companion guideline: \"Symphonic Distribution prohibits AI-generated sound recordings that use or depict the recognizable or synthetic voice of an artist without their consent.\"",
-  "checked_date": "2026-09-06"
+  "checked_date": "2026-09-06",
+  "skeptic": "재확인: Correction holds, including its attribution point. Two separate Symphonic help-desk articles carry the voice language the stance article lacks verbatim: 'Symphonic Distribution Content Guidelines' ('AI-generated sound recordings that use or depict the recognizable or synthetic voice of an artist without their consent are not permitted') and 'AI & Dataset Licensing' ('To the extent any Dataset Lice → Impersonation of real artists/brands/individuals without authorization is prohibited (AI Stance article); AI recordings using a recognizable or synthetic artist voice without consent are not permitted"
  },
  {
-  "group": "",
+  "group": "symphonic",
   "claim": "The policy lists partners that currently restrict generative-AI content, including Audible Magic, Meta, Bandcamp and YouTube Content ID.",
   "status": "confirmed",
   "correction": "Accurate as of 2026-09-06: Symphonic's policy names Audible Magic, Meta, Bandcamp, and YouTube Content ID as partners that do not accept works created with generative AI, and warns that content eligible for Symphonic distribution may still be ineligible for delivery, monetization, rights management, or recommendation on a given platform. Symphonic notes these are the platforms' own policies and may change over time. For the guide, add that Apple Music and Vevo require AI disclosure for music videos. (Read via search-engine snippets; host blocked.)",
   "evidence_url": "https://support.symdistro.com/hc/en-us/articles/31610957692173-Symphonic-s-AI-Disclosure-Generative-AI-Stance",
   "evidence_quote": "Current restrictions include: Audible Magic · Meta · Bandcamp · YouTube Content ID [...] Audible Magic, Meta, Bandcamp, and YouTube Content ID do not accept works created with generative AI. [...] Content that is eligible for distribution through Symphonic may therefore be ineligible for delivery, monetization, rights management, recommendation, or other services on a particular platform. These policies are established by the individual platforms and may change over time.",
-  "checked_date": "2026-09-06"
+  "checked_date": "2026-09-06",
+  "skeptic": "재확인: Correction holds and is current: Symphonic's own blog post dated 2026-08-20 ('What Creators Should Know About Distributing AI Music in 2026') repeats the same four names ('Audible Magic, Meta, Bandcamp, and YouTube Content ID do not accept works created with generative AI') and the Apple Music/Vevo video-disclosure note, and the help-desk 'Release & Video Submission' article adds that where a part → As of Aug/Sep 2026: Audible Magic, Meta, Bandcamp and YouTube Content ID do not accept generative-AI works; Apple Music and Vevo require AI disclosure for music videos; Spotify AI-Persona releases are"
  },
  {
-  "group": "",
+  "group": "distrokid_others",
   "claim": "DistroKid allows AI-generated music if the uploader holds 100% of the rights.",
   "status": "confirmed",
   "correction": "As of 2026-09-06, DistroKid accepts music made with AI tools provided the uploader owns 100% of the rights (including the legal right to distribute anything created with AI tools, samples, or lyrics). Additional conditions: the music must not mimic another person's voice, likeness, or identity without permission, and content made solely to game algorithms or flood platforms violates the streaming services' policies.",
   "evidence_quote": "[Search-index snippet of the DistroKid Help Center article; direct fetch blocked by egress policy] \"You must own 100% of the rights, including the legal right to distribute music created with any AI tools, samples, lyrics, etc.\" ... \"Your music cannot mimic or copy someone else's voice, likeness, or identity without permission.\"",
   "evidence_url": "https://support.distrokid.com/hc/en-us/articles/41182362733715-Can-I-Upload-Music-Made-With-AI-Tools-to-DistroKid",
-  "checked_date": "2026-09-06"
+  "checked_date": "2026-09-06",
+  "skeptic": "재확인: Correction holds. Independent 2026 coverage (Soundverse, Dynamoi, Jack Righteous) quoting DistroKid's policy repeats the same three conditions: 'must own 100% of the rights, including the legal right to distribute music created with any AI tools, samples, lyrics'; 'cannot mimic or copy someone else's voice, likeness, or identity without permission'; and 'music created solely to game streaming algo"
  },
  {
-  "group": "",
+  "group": "distrokid_others",
   "claim": "DistroKid's AI disclosure step asks whether AI was used for lyrics, vocals, instrumentation, or the entire composition.",
   "status": "confirmed",
   "correction": "As of 2026-09-06, DistroKid's upload form asks whether any of the track was generated by AI. The AI Credits categories are lyrics, vocals, and instrumental performance, plus an option for \"All of the audio\"; choosing \"All of the audio\" triggers a further question about whether the artist name is a human or an AI persona. The credits are passed to streaming services (currently Spotify and Apple Music), which show them to listeners.",
   "evidence_quote": "[Search-index snippet; direct fetch blocked] \"AI Credits let you disclose when AI generated part of your track, like the lyrics, vocals, or instrumental performance.\" ... \"If you pick 'All of the audio,' DistroKid will also ask whether your artist name is a human or an AI persona.\" ... \"Streaming services (currently Spotify and Apple Music) show this info to listeners so they can see how a track was made.\"",
   "evidence_url": "https://support.distrokid.com/hc/en-us/articles/50784709021971-How-to-Fill-Out-AI-Credits",
-  "checked_date": "2026-09-06"
+  "checked_date": "2026-09-06",
+  "skeptic": "재확인: Correction holds. Digital Music News (14 May 2026) and RightsDocket coverage corroborate that DistroKid's AI Credits disclose AI-generated 'lyrics, vocals, or instrumental performance', that selecting 'All of the audio' triggers a question on whether the artist name is 'a human or an AI persona', and that the credits feed Spotify (AI Credits beta rolled out from 16 April 2026 starting with DistroK"
  },
  {
-  "group": "",
+  "group": "distrokid_others",
   "claim": "DistroKid's AI disclosure applies only to new uploads.",
   "status": "refuted",
   "correction": "As of 2026-09-06, AI credits are not limited to new uploads. DistroKid asks about AI during upload, but AI credits can also be added or updated after upload, including on releases that are already live, from the album page (\"Credits\" next to each song) or at distrokid.com/credits.",
   "evidence_quote": "[Search-index snippet; direct fetch blocked] \"You can add or update AI credits after uploading, too. Go to your album page and click 'Credits' next to each song, or visit https://distrokid.com/credits.\"",
   "evidence_url": "https://support.distrokid.com/hc/en-us/articles/50784709021971-How-to-Fill-Out-AI-Credits",
-  "checked_date": "2026-09-06"
+  "checked_date": "2026-09-06",
+  "skeptic": "재확인: Out of scope (already marked refuted), but the prior correction is corroborated by a different source: Jack Righteous' 2026 distribution-rules guide states 'You can add or update AI credits after uploading by going to your album page and clicking Credits next to each song, or visiting the credits page.'"
  },
  {
-  "group": "",
+  "group": "distrokid_others",
   "claim": "On DistroKid, pitch correction / AI-assisted mixing or mastering does not require an AI credit.",
   "status": "confirmed",
   "correction": "As of 2026-09-06, DistroKid states that AI credits are not needed when AI is used only as a tool (pitch correction, auto-tune, etc.) and that AI-assisted mixing or mastering does not require AI credits. AI credits are required when part of the track was generated by AI (e.g., AI-generated vocals or instrumental tracks).",
   "evidence_quote": "[Search-index snippet; direct fetch blocked] \"You don't need AI credits if you just used AI as a tool: Pitch correction, auto-tune, etc.\" ... \"AI-assisted mixing or mastering does not require AI credits.\" ... \"You should add AI credits if part of the track was generated by AI, such as AI-generated audio (vocals, instrumental tracks, etc.)\"",
   "evidence_url": "https://support.distrokid.com/hc/en-us/articles/50784235803411-What-Are-AI-Credits",
-  "checked_date": "2026-09-06"
+  "checked_date": "2026-09-06",
+  "skeptic": "재확인: Correction holds, though this was the closest call. One search-engine summary of the DistroKid page rendered it as 'you would need to add AI credits for AI-assisted mixing or mastering', but two targeted follow-up searches, including Digital Music News' 14 May 2026 report, state the opposite and match the correction: 'DistroKid says AI-assisted mixing, mastering, pitch correction or workflow assis"
  },
  {
-  "group": "",
+  "group": "distrokid_others",
   "claim": "DistroKid Content ID is ineligible for releases containing audio the uploader did not create (beats, loops, samples).",
   "status": "confirmed",
   "correction": "As of 2026-09-06, DistroKid's YouTube Content ID (delivered via the Social Media Pack extra) requires that the release contain no audio the uploader did not create: no beats, loops, samples, sound effects, video-game sounds, or audio from sample libraries or public sources, including free sounds bundled with GarageBand, Ableton, Logic, or FL Studio. Royalty-free samples also make a release ineligible.",
   "evidence_quote": "[Search-index snippet; direct fetch blocked] \"If your release contains any audio that you didn't create yourself like beats, loops, samples, or video game sounds, then it is unfortunately ineligible for YouTube Content ID.\" ... \"Your release must NOT include beats, loops, sound effects, or any audio from sample libraries or public sources, including free sounds from GarageBand, Ableton, Logic, or Fruity Loops.\"",
   "evidence_url": "https://support.distrokid.com/hc/en-us/articles/360049542553-Eligibility-for-YouTube-Content-ID-Through-The-Social-Media-Pack-Extra",
-  "checked_date": "2026-09-06"
+  "checked_date": "2026-09-06",
+  "skeptic": "재확인: Correction holds. A different DistroKid help article (Uploading Music That Contains Sampling From Other Songs) and third-party guides (Third Chair, TellingBeatzz, Foxi) repeat the rule: release must not include beats, loops, sound effects or any audio from sample libraries or public sources, including free sounds from GarageBand, Ableton, Logic or Fruity Loops, and 'if you use royalty-free samples → Add to the disqualifying-source list: Splice, YouTube Audio Library, Facebook Audio Library, Epidemic Sound or any other royalty-free audio provider."
  },
  {
-  "group": "",
+  "group": "distrokid_others",
   "claim": "DistroKid pricing: Musician $24.99/yr, Musician Plus $44.99/yr, Ultimate $89.99/yr.",
   "status": "confirmed",
   "correction": "As of 2026-09-06, DistroKid's plans are Musician at $24.99 billed annually (shown as $2.08/month; 1 artist), Musician Plus at $44.99 billed annually ($3.75/month; 2 artists, custom release dates), and Ultimate at $89.99 billed annually ($7.50/month; up to 100 artists). All plans keep 100% of distribution earnings for the artist.",
   "evidence_quote": "[Search-index snippets of distrokid.com/pricing and the Help Center cost article; direct fetch blocked] \"DistroKid's Musician plan costs $2.08/month or $24.99 billed annually\" ... \"Musician Plus: $3.75/month or $44.99 billed annually\" ... \"Ultimate: $7.50/month or $89.99 billed annually\"",
   "evidence_url": "https://distrokid.com/pricing/",
-  "checked_date": "2026-09-06"
+  "checked_date": "2026-09-06",
+  "skeptic": "재확인: Correction holds. RouteNote Radar's 2026 pricing article, MelodicMind's price-increase report, ALERA, Chartlex and Audora all list Musician $24.99/yr (1 artist), Musician Plus $44.99/yr (2 artists), Ultimate $89.99/yr (up to 100 artists), 100% royalties on all plans. MelodicMind adds context: Musician rose from $22.99 and Musician Plus from $39.99 in the 2026 increase; Ultimate unchanged. The per-"
  },
  {
-  "group": "",
+  "group": "distrokid_others",
   "claim": "DistroKid Content ID costs $4.95 per song plus 20% of revenue.",
   "status": "partially_correct",
   "correction": "As of 2026-09-06, DistroKid delivers YouTube Content ID through its Social Media Pack album extra, which is charged annually per release (single or album) and from which DistroKid keeps 20% of the UGC earnings; the 20% is stated on DistroKid's own help page. The dollar figure could not be verified on a DistroKid-owned page through my access: multiple 2026 third-party pricing roundups (SoundCloud topic page, ALERA, Orphiq, Soundcamps, Loop Fans) state $4.95 per single per year and $14.95 per album per year. The claim omits that the fee is annual and that albums are priced at $14.95. Treat $4.95 as third-party-sourced until confirmed on DistroKid's upload form or pricing page.",
   "evidence_quote": "[Search-index snippet of DistroKid Help Center; direct fetch blocked] \"Social Media Pack is an annually charged DistroKid Album Extra ... The pricing for Social Media Pack is per release (album or single).\" ... \"These earnings (minus 20%) will go to you, and will be shown in your DistroKid 'Bank' tab.\" [Third-party 2026 sources, not vendor-verified] \"$4.95 per single per year or $14.95 per album per year, and keeps 20% of the ad revenue.\"",
   "evidence_url": "https://support.distrokid.com/hc/en-us/articles/30785369645843-What-is-Social-Media-Pack",
-  "checked_date": "2026-09-06"
+  "checked_date": "2026-09-06",
+  "skeptic": "재확인: Correction holds. Independent 2026 sources not cited by the prior checker (RouteNote Radar, Dynamoi, Audora, Chartlex, Third Chair) all state YouTube Content ID / Social Media Pack at $4.95 per single per year and $14.95 per album per year with DistroKid keeping 20% of the UGC revenue; the DistroKid help snippet confirms per-release annual billing and the 'minus 20%' payout. No source gave a diffe"
  },
  {
-  "group": "",
+  "group": "distrokid_others",
   "claim": "Amuse Artist plan costs $23.99/year.",
   "status": "confirmed",
   "correction": "As of 2026-09-06, Amuse's Artist plan is $23.99 per year (marketed as from $1.99/month, billed annually) and includes one artist profile and unlimited releases. Amuse also sells Artist Plus and Professional tiers; their prices could not be verified consistently through my access (snippets showed Artist Plus at about $3.33/month and Professional at $59.99, with conflicting billing periods), so quote only the Artist price.",
   "evidence_quote": "[Search-index snippet of amuse.io pricing pages; direct fetch blocked] \"The Artist plan costs $23.99/year\" ... \"plans start from $1.99/month\"",
   "evidence_url": "https://www.amuse.io/en/pricing/",
-  "checked_date": "2026-09-06"
+  "checked_date": "2026-09-06",
+  "skeptic": "재확인: Correction holds. Ari's Take's 2026 Amuse review, Orphiq and Loop Fans independently list the Artist plan at $23.99 billed annually ($1.99/month equivalent), 1 artist profile, unlimited releases, since the free tier ended 27 March 2024. The other tiers the prior checker could not pin down are given consistently by Ari's Take and amuse.io snippets as Artist Plus $39.99/year (2 artists) and Professi → Artist $23.99/yr (1 artist); Artist Plus $39.99/yr (2 artists, includes 0% YouTube Content ID fee); Professional $59.99/yr (3+ artists, custom label name) per Ari's Take 2026 review and amuse.io snipp"
  },
  {
-  "group": "",
+  "group": "distrokid_others",
   "claim": "Amuse allows AI music but excludes AI-generated music from YouTube Content ID.",
   "status": "confirmed",
   "correction": "As of 2026-09-06, Amuse accepts AI-generated music, but AI-generated releases are not eligible for YouTube Content ID and cannot have Content ID added later. Amuse also excludes AI content from stores that do not accept it, naming Qobuz and Meta (Facebook/Instagram) in addition to YouTube Content ID. Tracks that imitate or replicate well-known artists are not approved.",
   "evidence_quote": "[Search-index snippet of Amuse Support; direct fetch blocked] \"AI-generated releases aren't eligible for Content ID and can't have Content ID added later.\" ... \"AI-generated music is allowed on Amuse, but some platforms like Qobuz, Meta, and YouTube Content ID don't accept AI content, so they'll be excluded.\"",
   "evidence_url": "https://support.amuse.io/en/articles/131081-content-not-approved-on-amuse",
-  "checked_date": "2026-09-06"
+  "checked_date": "2026-09-06",
+  "skeptic": "재확인: Correction holds. A different Amuse support article (UGC Matching / Content ID & Social Media Monetization) contains the exact line 'AI-generated releases aren't eligible for Content ID and can't have Content ID added later', and Dynamoi/Undetectr/STVDIO coverage confirms Amuse excludes AI content from Qobuz, Meta (no Reels monetization / Facebook sound matching) and YouTube Content ID, and reject"
  },
  {
-  "group": "",
+  "group": "distrokid_others",
   "claim": "Amuse releases: 10 per 7 days.",
   "status": "partially_correct",
   "correction": "As of 2026-09-06, the 10-per-7-days cap applies only to releases that contain AI-generated recordings, not to all releases. Amuse's Terms of Use: no more than ten (10) Releases in any rolling seven (7) day period per account where each such Release includes one or more AI-generated Recordings, unless Amuse expressly permits otherwise. The Artist plan otherwise advertises unlimited releases. Violations can lead to removal of content or account, withheld earnings, or a frozen account.",
   "evidence_quote": "[Search-index snippet of Amuse Terms of Use; direct fetch blocked] \"Per Account, you will not upload more than ten (10) Releases during any rolling seven (7) day period where each such Release includes one or more Recordings generated using artificial intelligence, unless otherwise expressly permitted.\" Amuse Support summarises it as \"a limit of 10 AI-generated releases per week.\"",
   "evidence_url": "https://www.amuse.io/en/resources/terms-of-use/",
-  "checked_date": "2026-09-06"
+  "checked_date": "2026-09-06",
+  "skeptic": "재확인: Correction holds. Undetectr's 2026 Amuse policy write-up and the Terms of Use snippet both give the clause as 'not upload more than ten (10) Releases during any rolling seven (7) day period where each such Release includes one or more Recordings generated using artificial intelligence', i.e. the cap is on AI releases only; non-AI releases remain unlimited on all plans. Undetectr dates the policy u → Cap applies only to releases containing AI-generated recordings: max 10 such releases per rolling 7 days per account (clause added/updated 9 Feb 2026 per Undetectr)."
  },
  {
-  "group": "",
+  "group": "distrokid_others",
   "claim": "TuneCore only allows generative-AI music made with fully licensed datasets.",
   "status": "confirmed",
   "correction": "As of 2026-09-06, TuneCore's GenAI Music Content Framework states it only distributes music created using GenAI models trained on fully licensed datasets; music from models relying on unlicensed datasets is not eligible. TuneCore will not distribute works that are 100% AI-generated. Artists are told to check the AI tool's documentation/terms for its training-data sourcing; tools that do not disclose this may not qualify. TuneCore names Google Flow Music as a partner whose output is distribution-ready.",
   "evidence_quote": "[Search-index snippet of TuneCore Support; direct fetch blocked] \"TuneCore only distributes music created using GenAI models trained on fully licensed datasets.\" ... \"Music created using models that rely on unlicensed datasets is not eligible for distribution through TuneCore.\" ... \"TuneCore will not distribute any works that are 100% AI-generated.\"",
   "evidence_url": "https://support.tunecore.com/hc/en-us/articles/46914166185236-TuneCore-s-GenAI-Music-Content-Framework",
-  "checked_date": "2026-09-06"
+  "checked_date": "2026-09-06",
+  "skeptic": "재확인: Correction holds. A separate TuneCore support article (TuneCore + Flow Music) plus Jack Righteous, Soundverse and Undetectr coverage confirm: only GenAI models trained on fully licensed datasets are eligible; models relying on unlicensed datasets are not; TuneCore defines a fully licensed dataset as one where the model provider secured training-use rights from rightsholders; Google Flow Music is a"
  },
  {
-  "group": "",
+  "group": "distrokid_others",
   "claim": "TuneCore requires human creation to be clear, provable and dominant.",
   "status": "partially_correct",
   "correction": "As of 2026-09-06, the substance is right (TuneCore refuses 100% AI-generated works and frames AI as enhancing, not replacing, human creation), but the exact phrase \"clear, provable and dominant\" could not be found on any TuneCore-owned page via search; it appears in third-party coverage (a distributor policy roundup and reports of a TuneCore CEO interview). If quoting TuneCore's official wording, use: \"TuneCore will not distribute any works that are 100% AI-generated\" and \"AI technology is here to enhance human creativity, not replace it.\" Attribute the \"clear, provable and dominant\" wording to press/interview coverage, not to TuneCore's help center.",
   "evidence_quote": "[Third-party search-index snippet, not a TuneCore page] \"TuneCore will not accept 100% AI generated music, however AI used in the creative process is allowed, so long as human creation is 'clear, provable and dominant.'\" [TuneCore Support snippet] \"TuneCore believes that AI technology is here to enhance human creativity, not replace it. ... TuneCore will not distribute any works that are 100% AI-generated.\"",
   "evidence_url": "https://stvdio.substack.com/p/is-ai-music-allowed-15-distributors",
-  "checked_date": "2026-09-06"
+  "checked_date": "2026-09-06",
+  "skeptic": "재확인: Correction holds. The phrase 'clear, provable and dominant' surfaces only in third-party write-ups (STVDIO, Soundverse, Dynamoi, ConnectAITools, Undetectr). Searches of TuneCore CEO Andreea Gleeson's AI interviews (Water & Music, Music Week, Synchtank, Music Business Worldwide, Trapital) returned no hit for the phrase, and the TuneCore framework snippets use 'enhance human creativity, not replace "
  },
  {
-  "group": "",
+  "group": "distrokid_others",
   "claim": "CD Baby rejects fully AI-generated music.",
   "status": "partially_correct",
   "correction": "As of 2026-09-06, the claim understates the policy: CD Baby rejects any AI-generated content, not just fully AI-generated tracks. Its help center says it cannot accept AI-generated content even if commercially licensed, and even when the uploader contributed original sounds and only part of the recording is AI. AI content found in an account is removed from distribution, and repeated attempts can end the relationship. The Downtown Music Content Policy (CD Baby's parent) additionally prohibits content created wholly or primarily by AI models trained on copyrighted recordings without a license, and AI content mimicking popular artists. Third-party guides state AI production tools (mastering, mixing, stem separation) on fully human-made music are acceptable, but that exception was not verifiable on a CD Baby page through my access.",
   "evidence_quote": "[Search-index snippet of CD Baby Help Center; direct fetch blocked] \"CD Baby cannot accept any AI-generated content, even if it's commercially licensed. Even if you contributed original sounds to the recording, and only part of the recording is AI, we are still unable to distribute this content.\" ... \"If CD Baby finds that you've delivered AI-generated content through your account, they will remove it from distribution, and continued attempts to distribute AI content may result in them no longer being able to work with you.\"",
   "evidence_url": "https://support.cdbaby.com/hc/en-us/articles/204498265-Do-I-need-to-own-all-the-rights-to-the-music-I-m-selling",
-  "checked_date": "2026-09-06"
+  "checked_date": "2026-09-06",
+  "skeptic": "재확인: Correction holds. A different CD Baby help page (Downtown Music Content Policy Rules) and Soundverse/Dynamoi/Undetectr coverage confirm CD Baby 'cannot accept any AI-generated content, even if it's commercially licensed', applies this to partially AI tracks (Suno/Udio components), prohibits content created wholly or primarily by AI models trained on copyrighted recordings without licence, and bars"
  },
  {
-  "group": "",
+  "group": "distrokid_others",
   "claim": "LANDR limits distribution to 12 songs per month.",
   "status": "refuted",
   "correction": "As of 2026-09-06, LANDR's current support article states a maximum of thirty (30) AI-generated songs per calendar month per subscriber (search index dates the article to August 2026); the limit applies to AI-generated songs, not to all songs. The figure of 12 AI-generated songs per month still appears on older LANDR marketing pages for its AI tools (AI Stem Generator, AI Guitarist, AI Bassist, AI Drummer, AI Pianist) and appears outdated. Exceeding the limit may cause delays, removal of excess submissions, or upload restrictions. LANDR also reserves the right not to distribute (or to ban) music that relies entirely on AI audio generation and does not distribute AI-generated cover songs.",
   "evidence_quote": "[Search-index snippet of LANDR Support; direct fetch blocked] \"LANDR accepts music created with the assistance of AI tools, but to support a fair and reliable distribution experience for all customers, artists may submit a maximum of thirty (30) AI-generated songs per calendar month per subscriber.\" [Older LANDR marketing pages] \"Artists may submit a maximum of 12 AI-generated songs per month to LANDR Distribution.\"",
   "evidence_url": "https://support.landr.com/hc/en-us/articles/23716156904983-Does-LANDR-accept-AI-generated-tracks",
-  "checked_date": "2026-09-06"
+  "checked_date": "2026-09-06",
+  "skeptic": "재확인: Out of scope (already marked refuted) and not independently verifiable: the search budget was exhausted before a second source for the 30-per-month figure could be retrieved, and all direct fetches were blocked."
  },
  {
-  "group": "",
+  "group": "distrokid_others",
   "claim": "LANDR excludes AI-generated music from Content ID.",
   "status": "confirmed",
   "correction": "As of 2026-09-06, LANDR's monetization requirements state that YouTube Content ID cannot be obtained for music that uses un-edited royalty-free loops, AI-generated music, or samples, and that music must not be fully AI-generated to qualify. Eligibility is decided at the release level: if one track fails, the whole release is ineligible for YouTube Content ID, TikTok, and Meta monetization. A Distribution or LANDR Studio subscription is required for monetization.",
   "evidence_quote": "[Search-index snippet of LANDR Support; direct fetch blocked] \"You cannot get YouTube Content ID for any music that uses un-edited royalty-free loops, AI-generated music or samples.\" ... \"Monetization is applied at the release level, not the track level ... If even one track on your release doesn't meet monetization requirements, the entire release will be ineligible.\"",
   "evidence_url": "https://support.landr.com/hc/en-us/articles/4821752136599-What-are-the-monetization-requirements-for-YouTube-Content-ID-TikTok-and-Meta-Facebook-and-Instagram",
-  "checked_date": "2026-09-06"
+  "checked_date": "2026-09-06",
+  "skeptic": "재확인: Correction holds. Search-index text of LANDR's monetization-requirements article and its 'How do I get paid on YouTube' article repeat: 'You cannot get YouTube Content ID for any music that uses un-edited royalty-free loops, AI-generated music or samples... your music must not be fully AI-generated'; loops from LANDR Samples, Splice, Freesound and stock DAW sounds disqualify (one-shots like 808/90"
+ },
+ {
+  "group": "suno_law",
+  "claim": "Suno Pro/Premier (paid) users receive commercial-use rights to outputs made during the subscription, may distribute to streaming, but Suno does not guarantee copyright protection.",
+  "status": "confirmed",
+  "correction": "As of 2026-09-06: Suno's Terms of Service assign to Pro or Premier subscribers all of Suno's right, title and interest in Output generated from their Submissions while subscribed (no retroactive rights for songs made on the Free plan), subject to the Terms' commercial-use restrictions. Suno Help confirms subscribers may distribute to Spotify, Apple Music, etc. via any distributor. The Terms expressly state Suno makes no representation or warranty that any copyright will vest in any Output, and granting commercial-use rights does not guarantee copyright protection. Since 2026-09-03 the Terms add that Output may be commercially exploited only if downloaded through an approved Suno channel within the tier's download allocation (Free: 7 lifetime trial downloads; Pro: 20/month; Premier: 60/month, unlimited from Studio); stream-ripping or recording is prohibited. Plan prices (from third-party pricing trackers; suno.com/pricing itself was blocked): Pro USD 10/month (USD 8/month billed annually), 2,500 credits/month; Premier USD 30/month (USD 24/month annually), 10,000 credits/month. Note: verified via search-index snippets of suno.com/terms-of-service and help.suno.com, not by opening the pages directly (egress-blocked).",
+  "evidence_url": "https://suno.com/terms-of-service",
+  "evidence_quote": "If you are a user who has subscribed to the Pro or Premier paid tier of the Service, Suno hereby assigns to you all of its right, title and interest in and to any Output owned by Suno and generated from Submissions made by you through the Service, provided such Output will remain subject to these Terms of Service including any applicable commercial use restrictions. ... Due to the nature of machine learning, Suno makes no representation or warranty to you that any copyright will vest in any Output. (help.suno.com/en/articles/2410177: \"Songs made while subscribed to a Pro or Premier plan are granted commercial use rights. This allows you to distribute songs to Spotify, Apple Music, etc, using the distributor of your choice.\")",
+  "checked_date": "2026-09-06",
+  "skeptic": "재확인: Correction holds. Independent verbatim copies of Suno's Terms committed to public GitHub repos before the Sept-2026 update (asjadhl/SoulRock, last push 2026-03-30; Kimdoeon52/Demon, last push 2026-03-18) read: 'if you are a user who has subscribed to the Pro or Premier paid tier of the Service, Suno hereby assigns to you all of its right, title and interest in and to any Output owned by Suno and g"
+ },
+ {
+  "group": "suno_law",
+  "claim": "A Suno terms-of-service update took effect around 2026-09-03 stating similar outputs may be generated for other users.",
+  "status": "partially_correct",
+  "correction": "As of 2026-09-06: A new Suno Terms of Service did take effect on September 3, 2026 (announced at suno.com/blog/suno-updates-tos, text at suno.com/terms-september-2026, FAQ at help.suno.com/en/articles/13614785). However, the 'similar output for other users' language is NOT new to that update: the clause 'Output may not be unique across users and the Service may generate the same or similar output for a third party' already appeared in the prior Terms (e.g., the version dated March 26, 2026 and earlier 2024-2025 versions analyzed by third parties). The substantive September 3, 2026 changes are: (1) monthly download limits (Free 7 lifetime trial downloads, Pro 20/month, Premier 60/month; Premier unlimited downloads from Studio), applied to all songs including those created before that date; (2) commercial exploitation is now tied to obtaining a permitted download through an approved channel within the tier's allocation; (3) updated arbitration / mass-arbitration provisions. The guide should attribute the 'similar outputs' clause to Suno's Terms generally, and attribute the download-limit / download-gated commercial use rule to the 2026-09-03 update. Verified via search-index snippets (direct access to suno.com and help.suno.com was egress-blocked).",
+  "evidence_url": "https://suno.com/terms-september-2026",
+  "evidence_quote": "Due to the nature of machine learning, Output may not be unique across users and the Service may generate the same or similar output for a third party, and other users may provide similar submissions and receive the same output. Output that is requested by and generated for other users is not your Content. ... You may not commercially exploit Output that has not been downloaded by you through an approved channel under these Terms of Service. (suno.com/blog/suno-updates-tos: \"New Terms of Service taking effect on September 3, 2026 clarify the rights you have in your content and how commercial use of music generated with Suno works.\")",
+  "checked_date": "2026-09-06",
+  "skeptic": "재확인: Correction holds and is now strongly corroborated on its key point. The public repo nbwsc/AIdivination (created 2024-03-16, last pushed 2024-09-05) embeds Suno's Terms including 'Due to the nature of machine learning, Output may not be unique across users and the Service may generate the same or similar output for a third party. Other users may provide similar submissions and receive the same outp → Minor additions worth folding in: Suno's announcement also says additional downloads beyond the cap will be available for purchase, and the new Terms document is dated 'revised 2026-08-10, effective 2"
+ },
+ {
+  "group": "suno_law",
+  "claim": "Suno Studio \"Get MIDI\" costs about 10 credits per stem.",
+  "status": "confirmed",
+  "correction": "As of 2026-09-06: Suno's Help article 'Exporting from Studio' states that selecting 'Get MIDI' on an individual stem in Suno Studio costs 10 credits (per stem, charged each time). Related Studio stem-separation costs from the same help center: Auto Split 50 credits per extraction (12 stems); Split from Mix and Advanced Split 10 credits per extraction (20 credits total for the two resulting stems). Important qualifier for the guide: Suno Studio (and therefore Get MIDI / MIDI export) is a Premier-tier feature (USD 30/month, or USD 24/month annually, 10,000 credits/month); Pro subscribers do not get Studio. Verified via search-index snippets of help.suno.com (direct fetch blocked).",
+  "evidence_url": "https://help.suno.com/en/articles/8128193",
+  "evidence_quote": "Once you have individual stems (vocals, drums, bass, etc.), you click on the stem you want and select Get MIDI in the context menu, which costs 10 credits. Studio will analyze the audio and generate a MIDI file representing the melodic or rhythmic content. (suno.com/pricing: \"On top of everything in Pro, you get 2,000 songs a month, access to Suno Studio – the first-ever generative audio workstation – a multitrack editor, MIDI export, Persona Voices, and early access to new features.\")",
+  "checked_date": "2026-09-06",
+  "skeptic": "재확인: Correction holds. A public dataset mirroring help.suno.com article 8128193 ('Exporting from Studio') reads: 'Once you have individual stems (vocals, drums, bass, etc.), click on the stem you want. In the context menu, select Get MIDI (costs 10 credits). Studio will analyze the audio and generate a MIDI file.' The same dataset mirrors article 12702337: 'Split from Mix uses 10 credits per extraction"
+ },
+ {
+  "group": "suno_law",
+  "claim": "U.S. Copyright Office AI report Part 2 (2025-01-29): prompts alone do not provide sufficient human control for authorship; human creative selection, arrangement and modification of AI output can be protected. Source: https://www.copyright.gov/ai/",
+  "status": "confirmed",
+  "correction": "As of 2026-09-06: The U.S. Copyright Office published 'Copyright and Artificial Intelligence, Part 2: Copyrightability' on January 29, 2025 (PDF: https://www.copyright.gov/ai/Copyright-and-Artificial-Intelligence-Part-2-Copyrightability-Report.pdf). It concludes that generative-AI outputs can be protected only where a human author has determined sufficient expressive elements — including where a human-authored work is perceptible in the output or a human makes creative arrangements or modifications of the output — but not by the mere provision of prompts (prompts as currently used do not give sufficient control, since identical prompts can yield different outputs; the Office leaves open that future technology could change this). Using AI as an assistive tool, or including AI-generated material in a larger human-authored work, does not bar copyrightability; protection covers only the human-authored contribution. The claim is accurate. Verified via search-index snippets of copyright.gov/ai/ (direct fetch blocked).",
+  "evidence_url": "https://www.copyright.gov/ai/",
+  "evidence_quote": "Part 2 was published on January 29, 2025, and addresses the copyrightability of outputs created using generative AI. ... outputs of generative AI can be protected by copyright only where a human author has determined sufficient expressive elements. This can include situations where a human-authored work is perceptible in an AI output, or a human makes creative arrangements or modifications of the output, but not the mere provision of prompts. The Office confirms that the use of AI to assist in the process of creation or the inclusion of AI-generated material in a larger human-generated work does not bar copyrightability.",
+  "checked_date": "2026-09-06",
+  "skeptic": "재확인: Correction holds. The Copyright Office's own NewsNet Issue 1060 (dated January 29, 2025), reproduced verbatim in a public dataset, states: 'the outputs of generative AI can be protected by copyright only where a human author has determined sufficient expressive elements. This can include situations where a human-authored work is perceptible in an AI output, or a human makes creative arrangements o"
+ },
+ {
+  "group": "suno_law",
+  "claim": "YouTube Content ID eligibility requires exclusive rights to a substantial body of original material; non-exclusive, generic or common content is ineligible. Source: https://support.google.com/youtube/answer/1311402",
+  "status": "confirmed",
+  "correction": "As of 2026-09-06: YouTube Help 'Qualify for Content ID' (answer 1311402) states that to be approved you must own exclusive rights to a substantial body of original material that is frequently uploaded by the YouTube user community, and you (or the client you represent) must control the use and distribution of the content worldwide; approved owners sign an agreement allowing only exclusively-owned content as references. Examples of content that may not be exclusive: mashups, 'best of's, compilations, remixes of other works. The companion page 'Content eligible for Content ID' (answer 2605065) lists ineligible material: content licensed non-exclusively from a third party; Creative Commons / open-licensed content; public-domain footage, recordings or compositions; fair-use clips; and 'generic or similar-sounding content' such as karaoke recordings, remasters, sound-alike recordings, some dubbed content, sound effects, soundbeds and production loops. YouTube's own wording is 'generic or similar-sounding', not 'common'; for a Korean guide, phrase it as non-exclusive or generic/sound-alike content. Practical note for AI-assisted music: Suno's Terms say the same or similar output may be generated for other users, which conflicts with the exclusivity requirement — flag this in the guide. Verified via search-index snippets of support.google.com (direct fetch blocked).",
+  "evidence_url": "https://support.google.com/youtube/answer/1311402?hl=en",
+  "evidence_quote": "To be approved for Content ID, you must own exclusive rights to a substantial body of original material that is frequently uploaded by the YouTube user community. ... Copyright owners must have the exclusive rights to the material that's evaluated. Common examples of items that may not be exclusive to individuals include: mashups, 'best of's, compilations, and remixes of other works. (answer 2605065: \"Content licensed non-exclusively from a third party ... public domain footage, recordings, or compositions ... Karaoke recordings, remasters, sound-alike recordings ... sound effects, soundbeds, or production loops are also ineligible for use as a reference.\")",
+  "checked_date": "2026-09-06",
+  "skeptic": "재확인: Correction holds. An archived research mirror of YouTube Help (snapshots 2021-2023) states: 'To qualify for Content ID, copyright owners must own exclusive rights to a substantial body of original material that is frequently uploaded to YouTube. They must also have an advanced knowledge of copyright and the resources necessary to manage Content ID', linking to answer 1311402. Distributor help page"
+ },
+ {
+  "group": "voice_tools",
+  "claim": "Seed-VC (github.com/Plachtaa/seed-vc) does zero-shot voice conversion and singing voice conversion from a 1-30 s reference, supports real-time conversion with ~300 ms algorithmic latency, and fine-tuning works with at least 1 utterance per speaker / 100 steps (about 2 min on a T4).",
+  "status": "confirmed",
+  "correction": "All figures match the README as of 2026-09-06: zero-shot VC and zero-shot singing VC from a 1~30 s reference with no training; real-time mode with ~300 ms algorithm delay plus ~100 ms device-side delay; fine-tuning needs minimum 1 utterance per speaker and minimum 100 steps (~2 min on a T4). Important caveat for the guide: the repository was archived by the owner on Nov 21, 2025 and is read-only (no further updates or issue support), though the code and models remain downloadable.",
+  "evidence_quote": "\"Without any training, it is able to clone a voice given a reference speech of 1~30 seconds.\" ... \"algorithm delay of ~300ms and device side delay of ~100ms\" ... \"minimum 1 utterance per speaker\", \"minimum 100 steps, 2 min on T4\" ... \"This repository was archived by the owner on Nov 21, 2025. It is now read-only.\"",
+  "evidence_url": "https://github.com/Plachtaa/seed-vc",
+  "checked_date": "2026-09-06",
+  "skeptic": "재확인: Correction holds under independent sources. The raw README on raw.githubusercontent.com (main branch) contains verbatim: 'clone a voice given a reference speech of 1~30 seconds', 'zero-shot singing voice conversion', 'algorithm delay of ~300ms and device side delay of ~100ms', 'minimum 1 utterance per speaker', 'minimum 100 steps, 2 min on T4'. The GitHub REST API (via the GitHub MCP search endpoi → No change needed. Optional additions: last commit pushed 2025-04-20; license GPL-3.0."
+ },
+ {
+  "group": "voice_tools",
+  "claim": "Kits AI: free tier with 15 minutes of conversion, paid plans from about $10/month up to about $30/month.",
+  "status": "partially_correct",
+  "correction": "Free tier = 1 custom voice slot + 15 minutes of conversions (confirmed from kits.ai text). Paid plans start at $9.99-$10/month (Starter: unlimited conversions, 15 download min/mo). Producer is $30/month billed monthly (60 download min/mo, unlimited voice slots, Professional cloning). However there is a third paid tier above Producer, Professional (unlimited download minutes), which third-party 2026 summaries put at about $60/month billed monthly or ~$40/month billed yearly, so 'up to about $30/month' understates the top tier. Annual billing is cheaper (third-party: Starter ~$8/mo, Producer ~$16/mo yearly). Exact current tier prices could not be read from kits.ai itself (site blocked); the free-tier minutes and '$9.99 starting' figures come from kits.ai search snippets, the $30/$60 figures from third-party aggregators.",
+  "evidence_quote": "\"You'll have one custom voice slot along with 15 minutes of conversions for use in your creative projects.\" ... \"Paid plans start at $9.99/month\" ... \"The Kits AI Professional Plan created for pro producers or organizations features everything in the Producer Plan along with unlimited download minutes.\" (kits.ai search snippets)",
+  "evidence_url": "https://help.kits.ai/hc/en-us/articles/25450515542291-Which-plans-do-you-offer",
+  "checked_date": "2026-09-06",
+  "skeptic": "재확인: not independently verifiable. kits.ai and help.kits.ai are egress-blocked, as are every third-party source tried (G2, Capterra, Product Hunt, Wayback Machine, archive.ph, Bing, DuckDuckGo, X), and the session's WebSearch budget is exhausted. No contradicting evidence was found, so the previous checker's correction (Starter ~$9.99-10/mo, Producer $30/mo, Professional tier above that at ~$60/mo mont"
+ },
+ {
+  "group": "voice_tools",
+  "claim": "Kits AI Instant Clone uses 15-30 s, Professional Clone wants 10-60 min of dry mono vocal.",
+  "status": "confirmed",
+  "correction": "Instant Voice Cloning: 15-30 seconds of reference audio (the app prompts for 30 seconds of clean, monophonic vocals). Professional Voice Cloning: Kits recommends 10-60 minutes of dry (no effects), monophonic (one note at a time) vocals. Verified via search-engine snippets of kits.ai/help.kits.ai pages because the kits.ai domains are blocked from this environment.",
+  "evidence_quote": "\"Instant Voice Cloning creates a realistic voice clone using just 15–30 seconds of reference audio—no lengthy training or large datasets needed.\" ... \"Professional Voice Cloning recommends 10-60 minutes of dry (no effects) and monophonic (one note at a time) vocals.\"",
+  "evidence_url": "https://help.kits.ai/hc/en-us/articles/25367001343635-What-is-Professional-Voice-Cloning",
+  "checked_date": "2026-09-06",
+  "skeptic": "재확인: not independently verifiable. help.kits.ai and kits.ai are egress-blocked, and no alternate source (archives, search engines, aggregators) could be reached. No contradicting evidence found; the previous correction stands unrefuted."
+ },
+ {
+  "group": "voice_tools",
+  "claim": "Audimee Starter is about $9/month billed annually with custom voice from 10-15 minutes of recording and commercial use.",
+  "status": "confirmed",
+  "correction": "Audimee Starter: $9/month, $108 billed yearly (1 hour of conversions per month, 1 custom voice model slot). Pro: $19/month, $228 billed yearly (3 hours, 3 voice slots). Custom voice model can be trained from 10-15 minutes of recordings. Commercial release (Spotify, Apple Music etc.) is allowed on any paid plan, so Starter qualifies. Verified from search-engine snippets of audimee.com pages (the domain is blocked from this environment), so the monthly-billing price, if different from $9, could not be checked.",
+  "evidence_quote": "\"Starter Plan: $9/month or $108 billed yearly\" ... \"You can create your own voice model with just 10-15 minutes of recordings.\" ... \"Vocals created with Audimee's voice models on a paid plan can be released commercially\" (audimee.com search snippets)",
+  "evidence_url": "https://audimee.com/pricing",
+  "checked_date": "2026-09-06",
+  "skeptic": "재확인: not independently verifiable. audimee.com is egress-blocked, and Futurepedia, Toolify, There's An AI For That, Wayback Machine, archive.ph and Bing were all blocked as well; WebSearch budget exhausted. No contradicting evidence found; the previous correction ($9/mo or $108/yr Starter, Pro $19/mo or $228/yr, 10-15 min recordings, commercial release on paid plans) stands unrefuted."
+ },
+ {
+  "group": "voice_tools",
+  "claim": "ACE Studio Artist plan about $12.42/month billed annually with a 14-day trial and 140+ royalty-free voices.",
+  "status": "partially_correct",
+  "correction": "14-day free trial is confirmed by ACE Studio's own support text (the trial grants Artist membership). Price is NOT verifiable from the vendor (acestudio.ai and support.acestudio.ai blocked) and third-party aggregators disagree: SaaSworthy (Sept 2026) and CostBench list Artist at $16.58/month billed annually (~$199/yr) and Artist Pro at $22/month (~$264/yr); other 2026 reviews still cite $12.42/month billed annually (~$149/yr), which appears to be an older price. One-time/lifetime licenses are also sold (Artist ~$398, Artist Pro ~$528 per musicseed.ai; Sweetwater lists Artist Pro 2.0 lifetime at $449). Note that ACE's displayed monthly rates are billed annually up front. Voice count: ACE Studio's own site says '100+ royalty-free vocal synth models across 8 languages'; the '140+' figure appears only on third-party review sites. Recommend writing 'from roughly $12-17/month billed annually (check acestudio.ai/pricing), 14-day trial, 100+ royalty-free voices'.",
+  "evidence_quote": "\"You can activate a 14-day free trial before subscribing, and during this trial period, you will enjoy the Artist membership.\" (support.acestudio.ai snippet) ... \"over 100+ royalty-free vocal synth models across 8 languages\" (acestudio.ai/vocal-synth snippet) ... \"Artist plan is available at $16.58 per month when billed annually\" (SaaSworthy, Sept 2026)",
+  "evidence_url": "https://acestudio.ai/pricing/",
+  "checked_date": "2026-09-06",
+  "skeptic": "재확인: not independently verifiable. acestudio.ai is egress-blocked, as are SaaSworthy, Sweetwater, Plugin Boutique, musicseed.ai, MusicTech, Wayback Machine, archive.ph and Bing; WebSearch budget exhausted. Could not confirm or contradict the previous checker's finding that current Artist pricing is ~$16.58/mo billed annually (vs the older $12.42 figure) and that the vendor says '100+' voices rather tha"
+ },
+ {
+  "group": "voice_tools",
+  "claim": "OpenUtau is free/open-source with a Korean phonemizer; DiffSinger/NNSVS voicebanks need datasets and training.",
+  "status": "confirmed",
+  "correction": "OpenUtau is MIT-licensed and describes itself as 'a free, open-source editor made for the UTAU community'. It ships phonemizers for Korean (and English, Japanese, Chinese, Russian, etc.), including DiffSinger-specific DiffSingerKoreanPhonemizer.cs and DiffSingerKoreanG2PPhonemizer.cs in OpenUtau.Core/DiffSinger/Phonemizers. Creating a DiffSinger voicebank requires a recorded dataset (WAV files plus transcriptions, sliced and labeled with AudioSlicer/MinLabel, force-aligned with MFA) and then training acoustic and variance models (openvpi/MakeDiffSinger). NNSVS/ENUNU likewise lets users 'make their own voicebank with their singing voice' (i.e., record and train); OpenUtau notes ENUNU/NNSVS support is experimental and needs a separate ENUNU server.",
+  "evidence_quote": "\"a free, open-source editor made for the UTAU community\" ... \"phonemizers for different phonetic systems (VCV, CVVC, Arpasing, etc.) in many different languages (English, Japanese, Chinese, Korean, Russian and more)\" ... NNSVS is \"an open source AI singing voice synthesis engine which allows users to make their own voicebank with their singing voice.\" ... \"ENUNU/NNSVS support is experimental\"",
+  "evidence_url": "https://github.com/stakira/OpenUtau",
+  "checked_date": "2026-09-06",
+  "skeptic": "재확인: Correction holds under independent sources. raw LICENSE.txt on the master branch is 'The MIT License (MIT) / Copyright (c) 2014 StAkira'. The raw README states 'OpenUtau is a free, open-source editor made for the UTAU community' and lists phonemizers 'in many different languages (English, Japanese, Chinese, Korean, Russian and more)'. Both DiffSinger Korean phonemizer source files exist at OpenUta → No change needed. If quoting the README, use 'Supports ENUNU AI singers' rather than asserting the README calls it experimental."
+ },
+ {
+  "group": "voice_tools",
+  "claim": "Synthesizer V 2 Pro costs roughly $136 one-time.",
+  "status": "refuted",
+  "correction": "Synthesizer V Studio 2 Pro is a one-time (perpetual) purchase at $99 USD regular price on the Dreamtonics Store, and includes one complimentary voice database of your choice; it was released March 21, 2025. Promotions have taken it to $79 (e.g., until July 20, 2026). The upgrade from Synthesizer V Studio Pro (v1) is $49. A bundle with one additional voice is $149. No USD listing matches $136; that figure may be a currency conversion or an unofficial reseller price. Verified from search-engine snippets of dreamtonics.com/store.dreamtonics.com (domains blocked from this environment).",
+  "evidence_quote": "\"Synthesizer V Studio 2 Pro is priced at $99 USD, and includes one complimentary voice to get you started.\" ... \"on sale for $79 USD until July 20th, 2026 (regular $99 USD)\"",
+  "evidence_url": "https://store.dreamtonics.com/product/synthesizer-v-studio-2-pro/",
+  "checked_date": "2026-09-06",
+  "skeptic": "재확인: Out of scope for this pass (previous status was 'refuted', not confirmed/partially_correct), and not independently verifiable here: store.dreamtonics.com, dreamtonics.com, KVR Audio, Wikipedia, Reddit, MusicRadar, Synthtopia, BPB, Sound On Sound, DTM Station, Wayback Machine and search engines are all egress-blocked. No evidence found contradicting the previous checker's $99 USD regular price / $7"
+ },
+ {
+  "group": "voice_tools",
+  "claim": "VOCALOID6 costs roughly $230-310.",
+  "status": "partially_correct",
+  "correction": "On the official VOCALOID SHOP (before tax): VOCALOID6 Editor alone is USD 225.00 (one-time; includes 25 bundled voices); VOCALOID6 Editor Sets (editor + a commercial voicebank + Cubase AI) range from USD 243.00 (e.g., Fuiro set) through USD 293.00 (Po-uta set) to USD 311.00 (top set); VOCALOID6 Editor Lite is USD 90.00. So '$230-310' is a fair range for the editor-with-voicebank sets but the editor itself is $225. Frequent sales apply (25% off = $168.75 until Mar 31, 2026; Summer Sale up to 20% off Jul 2-Aug 2, 2026). Note: a 'USD 162.00' figure appearing in vocaloid.com snippets refers to individual VOCALOID6 voicebanks / the VOCALO CHANGER plugin, not the editor. Verified via search-engine snippets of vocaloid.com (domain blocked from this environment).",
+  "evidence_quote": "\"The VOCALOID6 Editor is priced at USD 225.00 (before tax) and includes 25 voices.\" ... \"An Editor Set with Male voice, Japanese, English, Chinese, and VOCALOID:AI is priced at USD 311.00 (before tax). An Editor Set featuring 'Fuiro' and 'VOCALOID6' is priced at USD 243.00 (before tax).\"",
+  "evidence_url": "https://www.vocaloid.com/en/vocaloid6/buy/",
+  "checked_date": "2026-09-06",
+  "skeptic": "재확인: not independently verifiable. vocaloid.com, yamaha.com, the Vocaloid Fandom wiki, Wikipedia, Sonicwire, Big Fish Audio, Best Service, Thomann, Amazon, Gearnews, Wayback Machine and search engines are all egress-blocked; WebSearch budget exhausted. No contradicting evidence found; the previous correction (Editor USD 225, Editor Sets USD 243-311, Editor Lite USD 90, periodic 20-25% sales) stands unr"
+ },
+ {
+  "group": "daw_tools",
+  "claim": "REAPER current version is in the 7.x series, offers a fully functional 60-day evaluation, discounted license $60 (individuals/small business under $20k/yr revenue), commercial license $225.",
+  "status": "confirmed",
+  "checked_date": "2026-09-06",
+  "correction": "Accurate as of 2026-09-06. Current REAPER release is 7.79 (released 2026-08-17 per search-engine snippet of reaper.fm/download.php; Homebrew cask and the winget manifest directory both track 7.79). Evaluation: free, fully functional 60-day evaluation, no registration. Discounted license USD $60 for individuals or businesses using REAPER commercially with yearly gross revenue not exceeding USD $20,000, or educational/non-profit organizations; commercial license USD $225. Prices exclude VAT/local taxes. Caveat: reaper.fm itself is blocked from this sandbox, so pricing wording comes from search-engine snippets of the official purchase page, not a direct page read.",
+  "evidence_quote": "cask \"reaper\" do\n  version \"7.79\" ... livecheck do url \"https://www.cockos.com/reaper/latestversion/?p=osx_64\" — Homebrew cask (read directly). reaper.fm/purchase.php snippet: \"discounted license for $60, and a commercial license for $225 ... if their yearly gross revenue does not exceed USD $20,000, or to educational or non-profit organizations ... evaluate REAPER for 60 days with full functionality and no strings attached.\"",
+  "evidence_url": "https://raw.githubusercontent.com/Homebrew/homebrew-cask/master/Casks/r/reaper.rb",
+  "skeptic": "재확인: Correction holds on different sources. Version: Scoop Extras bucket/reaper.json = \"7.79\" (download URL reaper779_x64-install.exe) and its commit 'reaper: Update to version 7.79' is dated 2026-08-17T16:47Z (shallow clone git log), and nixpkgs pkgs/by-name/re/reaper/package.nix = version \"7.79\"; Flathub lags at 7.78 (metainfo: released 2026-07-18), which is consistent, not contradictory. Pricing/eva"
+ },
+ {
+  "group": "daw_tools",
+  "claim": "Reaper-MCP by xDarkzx exposes roughly 172-182 tools (MIDI, FX parameter read/write, mixing, mastering, render) via a Lua IPC bridge inside REAPER; TwelveTake-Studios/reaper-mcp exposes ~176 tools in 26 modules.",
+  "status": "partially_correct",
+  "checked_date": "2026-09-06",
+  "correction": "xDarkzx/Reaper-MCP: README (read 2026-09-06) says \"182 tools across 26 modules\" in its intro but \"180 Tools Across 26 Modules\" / \"26 modules, 180 auto-registered tools\" elsewhere — so 180-182 tools, 26 modules, covering MIDI composition, FX/plugin parameters, genre-tuned mixing/mastering (35 style profiles), rendering/stem export, routing and QC; communication is a file-based Lua IPC bridge (Python server writes command.json, a Lua script inside REAPER polls and writes response.json). The '172-182' range is consistent with the repo. TwelveTake-Studios/reaper-mcp: README v1.6.4 states 176 tools, but they are organized into 17 categories (Track Operations 23, FX 16, ReaEQ 5, Take FX 11, Take Management 7, Routing 9, Transport 10, Project 15, MIDI Operations 8, MIDI Utilities 13, Audio Items 17, Markers & Regions 8, Automation 8, FX Parameter Automation 5, Selection & Editing 11, Mixing Helpers 6, Advanced 4 = 176), and the word 'module' does not appear in the README. The '26 modules' figure belongs to xDarkzx, not TwelveTake. TwelveTake also uses a stock-Lua, JSON-file bridge (reaper_mcp_bridge.lua); its HTTP bridges are deprecated since v1.2.1.",
+  "evidence_quote": "xDarkzx README: \"**182 tools across 26 modules** cover the full workflow ... ReaperMCP runs entirely locally through a file-based Lua IPC bridge inside REAPER\" and \"### 180 Tools Across 26 Modules\". TwelveTake README: \"**Version:** 1.6.4 ... ### 176 Tools Covering Real Production Needs ... Stock REAPER Lua only — the bridge script has no dependencies\" (17 '(N tools)' section headings summing to 176).",
+  "evidence_url": "https://github.com/xDarkzx/Reaper-MCP",
+  "skeptic": "재확인: Verified against the code itself (both repos cloned 2026-09-06) rather than README prose. xDarkzx/Reaper-MCP (pyproject 0.6.8, CHANGELOG 2026-08-29): grep counts exactly 182 '@mcp.tool(' decorators and 26 'def register(' functions; reaper_mcp/tools/ has 27 .py files of which 26 define register() (compose_helpers.py is a helper), so '182 tools across 26 modules' and the README's '180'/'182' wording → xDarkzx: 182 tools (182 @mcp.tool decorators) in 26 modules; TwelveTake: 176 tools in 17 categories, current release 1.7.0 (2026-08-21) although README header says 1.6.4"
+ },
+ {
+  "group": "daw_tools",
+  "claim": "MAutoPitch (MeldaProduction) is a free pitch-correction plugin with formant shift; Graillon 3 Free Edition (Auburn Sounds) is free with VST/AU/AAX/LV2 on Windows, macOS and Linux.",
+  "status": "confirmed",
+  "checked_date": "2026-09-06",
+  "correction": "Accurate as of 2026-09-06. MAutoPitch: MeldaProduction's product page describes it as an automatic tuning/pitch-correction plugin that is free, with creative features including formant shift (in semitones) and stereo-expansion; it is part of MFreeFXBundle. Graillon 3 (current version 3.2.0 per the user's guide title): Auburn Sounds offers a Free Edition (lacking e.g. microtuning, doubler and PTM) and a Full Edition at USD $29 (intro price; list price cited as $38.67 at the Oct 2024 launch), as VST/VST3, AAX, AU, LV2 and, new in v3, CLAP, for Windows, macOS and Linux (AAX applies to Pro Tools on Windows/macOS). Caveat: meldaproduction.com and auburnsounds.com are blocked from this sandbox; wording was obtained from search-engine snippets restricted to those official domains plus Bedroom Producers Blog / KVR snippets.",
+  "evidence_quote": "meldaproduction.com/MAutoPitch snippet: \"MAutoPitch is a simple but great sounding automatic tuning and pitch correction plugin designed for vocals and other monophonic instruments. It is quick, easy to use and free! ... creative features such as formant shift and stereo-expansion.\" auburnsounds.com/products/Graillon.html snippet: \"Graillon 3 is available as a VST / AAX / AU / LV2 plug-in for Windows, macOS, and Linux, with both Free and Full editions available\" ... \"Full Edition available for $29\"; \"Graillon 3 includes new CLAP format support\".",
+  "evidence_url": "https://www.meldaproduction.com/MAutoPitch",
+  "skeptic": "재확인: Correction holds on independent sources (meldaproduction.com, auburnsounds.com, KVR, Plugin Boutique, BPB all blocked here). Graillon: the existential-engineering/catalog dataset entry auburn-sounds-graillon.yaml lists version 3.2, formats VST/AAX/AU/LV2, platforms Mac/Windows/Linux, price $29 USD perpetual, Free and Full editions with the Full edition adding 'Pitch-Tracking Modulation (PTM), keyb"
+ },
+ {
+  "group": "daw_tools",
+  "claim": "Basic Pitch (Spotify) is free and open source (Apache 2.0), converts audio to MIDI with pitch bends, no usage limits. Demucs htdemucs weights are downloaded from https://dl.fbaipublicfiles.com/demucs/hybrid_transformer/955717e8-8726e21a.th and Demucs is MIT-licensed; the original facebookresearch/demucs repo is no longer actively maintained.",
+  "status": "confirmed",
+  "checked_date": "2026-09-06",
+  "correction": "Accurate as of 2026-09-06. Basic Pitch: LICENSE file is Apache License 2.0 (Copyright 2022 Spotify AB); README says it generates a MIDI file \"complete with pitch bends\" and can process any size/length of audio (limited only by local machine resources) — no usage limits. Demucs: LICENSE is MIT (Copyright Meta Platforms, Inc.); demucs/pretrained.py sets ROOT_URL = \"https://dl.fbaipublicfiles.com/demucs/\", demucs/remote/files.txt lists \"root: hybrid_transformer/\" followed by \"955717e8-8726e21a.th\", and demucs/remote/htdemucs.yaml is \"models: ['955717e8']\" — so the htdemucs weight URL is exactly as claimed (torch.hub.load_state_dict_from_url with check_hash). The facebookresearch/demucs repo was archived by the owner on Jan 1, 2025 (read-only) and its README says it is not maintained anymore; the fork github.com/adefossez/demucs accepts only important bug fixes. Caveat: dl.fbaipublicfiles.com is blocked from this sandbox, so live reachability of the .th file could not be tested here.",
+  "evidence_quote": "Basic Pitch README: \"Provide a compatible audio file and basic-pitch will generate a MIDI file, complete with pitch bends\"; LICENSE: \"Copyright 2022 Spotify AB / Apache License\". Demucs README: \"**Important:** As I am no longer working at Meta, **this repository is not maintained anymore**. I've created a fork at github.com/adefossez/demucs ... only important bug fixes will be processed on the new repo\"; GitHub banner: \"This repository was archived by the owner on Jan 1, 2025. It is now read-only.\"; pretrained.py: ROOT_URL = \"https://dl.fbaipublicfiles.com/demucs/\"; files.txt: \"root: hybrid_transformer/\" / \"955717e8-8726e21a.th\".",
+  "evidence_url": "https://github.com/facebookresearch/demucs",
+  "skeptic": "재확인: Correction holds on additional/different sources. PyPI metadata (a separate primary source): basic-pitch 0.4.0 license 'Apache License, Version 2.0', description 'generate a MIDI file, complete with pitch bends'; demucs 4.1.0 (uploaded 2026-07-11) license 'MIT License', author Alexandre Défossez, homepage github.com/adefossez/demucs. Raw LICENSE files: basic-pitch 'Copyright 2022 Spotify AB' Apach"
+ },
+ {
+  "group": "daw_tools",
+  "claim": "Moises free web account: 5 files per month (2026), audio over 5 minutes is cut; DAW plugin free tier 10 separations per month; Hi-Fi separation model requires a paid plan around $3.99/month or $39.99/year.",
+  "status": "partially_correct",
+  "checked_date": "2026-09-06",
+  "correction": "As of 2026-09-06: Free plan = 5 songs/uploads per month, with stem separation limited to 5 minutes per media file (Moises' help center says to split longer tracks into segments; third-party reviews describe longer free uploads as truncated to 5 minutes — Moises' own 'cut' wording was not found). DAW/Stems plugin: Moises' integrations page says it includes 10 audio separations per month (4 stems: Vocals, Bass, Drums, Other) and 120 stem-generation credits (60 minutes) free when used in a DAW, while an older help article says DAW plugins need a Pro subscription. Hi-Fi: WRONG price tier — Hi-Fi separation models are exclusive to the Pro plan (\"All uploads on the Pro Plan are of Hi-Fi quality\"; \"Pro accounts have the option to get all available kinds of audio separation in Hi-Fi\"), which third-party 2026 reviews citing the official pricing page list at USD $9.99/month (about $95.88/year). USD $3.99/month and $39.99/year (U.S. App Store) are the Premium plan prices, and Premium does not include Hi-Fi. moises.ai, help.moises.ai and the App Store are blocked from this sandbox, so prices are from third-party pages and vendor-domain search snippets, not a direct read of moises.ai/pricing.",
+  "evidence_quote": "help.moises.ai snippets: \"On the free plan, you can process 5 songs per month, with files up to 5 minutes long\"; \"Stem Separation is limited to 5 minutes per media file\"; \"Pro accounts have the option to get all available kinds of audio separation in Hi-Fi\"; moises.ai snippet: \"Moises includes 10 audio separations per month ... for free when used in your DAW\"; \"All uploads on the Pro Plan are of Hi-Fi quality\". Third-party (stemsplit.io/saasworthy 2026): \"The Premium plan runs $3.99 per month ... the Pro plan runs $9.99 per month (about $95.88 yearly)\"; \"Moises Premium is listed at $39.99/year in the U.S. App Store\".",
+  "evidence_url": "https://help.moises.ai/hc/en-us/articles/10523828567196-Reasons-to-Subscribe-to-the-Moises-Pro-Plan",
+  "skeptic": "반박됨: The correction's tier logic (Hi-Fi is a Pro-plan feature, not Premium) and free limits are corroborated, but its price figures are contradicted by a mirror of the U.S. App Store listing. paywallpro/paywall-gallery (open dataset generated 2026-05-23 from App Store data, capturing Moises v2.114.0 released 2025-12-15, developer 'Moises Systems, Inc') records the app's in-app subscription offers as Mo → Hi-Fi separation models are exclusive to the Pro plan (Premium does not include them). U.S. App Store subscription prices (v2.114.0, captured Dec 2025 / dataset May 2026): Premium $5.99/month or $39.9"
  }
 ]

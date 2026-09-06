@@ -124,8 +124,11 @@ def stage_proposals(td):
         if f.endswith("_preview.wav"):
             subprocess.run([FFMPEG, "-y", "-loglevel", "error", "-i", os.path.join(out, f), "-codec:a", "libmp3lame", "-b:a", "192k",
                             os.path.join(out, f.replace(".wav", ".mp3"))], check=True)
-    listing["how_to_choose"] = ("Listen to *_preview.wav, then write human_decisions.json (see skill schema) with drums.choice, "
-                                "bass.choice, bridge.choice and any note edits. Re-run: pipeline.py <track> --from arrange")
+    listing["how_to_choose"] = ("Listen to *_preview.mp3, then write human_decisions.json (see skill schema) with drums.choice, "
+                                "bass.choice and bridge.choice, and re-run: pipeline.py <track> --from arrange. "
+                                "For NOTE EDITS use the index fields in 04_edits/midi/new_notes.json (written by that run) — "
+                                "the indices in this folder belong to the 8-bar audition only. Drum edits can also be addressed "
+                                "by bar+beat+inst via action 'remove_at', which survives re-renders.")
     write_json(os.path.join(out, "proposals.json"), listing)
     return {"window": listing["preview_window_orig_s"], "variants": 3}
 
@@ -164,8 +167,10 @@ def stage_evidence(td):
     if not os.path.exists(os.path.join(td, "human_decisions.json")):
         tmpl = {**DEFAULT_DECISIONS, "_status": "TEMPLATE — no human decision recorded yet",
                 "decided_by": "", "decided_at": "", "notes": "",
-                "_help": "Set drums.choice / bass.choice / bridge.choice to A, B or C after listening to 03_proposals/*_preview.wav. "
-                         "Edits reference the 'index' fields in 03_proposals/*_notes.json / *_events.json."}
+                "_help": "Set drums.choice / bass.choice / bridge.choice to A, B or C after listening to 03_proposals/*_preview.mp3. "
+                         "Then run the pipeline once with --from arrange and read 04_edits/midi/new_notes.json: "
+                         "edits reference the 'index' fields THERE (the 8-bar audition lists in 03_proposals/ are a shorter, "
+                         "different list). Position-based drum edits (action 'remove_at' with bar+beat+inst) are stable across re-renders."}
         write_json(os.path.join(ev, "human_decisions.TEMPLATE.json"), tmpl)
     sep = j(os.path.join(td, "01_stems", "separation.json"))
     man = j(os.path.join(td, "04_edits", "arrangement_manifest.json"))

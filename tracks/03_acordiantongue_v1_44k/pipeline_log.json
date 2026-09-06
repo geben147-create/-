@@ -10,7 +10,7 @@
     },
     "analyze": {
       "ok": true,
-      "seconds": 21.6,
+      "seconds": 23.3,
       "result": {
         "tempo": 132.51,
         "key": "D major",
@@ -20,11 +20,11 @@
     },
     "separate": {
       "ok": true,
-      "seconds": 1.1,
+      "seconds": 0.7,
       "result": {
         "backend": "demucs-htdemucs",
         "stems_dir": "01_stems/htdemucs/original",
-        "seconds": 1.1,
+        "seconds": 0.7,
         "note": "",
         "sum_correlation": 0.994085,
         "sum_relative_rms_error": 0.129715
@@ -50,28 +50,28 @@
     },
     "proposals": {
       "ok": true,
-      "seconds": 4.3,
+      "seconds": 4.6,
       "result": {
         "window": [
-          18.878,
-          33.274
+          16.625,
+          31.022
         ],
         "variants": 3
       }
     },
     "arrange": {
       "ok": true,
-      "seconds": 17.5,
+      "seconds": 7.9,
       "result": {
-        "intro_s": 3.622,
+        "intro_s": 3.053,
         "changed": [
           [
-            44.094,
-            60.232
+            41.273,
+            59.141
           ],
           [
-            60.232,
-            92.845
+            59.141,
+            90.023
           ]
         ],
         "counts": {
@@ -79,24 +79,25 @@
           "bass_notes": 33,
           "pad_chords": 27
         },
-        "duration_out": 111.372
+        "duration_out": 110.804
       }
     },
     "master": {
       "ok": true,
-      "seconds": 24.4,
+      "seconds": 21.2,
       "result": {
         "target_lufs": -14.0,
         "ceiling_dbtp": -1.0,
         "highpass_hz": 20.0,
         "side_gain": 0.92,
         "limiter_oversampling": 4,
-        "gain_pass1_db": 1.22,
+        "gain_pass1_db": 0.47,
         "gain_pass2_db": 0.0,
         "ab_compare": {
-          "orig_start_s": 36.47,
-          "arranged_start_s": 40.09,
-          "matched_lufs": -14.16,
+          "orig_start_s": 34.22,
+          "arranged_start_s": 37.27,
+          "matched_lufs": -14.01,
+          "no_limiting_applied": true,
           "order": "original 24 s -> 1 s silence -> arranged 24 s"
         },
         "premaster_correlation": 0.918,
@@ -105,7 +106,7 @@
     },
     "qc": {
       "ok": true,
-      "seconds": 10.1,
+      "seconds": 14.1,
       "result": {
         "pass": true,
         "lufs": -14.0,
@@ -114,7 +115,7 @@
     },
     "evidence": {
       "ok": true,
-      "seconds": 5.0,
+      "seconds": 2.9,
       "result": {
         "files_hashed": 65
       }

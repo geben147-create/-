@@ -10,7 +10,7 @@
     },
     "analyze": {
       "ok": true,
-      "seconds": 35.4,
+      "seconds": 37.3,
       "result": {
         "tempo": 144.23,
         "key": "D minor",
@@ -20,11 +20,11 @@
     },
     "separate": {
       "ok": true,
-      "seconds": 1.8,
+      "seconds": 3.1,
       "result": {
         "backend": "demucs-htdemucs",
         "stems_dir": "01_stems/htdemucs/original",
-        "seconds": 1.8,
+        "seconds": 3.1,
         "note": "",
         "sum_correlation": 0.999787,
         "sum_relative_rms_error": 0.021518
@@ -32,7 +32,7 @@
     },
     "midi": {
       "ok": true,
-      "seconds": 12.8,
+      "seconds": 12.4,
       "result": {
         "bass": {
           "notes": 764,
@@ -50,24 +50,24 @@
     },
     "proposals": {
       "ok": true,
-      "seconds": 4.0,
+      "seconds": 4.3,
       "result": {
         "window": [
-          0.373,
-          13.547
+          13.152,
+          26.251
         ],
         "variants": 3
       }
     },
     "arrange": {
       "ok": true,
-      "seconds": 26.2,
+      "seconds": 12.4,
       "result": {
         "intro_s": 3.328,
         "changed": [
           [
-            122.08,
-            148.384
+            119.968,
+            146.304
           ]
         ],
         "counts": {
@@ -80,7 +80,7 @@
     },
     "master": {
       "ok": true,
-      "seconds": 33.8,
+      "seconds": 30.1,
       "result": {
         "target_lufs": -14.0,
         "ceiling_dbtp": -1.0,
@@ -90,9 +90,10 @@
         "gain_pass1_db": 1.54,
         "gain_pass2_db": 0.0,
         "ab_compare": {
-          "orig_start_s": 114.75,
-          "arranged_start_s": 118.08,
-          "matched_lufs": -15.1,
+          "orig_start_s": 112.64,
+          "arranged_start_s": 115.97,
+          "matched_lufs": -15.3,
+          "no_limiting_applied": true,
           "order": "original 24 s -> 1 s silence -> arranged 24 s"
         },
         "premaster_correlation": 0.765,
@@ -101,7 +102,7 @@
     },
     "qc": {
       "ok": true,
-      "seconds": 16.4,
+      "seconds": 18.6,
       "result": {
         "pass": true,
         "lufs": -14.0,
@@ -110,7 +111,7 @@
     },
     "evidence": {
       "ok": true,
-      "seconds": 4.5,
+      "seconds": 3.4,
       "result": {
         "files_hashed": 64
       }

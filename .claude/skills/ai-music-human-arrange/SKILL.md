@@ -37,8 +37,10 @@ Priority of what the automation applies (from the distribution brief):
 
 ## 3. Human steps (user) — do these last, in this order
 1. **Choose**: listen to `03_proposals/*_preview.mp3`, write `tracks/NN_name/human_decisions.json`
-   (schema: `schemas/human_decisions.schema.json`), include at least one note edit + a `notes` sentence.
-   Re-run `--from arrange`.
+   (schema: `schemas/human_decisions.schema.json`) with the A/B/C choices + a `notes` sentence, and re-run
+   `--from arrange`. Then open `04_edits/midi/new_notes.json` and add note edits by the `index` fields **there**
+   (03_proposals/ indices belong to the 8-bar audition only); drum edits can also use `remove_at` with bar+beat+inst.
+   Re-run `--from arrange` again.
 2. **Hum a new melody** (bridge or hook) with headphones → `03_human_raw/bridge_hum.wav` →
    `python scripts/hum_to_midi.py 03_human_raw/bridge_hum.wav --key "<key>" --bpm <bpm>`.
 3. **Sing** 2–3 takes (phone is fine: headphones, effects off, WAV, 15–25 cm) → `03_human_raw/TAKE_01.wav`…

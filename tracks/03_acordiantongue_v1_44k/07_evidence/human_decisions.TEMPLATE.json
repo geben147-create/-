@@ -25,5 +25,5 @@
   "decided_by": "",
   "decided_at": "",
   "notes": "",
-  "_help": "Set drums.choice / bass.choice / bridge.choice to A, B or C after listening to 03_proposals/*_preview.wav. Edits reference the 'index' fields in 03_proposals/*_notes.json / *_events.json."
+  "_help": "Set drums.choice / bass.choice / bridge.choice to A, B or C after listening to 03_proposals/*_preview.mp3. Then run the pipeline once with --from arrange and read 04_edits/midi/new_notes.json: edits reference the 'index' fields THERE (the 8-bar audition lists in 03_proposals/ are a shorter, different list). Position-based drum edits (action 'remove_at' with bar+beat+inst) are stable across re-renders."
 }

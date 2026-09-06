@@ -39,13 +39,55 @@ def chord_templates():
     return t
 
 
+def sync_no_pad(X: np.ndarray, boundaries: np.ndarray, agg) -> np.ndarray:
+    """librosa.util.sync pads a segment in front when boundaries[0] > 0, which shifts every
+    column by one. Drop that padded column so column j is the segment STARTING at boundaries[j]."""
+    out = librosa.util.sync(X, boundaries, aggregate=agg)
+    if len(boundaries) and boundaries[0] > 0 and out.shape[1] == len(boundaries) + 1:
+        out = out[:, 1:]
+    return out[:, :len(boundaries)]
+
+
+def regularise_beats(beat_times: np.ndarray, tol_ratio: float = 0.09, win: int = 6) -> tuple[np.ndarray, list[dict]]:
+    """The beat tracker occasionally snaps a beat onto a syncopated stab (typically in a drum
+    break), which would place a new kick a 16th early. For each beat, fit a local line using the
+    window's MEDIAN interval as slope (robust to the outlier itself) and replace the beat when its
+    residual exceeds tol_ratio of the beat period. Two passes so consecutive outliers are caught.
+    Returns (corrected_times, corrections)."""
+    bt = np.asarray(beat_times, dtype=float).copy()
+    corrections = []
+    if len(bt) < 2 * win + 2:
+        return bt, corrections
+    for _ in range(2):
+        period = float(np.median(np.diff(bt)))
+        tol = tol_ratio * period
+        fixed = bt.copy()
+        for k in range(len(bt)):
+            lo, hi = max(0, k - win), min(len(bt), k + win + 1)
+            idx = np.arange(lo, hi)
+            slope = float(np.median(np.diff(bt[lo:hi]))) if hi - lo > 1 else period
+            intercept = float(np.median(bt[lo:hi] - idx * slope))
+            fit = intercept + k * slope
+            if abs(bt[k] - fit) > tol and 0 < k < len(bt) - 1:
+                fixed[k] = fit
+        moved = np.where(np.abs(fixed - bt) > 1e-9)[0]
+        for k in moved:
+            corrections.append({"beat_index": int(k), "raw": round(float(bt[k]), 4),
+                                "corrected": round(float(fixed[k]), 4), "shift_ms": round(float(fixed[k] - bt[k]) * 1000, 1)})
+        bt = fixed
+        if not len(moved):
+            break
+    bt = np.maximum.accumulate(bt)  # keep it monotonic
+    return bt, corrections
+
+
 def chords_per_beat(chroma: np.ndarray, beat_frames: np.ndarray, key: dict) -> list[dict]:
     """Beat-synchronous chord estimate. Chords inside the detected key are given a small bonus
     so the estimate is stable; the raw best match is stored too."""
     templ = chord_templates()
     names = list(templ.keys())
     T = np.stack([templ[n] / np.linalg.norm(templ[n]) for n in names])
-    sync = librosa.util.sync(chroma, beat_frames, aggregate=np.median)
+    sync = sync_no_pad(chroma, beat_frames, np.median)
     tonic = KEY_NAMES.index(key["tonic"])
     if key["mode"] == "major":
         diatonic = {KEY_NAMES[(tonic + s) % 12] + q for s, q in [(0, ""), (2, "m"), (4, "m"), (5, ""), (7, ""), (9, "m")]}
@@ -71,13 +113,20 @@ def chord_to_midi_root(name: str, octave: int = 2) -> int:
     return 12 * (octave + 1) + KEY_NAMES.index(root)
 
 
+def chroma_len_guard(y, sr, hop):
+    return int(np.ceil(len(y) / hop)) - 1
+
+
 def analyze(x: np.ndarray, sr: int, n_sections_hint: int | None = None) -> dict:
     y = _mono(x).astype(np.float32)
     hop = 512
     onset_env = librosa.onset.onset_strength(y=y, sr=sr, hop_length=hop)
     tempo, beats = librosa.beat.beat_track(onset_envelope=onset_env, sr=sr, hop_length=hop, units="frames", trim=False)
     tempo = float(np.atleast_1d(tempo)[0])
-    beat_times = librosa.frames_to_time(beats, sr=sr, hop_length=hop)
+    beat_times_raw = librosa.frames_to_time(beats, sr=sr, hop_length=hop)
+    beat_times, beat_corrections = regularise_beats(beat_times_raw)
+    beats = librosa.time_to_frames(beat_times, sr=sr, hop_length=hop)
+    beats = np.clip(beats, 0, chroma_len_guard(y, sr, hop))
     # downbeat phase: which of the 4 beat offsets carries the most onset energy + low-frequency energy
     y_h, y_p = librosa.effects.hpss(y)
     low = librosa.feature.rms(y=librosa.effects.preemphasis(y_p, coef=-0.97), hop_length=hop)[0]
@@ -99,8 +148,8 @@ def analyze(x: np.ndarray, sr: int, n_sections_hint: int | None = None) -> dict:
     sections = []
     rms_t = librosa.frames_to_time(np.arange(len(rms)), sr=sr, hop_length=hop)
     if len(db_frames) >= 8:
-        F = np.vstack([librosa.util.sync(chroma, db_frames), librosa.util.sync(mfcc, db_frames),
-                       librosa.util.sync(rms[None, :], db_frames)])
+        F = np.vstack([sync_no_pad(chroma, db_frames, np.median), sync_no_pad(mfcc, db_frames, np.median),
+                       sync_no_pad(rms[None, :], db_frames, np.median)])
         F = (F - F.mean(axis=1, keepdims=True)) / (F.std(axis=1, keepdims=True) + 1e-9)
         R = librosa.segment.recurrence_matrix(F, mode="affinity", sym=True, width=1)
         nb = R.shape[0]
@@ -116,7 +165,9 @@ def analyze(x: np.ndarray, sr: int, n_sections_hint: int | None = None) -> dict:
         peaks = [int(p) for p in peaks if 4 <= p <= nb - 4]
         peaks = sorted(peaks, key=lambda p: -nov[p])[:n_target]
         bound_bars = sorted(set([0] + peaks))
-        bar_times = [float(downbeats[b]) for b in bound_bars] + [dur]
+        db_times = librosa.frames_to_time(db_frames, sr=sr, hop_length=hop)
+        bar_times = [float(db_times[min(b, len(db_times) - 1)]) for b in bound_bars] + [dur]
+        bar_times[0] = 0.0  # first section covers the pickup before the first downbeat
     else:
         bar_times = [0.0, dur]
     for i in range(len(bar_times) - 1):
@@ -143,6 +194,8 @@ def analyze(x: np.ndarray, sr: int, n_sections_hint: int | None = None) -> dict:
         "tempo_bpm": round(tempo, 2),
         "beat_count": int(len(beat_times)),
         "beat_times": [round(float(t), 4) for t in beat_times],
+        "beat_times_raw": [round(float(t), 4) for t in beat_times_raw],
+        "beat_corrections": beat_corrections,
         "downbeat_phase": phase,
         "downbeat_times": [round(float(t), 4) for t in downbeats],
         "key": key,
@@ -161,7 +214,9 @@ def bar_chords(an: dict) -> list[dict]:
         names = [ch[j]["chord"] for j in range(i, min(i + 4, len(ch)))]
         if not names:
             break
-        best = max(set(names), key=names.count)
+        # deterministic, musical tie-break: the chord sounding on beat 1 wins a tie, else the first
+        top = max(names.count(n) for n in names)
+        best = next(n for n in names if names.count(n) == top)
         bars.append({"bar": len(bars), "start": beats[i], "end": beats[i + 4] if i + 4 < len(beats) else an["duration_s"],
                      "chord": best, "beats": [beats[j] for j in range(i, min(i + 4, len(beats)))]})
         i += 4

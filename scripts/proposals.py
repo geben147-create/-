@@ -43,40 +43,52 @@ def human_offset(rng, ms_range=(-9, 12)):
 def drums_variant(variant: str, bars: list[dict], section_ends: set[int], seed: int = 11) -> list[dict]:
     rng = np.random.default_rng(seed + ord(variant))
     ev = []
+    cur = {"bar": 0, "p": 1.0}
     def add(t, inst, vel):
-        ev.append({"time": float(t), "inst": inst, "vel": float(np.clip(vel, 0.05, 1.0))})
+        # bar/beat are the NOMINAL position the pattern asked for, not re-derived from time,
+        # so humanised offsets never turn "beat 3" into "beat 3.11" in the edit list
+        ev.append({"time": float(t), "inst": inst, "vel": float(np.clip(vel, 0.05, 1.0)),
+                   "bar": int(cur["bar"]), "beat": round(float(cur["p"]), 3)})
     for bar in bars:
+        cur["bar"] = bar["bar"]
         last = bar["bar"] in section_ends
+        def at(p, inst, vel, _bar=bar):
+            cur["p"] = p
+            add(sub(_bar, p), inst, vel)
+        def at_off(p, inst, vel, off, _bar=bar):
+            cur["p"] = p
+            add(sub(_bar, p) + off, inst, vel)
         if variant == "A":  # straight pop/rock: kick 1 & 3, snare 2 & 4, 8th hats
-            add(sub(bar, 1), "kick", 0.95); add(sub(bar, 3), "kick", 0.9)
-            add(sub(bar, 2), "snare", 0.85); add(sub(bar, 4), "snare", 0.9)
+            at(1, "kick", 0.95); at(3, "kick", 0.9)
+            at(2, "snare", 0.85); at(4, "snare", 0.9)
             for p in np.arange(1, 5, 0.5):
-                add(sub(bar, p) + human_offset(rng, (-4, 4)), "hat", 0.55 if p % 1 == 0 else 0.35)
+                at_off(float(p), "hat", 0.55 if p % 1 == 0 else 0.35, human_offset(rng, (-4, 4)))
             if last:
                 for p in [4, 4.25, 4.5, 4.75]:
-                    add(sub(bar, p), "snare", 0.5 + 0.12 * (p - 4) * 4 / 3)
+                    at(p, "snare", 0.5 + 0.12 * (p - 4) * 4 / 3)
         elif variant == "B":  # syncopated: kick 1, 2.5, 3.5 ; clap+snare 2 & 4 ; 16th hats accents ; open hat 4.5
-            add(sub(bar, 1), "kick", 0.95); add(sub(bar, 2.5), "kick", 0.8); add(sub(bar, 3.5), "kick", 0.85)
+            at(1, "kick", 0.95); at(2.5, "kick", 0.8); at(3.5, "kick", 0.85)
             for p in (2, 4):
-                add(sub(bar, p), "snare", 0.8); add(sub(bar, p) + 0.004, "clap", 0.7)
+                at(p, "snare", 0.8); at_off(p, "clap", 0.7, 0.004)
             for p in np.arange(1, 5, 0.25):
                 acc = 0.6 if p % 1 == 0 else (0.42 if (p * 4) % 2 == 0 else 0.28)
-                add(sub(bar, p) + human_offset(rng, (-5, 5)), "hat", acc)
-            add(sub(bar, 4.5), "ohat", 0.5)
+                at_off(float(p), "hat", acc, human_offset(rng, (-5, 5)))
+            at(4.5, "ohat", 0.5)
             if last:
-                add(sub(bar, 4.5), "kick", 0.9); add(sub(bar, 4.75), "snare", 0.7); add(bar["end"], "crash", 0.6)
+                at(4.5, "kick", 0.9); at(4.75, "snare", 0.7)
+                cur["p"] = 5.0; add(bar["end"], "crash", 0.6)
         else:  # C: half-time: kick 1 (+ghost 2.75), snare 3, 8th hats, shaker 16ths
-            add(sub(bar, 1), "kick", 0.95); add(sub(bar, 2.75), "kick", 0.55)
-            add(sub(bar, 3), "snare", 0.9)
-            add(sub(bar, 4.5), "rim", 0.4)
+            at(1, "kick", 0.95); at(2.75, "kick", 0.55)
+            at(3, "snare", 0.9)
+            at(4.5, "rim", 0.4)
             for p in np.arange(1, 5, 0.5):
-                add(sub(bar, p) + human_offset(rng, (-4, 4)), "hat", 0.5 if p % 1 == 0 else 0.3)
+                at_off(float(p), "hat", 0.5 if p % 1 == 0 else 0.3, human_offset(rng, (-4, 4)))
             for p in np.arange(1, 5, 0.25):
-                add(sub(bar, p) + human_offset(rng), "shaker", 0.25 + 0.15 * ((p * 4) % 2 == 0))
+                at_off(float(p), "shaker", 0.25 + 0.15 * ((p * 4) % 2 == 0), human_offset(rng))
             if last:
                 for p in [3.5, 3.75, 4, 4.5]:
-                    add(sub(bar, p), "snare", 0.45 + 0.1 * p / 4)
-                add(bar["end"], "crash", 0.5)
+                    at(p, "snare", 0.45 + 0.1 * p / 4)
+                cur["p"] = 5.0; add(bar["end"], "crash", 0.5)
     return ev
 
 
@@ -91,9 +103,14 @@ DRUM_DESCRIPTIONS = {
 def bass_variant(variant: str, bars: list[dict], bar_chords: list[str], octave: int = 2, seed: int = 21) -> list[dict]:
     rng = np.random.default_rng(seed + ord(variant))
     notes = []
-    def note(s, e, midi, vel):
-        notes.append({"start": float(s), "end": float(max(e, s + 0.05)), "midi": int(midi), "vel": float(np.clip(vel, 0.1, 1.0))})
+    cur = {"bar": 0, "p": 1.0}
+    def note(s, e, midi, vel, p=None):
+        if p is not None:
+            cur["p"] = p
+        notes.append({"start": float(s), "end": float(max(e, s + 0.05)), "midi": int(midi),
+                      "vel": float(np.clip(vel, 0.1, 1.0)), "bar": int(cur["bar"]), "beat": round(float(cur["p"]), 3)})
     for i, bar in enumerate(bars):
+        cur["bar"] = bar["bar"]
         ch = bar_chords[i] if i < len(bar_chords) else bar_chords[-1]
         nxt = bar_chords[i + 1] if i + 1 < len(bar_chords) else ch
         root = chord_to_midi_root(ch, octave)
@@ -101,23 +118,24 @@ def bass_variant(variant: str, bars: list[dict], bar_chords: list[str], octave: 
         nroot = chord_to_midi_root(nxt, octave)
         if variant == "A":  # long roots: whole note / half note, octave drop on bar 4 of a phrase
             if i % 4 == 3:
-                note(sub(bar, 1), sub(bar, 3), root, 0.85); note(sub(bar, 3), bar["end"], root - 12 if root - 12 >= 24 else root, 0.8)
+                note(sub(bar, 1), sub(bar, 3), root, 0.85, 1.0); note(sub(bar, 3), bar["end"], root - 12 if root - 12 >= 24 else root, 0.8, 3.0)
             else:
-                note(sub(bar, 1), bar["end"] - 0.03, root, 0.85)
+                note(sub(bar, 1), bar["end"] - 0.03, root, 0.85, 1.0)
         elif variant == "B":  # 8th-note pulse, octave jump on 4.5, rest on 2.5 for air
             for p in np.arange(1, 5, 0.5):
                 if p == 2.5:
                     continue
                 m = root + 12 if p == 4.5 else root
-                note(sub(bar, p), sub(bar, p) + 0.9 * (sub(bar, p + 0.5) - sub(bar, p)) if p < 4.5 else bar["end"], m, 0.7 + 0.2 * (p % 1 == 0) + rng.uniform(-0.05, 0.05))
+                note(sub(bar, p), sub(bar, p) + 0.9 * (sub(bar, p + 0.5) - sub(bar, p)) if p < 4.5 else bar["end"], m,
+                     0.7 + 0.2 * (p % 1 == 0) + rng.uniform(-0.05, 0.05), float(p))
         else:  # C: syncopated root / fifth / approach note into the next chord
-            note(sub(bar, 1), sub(bar, 2), root, 0.9)
-            note(sub(bar, 2.5), sub(bar, 3), fifth if fifth < root + 12 else root, 0.7)
-            note(sub(bar, 3), sub(bar, 4), root, 0.85)
+            note(sub(bar, 1), sub(bar, 2), root, 0.9, 1.0)
+            note(sub(bar, 2.5), sub(bar, 3), fifth if fifth < root + 12 else root, 0.7, 2.5)
+            note(sub(bar, 3), sub(bar, 4), root, 0.85, 3.0)
             approach = nroot - 1 if nroot > root else nroot + 1
             if nroot == root:
                 approach = root + 7 if rng.random() < 0.5 else root - 5
-            note(sub(bar, 4.5), bar["end"], approach, 0.65)
+            note(sub(bar, 4.5), bar["end"], approach, 0.65, 4.5)
     return notes
 
 

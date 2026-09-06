@@ -1,17 +1,17 @@
 {
   "preview_window_orig_s": [
-    0.373,
-    13.547
+    13.152,
+    26.251
   ],
   "bars": [
-    0,
-    1,
-    2,
-    3,
-    4,
-    5,
-    6,
-    7
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
   ],
   "drums": {
     "A": {
@@ -88,5 +88,5 @@
       "melody": "none yet — the human hums/sings the bridge melody over this bed (scripts/hum_to_midi.py)"
     }
   },
-  "how_to_choose": "Listen to *_preview.wav, then write human_decisions.json (see skill schema) with drums.choice, bass.choice, bridge.choice and any note edits. Re-run: pipeline.py <track> --from arrange"
+  "how_to_choose": "Listen to *_preview.mp3, then write human_decisions.json (see skill schema) with drums.choice, bass.choice and bridge.choice, and re-run: pipeline.py <track> --from arrange. For NOTE EDITS use the index fields in 04_edits/midi/new_notes.json (written by that run) — the indices in this folder belong to the 8-bar audition only. Drum edits can also be addressed by bar+beat+inst via action 'remove_at', which survives re-renders."
 }

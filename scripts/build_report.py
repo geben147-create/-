@@ -156,6 +156,8 @@ def track_panel(td, idx):
         {f'<li>끝 무음 {man["tail_trimmed_s"]}s 제거.</li>' if man["tail_trimmed_s"] else "<li>끝 무음: 3초 미만이라 제거 없음.</li>"}
         <li>새 MIDI: 리듬 <b>{man["new_midi_counts"]["drum_events"]}</b>개 / 베이스 <b>{man["new_midi_counts"]["bass_notes"]}</b>개 / 패드 코드 <b>{man["new_midi_counts"]["pad_chords"]}</b>개 — <b class="red">자동 생성 데이터, 인간 실연 아님</b>. 결정 출처: {esc(man["decisions_used"]["_source"])}</li>
         <li>레벨 매칭: {esc(json.dumps(man.get("levels", {}), ensure_ascii=False))}</li>
+        {f'<li>🩹 비트 추적 보정 <b>{len(man.get("beat_corrections", []))}</b>개 (최대 {max([abs(c["shift_ms"]) for c in man.get("beat_corrections", [])], default=0)} ms) — 드럼 브레이크에서 비트가 싱코페이션 히트로 끌려간 곳을 지역 중앙값 그리드로 되돌렸습니다. 원본 목록은 analysis.json의 beat_times_raw.</li>' if man.get("beat_corrections") else "<li>🩹 비트 추적 보정: 없음 (전 구간 그리드 일치)</li>"}
+        <li class="small">노트 편집 index 출처: <code>04_edits/midi/new_notes.json</code> (03_proposals의 index는 8마디 미리듣기 전용).</li>
       </ul>
     </div>
     <div>

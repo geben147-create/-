@@ -4,7 +4,7 @@ This session (automated, local, no human performance):
   - stem estimation: demucs-htdemucs  (sum correlation 0.999854)
   - transcription aid: Basic Pitch (reference MIDI only, not claimed as human composition)
   - new programmed parts: drums variant A, bass variant A, pad, intro, riser
-    (332 drum events / 33 bass notes / 27 pad chords) — auto-generated data, not a human performance
+    (212 drum events / 20 bass notes / 17 pad chords) — auto-generated data, not a human performance
   - structure: new 2-bar intro, breakdown yes, tail trimmed 0.0 s
   - mix/master: gain automation, 20 Hz HPF, M/S width, loudness normalisation, oversampled limiter
 NOT done: main melody rewrite, re-harmonisation of the whole song, new human vocal or instrument performance, manual spectral repair, full human listening.

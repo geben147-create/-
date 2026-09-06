@@ -92,17 +92,14 @@ def main():
     name = os.path.splitext(os.path.basename(a.take))[0]
     dst = os.path.join(a.track, "04_edits", "new_parts", f"vocal_{name}.wav")
     save_wav(dst, out, sr, subtype="FLOAT")
-    # rebuild the premaster = bed + all new parts (so the master stage sees the vocal)
-    bed, _ = load_audio(os.path.join(a.track, "04_edits", "bed_original_stems_automated.wav"))
-    total = bed.copy()
-    for f in sorted(os.listdir(os.path.join(a.track, "04_edits", "new_parts"))):
-        if f.endswith(".wav"):
-            p, _ = load_audio(os.path.join(a.track, "04_edits", "new_parts", f), sr)
-            n = min(len(total), len(p)); total[:n] += p[:n]
-    pk = float(np.max(np.abs(total)))
-    if pk > 0.98:
-        total *= 0.98 / pk
-    save_wav(os.path.join(a.track, "05_mix", "premaster.wav"), total, sr, subtype="FLOAT")
+    # rebuild the premaster through arrange() so exactly one place owns the part list
+    # (arrange keeps vocal_*.wav and re-renders its own drums/bass/pad from human_decisions.json)
+    import json as _json, sys as _sys, os as _os
+    _sys.path.insert(0, _os.path.dirname(_os.path.abspath(__file__)))
+    from arrange import arrange as _arrange
+    an = _json.load(open(_os.path.join(a.track, "02_analysis", "analysis.json"), encoding="utf-8"))
+    sep = _json.load(open(_os.path.join(a.track, "01_stems", "separation.json"), encoding="utf-8"))
+    _arrange(a.track, an, sep["stems_dir"])
     write_json(os.path.join(a.track, "03_human_raw", f"{name}_prep.json"), {
         "raw_take": os.path.basename(a.take), "raw_sha256": sha256(a.take), "origin": "HUMAN performance (user)",
         "processing": ["hpf80", "gate-45dB", "deess", "pitch_snap" if a.tune and a.key else "no tuning", f"peak -6 dBFS, gain {a.gain_db} dB"],

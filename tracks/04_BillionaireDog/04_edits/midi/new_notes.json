@@ -1,22 +1,118 @@
 {
   "time_reference": "original time (add intro_len for output time)",
-  "intro_len_s": 4.7785,
+  "intro_len_s": 3.4025,
   "drum_events": [
+    {
+      "time": 37.376,
+      "inst": "kick",
+      "vel": 0.95,
+      "bar": 15,
+      "beat": 1.0,
+      "index": 0
+    },
+    {
+      "time": 38.5813,
+      "inst": "kick",
+      "vel": 0.9,
+      "bar": 15,
+      "beat": 3.0,
+      "index": 1
+    },
+    {
+      "time": 37.9627,
+      "inst": "snare",
+      "vel": 0.85,
+      "bar": 15,
+      "beat": 2.0,
+      "index": 2
+    },
+    {
+      "time": 39.1787,
+      "inst": "snare",
+      "vel": 0.9,
+      "bar": 15,
+      "beat": 4.0,
+      "index": 3
+    },
+    {
+      "time": 37.378450652073255,
+      "inst": "hat",
+      "vel": 0.55,
+      "bar": 15,
+      "beat": 1.0,
+      "index": 4
+    },
+    {
+      "time": 37.6732341864494,
+      "inst": "hat",
+      "vel": 0.35,
+      "bar": 15,
+      "beat": 1.5,
+      "index": 5
+    },
+    {
+      "time": 37.96415919793174,
+      "inst": "hat",
+      "vel": 0.55,
+      "bar": 15,
+      "beat": 2.0,
+      "index": 6
+    },
+    {
+      "time": 38.273767084054604,
+      "inst": "hat",
+      "vel": 0.35,
+      "bar": 15,
+      "beat": 2.5,
+      "index": 7
+    },
+    {
+      "time": 38.57792491194522,
+      "inst": "hat",
+      "vel": 0.55,
+      "bar": 15,
+      "beat": 3.0,
+      "index": 8
+    },
+    {
+      "time": 38.87847113824822,
+      "inst": "hat",
+      "vel": 0.35,
+      "bar": 15,
+      "beat": 3.5,
+      "index": 9
+    },
+    {
+      "time": 39.179193852126005,
+      "inst": "hat",
+      "vel": 0.55,
+      "bar": 15,
+      "beat": 4.0,
+      "index": 10
+    },
+    {
+      "time": 39.481083959181724,
+      "inst": "hat",
+      "vel": 0.35,
+      "bar": 15,
+      "beat": 4.5,
+      "index": 11
+    },
     {
       "time": 39.776,
       "inst": "kick",
       "vel": 0.95,
       "bar": 16,
       "beat": 1.0,
-      "index": 0
+      "index": 12
     },
     {
       "time": 40.9813,
       "inst": "kick",
       "vel": 0.9,
       "bar": 16,
-      "beat": 3.01,
-      "index": 1
+      "beat": 3.0,
+      "index": 13
     },
     {
       "time": 40.3733,
@@ -24,79 +120,79 @@
       "vel": 0.85,
       "bar": 16,
       "beat": 2.0,
-      "index": 2
+      "index": 14
     },
     {
       "time": 41.568,
       "inst": "snare",
       "vel": 0.9,
       "bar": 16,
-      "beat": 3.99,
-      "index": 3
+      "beat": 4.0,
+      "index": 15
     },
     {
-      "time": 39.77845065207326,
+      "time": 39.7737856357822,
       "inst": "hat",
       "vel": 0.55,
       "bar": 16,
       "beat": 1.0,
-      "index": 4
+      "index": 16
     },
     {
-      "time": 40.07853418644941,
+      "time": 40.073448323590014,
       "inst": "hat",
       "vel": 0.35,
       "bar": 16,
       "beat": 1.5,
-      "index": 5
+      "index": 17
     },
     {
-      "time": 40.374759197931745,
+      "time": 40.370814720044685,
       "inst": "hat",
       "vel": 0.55,
       "bar": 16,
       "beat": 2.0,
-      "index": 6
+      "index": 18
     },
     {
-      "time": 40.67906708405461,
+      "time": 40.67375368099119,
       "inst": "hat",
       "vel": 0.35,
       "bar": 16,
-      "beat": 2.51,
-      "index": 7
+      "beat": 2.5,
+      "index": 19
     },
     {
-      "time": 40.977924911945216,
+      "time": 40.979899654181246,
       "inst": "hat",
       "vel": 0.55,
       "bar": 16,
       "beat": 3.0,
-      "index": 8
+      "index": 20
     },
     {
-      "time": 41.27312113824822,
+      "time": 41.272876924148775,
       "inst": "hat",
       "vel": 0.35,
       "bar": 16,
       "beat": 3.5,
-      "index": 9
+      "index": 21
     },
     {
-      "time": 41.568493852126004,
+      "time": 41.566497636878516,
       "inst": "hat",
       "vel": 0.55,
       "bar": 16,
-      "beat": 3.99,
-      "index": 10
+      "beat": 4.0,
+      "index": 22
     },
     {
-      "time": 41.87573395918172,
+      "time": 41.86801613269582,
       "inst": "hat",
       "vel": 0.35,
       "bar": 16,
       "beat": 4.5,
-      "index": 11
+      "index": 23
     },
     {
       "time": 42.176,
@@ -104,15 +200,15 @@
       "vel": 0.95,
       "bar": 17,
       "beat": 1.0,
-      "index": 12
+      "index": 24
     },
     {
       "time": 43.3813,
       "inst": "kick",
       "vel": 0.9,
       "bar": 17,
-      "beat": 3.01,
-      "index": 13
+      "beat": 3.0,
+      "index": 25
     },
     {
       "time": 42.7733,
@@ -120,7 +216,7 @@
       "vel": 0.85,
       "bar": 17,
       "beat": 2.0,
-      "index": 14
+      "index": 26
     },
     {
       "time": 43.9787,
@@ -128,71 +224,71 @@
       "vel": 0.9,
       "bar": 17,
       "beat": 4.0,
-      "index": 15
+      "index": 27
     },
     {
-      "time": 42.173785635782195,
+      "time": 42.17225018672571,
       "inst": "hat",
       "vel": 0.55,
-      "bar": 16,
-      "beat": 5.0,
-      "index": 16
+      "bar": 17,
+      "beat": 1.0,
+      "index": 28
     },
     {
-      "time": 42.473448323590006,
+      "time": 42.47247209467003,
       "inst": "hat",
       "vel": 0.35,
       "bar": 17,
       "beat": 1.5,
-      "index": 17
+      "index": 29
     },
     {
-      "time": 42.77081472004468,
+      "time": 42.776259968286524,
       "inst": "hat",
       "vel": 0.55,
       "bar": 17,
-      "beat": 1.99,
-      "index": 18
+      "beat": 2.0,
+      "index": 30
     },
     {
-      "time": 43.07375368099119,
+      "time": 43.08064587267307,
       "inst": "hat",
       "vel": 0.35,
       "bar": 17,
       "beat": 2.5,
-      "index": 19
+      "index": 31
     },
     {
-      "time": 43.37989965418125,
+      "time": 43.3832176012972,
       "inst": "hat",
       "vel": 0.55,
       "bar": 17,
-      "beat": 3.01,
-      "index": 20
+      "beat": 3.0,
+      "index": 32
     },
     {
-      "time": 43.67822692414879,
+      "time": 43.68313194513745,
       "inst": "hat",
       "vel": 0.35,
       "bar": 17,
       "beat": 3.5,
-      "index": 21
+      "index": 33
     },
     {
-      "time": 43.97719763687852,
+      "time": 43.97783921711063,
       "inst": "hat",
       "vel": 0.55,
       "bar": 17,
       "beat": 4.0,
-      "index": 22
+      "index": 34
     },
     {
-      "time": 44.27336613269582,
+      "time": 44.2805923790266,
       "inst": "hat",
       "vel": 0.35,
       "bar": 17,
       "beat": 4.5,
-      "index": 23
+      "index": 35
     },
     {
       "time": 44.576,
@@ -200,15 +296,15 @@
       "vel": 0.95,
       "bar": 18,
       "beat": 1.0,
-      "index": 24
+      "index": 36
     },
     {
       "time": 45.7813,
       "inst": "kick",
       "vel": 0.9,
       "bar": 18,
-      "beat": 3.01,
-      "index": 25
+      "beat": 3.0,
+      "index": 37
     },
     {
       "time": 45.1733,
@@ -216,79 +312,79 @@
       "vel": 0.85,
       "bar": 18,
       "beat": 2.0,
-      "index": 26
+      "index": 38
     },
     {
       "time": 46.368,
       "inst": "snare",
       "vel": 0.9,
       "bar": 18,
-      "beat": 3.99,
-      "index": 27
+      "beat": 4.0,
+      "index": 39
     },
     {
-      "time": 44.57225018672571,
+      "time": 44.57481579021148,
       "inst": "hat",
       "vel": 0.55,
-      "bar": 17,
-      "beat": 4.99,
-      "index": 28
+      "bar": 18,
+      "beat": 1.0,
+      "index": 40
     },
     {
-      "time": 44.87247209467004,
+      "time": 44.87207050191876,
       "inst": "hat",
       "vel": 0.35,
       "bar": 18,
-      "beat": 1.49,
-      "index": 29
+      "beat": 1.5,
+      "index": 41
     },
     {
-      "time": 45.17625996828652,
+      "time": 45.173035570733944,
       "inst": "hat",
       "vel": 0.55,
       "bar": 18,
       "beat": 2.0,
-      "index": 30
+      "index": 42
     },
     {
-      "time": 45.480645872673065,
+      "time": 45.4770555383782,
       "inst": "hat",
       "vel": 0.35,
       "bar": 18,
-      "beat": 2.51,
-      "index": 31
+      "beat": 2.5,
+      "index": 43
     },
     {
-      "time": 45.783217601297196,
+      "time": 45.78493165366644,
       "inst": "hat",
       "vel": 0.55,
       "bar": 18,
-      "beat": 3.01,
-      "index": 32
+      "beat": 3.0,
+      "index": 44
     },
     {
-      "time": 46.077781945137446,
+      "time": 46.07494224391978,
       "inst": "hat",
       "vel": 0.35,
       "bar": 18,
       "beat": 3.5,
-      "index": 33
+      "index": 45
     },
     {
-      "time": 46.367139217110626,
+      "time": 46.365178219026006,
       "inst": "hat",
       "vel": 0.55,
       "bar": 18,
-      "beat": 3.99,
-      "index": 34
+      "beat": 4.0,
+      "index": 46
     },
     {
-      "time": 46.6752423790266,
+      "time": 46.67359072276332,
       "inst": "hat",
       "vel": 0.35,
       "bar": 18,
       "beat": 4.5,
-      "index": 35
+      "index": 47
     },
     {
       "time": 46.976,
@@ -296,15 +392,15 @@
       "vel": 0.95,
       "bar": 19,
       "beat": 1.0,
-      "index": 36
+      "index": 48
     },
     {
       "time": 48.1813,
       "inst": "kick",
       "vel": 0.9,
       "bar": 19,
-      "beat": 3.01,
-      "index": 37
+      "beat": 3.0,
+      "index": 49
     },
     {
       "time": 47.5733,
@@ -312,7 +408,7 @@
       "vel": 0.85,
       "bar": 19,
       "beat": 2.0,
-      "index": 38
+      "index": 50
     },
     {
       "time": 48.7787,
@@ -320,71 +416,71 @@
       "vel": 0.9,
       "bar": 19,
       "beat": 4.0,
-      "index": 39
+      "index": 51
     },
     {
-      "time": 46.97481579021148,
+      "time": 46.97414115007791,
       "inst": "hat",
       "vel": 0.55,
-      "bar": 18,
-      "beat": 5.0,
-      "index": 40
+      "bar": 19,
+      "beat": 1.0,
+      "index": 52
     },
     {
-      "time": 47.27207050191876,
+      "time": 47.274905795479235,
       "inst": "hat",
       "vel": 0.35,
       "bar": 19,
-      "beat": 1.49,
-      "index": 41
+      "beat": 1.5,
+      "index": 53
     },
     {
-      "time": 47.57303557073395,
+      "time": 47.577251290291784,
       "inst": "hat",
       "vel": 0.55,
       "bar": 19,
       "beat": 2.0,
-      "index": 42
+      "index": 54
     },
     {
-      "time": 47.87705553837821,
+      "time": 47.87671193463152,
       "inst": "hat",
       "vel": 0.35,
       "bar": 19,
       "beat": 2.5,
-      "index": 43
+      "index": 55
     },
     {
-      "time": 48.18493165366644,
+      "time": 48.17793780823504,
       "inst": "hat",
       "vel": 0.55,
       "bar": 19,
-      "beat": 3.01,
-      "index": 44
+      "beat": 3.0,
+      "index": 56
     },
     {
-      "time": 48.48029224391978,
+      "time": 48.481154477726626,
       "inst": "hat",
       "vel": 0.35,
       "bar": 19,
-      "beat": 3.51,
-      "index": 45
+      "beat": 3.5,
+      "index": 57
     },
     {
-      "time": 48.775878219026005,
+      "time": 48.77686264473714,
       "inst": "hat",
       "vel": 0.55,
       "bar": 19,
       "beat": 4.0,
-      "index": 46
+      "index": 58
     },
     {
-      "time": 49.07894072276332,
+      "time": 49.07432156897665,
       "inst": "hat",
       "vel": 0.35,
       "bar": 19,
       "beat": 4.5,
-      "index": 47
+      "index": 59
     },
     {
       "time": 49.376,
@@ -392,15 +488,15 @@
       "vel": 0.95,
       "bar": 20,
       "beat": 1.0,
-      "index": 48
+      "index": 60
     },
     {
       "time": 50.5813,
       "inst": "kick",
       "vel": 0.9,
       "bar": 20,
-      "beat": 3.01,
-      "index": 49
+      "beat": 3.0,
+      "index": 61
     },
     {
       "time": 49.9733,
@@ -408,1167 +504,207 @@
       "vel": 0.85,
       "bar": 20,
       "beat": 2.0,
-      "index": 50
+      "index": 62
     },
     {
       "time": 51.168,
       "inst": "snare",
       "vel": 0.9,
       "bar": 20,
-      "beat": 3.99,
-      "index": 51
-    },
-    {
-      "time": 49.37414115007791,
-      "inst": "hat",
-      "vel": 0.55,
-      "bar": 19,
-      "beat": 5.0,
-      "index": 52
-    },
-    {
-      "time": 49.67490579547923,
-      "inst": "hat",
-      "vel": 0.35,
-      "bar": 20,
-      "beat": 1.5,
-      "index": 53
-    },
-    {
-      "time": 49.97725129029178,
-      "inst": "hat",
-      "vel": 0.55,
-      "bar": 20,
-      "beat": 2.0,
-      "index": 54
-    },
-    {
-      "time": 50.276711934631514,
-      "inst": "hat",
-      "vel": 0.35,
-      "bar": 20,
-      "beat": 2.5,
-      "index": 55
-    },
-    {
-      "time": 50.57793780823504,
-      "inst": "hat",
-      "vel": 0.55,
-      "bar": 20,
-      "beat": 3.0,
-      "index": 56
-    },
-    {
-      "time": 50.875804477726625,
-      "inst": "hat",
-      "vel": 0.35,
-      "bar": 20,
-      "beat": 3.5,
-      "index": 57
-    },
-    {
-      "time": 51.16616264473714,
-      "inst": "hat",
-      "vel": 0.55,
-      "bar": 20,
-      "beat": 3.98,
-      "index": 58
-    },
-    {
-      "time": 51.468971568976656,
-      "inst": "hat",
-      "vel": 0.35,
-      "bar": 20,
-      "beat": 4.49,
-      "index": 59
-    },
-    {
-      "time": 51.776,
-      "inst": "kick",
-      "vel": 0.95,
-      "bar": 21,
-      "beat": 1.0,
-      "index": 60
-    },
-    {
-      "time": 52.9813,
-      "inst": "kick",
-      "vel": 0.9,
-      "bar": 21,
-      "beat": 3.01,
-      "index": 61
-    },
-    {
-      "time": 52.3733,
-      "inst": "snare",
-      "vel": 0.85,
-      "bar": 21,
-      "beat": 2.0,
-      "index": 62
-    },
-    {
-      "time": 53.5787,
-      "inst": "snare",
-      "vel": 0.9,
-      "bar": 21,
       "beat": 4.0,
       "index": 63
     },
     {
-      "time": 51.77628761941662,
+      "time": 49.376287619416615,
       "inst": "hat",
       "vel": 0.55,
-      "bar": 21,
+      "bar": 20,
       "beat": 1.0,
       "index": 64
     },
     {
-      "time": 52.07174738429635,
+      "time": 49.671747384296346,
       "inst": "hat",
       "vel": 0.35,
-      "bar": 21,
-      "beat": 1.49,
+      "bar": 20,
+      "beat": 1.5,
       "index": 65
     },
     {
-      "time": 52.374014803166126,
+      "time": 49.97401480316613,
       "inst": "hat",
       "vel": 0.55,
-      "bar": 21,
+      "bar": 20,
       "beat": 2.0,
       "index": 66
     },
     {
-      "time": 52.67922298027574,
+      "time": 50.27922298027573,
       "inst": "hat",
       "vel": 0.35,
-      "bar": 21,
-      "beat": 2.51,
+      "bar": 20,
+      "beat": 2.5,
       "index": 67
     },
     {
-      "time": 52.98026933798428,
+      "time": 50.580269337984284,
       "inst": "hat",
       "vel": 0.55,
-      "bar": 21,
-      "beat": 3.01,
+      "bar": 20,
+      "beat": 3.0,
       "index": 68
     },
     {
-      "time": 53.283766796698444,
+      "time": 50.878416796698446,
       "inst": "hat",
       "vel": 0.35,
-      "bar": 21,
-      "beat": 3.51,
+      "bar": 20,
+      "beat": 3.5,
       "index": 69
     },
     {
-      "time": 53.581108293065164,
+      "time": 51.170408293065165,
       "inst": "hat",
       "vel": 0.55,
-      "bar": 21,
-      "beat": 4.01,
+      "bar": 20,
+      "beat": 4.0,
       "index": 70
     },
     {
-      "time": 53.877427518292805,
+      "time": 51.47207751829281,
       "inst": "hat",
       "vel": 0.35,
-      "bar": 21,
+      "bar": 20,
       "beat": 4.5,
       "index": 71
     },
     {
-      "time": 54.176,
-      "inst": "kick",
-      "vel": 0.95,
-      "bar": 22,
-      "beat": 1.0,
+      "time": 51.168,
+      "inst": "snare",
+      "vel": 0.5,
+      "bar": 20,
+      "beat": 4.0,
       "index": 72
     },
     {
-      "time": 55.3813,
-      "inst": "kick",
-      "vel": 0.9,
-      "bar": 22,
-      "beat": 3.01,
+      "time": 51.32,
+      "inst": "snare",
+      "vel": 0.54,
+      "bar": 20,
+      "beat": 4.25,
       "index": 73
     },
     {
-      "time": 54.7733,
+      "time": 51.472,
       "inst": "snare",
-      "vel": 0.85,
-      "bar": 22,
-      "beat": 2.0,
+      "vel": 0.58,
+      "bar": 20,
+      "beat": 4.5,
       "index": 74
     },
     {
-      "time": 55.968,
+      "time": 51.624,
       "inst": "snare",
-      "vel": 0.9,
-      "bar": 22,
-      "beat": 3.99,
+      "vel": 0.62,
+      "bar": 20,
+      "beat": 4.75,
       "index": 75
     },
     {
-      "time": 54.177607215815875,
-      "inst": "hat",
-      "vel": 0.55,
-      "bar": 22,
+      "time": 87.776,
+      "inst": "kick",
+      "vel": 0.95,
+      "bar": 36,
       "beat": 1.0,
       "index": 76
     },
     {
-      "time": 54.474128194203274,
-      "inst": "hat",
-      "vel": 0.35,
-      "bar": 22,
-      "beat": 1.5,
+      "time": 88.9813,
+      "inst": "kick",
+      "vel": 0.9,
+      "bar": 36,
+      "beat": 3.0,
       "index": 77
     },
     {
-      "time": 54.773048341614945,
-      "inst": "hat",
-      "vel": 0.55,
-      "bar": 22,
+      "time": 88.3733,
+      "inst": "snare",
+      "vel": 0.85,
+      "bar": 36,
       "beat": 2.0,
       "index": 78
     },
     {
-      "time": 55.079731868968516,
-      "inst": "hat",
-      "vel": 0.35,
-      "bar": 22,
-      "beat": 2.51,
+      "time": 89.5787,
+      "inst": "snare",
+      "vel": 0.9,
+      "bar": 36,
+      "beat": 4.0,
       "index": 79
     },
     {
-      "time": 55.38416567369452,
+      "time": 87.77845065207326,
       "inst": "hat",
       "vel": 0.55,
-      "bar": 22,
-      "beat": 3.01,
+      "bar": 36,
+      "beat": 1.0,
       "index": 80
     },
     {
-      "time": 55.673750091510044,
+      "time": 88.0785341864494,
       "inst": "hat",
       "vel": 0.35,
-      "bar": 22,
-      "beat": 3.5,
+      "bar": 36,
+      "beat": 1.5,
       "index": 81
     },
     {
-      "time": 55.9693491294525,
+      "time": 88.37475919793175,
       "inst": "hat",
       "vel": 0.55,
-      "bar": 22,
-      "beat": 3.99,
+      "bar": 36,
+      "beat": 2.0,
       "index": 82
     },
     {
-      "time": 56.27360295391354,
+      "time": 88.67906708405461,
       "inst": "hat",
       "vel": 0.35,
-      "bar": 22,
-      "beat": 4.5,
+      "bar": 36,
+      "beat": 2.5,
       "index": 83
     },
     {
-      "time": 56.576,
-      "inst": "kick",
-      "vel": 0.95,
-      "bar": 23,
-      "beat": 1.0,
+      "time": 88.97792491194522,
+      "inst": "hat",
+      "vel": 0.55,
+      "bar": 36,
+      "beat": 3.0,
       "index": 84
     },
     {
-      "time": 57.7813,
-      "inst": "kick",
-      "vel": 0.9,
-      "bar": 23,
-      "beat": 3.01,
+      "time": 89.27847113824824,
+      "inst": "hat",
+      "vel": 0.35,
+      "bar": 36,
+      "beat": 3.5,
       "index": 85
     },
     {
-      "time": 57.1733,
-      "inst": "snare",
-      "vel": 0.85,
-      "bar": 23,
-      "beat": 2.0,
+      "time": 89.579193852126,
+      "inst": "hat",
+      "vel": 0.55,
+      "bar": 36,
+      "beat": 4.0,
       "index": 86
     },
     {
-      "time": 58.3787,
-      "inst": "snare",
-      "vel": 0.9,
-      "bar": 23,
-      "beat": 4.0,
+      "time": 89.88108395918174,
+      "inst": "hat",
+      "vel": 0.35,
+      "bar": 36,
+      "beat": 4.5,
       "index": 87
-    },
-    {
-      "time": 56.578666049587305,
-      "inst": "hat",
-      "vel": 0.55,
-      "bar": 23,
-      "beat": 1.0,
-      "index": 88
-    },
-    {
-      "time": 56.87604049750698,
-      "inst": "hat",
-      "vel": 0.35,
-      "bar": 23,
-      "beat": 1.5,
-      "index": 89
-    },
-    {
-      "time": 57.175933874244535,
-      "inst": "hat",
-      "vel": 0.55,
-      "bar": 23,
-      "beat": 2.0,
-      "index": 90
-    },
-    {
-      "time": 57.473965347693785,
-      "inst": "hat",
-      "vel": 0.35,
-      "bar": 23,
-      "beat": 2.5,
-      "index": 91
-    },
-    {
-      "time": 57.778121148127795,
-      "inst": "hat",
-      "vel": 0.55,
-      "bar": 23,
-      "beat": 3.0,
-      "index": 92
-    },
-    {
-      "time": 58.07618604863536,
-      "inst": "hat",
-      "vel": 0.35,
-      "bar": 23,
-      "beat": 3.5,
-      "index": 93
-    },
-    {
-      "time": 58.37725002163994,
-      "inst": "hat",
-      "vel": 0.55,
-      "bar": 23,
-      "beat": 4.0,
-      "index": 94
-    },
-    {
-      "time": 58.676034694249125,
-      "inst": "hat",
-      "vel": 0.35,
-      "bar": 23,
-      "beat": 4.5,
-      "index": 95
-    },
-    {
-      "time": 58.976,
-      "inst": "kick",
-      "vel": 0.95,
-      "bar": 24,
-      "beat": 1.0,
-      "index": 96
-    },
-    {
-      "time": 60.1813,
-      "inst": "kick",
-      "vel": 0.9,
-      "bar": 24,
-      "beat": 3.01,
-      "index": 97
-    },
-    {
-      "time": 59.5733,
-      "inst": "snare",
-      "vel": 0.85,
-      "bar": 24,
-      "beat": 2.0,
-      "index": 98
-    },
-    {
-      "time": 60.768,
-      "inst": "snare",
-      "vel": 0.9,
-      "bar": 24,
-      "beat": 3.99,
-      "index": 99
-    },
-    {
-      "time": 58.979939958666186,
-      "inst": "hat",
-      "vel": 0.55,
-      "bar": 24,
-      "beat": 1.01,
-      "index": 100
-    },
-    {
-      "time": 59.27242019125917,
-      "inst": "hat",
-      "vel": 0.35,
-      "bar": 24,
-      "beat": 1.49,
-      "index": 101
-    },
-    {
-      "time": 59.57383524027878,
-      "inst": "hat",
-      "vel": 0.55,
-      "bar": 24,
-      "beat": 2.0,
-      "index": 102
-    },
-    {
-      "time": 59.87738947939928,
-      "inst": "hat",
-      "vel": 0.35,
-      "bar": 24,
-      "beat": 2.5,
-      "index": 103
-    },
-    {
-      "time": 60.179116226853004,
-      "inst": "hat",
-      "vel": 0.55,
-      "bar": 24,
-      "beat": 3.01,
-      "index": 104
-    },
-    {
-      "time": 60.474574837187575,
-      "inst": "hat",
-      "vel": 0.35,
-      "bar": 24,
-      "beat": 3.5,
-      "index": 105
-    },
-    {
-      "time": 60.76610158122307,
-      "inst": "hat",
-      "vel": 0.55,
-      "bar": 24,
-      "beat": 3.98,
-      "index": 106
-    },
-    {
-      "time": 61.06812804235729,
-      "inst": "hat",
-      "vel": 0.35,
-      "bar": 24,
-      "beat": 4.49,
-      "index": 107
-    },
-    {
-      "time": 61.376,
-      "inst": "kick",
-      "vel": 0.95,
-      "bar": 25,
-      "beat": 1.0,
-      "index": 108
-    },
-    {
-      "time": 62.5813,
-      "inst": "kick",
-      "vel": 0.9,
-      "bar": 25,
-      "beat": 3.01,
-      "index": 109
-    },
-    {
-      "time": 61.9733,
-      "inst": "snare",
-      "vel": 0.85,
-      "bar": 25,
-      "beat": 2.0,
-      "index": 110
-    },
-    {
-      "time": 63.1787,
-      "inst": "snare",
-      "vel": 0.9,
-      "bar": 25,
-      "beat": 4.0,
-      "index": 111
-    },
-    {
-      "time": 61.37399259716012,
-      "inst": "hat",
-      "vel": 0.55,
-      "bar": 24,
-      "beat": 5.0,
-      "index": 112
-    },
-    {
-      "time": 61.67716172951794,
-      "inst": "hat",
-      "vel": 0.35,
-      "bar": 25,
-      "beat": 1.5,
-      "index": 113
-    },
-    {
-      "time": 61.97185064236774,
-      "inst": "hat",
-      "vel": 0.55,
-      "bar": 25,
-      "beat": 1.99,
-      "index": 114
-    },
-    {
-      "time": 62.274019131055326,
-      "inst": "hat",
-      "vel": 0.35,
-      "bar": 25,
-      "beat": 2.5,
-      "index": 115
-    },
-    {
-      "time": 62.58125366507067,
-      "inst": "hat",
-      "vel": 0.55,
-      "bar": 25,
-      "beat": 3.01,
-      "index": 116
-    },
-    {
-      "time": 62.88079735449034,
-      "inst": "hat",
-      "vel": 0.35,
-      "bar": 25,
-      "beat": 3.51,
-      "index": 117
-    },
-    {
-      "time": 63.17515495222471,
-      "inst": "hat",
-      "vel": 0.55,
-      "bar": 25,
-      "beat": 4.0,
-      "index": 118
-    },
-    {
-      "time": 63.47424007990842,
-      "inst": "hat",
-      "vel": 0.35,
-      "bar": 25,
-      "beat": 4.5,
-      "index": 119
-    },
-    {
-      "time": 63.776,
-      "inst": "kick",
-      "vel": 0.95,
-      "bar": 26,
-      "beat": 1.0,
-      "index": 120
-    },
-    {
-      "time": 64.9813,
-      "inst": "kick",
-      "vel": 0.9,
-      "bar": 26,
-      "beat": 3.01,
-      "index": 121
-    },
-    {
-      "time": 64.3733,
-      "inst": "snare",
-      "vel": 0.85,
-      "bar": 26,
-      "beat": 2.0,
-      "index": 122
-    },
-    {
-      "time": 65.568,
-      "inst": "snare",
-      "vel": 0.9,
-      "bar": 26,
-      "beat": 3.99,
-      "index": 123
-    },
-    {
-      "time": 63.77334940904538,
-      "inst": "hat",
-      "vel": 0.55,
-      "bar": 25,
-      "beat": 5.0,
-      "index": 124
-    },
-    {
-      "time": 64.07159980048337,
-      "inst": "hat",
-      "vel": 0.35,
-      "bar": 26,
-      "beat": 1.49,
-      "index": 125
-    },
-    {
-      "time": 64.37081847161423,
-      "inst": "hat",
-      "vel": 0.55,
-      "bar": 26,
-      "beat": 1.99,
-      "index": 126
-    },
-    {
-      "time": 64.6743231427091,
-      "inst": "hat",
-      "vel": 0.35,
-      "bar": 26,
-      "beat": 2.5,
-      "index": 127
-    },
-    {
-      "time": 64.98141268952008,
-      "inst": "hat",
-      "vel": 0.55,
-      "bar": 26,
-      "beat": 3.01,
-      "index": 128
-    },
-    {
-      "time": 65.27181728628268,
-      "inst": "hat",
-      "vel": 0.35,
-      "bar": 26,
-      "beat": 3.49,
-      "index": 129
-    },
-    {
-      "time": 65.57116474331767,
-      "inst": "hat",
-      "vel": 0.55,
-      "bar": 26,
-      "beat": 3.99,
-      "index": 130
-    },
-    {
-      "time": 65.87189038162641,
-      "inst": "hat",
-      "vel": 0.35,
-      "bar": 26,
-      "beat": 4.49,
-      "index": 131
-    },
-    {
-      "time": 66.176,
-      "inst": "kick",
-      "vel": 0.95,
-      "bar": 27,
-      "beat": 1.0,
-      "index": 132
-    },
-    {
-      "time": 67.3813,
-      "inst": "kick",
-      "vel": 0.9,
-      "bar": 27,
-      "beat": 3.01,
-      "index": 133
-    },
-    {
-      "time": 66.7733,
-      "inst": "snare",
-      "vel": 0.85,
-      "bar": 27,
-      "beat": 2.0,
-      "index": 134
-    },
-    {
-      "time": 67.9787,
-      "inst": "snare",
-      "vel": 0.9,
-      "bar": 27,
-      "beat": 4.0,
-      "index": 135
-    },
-    {
-      "time": 66.17452541396042,
-      "inst": "hat",
-      "vel": 0.55,
-      "bar": 26,
-      "beat": 5.0,
-      "index": 136
-    },
-    {
-      "time": 66.47379191885885,
-      "inst": "hat",
-      "vel": 0.35,
-      "bar": 27,
-      "beat": 1.5,
-      "index": 137
-    },
-    {
-      "time": 66.77218614883265,
-      "inst": "hat",
-      "vel": 0.55,
-      "bar": 27,
-      "beat": 1.99,
-      "index": 138
-    },
-    {
-      "time": 67.07905959946353,
-      "inst": "hat",
-      "vel": 0.35,
-      "bar": 27,
-      "beat": 2.51,
-      "index": 139
-    },
-    {
-      "time": 67.38032534732505,
-      "inst": "hat",
-      "vel": 0.55,
-      "bar": 27,
-      "beat": 3.01,
-      "index": 140
-    },
-    {
-      "time": 67.67721156391833,
-      "inst": "hat",
-      "vel": 0.35,
-      "bar": 27,
-      "beat": 3.5,
-      "index": 141
-    },
-    {
-      "time": 67.97897754387118,
-      "inst": "hat",
-      "vel": 0.55,
-      "bar": 27,
-      "beat": 4.0,
-      "index": 142
-    },
-    {
-      "time": 68.279534578762,
-      "inst": "hat",
-      "vel": 0.35,
-      "bar": 27,
-      "beat": 4.51,
-      "index": 143
-    },
-    {
-      "time": 68.576,
-      "inst": "kick",
-      "vel": 0.95,
-      "bar": 28,
-      "beat": 1.0,
-      "index": 144
-    },
-    {
-      "time": 69.7813,
-      "inst": "kick",
-      "vel": 0.9,
-      "bar": 28,
-      "beat": 3.01,
-      "index": 145
-    },
-    {
-      "time": 69.1733,
-      "inst": "snare",
-      "vel": 0.85,
-      "bar": 28,
-      "beat": 2.0,
-      "index": 146
-    },
-    {
-      "time": 70.368,
-      "inst": "snare",
-      "vel": 0.9,
-      "bar": 28,
-      "beat": 3.99,
-      "index": 147
-    },
-    {
-      "time": 68.57865480453997,
-      "inst": "hat",
-      "vel": 0.55,
-      "bar": 28,
-      "beat": 1.0,
-      "index": 148
-    },
-    {
-      "time": 68.87604767809682,
-      "inst": "hat",
-      "vel": 0.35,
-      "bar": 28,
-      "beat": 1.5,
-      "index": 149
-    },
-    {
-      "time": 69.1746089322161,
-      "inst": "hat",
-      "vel": 0.55,
-      "bar": 28,
-      "beat": 2.0,
-      "index": 150
-    },
-    {
-      "time": 69.4781630622562,
-      "inst": "hat",
-      "vel": 0.35,
-      "bar": 28,
-      "beat": 2.5,
-      "index": 151
-    },
-    {
-      "time": 69.7837636614845,
-      "inst": "hat",
-      "vel": 0.55,
-      "bar": 28,
-      "beat": 3.01,
-      "index": 152
-    },
-    {
-      "time": 70.07269247193373,
-      "inst": "hat",
-      "vel": 0.35,
-      "bar": 28,
-      "beat": 3.49,
-      "index": 153
-    },
-    {
-      "time": 70.3706797575037,
-      "inst": "hat",
-      "vel": 0.55,
-      "bar": 28,
-      "beat": 3.99,
-      "index": 154
-    },
-    {
-      "time": 70.6727018764485,
-      "inst": "hat",
-      "vel": 0.35,
-      "bar": 28,
-      "beat": 4.49,
-      "index": 155
-    },
-    {
-      "time": 70.976,
-      "inst": "kick",
-      "vel": 0.95,
-      "bar": 29,
-      "beat": 1.0,
-      "index": 156
-    },
-    {
-      "time": 72.1813,
-      "inst": "kick",
-      "vel": 0.9,
-      "bar": 29,
-      "beat": 3.01,
-      "index": 157
-    },
-    {
-      "time": 71.5733,
-      "inst": "snare",
-      "vel": 0.85,
-      "bar": 29,
-      "beat": 2.0,
-      "index": 158
-    },
-    {
-      "time": 72.7787,
-      "inst": "snare",
-      "vel": 0.9,
-      "bar": 29,
-      "beat": 4.0,
-      "index": 159
-    },
-    {
-      "time": 70.97573267519935,
-      "inst": "hat",
-      "vel": 0.55,
-      "bar": 28,
-      "beat": 5.0,
-      "index": 160
-    },
-    {
-      "time": 71.2726186905368,
-      "inst": "hat",
-      "vel": 0.35,
-      "bar": 29,
-      "beat": 1.49,
-      "index": 161
-    },
-    {
-      "time": 71.57304550275703,
-      "inst": "hat",
-      "vel": 0.55,
-      "bar": 29,
-      "beat": 2.0,
-      "index": 162
-    },
-    {
-      "time": 71.87349759832783,
-      "inst": "hat",
-      "vel": 0.35,
-      "bar": 29,
-      "beat": 2.5,
-      "index": 163
-    },
-    {
-      "time": 72.17893012950924,
-      "inst": "hat",
-      "vel": 0.55,
-      "bar": 29,
-      "beat": 3.0,
-      "index": 164
-    },
-    {
-      "time": 72.48060238418095,
-      "inst": "hat",
-      "vel": 0.35,
-      "bar": 29,
-      "beat": 3.51,
-      "index": 165
-    },
-    {
-      "time": 72.78091118025205,
-      "inst": "hat",
-      "vel": 0.55,
-      "bar": 29,
-      "beat": 4.01,
-      "index": 166
-    },
-    {
-      "time": 73.0776049932374,
-      "inst": "hat",
-      "vel": 0.35,
-      "bar": 29,
-      "beat": 4.5,
-      "index": 167
-    },
-    {
-      "time": 73.376,
-      "inst": "kick",
-      "vel": 0.95,
-      "bar": 30,
-      "beat": 1.0,
-      "index": 168
-    },
-    {
-      "time": 74.5707,
-      "inst": "kick",
-      "vel": 0.9,
-      "bar": 30,
-      "beat": 2.99,
-      "index": 169
-    },
-    {
-      "time": 73.9733,
-      "inst": "snare",
-      "vel": 0.85,
-      "bar": 30,
-      "beat": 2.0,
-      "index": 170
-    },
-    {
-      "time": 75.168,
-      "inst": "snare",
-      "vel": 0.9,
-      "bar": 30,
-      "beat": 3.99,
-      "index": 171
-    },
-    {
-      "time": 73.37396397072627,
-      "inst": "hat",
-      "vel": 0.55,
-      "bar": 29,
-      "beat": 5.0,
-      "index": 172
-    },
-    {
-      "time": 73.67202923560171,
-      "inst": "hat",
-      "vel": 0.35,
-      "bar": 30,
-      "beat": 1.49,
-      "index": 173
-    },
-    {
-      "time": 73.9707309035253,
-      "inst": "hat",
-      "vel": 0.55,
-      "bar": 30,
-      "beat": 1.99,
-      "index": 174
-    },
-    {
-      "time": 74.27062492625153,
-      "inst": "hat",
-      "vel": 0.35,
-      "bar": 30,
-      "beat": 2.49,
-      "index": 175
-    },
-    {
-      "time": 74.56852827301203,
-      "inst": "hat",
-      "vel": 0.55,
-      "bar": 30,
-      "beat": 2.99,
-      "index": 176
-    },
-    {
-      "time": 74.86567780670751,
-      "inst": "hat",
-      "vel": 0.35,
-      "bar": 30,
-      "beat": 3.48,
-      "index": 177
-    },
-    {
-      "time": 75.16977407667923,
-      "inst": "hat",
-      "vel": 0.55,
-      "bar": 30,
-      "beat": 3.99,
-      "index": 178
-    },
-    {
-      "time": 75.47527673728361,
-      "inst": "hat",
-      "vel": 0.35,
-      "bar": 30,
-      "beat": 4.5,
-      "index": 179
-    },
-    {
-      "time": 75.776,
-      "inst": "kick",
-      "vel": 0.95,
-      "bar": 31,
-      "beat": 1.0,
-      "index": 180
-    },
-    {
-      "time": 76.9813,
-      "inst": "kick",
-      "vel": 0.9,
-      "bar": 31,
-      "beat": 3.01,
-      "index": 181
-    },
-    {
-      "time": 76.3627,
-      "inst": "snare",
-      "vel": 0.85,
-      "bar": 31,
-      "beat": 1.98,
-      "index": 182
-    },
-    {
-      "time": 77.5787,
-      "inst": "snare",
-      "vel": 0.9,
-      "bar": 31,
-      "beat": 4.0,
-      "index": 183
-    },
-    {
-      "time": 75.77467876237058,
-      "inst": "hat",
-      "vel": 0.55,
-      "bar": 30,
-      "beat": 5.0,
-      "index": 184
-    },
-    {
-      "time": 76.07169468999658,
-      "inst": "hat",
-      "vel": 0.35,
-      "bar": 31,
-      "beat": 1.49,
-      "index": 185
-    },
-    {
-      "time": 76.35944154829355,
-      "inst": "hat",
-      "vel": 0.55,
-      "bar": 31,
-      "beat": 1.97,
-      "index": 186
-    },
-    {
-      "time": 76.67538984537504,
-      "inst": "hat",
-      "vel": 0.35,
-      "bar": 31,
-      "beat": 2.5,
-      "index": 187
-    },
-    {
-      "time": 76.98412737888378,
-      "inst": "hat",
-      "vel": 0.55,
-      "bar": 31,
-      "beat": 3.01,
-      "index": 188
-    },
-    {
-      "time": 77.27839898958615,
-      "inst": "hat",
-      "vel": 0.35,
-      "bar": 31,
-      "beat": 3.5,
-      "index": 189
-    },
-    {
-      "time": 77.58253473692363,
-      "inst": "hat",
-      "vel": 0.55,
-      "bar": 31,
-      "beat": 4.01,
-      "index": 190
-    },
-    {
-      "time": 77.87466883144346,
-      "inst": "hat",
-      "vel": 0.35,
-      "bar": 31,
-      "beat": 4.5,
-      "index": 191
-    },
-    {
-      "time": 77.5787,
-      "inst": "snare",
-      "vel": 0.5,
-      "bar": 31,
-      "beat": 4.0,
-      "index": 192
-    },
-    {
-      "time": 77.728025,
-      "inst": "snare",
-      "vel": 0.54,
-      "bar": 31,
-      "beat": 4.25,
-      "index": 193
-    },
-    {
-      "time": 77.87735,
-      "inst": "snare",
-      "vel": 0.58,
-      "bar": 31,
-      "beat": 4.5,
-      "index": 194
-    },
-    {
-      "time": 78.026675,
-      "inst": "snare",
-      "vel": 0.62,
-      "bar": 31,
-      "beat": 4.75,
-      "index": 195
     },
     {
       "time": 90.176,
@@ -1576,15 +712,15 @@
       "vel": 0.95,
       "bar": 37,
       "beat": 1.0,
-      "index": 196
+      "index": 88
     },
     {
       "time": 91.3707,
       "inst": "kick",
       "vel": 0.9,
       "bar": 37,
-      "beat": 2.99,
-      "index": 197
+      "beat": 3.0,
+      "index": 89
     },
     {
       "time": 90.7733,
@@ -1592,7 +728,7 @@
       "vel": 0.85,
       "bar": 37,
       "beat": 2.0,
-      "index": 198
+      "index": 90
     },
     {
       "time": 91.9787,
@@ -1600,71 +736,71 @@
       "vel": 0.9,
       "bar": 37,
       "beat": 4.0,
-      "index": 199
+      "index": 91
     },
     {
-      "time": 90.17845065207327,
+      "time": 90.1737856357822,
       "inst": "hat",
       "vel": 0.55,
       "bar": 37,
       "beat": 1.0,
-      "index": 200
+      "index": 92
     },
     {
-      "time": 90.47853418644941,
+      "time": 90.47344832359,
       "inst": "hat",
       "vel": 0.35,
       "bar": 37,
       "beat": 1.5,
-      "index": 201
+      "index": 93
     },
     {
-      "time": 90.77475919793176,
+      "time": 90.7708147200447,
       "inst": "hat",
       "vel": 0.55,
       "bar": 37,
       "beat": 2.0,
-      "index": 202
+      "index": 94
     },
     {
-      "time": 91.07376708405461,
+      "time": 91.06845368099118,
       "inst": "hat",
       "vel": 0.35,
       "bar": 37,
       "beat": 2.5,
-      "index": 203
+      "index": 95
     },
     {
-      "time": 91.36732491194522,
+      "time": 91.36929965418125,
       "inst": "hat",
       "vel": 0.55,
       "bar": 37,
-      "beat": 2.99,
-      "index": 204
+      "beat": 3.0,
+      "index": 96
     },
     {
-      "time": 91.67317113824824,
+      "time": 91.67292692414878,
       "inst": "hat",
       "vel": 0.35,
       "bar": 37,
       "beat": 3.5,
-      "index": 205
+      "index": 97
     },
     {
-      "time": 91.979193852126,
+      "time": 91.97719763687851,
       "inst": "hat",
       "vel": 0.55,
       "bar": 37,
-      "beat": 4.01,
-      "index": 206
+      "beat": 4.0,
+      "index": 98
     },
     {
-      "time": 92.28108395918173,
+      "time": 92.27336613269581,
       "inst": "hat",
       "vel": 0.35,
       "bar": 37,
-      "beat": 4.51,
-      "index": 207
+      "beat": 4.5,
+      "index": 99
     },
     {
       "time": 92.576,
@@ -1672,15 +808,15 @@
       "vel": 0.95,
       "bar": 38,
       "beat": 1.0,
-      "index": 208
+      "index": 100
     },
     {
       "time": 93.7813,
       "inst": "kick",
       "vel": 0.9,
       "bar": 38,
-      "beat": 3.01,
-      "index": 209
+      "beat": 3.0,
+      "index": 101
     },
     {
       "time": 93.1733,
@@ -1688,7 +824,7 @@
       "vel": 0.85,
       "bar": 38,
       "beat": 2.0,
-      "index": 210
+      "index": 102
     },
     {
       "time": 94.3787,
@@ -1696,71 +832,71 @@
       "vel": 0.9,
       "bar": 38,
       "beat": 4.0,
-      "index": 211
+      "index": 103
     },
     {
-      "time": 92.57378563578219,
+      "time": 92.57225018672571,
       "inst": "hat",
       "vel": 0.55,
-      "bar": 37,
-      "beat": 5.0,
-      "index": 212
+      "bar": 38,
+      "beat": 1.0,
+      "index": 104
     },
     {
-      "time": 92.87344832359001,
+      "time": 92.87247209467003,
       "inst": "hat",
       "vel": 0.35,
       "bar": 38,
       "beat": 1.5,
-      "index": 213
+      "index": 105
     },
     {
-      "time": 93.17081472004469,
+      "time": 93.17625996828653,
       "inst": "hat",
       "vel": 0.55,
       "bar": 38,
-      "beat": 1.99,
-      "index": 214
+      "beat": 2.0,
+      "index": 106
     },
     {
-      "time": 93.47375368099118,
+      "time": 93.48064587267307,
       "inst": "hat",
       "vel": 0.35,
       "bar": 38,
       "beat": 2.5,
-      "index": 215
+      "index": 107
     },
     {
-      "time": 93.77989965418125,
+      "time": 93.7832176012972,
       "inst": "hat",
       "vel": 0.55,
       "bar": 38,
-      "beat": 3.01,
-      "index": 216
+      "beat": 3.0,
+      "index": 108
     },
     {
-      "time": 94.07822692414878,
+      "time": 94.08313194513744,
       "inst": "hat",
       "vel": 0.35,
       "bar": 38,
       "beat": 3.5,
-      "index": 217
+      "index": 109
     },
     {
-      "time": 94.3771976368785,
+      "time": 94.37783921711062,
       "inst": "hat",
       "vel": 0.55,
       "bar": 38,
       "beat": 4.0,
-      "index": 218
+      "index": 110
     },
     {
-      "time": 94.6733661326958,
+      "time": 94.68059237902659,
       "inst": "hat",
       "vel": 0.35,
       "bar": 38,
       "beat": 4.5,
-      "index": 219
+      "index": 111
     },
     {
       "time": 94.976,
@@ -1768,15 +904,15 @@
       "vel": 0.95,
       "bar": 39,
       "beat": 1.0,
-      "index": 220
+      "index": 112
     },
     {
       "time": 96.1813,
       "inst": "kick",
       "vel": 0.9,
       "bar": 39,
-      "beat": 3.01,
-      "index": 221
+      "beat": 3.0,
+      "index": 113
     },
     {
       "time": 95.5733,
@@ -1784,7 +920,7 @@
       "vel": 0.85,
       "bar": 39,
       "beat": 2.0,
-      "index": 222
+      "index": 114
     },
     {
       "time": 96.7787,
@@ -1792,71 +928,71 @@
       "vel": 0.9,
       "bar": 39,
       "beat": 4.0,
-      "index": 223
+      "index": 115
     },
     {
-      "time": 94.97225018672572,
+      "time": 94.97481579021148,
       "inst": "hat",
       "vel": 0.55,
-      "bar": 38,
-      "beat": 4.99,
-      "index": 224
+      "bar": 39,
+      "beat": 1.0,
+      "index": 116
     },
     {
-      "time": 95.27247209467004,
+      "time": 95.27207050191878,
       "inst": "hat",
       "vel": 0.35,
       "bar": 39,
-      "beat": 1.49,
-      "index": 225
+      "beat": 1.5,
+      "index": 117
     },
     {
-      "time": 95.57625996828654,
+      "time": 95.57303557073395,
       "inst": "hat",
       "vel": 0.55,
       "bar": 39,
       "beat": 2.0,
-      "index": 226
+      "index": 118
     },
     {
-      "time": 95.88064587267306,
+      "time": 95.8770555383782,
       "inst": "hat",
       "vel": 0.35,
       "bar": 39,
-      "beat": 2.51,
-      "index": 227
+      "beat": 2.5,
+      "index": 119
     },
     {
-      "time": 96.18321760129719,
+      "time": 96.18493165366642,
       "inst": "hat",
       "vel": 0.55,
       "bar": 39,
-      "beat": 3.01,
-      "index": 228
+      "beat": 3.0,
+      "index": 120
     },
     {
-      "time": 96.48313194513743,
+      "time": 96.48029224391976,
       "inst": "hat",
       "vel": 0.35,
       "bar": 39,
-      "beat": 3.51,
-      "index": 229
+      "beat": 3.5,
+      "index": 121
     },
     {
-      "time": 96.77783921711062,
+      "time": 96.77587821902601,
       "inst": "hat",
       "vel": 0.55,
       "bar": 39,
       "beat": 4.0,
-      "index": 230
+      "index": 122
     },
     {
-      "time": 97.0805923790266,
+      "time": 97.07894072276332,
       "inst": "hat",
       "vel": 0.35,
       "bar": 39,
-      "beat": 4.51,
-      "index": 231
+      "beat": 4.5,
+      "index": 123
     },
     {
       "time": 97.376,
@@ -1864,15 +1000,15 @@
       "vel": 0.95,
       "bar": 40,
       "beat": 1.0,
-      "index": 232
+      "index": 124
     },
     {
       "time": 98.5813,
       "inst": "kick",
       "vel": 0.9,
       "bar": 40,
-      "beat": 3.01,
-      "index": 233
+      "beat": 3.0,
+      "index": 125
     },
     {
       "time": 97.9733,
@@ -1880,79 +1016,79 @@
       "vel": 0.85,
       "bar": 40,
       "beat": 2.0,
-      "index": 234
+      "index": 126
     },
     {
       "time": 99.168,
       "inst": "snare",
       "vel": 0.9,
       "bar": 40,
-      "beat": 3.99,
-      "index": 235
+      "beat": 4.0,
+      "index": 127
     },
     {
-      "time": 97.37481579021149,
+      "time": 97.37414115007792,
       "inst": "hat",
       "vel": 0.55,
-      "bar": 39,
-      "beat": 5.0,
-      "index": 236
+      "bar": 40,
+      "beat": 1.0,
+      "index": 128
     },
     {
-      "time": 97.67207050191877,
+      "time": 97.67490579547923,
       "inst": "hat",
       "vel": 0.35,
       "bar": 40,
-      "beat": 1.49,
-      "index": 237
+      "beat": 1.5,
+      "index": 129
     },
     {
-      "time": 97.97303557073394,
+      "time": 97.97725129029178,
       "inst": "hat",
       "vel": 0.55,
       "bar": 40,
       "beat": 2.0,
-      "index": 238
+      "index": 130
     },
     {
-      "time": 98.2770555383782,
+      "time": 98.27671193463152,
       "inst": "hat",
       "vel": 0.35,
       "bar": 40,
       "beat": 2.5,
-      "index": 239
+      "index": 131
     },
     {
-      "time": 98.58493165366643,
+      "time": 98.57793780823505,
       "inst": "hat",
       "vel": 0.55,
       "bar": 40,
-      "beat": 3.01,
-      "index": 240
+      "beat": 3.0,
+      "index": 132
     },
     {
-      "time": 98.87494224391978,
+      "time": 98.87580447772662,
       "inst": "hat",
       "vel": 0.35,
       "bar": 40,
       "beat": 3.5,
-      "index": 241
+      "index": 133
     },
     {
-      "time": 99.16517821902602,
+      "time": 99.16616264473716,
       "inst": "hat",
       "vel": 0.55,
       "bar": 40,
-      "beat": 3.98,
-      "index": 242
+      "beat": 4.0,
+      "index": 134
     },
     {
-      "time": 99.47359072276333,
+      "time": 99.46897156897667,
       "inst": "hat",
       "vel": 0.35,
       "bar": 40,
       "beat": 4.5,
-      "index": 243
+      "index": 135
     },
     {
       "time": 99.776,
@@ -1960,15 +1096,15 @@
       "vel": 0.95,
       "bar": 41,
       "beat": 1.0,
-      "index": 244
+      "index": 136
     },
     {
       "time": 100.9813,
       "inst": "kick",
       "vel": 0.9,
       "bar": 41,
-      "beat": 3.01,
-      "index": 245
+      "beat": 3.0,
+      "index": 137
     },
     {
       "time": 100.3733,
@@ -1976,7 +1112,7 @@
       "vel": 0.85,
       "bar": 41,
       "beat": 2.0,
-      "index": 246
+      "index": 138
     },
     {
       "time": 101.5787,
@@ -1984,71 +1120,71 @@
       "vel": 0.9,
       "bar": 41,
       "beat": 4.0,
-      "index": 247
+      "index": 139
     },
     {
-      "time": 99.77414115007791,
+      "time": 99.77628761941662,
       "inst": "hat",
       "vel": 0.55,
-      "bar": 40,
-      "beat": 5.0,
-      "index": 248
+      "bar": 41,
+      "beat": 1.0,
+      "index": 140
     },
     {
-      "time": 100.07490579547922,
+      "time": 100.07174738429633,
       "inst": "hat",
       "vel": 0.35,
       "bar": 41,
       "beat": 1.5,
-      "index": 249
+      "index": 141
     },
     {
-      "time": 100.37725129029178,
+      "time": 100.37401480316613,
       "inst": "hat",
       "vel": 0.55,
       "bar": 41,
       "beat": 2.0,
-      "index": 250
+      "index": 142
     },
     {
-      "time": 100.67671193463153,
+      "time": 100.67922298027574,
       "inst": "hat",
       "vel": 0.35,
       "bar": 41,
       "beat": 2.5,
-      "index": 251
+      "index": 143
     },
     {
-      "time": 100.97793780823505,
+      "time": 100.9802693379843,
       "inst": "hat",
       "vel": 0.55,
       "bar": 41,
       "beat": 3.0,
-      "index": 252
+      "index": 144
     },
     {
-      "time": 101.28115447772662,
+      "time": 101.28376679669844,
       "inst": "hat",
       "vel": 0.35,
       "bar": 41,
-      "beat": 3.51,
-      "index": 253
+      "beat": 3.5,
+      "index": 145
     },
     {
-      "time": 101.57686264473715,
+      "time": 101.58110829306517,
       "inst": "hat",
       "vel": 0.55,
       "bar": 41,
       "beat": 4.0,
-      "index": 254
+      "index": 146
     },
     {
-      "time": 101.87432156897667,
+      "time": 101.8774275182928,
       "inst": "hat",
       "vel": 0.35,
       "bar": 41,
       "beat": 4.5,
-      "index": 255
+      "index": 147
     },
     {
       "time": 102.176,
@@ -2056,15 +1192,15 @@
       "vel": 0.95,
       "bar": 42,
       "beat": 1.0,
-      "index": 256
+      "index": 148
     },
     {
       "time": 103.3813,
       "inst": "kick",
       "vel": 0.9,
       "bar": 42,
-      "beat": 3.01,
-      "index": 257
+      "beat": 3.0,
+      "index": 149
     },
     {
       "time": 102.7733,
@@ -2072,79 +1208,79 @@
       "vel": 0.85,
       "bar": 42,
       "beat": 2.0,
-      "index": 258
+      "index": 150
     },
     {
       "time": 103.968,
       "inst": "snare",
       "vel": 0.9,
       "bar": 42,
-      "beat": 3.99,
-      "index": 259
+      "beat": 4.0,
+      "index": 151
     },
     {
-      "time": 102.17628761941663,
+      "time": 102.17760721581587,
       "inst": "hat",
       "vel": 0.55,
       "bar": 42,
       "beat": 1.0,
-      "index": 260
+      "index": 152
     },
     {
-      "time": 102.47174738429634,
+      "time": 102.47412819420327,
       "inst": "hat",
       "vel": 0.35,
       "bar": 42,
-      "beat": 1.49,
-      "index": 261
+      "beat": 1.5,
+      "index": 153
     },
     {
-      "time": 102.77401480316614,
+      "time": 102.77304834161495,
       "inst": "hat",
       "vel": 0.55,
       "bar": 42,
       "beat": 2.0,
-      "index": 262
+      "index": 154
     },
     {
-      "time": 103.07922298027574,
+      "time": 103.07973186896852,
       "inst": "hat",
       "vel": 0.35,
       "bar": 42,
-      "beat": 2.51,
-      "index": 263
+      "beat": 2.5,
+      "index": 155
     },
     {
-      "time": 103.38026933798429,
+      "time": 103.38416567369451,
       "inst": "hat",
       "vel": 0.55,
       "bar": 42,
-      "beat": 3.01,
-      "index": 264
+      "beat": 3.0,
+      "index": 156
     },
     {
-      "time": 103.67841679669844,
+      "time": 103.67375009151004,
       "inst": "hat",
       "vel": 0.35,
       "bar": 42,
       "beat": 3.5,
-      "index": 265
+      "index": 157
     },
     {
-      "time": 103.97040829306518,
+      "time": 103.9693491294525,
       "inst": "hat",
       "vel": 0.55,
       "bar": 42,
-      "beat": 3.99,
-      "index": 266
+      "beat": 4.0,
+      "index": 158
     },
     {
-      "time": 104.27207751829279,
+      "time": 104.27360295391352,
       "inst": "hat",
       "vel": 0.35,
       "bar": 42,
-      "beat": 4.49,
-      "index": 267
+      "beat": 4.5,
+      "index": 159
     },
     {
       "time": 104.576,
@@ -2152,15 +1288,15 @@
       "vel": 0.95,
       "bar": 43,
       "beat": 1.0,
-      "index": 268
+      "index": 160
     },
     {
       "time": 105.7813,
       "inst": "kick",
       "vel": 0.9,
       "bar": 43,
-      "beat": 3.01,
-      "index": 269
+      "beat": 3.0,
+      "index": 161
     },
     {
       "time": 105.1733,
@@ -2168,7 +1304,7 @@
       "vel": 0.85,
       "bar": 43,
       "beat": 2.0,
-      "index": 270
+      "index": 162
     },
     {
       "time": 106.3787,
@@ -2176,71 +1312,71 @@
       "vel": 0.9,
       "bar": 43,
       "beat": 4.0,
-      "index": 271
+      "index": 163
     },
     {
-      "time": 104.57760721581586,
+      "time": 104.5786660495873,
       "inst": "hat",
       "vel": 0.55,
       "bar": 43,
       "beat": 1.0,
-      "index": 272
+      "index": 164
     },
     {
-      "time": 104.87412819420328,
+      "time": 104.87604049750698,
       "inst": "hat",
       "vel": 0.35,
       "bar": 43,
       "beat": 1.5,
-      "index": 273
+      "index": 165
     },
     {
-      "time": 105.17304834161494,
+      "time": 105.17593387424454,
       "inst": "hat",
       "vel": 0.55,
       "bar": 43,
       "beat": 2.0,
-      "index": 274
+      "index": 166
     },
     {
-      "time": 105.47973186896851,
+      "time": 105.47396534769379,
       "inst": "hat",
       "vel": 0.35,
       "bar": 43,
-      "beat": 2.51,
-      "index": 275
+      "beat": 2.5,
+      "index": 167
     },
     {
-      "time": 105.78416567369452,
+      "time": 105.7781211481278,
       "inst": "hat",
       "vel": 0.55,
       "bar": 43,
-      "beat": 3.01,
-      "index": 276
+      "beat": 3.0,
+      "index": 168
     },
     {
-      "time": 106.07910009151004,
+      "time": 106.07618604863536,
       "inst": "hat",
       "vel": 0.35,
       "bar": 43,
-      "beat": 3.51,
-      "index": 277
+      "beat": 3.5,
+      "index": 169
     },
     {
-      "time": 106.38004912945249,
+      "time": 106.37725002163994,
       "inst": "hat",
       "vel": 0.55,
       "bar": 43,
-      "beat": 4.01,
-      "index": 278
+      "beat": 4.0,
+      "index": 170
     },
     {
-      "time": 106.67895295391352,
+      "time": 106.67603469424911,
       "inst": "hat",
       "vel": 0.35,
       "bar": 43,
       "beat": 4.5,
-      "index": 279
+      "index": 171
     },
     {
       "time": 106.976,
@@ -2248,15 +1384,15 @@
       "vel": 0.95,
       "bar": 44,
       "beat": 1.0,
-      "index": 280
+      "index": 172
     },
     {
       "time": 108.1813,
       "inst": "kick",
       "vel": 0.9,
       "bar": 44,
-      "beat": 3.01,
-      "index": 281
+      "beat": 3.0,
+      "index": 173
     },
     {
       "time": 107.5733,
@@ -2264,79 +1400,79 @@
       "vel": 0.85,
       "bar": 44,
       "beat": 2.0,
-      "index": 282
+      "index": 174
     },
     {
       "time": 108.768,
       "inst": "snare",
       "vel": 0.9,
       "bar": 44,
-      "beat": 3.99,
-      "index": 283
+      "beat": 4.0,
+      "index": 175
     },
     {
-      "time": 106.9786660495873,
+      "time": 106.9799399586662,
       "inst": "hat",
       "vel": 0.55,
       "bar": 44,
       "beat": 1.0,
-      "index": 284
+      "index": 176
     },
     {
-      "time": 107.27604049750698,
+      "time": 107.27242019125917,
       "inst": "hat",
       "vel": 0.35,
       "bar": 44,
       "beat": 1.5,
-      "index": 285
+      "index": 177
     },
     {
-      "time": 107.57593387424454,
+      "time": 107.57383524027878,
       "inst": "hat",
       "vel": 0.55,
       "bar": 44,
       "beat": 2.0,
-      "index": 286
+      "index": 178
     },
     {
-      "time": 107.87396534769378,
+      "time": 107.87738947939926,
       "inst": "hat",
       "vel": 0.35,
       "bar": 44,
       "beat": 2.5,
-      "index": 287
+      "index": 179
     },
     {
-      "time": 108.17812114812779,
+      "time": 108.179116226853,
       "inst": "hat",
       "vel": 0.55,
       "bar": 44,
       "beat": 3.0,
-      "index": 288
+      "index": 180
     },
     {
-      "time": 108.47083604863536,
+      "time": 108.47457483718757,
       "inst": "hat",
       "vel": 0.35,
       "bar": 44,
-      "beat": 3.49,
-      "index": 289
+      "beat": 3.5,
+      "index": 181
     },
     {
-      "time": 108.76655002163994,
+      "time": 108.76610158122307,
       "inst": "hat",
       "vel": 0.55,
       "bar": 44,
-      "beat": 3.98,
-      "index": 290
+      "beat": 4.0,
+      "index": 182
     },
     {
-      "time": 109.07068469424912,
+      "time": 109.06812804235729,
       "inst": "hat",
       "vel": 0.35,
       "bar": 44,
-      "beat": 4.49,
-      "index": 291
+      "beat": 4.5,
+      "index": 183
     },
     {
       "time": 109.376,
@@ -2344,15 +1480,15 @@
       "vel": 0.95,
       "bar": 45,
       "beat": 1.0,
-      "index": 292
+      "index": 184
     },
     {
       "time": 110.5813,
       "inst": "kick",
       "vel": 0.9,
       "bar": 45,
-      "beat": 3.01,
-      "index": 293
+      "beat": 3.0,
+      "index": 185
     },
     {
       "time": 109.9733,
@@ -2360,7 +1496,7 @@
       "vel": 0.85,
       "bar": 45,
       "beat": 2.0,
-      "index": 294
+      "index": 186
     },
     {
       "time": 111.1787,
@@ -2368,71 +1504,71 @@
       "vel": 0.9,
       "bar": 45,
       "beat": 4.0,
-      "index": 295
+      "index": 187
     },
     {
-      "time": 109.3799399586662,
+      "time": 109.37399259716013,
       "inst": "hat",
       "vel": 0.55,
       "bar": 45,
-      "beat": 1.01,
-      "index": 296
+      "beat": 1.0,
+      "index": 188
     },
     {
-      "time": 109.67242019125916,
+      "time": 109.67716172951793,
       "inst": "hat",
       "vel": 0.35,
       "bar": 45,
-      "beat": 1.49,
-      "index": 297
+      "beat": 1.5,
+      "index": 189
     },
     {
-      "time": 109.97383524027877,
+      "time": 109.97185064236773,
       "inst": "hat",
       "vel": 0.55,
       "bar": 45,
       "beat": 2.0,
-      "index": 298
+      "index": 190
     },
     {
-      "time": 110.27738947939926,
+      "time": 110.27401913105533,
       "inst": "hat",
       "vel": 0.35,
       "bar": 45,
       "beat": 2.5,
-      "index": 299
+      "index": 191
     },
     {
-      "time": 110.579116226853,
+      "time": 110.58125366507068,
       "inst": "hat",
       "vel": 0.55,
       "bar": 45,
-      "beat": 3.01,
-      "index": 300
+      "beat": 3.0,
+      "index": 192
     },
     {
-      "time": 110.87992483718757,
+      "time": 110.88079735449034,
       "inst": "hat",
       "vel": 0.35,
       "bar": 45,
-      "beat": 3.51,
-      "index": 301
+      "beat": 3.5,
+      "index": 193
     },
     {
-      "time": 111.17680158122307,
+      "time": 111.17515495222472,
       "inst": "hat",
       "vel": 0.55,
       "bar": 45,
       "beat": 4.0,
-      "index": 302
+      "index": 194
     },
     {
-      "time": 111.47347804235729,
+      "time": 111.47424007990843,
       "inst": "hat",
       "vel": 0.35,
       "bar": 45,
       "beat": 4.5,
-      "index": 303
+      "index": 195
     },
     {
       "time": 111.776,
@@ -2440,15 +1576,15 @@
       "vel": 0.95,
       "bar": 46,
       "beat": 1.0,
-      "index": 304
+      "index": 196
     },
     {
       "time": 112.9707,
       "inst": "kick",
       "vel": 0.9,
       "bar": 46,
-      "beat": 2.99,
-      "index": 305
+      "beat": 3.0,
+      "index": 197
     },
     {
       "time": 112.3733,
@@ -2456,443 +1592,301 @@
       "vel": 0.85,
       "bar": 46,
       "beat": 2.0,
-      "index": 306
+      "index": 198
     },
     {
       "time": 113.568,
       "inst": "snare",
       "vel": 0.9,
       "bar": 46,
-      "beat": 3.99,
-      "index": 307
+      "beat": 4.0,
+      "index": 199
     },
     {
-      "time": 111.77399259716012,
+      "time": 111.77334940904538,
       "inst": "hat",
       "vel": 0.55,
-      "bar": 45,
-      "beat": 5.0,
-      "index": 308
+      "bar": 46,
+      "beat": 1.0,
+      "index": 200
     },
     {
-      "time": 112.07716172951793,
+      "time": 112.07159980048336,
       "inst": "hat",
       "vel": 0.35,
       "bar": 46,
       "beat": 1.5,
-      "index": 309
+      "index": 201
     },
     {
-      "time": 112.37185064236773,
+      "time": 112.37081847161423,
       "inst": "hat",
       "vel": 0.55,
       "bar": 46,
-      "beat": 1.99,
-      "index": 310
-    },
-    {
-      "time": 112.66871913105533,
-      "inst": "hat",
-      "vel": 0.35,
-      "bar": 46,
-      "beat": 2.49,
-      "index": 311
-    },
-    {
-      "time": 112.97065366507067,
-      "inst": "hat",
-      "vel": 0.55,
-      "bar": 46,
-      "beat": 2.99,
-      "index": 312
-    },
-    {
-      "time": 113.27014735449035,
-      "inst": "hat",
-      "vel": 0.35,
-      "bar": 46,
-      "beat": 3.49,
-      "index": 313
-    },
-    {
-      "time": 113.56445495222471,
-      "inst": "hat",
-      "vel": 0.55,
-      "bar": 46,
-      "beat": 3.98,
-      "index": 314
-    },
-    {
-      "time": 113.86889007990843,
-      "inst": "hat",
-      "vel": 0.35,
-      "bar": 46,
-      "beat": 4.49,
-      "index": 315
-    },
-    {
-      "time": 114.176,
-      "inst": "kick",
-      "vel": 0.95,
-      "bar": 47,
-      "beat": 1.0,
-      "index": 316
-    },
-    {
-      "time": 115.3813,
-      "inst": "kick",
-      "vel": 0.9,
-      "bar": 47,
-      "beat": 3.05,
-      "index": 317
-    },
-    {
-      "time": 114.7627,
-      "inst": "snare",
-      "vel": 0.85,
-      "bar": 47,
       "beat": 2.0,
-      "index": 318
+      "index": 202
     },
     {
-      "time": 115.9573,
-      "inst": "snare",
-      "vel": 0.9,
-      "bar": 47,
-      "beat": 4.02,
-      "index": 319
+      "time": 112.6690231427091,
+      "inst": "hat",
+      "vel": 0.35,
+      "bar": 46,
+      "beat": 2.5,
+      "index": 203
     },
     {
-      "time": 114.17334940904539,
+      "time": 112.97081268952007,
       "inst": "hat",
       "vel": 0.55,
       "bar": 46,
-      "beat": 5.0,
-      "index": 320
+      "beat": 3.0,
+      "index": 204
     },
     {
-      "time": 114.46629980048336,
+      "time": 113.26651728628268,
       "inst": "hat",
       "vel": 0.35,
-      "bar": 47,
-      "beat": 1.49,
-      "index": 321
+      "bar": 46,
+      "beat": 3.5,
+      "index": 205
     },
     {
-      "time": 114.76021847161422,
+      "time": 113.57116474331767,
       "inst": "hat",
       "vel": 0.55,
-      "bar": 47,
-      "beat": 1.99,
-      "index": 322
+      "bar": 46,
+      "beat": 4.0,
+      "index": 206
     },
     {
-      "time": 115.0690231427091,
+      "time": 113.87189038162641,
       "inst": "hat",
       "vel": 0.35,
-      "bar": 47,
-      "beat": 2.52,
-      "index": 323
+      "bar": 46,
+      "beat": 4.5,
+      "index": 207
     },
     {
-      "time": 115.38141268952008,
-      "inst": "hat",
-      "vel": 0.55,
-      "bar": 47,
-      "beat": 3.05,
-      "index": 324
-    },
-    {
-      "time": 115.66646728628267,
-      "inst": "hat",
-      "vel": 0.35,
-      "bar": 47,
-      "beat": 3.53,
-      "index": 325
-    },
-    {
-      "time": 115.96046474331767,
-      "inst": "hat",
-      "vel": 0.55,
-      "bar": 47,
-      "beat": 4.03,
-      "index": 326
-    },
-    {
-      "time": 116.24519038162641,
-      "inst": "hat",
-      "vel": 0.35,
-      "bar": 47,
-      "beat": 4.51,
-      "index": 327
-    },
-    {
-      "time": 115.9573,
+      "time": 113.568,
       "inst": "snare",
       "vel": 0.5,
-      "bar": 47,
-      "beat": 4.02,
-      "index": 328
+      "bar": 46,
+      "beat": 4.0,
+      "index": 208
     },
     {
-      "time": 116.10130000000001,
+      "time": 113.72,
       "inst": "snare",
       "vel": 0.54,
-      "bar": 47,
-      "beat": 4.27,
-      "index": 329
+      "bar": 46,
+      "beat": 4.25,
+      "index": 209
     },
     {
-      "time": 116.2453,
+      "time": 113.872,
       "inst": "snare",
       "vel": 0.58,
-      "bar": 47,
-      "beat": 4.51,
-      "index": 330
+      "bar": 46,
+      "beat": 4.5,
+      "index": 210
     },
     {
-      "time": 116.38929999999999,
+      "time": 114.024,
       "inst": "snare",
       "vel": 0.62,
-      "bar": 47,
-      "beat": 4.76,
-      "index": 331
+      "bar": 46,
+      "beat": 4.75,
+      "index": 211
     }
   ],
   "bass_notes": [
+    {
+      "start": 37.376,
+      "end": 39.746,
+      "midi": 44,
+      "vel": 0.85,
+      "bar": 15,
+      "beat": 1.0,
+      "index": 0
+    },
     {
       "start": 39.776,
       "end": 42.146,
       "midi": 44,
       "vel": 0.85,
-      "index": 0
+      "bar": 16,
+      "beat": 1.0,
+      "index": 1
     },
     {
       "start": 42.176,
       "end": 44.546,
       "midi": 44,
       "vel": 0.85,
-      "index": 1
-    },
-    {
-      "start": 44.576,
-      "end": 46.946,
-      "midi": 44,
-      "vel": 0.85,
+      "bar": 17,
+      "beat": 1.0,
       "index": 2
     },
     {
-      "start": 46.976,
-      "end": 48.1813,
-      "midi": 44,
+      "start": 44.576,
+      "end": 45.7813,
+      "midi": 39,
       "vel": 0.85,
+      "bar": 18,
+      "beat": 1.0,
       "index": 3
     },
     {
-      "start": 48.1813,
-      "end": 49.376,
-      "midi": 32,
+      "start": 45.7813,
+      "end": 46.976,
+      "midi": 27,
       "vel": 0.8,
+      "bar": 18,
+      "beat": 3.0,
       "index": 4
+    },
+    {
+      "start": 46.976,
+      "end": 49.346,
+      "midi": 41,
+      "vel": 0.85,
+      "bar": 19,
+      "beat": 1.0,
+      "index": 5
     },
     {
       "start": 49.376,
       "end": 51.746,
       "midi": 39,
       "vel": 0.85,
-      "index": 5
-    },
-    {
-      "start": 51.776,
-      "end": 54.146,
-      "midi": 44,
-      "vel": 0.85,
+      "bar": 20,
+      "beat": 1.0,
       "index": 6
     },
     {
-      "start": 54.176,
-      "end": 56.546,
-      "midi": 39,
+      "start": 87.776,
+      "end": 90.146,
+      "midi": 44,
       "vel": 0.85,
+      "bar": 36,
+      "beat": 1.0,
       "index": 7
-    },
-    {
-      "start": 56.576,
-      "end": 57.7813,
-      "midi": 44,
-      "vel": 0.85,
-      "index": 8
-    },
-    {
-      "start": 57.7813,
-      "end": 58.976,
-      "midi": 32,
-      "vel": 0.8,
-      "index": 9
-    },
-    {
-      "start": 58.976,
-      "end": 61.346,
-      "midi": 44,
-      "vel": 0.85,
-      "index": 10
-    },
-    {
-      "start": 61.376,
-      "end": 63.746,
-      "midi": 44,
-      "vel": 0.85,
-      "index": 11
-    },
-    {
-      "start": 63.776,
-      "end": 66.146,
-      "midi": 44,
-      "vel": 0.85,
-      "index": 12
-    },
-    {
-      "start": 66.176,
-      "end": 67.3813,
-      "midi": 42,
-      "vel": 0.85,
-      "index": 13
-    },
-    {
-      "start": 67.3813,
-      "end": 68.576,
-      "midi": 30,
-      "vel": 0.8,
-      "index": 14
-    },
-    {
-      "start": 68.576,
-      "end": 70.946,
-      "midi": 39,
-      "vel": 0.85,
-      "index": 15
-    },
-    {
-      "start": 70.976,
-      "end": 73.346,
-      "midi": 39,
-      "vel": 0.85,
-      "index": 16
-    },
-    {
-      "start": 73.376,
-      "end": 75.746,
-      "midi": 39,
-      "vel": 0.85,
-      "index": 17
-    },
-    {
-      "start": 75.776,
-      "end": 76.9813,
-      "midi": 39,
-      "vel": 0.85,
-      "index": 18
-    },
-    {
-      "start": 76.9813,
-      "end": 78.176,
-      "midi": 27,
-      "vel": 0.8,
-      "index": 19
     },
     {
       "start": 90.176,
       "end": 92.54599999999999,
-      "midi": 47,
+      "midi": 39,
       "vel": 0.85,
-      "index": 20
+      "bar": 37,
+      "beat": 1.0,
+      "index": 8
     },
     {
       "start": 92.576,
       "end": 94.946,
-      "midi": 39,
+      "midi": 44,
       "vel": 0.85,
-      "index": 21
+      "bar": 38,
+      "beat": 1.0,
+      "index": 9
     },
     {
       "start": 94.976,
-      "end": 97.346,
+      "end": 96.1813,
       "midi": 39,
       "vel": 0.85,
-      "index": 22
+      "bar": 39,
+      "beat": 1.0,
+      "index": 10
+    },
+    {
+      "start": 96.1813,
+      "end": 97.376,
+      "midi": 27,
+      "vel": 0.8,
+      "bar": 39,
+      "beat": 3.0,
+      "index": 11
     },
     {
       "start": 97.376,
-      "end": 98.5813,
-      "midi": 39,
+      "end": 99.746,
+      "midi": 44,
       "vel": 0.85,
-      "index": 23
-    },
-    {
-      "start": 98.5813,
-      "end": 99.776,
-      "midi": 27,
-      "vel": 0.8,
-      "index": 24
+      "bar": 40,
+      "beat": 1.0,
+      "index": 12
     },
     {
       "start": 99.776,
       "end": 102.146,
       "midi": 39,
       "vel": 0.85,
-      "index": 25
+      "bar": 41,
+      "beat": 1.0,
+      "index": 13
     },
     {
       "start": 102.176,
       "end": 104.54599999999999,
-      "midi": 39,
+      "midi": 44,
       "vel": 0.85,
-      "index": 26
+      "bar": 42,
+      "beat": 1.0,
+      "index": 14
     },
     {
       "start": 104.576,
-      "end": 106.946,
-      "midi": 42,
+      "end": 105.7813,
+      "midi": 39,
       "vel": 0.85,
-      "index": 27
+      "bar": 43,
+      "beat": 1.0,
+      "index": 15
+    },
+    {
+      "start": 105.7813,
+      "end": 106.976,
+      "midi": 27,
+      "vel": 0.8,
+      "bar": 43,
+      "beat": 3.0,
+      "index": 16
     },
     {
       "start": 106.976,
-      "end": 108.1813,
+      "end": 109.346,
       "midi": 42,
       "vel": 0.85,
-      "index": 28
-    },
-    {
-      "start": 108.1813,
-      "end": 109.376,
-      "midi": 30,
-      "vel": 0.8,
-      "index": 29
+      "bar": 44,
+      "beat": 1.0,
+      "index": 17
     },
     {
       "start": 109.376,
       "end": 111.746,
       "midi": 39,
       "vel": 0.85,
-      "index": 30
+      "bar": 45,
+      "beat": 1.0,
+      "index": 18
     },
     {
       "start": 111.776,
       "end": 114.146,
-      "midi": 39,
-      "vel": 0.85,
-      "index": 31
-    },
-    {
-      "start": 114.176,
-      "end": 116.5033,
       "midi": 44,
       "vel": 0.85,
-      "index": 32
+      "bar": 46,
+      "beat": 1.0,
+      "index": 19
     }
   ],
   "pad_chords": [
+    {
+      "orig_start": 37.376,
+      "dur": 2.7,
+      "chord": "G#m"
+    },
     {
       "orig_start": 39.776,
       "dur": 2.7,
@@ -2906,12 +1900,12 @@
     {
       "orig_start": 44.576,
       "dur": 2.7,
-      "chord": "G#m"
+      "chord": "D#m"
     },
     {
       "orig_start": 46.976,
       "dur": 2.7,
-      "chord": "G#m"
+      "chord": "F"
     },
     {
       "orig_start": 49.376,
@@ -2919,69 +1913,19 @@
       "chord": "D#m"
     },
     {
-      "orig_start": 51.776,
+      "orig_start": 87.776,
       "dur": 2.7,
       "chord": "G#m"
-    },
-    {
-      "orig_start": 54.176,
-      "dur": 2.7,
-      "chord": "D#m"
-    },
-    {
-      "orig_start": 56.576,
-      "dur": 2.7,
-      "chord": "G#m"
-    },
-    {
-      "orig_start": 58.976,
-      "dur": 2.7,
-      "chord": "G#m"
-    },
-    {
-      "orig_start": 61.376,
-      "dur": 2.7,
-      "chord": "G#m"
-    },
-    {
-      "orig_start": 63.776,
-      "dur": 2.7,
-      "chord": "G#m"
-    },
-    {
-      "orig_start": 66.176,
-      "dur": 2.7,
-      "chord": "F#"
-    },
-    {
-      "orig_start": 68.576,
-      "dur": 2.7,
-      "chord": "D#m"
-    },
-    {
-      "orig_start": 70.976,
-      "dur": 2.7,
-      "chord": "D#m"
-    },
-    {
-      "orig_start": 73.376,
-      "dur": 2.7,
-      "chord": "D#m"
-    },
-    {
-      "orig_start": 75.776,
-      "dur": 2.7,
-      "chord": "D#m"
     },
     {
       "orig_start": 90.176,
       "dur": 2.7,
-      "chord": "B"
+      "chord": "D#m"
     },
     {
       "orig_start": 92.576,
       "dur": 2.7,
-      "chord": "D#m"
+      "chord": "G#m"
     },
     {
       "orig_start": 94.976,
@@ -2991,7 +1935,7 @@
     {
       "orig_start": 97.376,
       "dur": 2.7,
-      "chord": "D#m"
+      "chord": "G#m"
     },
     {
       "orig_start": 99.776,
@@ -3001,12 +1945,12 @@
     {
       "orig_start": 102.176,
       "dur": 2.7,
-      "chord": "D#m"
+      "chord": "G#m"
     },
     {
       "orig_start": 104.576,
       "dur": 2.7,
-      "chord": "F#"
+      "chord": "D#m"
     },
     {
       "orig_start": 106.976,
@@ -3021,11 +1965,6 @@
     {
       "orig_start": 111.776,
       "dur": 2.7,
-      "chord": "D#m"
-    },
-    {
-      "orig_start": 114.176,
-      "dur": 2.657,
       "chord": "G#m"
     }
   ]

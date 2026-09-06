@@ -4,14 +4,15 @@
   "highpass_hz": 20.0,
   "side_gain": 0.92,
   "limiter_oversampling": 4,
-  "gain_pass1_db": 2.87,
+  "gain_pass1_db": 2.65,
   "gain_pass2_db": 0.0,
   "ab_compare": {
-    "orig_start_s": 33.62,
-    "arranged_start_s": 38.4,
-    "matched_lufs": -16.19,
+    "orig_start_s": 52.97,
+    "arranged_start_s": 55.98,
+    "matched_lufs": -16.32,
+    "no_limiting_applied": true,
     "order": "original 24 s -> 1 s silence -> arranged 24 s"
   },
-  "premaster_correlation": 0.914,
+  "premaster_correlation": 0.916,
   "note": "Target loudness is this session's setting, not a distributor pass mark. Distributors normalise anyway."
 }

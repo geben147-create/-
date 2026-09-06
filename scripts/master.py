@@ -48,10 +48,13 @@ def master(track_dir: str, manifest: dict, target_lufs: float = -14.0, ceiling_d
     a = orig[int(t_orig * 44100): int(t_orig * 44100) + seg_len]
     b = y44[int((t_orig + off) * 44100): int((t_orig + off) * 44100) + seg_len]
     la = integrated_lufs(a, 44100); lb = integrated_lufs(b, 44100)
-    ref = min(la, lb, -14.0)
+    from audiolib import true_peak_dbtp as _tp
+    tpa, tpb = _tp(a, 44100), _tp(b, 44100)
+    # choose the matched level so that NEITHER half needs limiting (limiting only one half would
+    # change the very thing the comparison is testing)
+    ref = min(la, lb, -14.0, la - (tpa - (-1.0)), lb - (tpb - (-1.0)))
     a = a * 10 ** ((ref - la) / 20); b = b * 10 ** ((ref - lb) / 20)
     ab = np.concatenate([a, np.zeros((44100, 2)), b])
-    ab = limiter(ab, 44100, -1.0)
     ab_wav = os.path.join(mdir, "AB_original24s_silence1s_arranged24s.wav")
     save_wav(ab_wav, ab, 44100, subtype="PCM_16", dither=True)
     ab_mp3 = ab_wav.replace(".wav", ".mp3")
@@ -61,6 +64,7 @@ def master(track_dir: str, manifest: dict, target_lufs: float = -14.0, ceiling_d
     settings = {"target_lufs": target_lufs, "ceiling_dbtp": ceiling_dbtp, "highpass_hz": 20.0, "side_gain": side_gain,
                 "limiter_oversampling": 4, "gain_pass1_db": round(g1, 2), "gain_pass2_db": round(g2, 2),
                 "ab_compare": {"orig_start_s": round(t_orig, 2), "arranged_start_s": round(t_orig + off, 2), "matched_lufs": round(ref, 2),
+                               "no_limiting_applied": True,
                                "order": "original 24 s -> 1 s silence -> arranged 24 s"},
                 "premaster_correlation": round(st["correlation"], 3),
                 "note": "Target loudness is this session's setting, not a distributor pass mark. Distributors normalise anyway."}

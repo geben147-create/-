@@ -10,7 +10,7 @@
     },
     "analyze": {
       "ok": true,
-      "seconds": 26.0,
+      "seconds": 26.4,
       "result": {
         "tempo": 100.45,
         "key": "A major",
@@ -20,11 +20,11 @@
     },
     "separate": {
       "ok": true,
-      "seconds": 2.2,
+      "seconds": 1.2,
       "result": {
         "backend": "demucs-htdemucs",
         "stems_dir": "01_stems/htdemucs/original",
-        "seconds": 2.2,
+        "seconds": 1.2,
         "note": "",
         "sum_correlation": 0.99977,
         "sum_relative_rms_error": 0.028832
@@ -32,7 +32,7 @@
     },
     "midi": {
       "ok": true,
-      "seconds": 11.9,
+      "seconds": 10.0,
       "result": {
         "bass": {
           "notes": 317,
@@ -50,62 +50,63 @@
     },
     "proposals": {
       "ok": true,
-      "seconds": 7.2,
+      "seconds": 5.9,
       "result": {
         "window": [
-          20.971,
-          40.171
+          18.571,
+          37.76
         ],
         "variants": 3
       }
     },
     "arrange": {
       "ok": true,
-      "seconds": 17.1,
+      "seconds": 9.2,
       "result": {
-        "intro_s": 4.778,
+        "intro_s": 3.008,
         "changed": [
           [
-            42.399,
-            66.549
+            59.979,
+            76.779
           ],
           [
-            66.549,
-            80.799
+            88.629,
+            111.888
           ]
         ],
         "counts": {
-          "drum_events": 200,
-          "bass_notes": 19,
-          "pad_chords": 16
+          "drum_events": 208,
+          "bass_notes": 20,
+          "pad_chords": 17
         },
-        "duration_out": 113.659
+        "duration_out": 111.888
       }
     },
     "master": {
       "ok": true,
-      "seconds": 27.0,
+      "seconds": 22.6,
       "result": {
         "target_lufs": -14.0,
         "ceiling_dbtp": -1.0,
         "highpass_hz": 20.0,
         "side_gain": 0.92,
         "limiter_oversampling": 4,
-        "gain_pass1_db": 2.87,
+        "gain_pass1_db": 2.65,
         "gain_pass2_db": 0.0,
         "ab_compare": {
-          "orig_start_s": 33.62,
-          "arranged_start_s": 38.4,
-          "matched_lufs": -16.19,
+          "orig_start_s": 52.97,
+          "arranged_start_s": 55.98,
+          "matched_lufs": -16.32,
+          "no_limiting_applied": true,
           "order": "original 24 s -> 1 s silence -> arranged 24 s"
         },
-        "premaster_correlation": 0.914,
+        "premaster_correlation": 0.916,
         "note": "Target loudness is this session's setting, not a distributor pass mark. Distributors normalise anyway."
       }
     },
     "qc": {
       "ok": true,
-      "seconds": 11.2,
+      "seconds": 13.4,
       "result": {
         "pass": true,
         "lufs": -14.2,
@@ -114,7 +115,7 @@
     },
     "evidence": {
       "ok": true,
-      "seconds": 4.3,
+      "seconds": 2.5,
       "result": {
         "files_hashed": 65
       }

@@ -4,12 +4,13 @@
   "highpass_hz": 20.0,
   "side_gain": 0.92,
   "limiter_oversampling": 4,
-  "gain_pass1_db": 0.74,
+  "gain_pass1_db": 0.08,
   "gain_pass2_db": 0.0,
   "ab_compare": {
-    "orig_start_s": 41.74,
-    "arranged_start_s": 44.98,
+    "orig_start_s": 40.11,
+    "arranged_start_s": 43.31,
     "matched_lufs": -14.0,
+    "no_limiting_applied": true,
     "order": "original 24 s -> 1 s silence -> arranged 24 s"
   },
   "premaster_correlation": 0.799,

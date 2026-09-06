@@ -34,156 +34,166 @@
   "bars_total": 51,
   "intro": {
     "bars": 2,
-    "len_s": 4.778,
+    "len_s": 3.402,
     "chord": "G#m",
     "output_range": [
       0.0,
-      4.778
+      3.402
     ],
     "content": "pad + riser + hat pick-up (new)"
   },
-  "original_offset_in_output_s": 4.778,
+  "original_offset_in_output_s": 3.402,
   "tail_trimmed_s": 0.0,
   "changed_sections": [
     {
-      "section_index": 3,
+      "section_index": 2,
       "label": "hook",
-      "bars": 16,
+      "bars": 6,
       "orig_range": [
-        39.776,
-        78.176
+        37.376,
+        51.776
       ],
       "output_range": [
-        44.554,
-        82.954
+        40.778,
+        55.178
       ]
     },
     {
       "section_index": 5,
-      "label": "hook",
+      "label": "verse",
       "bars": 11,
       "orig_range": [
-        90.176,
-        116.533
+        87.776,
+        114.176
       ],
       "output_range": [
-        94.954,
-        121.311
+        91.178,
+        117.578
       ]
     }
   ],
   "breakdown": {
-    "orig_start": 87.787,
-    "orig_end": 90.176,
+    "orig_start": 85.387,
+    "orig_end": 87.776,
     "output_range": [
-      92.565,
-      94.954
+      88.789,
+      91.178
     ]
   },
   "events": [
     {
       "type": "stem_duck",
-      "orig_start": 39.776,
-      "orig_end": 78.176,
+      "orig_start": 37.376,
+      "orig_end": 51.776,
       "drums_db": -1.5,
       "bass_db": -3.0,
       "ramp_ms": 180
     },
     {
       "type": "stem_duck",
-      "orig_start": 90.176,
-      "orig_end": 116.533,
+      "orig_start": 87.776,
+      "orig_end": 114.176,
       "drums_db": -1.5,
       "bass_db": -3.0,
       "ramp_ms": 180
     },
     {
       "type": "breakdown",
-      "orig_start": 87.787,
-      "orig_end": 90.176,
+      "orig_start": 85.387,
+      "orig_end": 87.776,
       "drums_db": -14,
       "bass_db": -8
     }
   ],
   "new_midi_counts": {
-    "drum_events": 332,
-    "bass_notes": 33,
-    "pad_chords": 27
+    "drum_events": 212,
+    "bass_notes": 20,
+    "pad_chords": 17
   },
+  "premaster_parts": [
+    "bass_A",
+    "drums_A",
+    "intro_new",
+    "pad",
+    "riser"
+  ],
+  "human_vocal_parts": [],
+  "beat_corrections": [],
+  "edit_index_source": "04_edits/midi/new_notes.json (drum_events[].index / bass_notes[].index). 03_proposals/*_notes.json is an 8-bar audition of the SAME pattern and its indices differ.",
   "levels": {
-    "drums_gain_db": -7.54,
-    "bass_gain_db": -15.57,
-    "pad_gain_db": -8.88,
-    "target_drums_rms_db": -22.12,
-    "target_bass_rms_db": -24.12,
-    "section_mix_rms_db": -16.12
+    "drums_gain_db": -7.61,
+    "bass_gain_db": -15.61,
+    "pad_gain_db": -8.91,
+    "target_drums_rms_db": -22.15,
+    "target_bass_rms_db": -24.15,
+    "section_mix_rms_db": -16.15
   },
   "sections_output_time": [
     {
       "index": 0,
-      "start": 6.154,
-      "end": 15.754,
-      "bars": 4,
-      "rms_db": -19.7,
+      "start": 3.402,
+      "end": 23.978,
+      "bars": 8,
+      "rms_db": -19.32,
       "energy_rank": 4,
-      "label": "intro"
-    },
-    {
-      "index": 1,
-      "start": 15.754,
-      "end": 27.765,
-      "bars": 5,
-      "rms_db": -19.03,
-      "energy_rank": 3,
       "label": "verse"
     },
     {
-      "index": 2,
-      "start": 27.765,
-      "end": 44.554,
+      "index": 1,
+      "start": 23.978,
+      "end": 40.778,
       "bars": 7,
-      "rms_db": -20.24,
+      "rms_db": -20.39,
       "energy_rank": 5,
       "label": "verse"
     },
     {
-      "index": 3,
-      "start": 44.554,
-      "end": 82.954,
-      "bars": 16,
-      "rms_db": -17.32,
+      "index": 2,
+      "start": 40.778,
+      "end": 55.178,
+      "bars": 6,
+      "rms_db": -17.09,
       "energy_rank": 1,
       "label": "hook"
     },
     {
+      "index": 3,
+      "start": 55.178,
+      "end": 79.178,
+      "bars": 10,
+      "rms_db": -17.27,
+      "energy_rank": 2,
+      "label": "hook"
+    },
+    {
       "index": 4,
-      "start": 82.954,
-      "end": 94.954,
+      "start": 79.178,
+      "end": 91.178,
       "bars": 5,
-      "rms_db": -22.26,
+      "rms_db": -23.06,
       "energy_rank": 6,
       "label": "verse"
     },
     {
       "index": 5,
-      "start": 94.954,
-      "end": 121.311,
+      "start": 91.178,
+      "end": 117.578,
       "bars": 11,
-      "rms_db": -18.05,
-      "energy_rank": 2,
-      "label": "hook"
+      "rms_db": -17.77,
+      "energy_rank": 3,
+      "label": "verse"
     },
     {
       "index": 6,
-      "start": 121.311,
-      "end": 126.458,
-      "bars": 3,
-      "rms_db": -51.04,
+      "start": 117.578,
+      "end": 125.082,
+      "bars": 4,
+      "rms_db": -33.9,
       "energy_rank": 7,
       "label": "outro"
     }
   ],
-  "duration_out_s": 126.459,
+  "duration_out_s": 125.082,
   "duration_in_s": 121.68,
   "human_still_needed": [
     "Choose drums/bass variant (A/B/C) and edit notes -> human_decisions.json, re-run: python scripts/pipeline.py <track> --from arrange",

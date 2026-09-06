@@ -169,9 +169,13 @@ def loudness_normalize(x: np.ndarray, sr: int, target_lufs: float) -> tuple[np.n
 
 def limiter(x: np.ndarray, sr: int, ceiling_dbtp: float = -1.0, os_factor: int = 4,
             lookahead_ms: float = 5.0, release_ms: float = 80.0) -> np.ndarray:
-    """Oversampled brick-wall peak limiter with lookahead (moving-minimum gain) and exponential release."""
+    """Oversampled brick-wall peak limiter. The DETECTOR runs at os_factor x (so inter-sample peaks
+    are caught) but the AUDIO never passes through the resampler: the gain envelope is computed
+    upsampled, decimated back by taking the minimum of each group, and applied to the original
+    samples. That avoids the short anti-imaging filter of resample_poly rolling off the top octave."""
     ceiling = 10 ** (ceiling_dbtp / 20)
-    up = signal.resample_poly(x, os_factor, 1, axis=0)
+    up = signal.resample_poly(x, os_factor, 1, axis=0,
+                              window=signal.firwin(os_factor * 64 + 1, 1.0 / os_factor, window=("kaiser", 14.0)))
     fs = sr * os_factor
     peak = np.max(np.abs(up), axis=1) + 1e-12
     g = np.minimum(1.0, ceiling / peak)
@@ -190,11 +194,15 @@ def limiter(x: np.ndarray, sr: int, ceiling_dbtp: float = -1.0, os_factor: int =
         else:
             prev = rel * prev + (1 - rel) * v
         out[i] = prev
-    up *= out[:, None]
-    y = signal.resample_poly(up, 1, os_factor, axis=0)
-    # final safety trim for decimation overshoot
+    # decimate the gain envelope (minimum of each group keeps the ceiling) and apply at base rate
+    n = len(x)
+    pad = n * os_factor - len(out)
+    if pad > 0:
+        out = np.concatenate([out, np.full(pad, out[-1])])
+    g_base = out[: n * os_factor].reshape(n, os_factor).min(axis=1)
+    y = x * g_base[:, None]
     tp = 10 ** (true_peak_dbtp(y, sr) / 20)
-    if tp > ceiling:
+    if tp > ceiling:  # safety trim for any residual inter-sample overshoot
         y *= ceiling / tp
     return y
 

@@ -7,9 +7,10 @@
   "gain_pass1_db": 1.54,
   "gain_pass2_db": 0.0,
   "ab_compare": {
-    "orig_start_s": 114.75,
-    "arranged_start_s": 118.08,
-    "matched_lufs": -15.1,
+    "orig_start_s": 112.64,
+    "arranged_start_s": 115.97,
+    "matched_lufs": -15.3,
+    "no_limiting_applied": true,
     "order": "original 24 s -> 1 s silence -> arranged 24 s"
   },
   "premaster_correlation": 0.765,

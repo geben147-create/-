@@ -32,7 +32,8 @@ def main():
     out = a.out or os.path.splitext(a.audio)[0]
     _, midi, notes = predict(a.audio, ICASSP_2022_MODEL_PATH, minimum_frequency=70, maximum_frequency=1200, onset_threshold=0.5, minimum_note_length=90)
     midi.write(out + "_raw.mid")
-    raw = [{"start": float(s), "end": float(e), "midi": int(p), "vel": float(v) / 127.0} for (s, e, p, v, _) in notes]
+    # basic-pitch amplitudes are already 0..1 (it writes MIDI velocity = round(127*amplitude))
+    raw = [{"start": float(s), "end": float(e), "midi": int(p), "vel": float(np.clip(v, 0.05, 1.0))} for (s, e, p, v, *_rest) in notes]
     raw.sort(key=lambda n: n["start"])
     snapped = []
     tonic = mode = None
