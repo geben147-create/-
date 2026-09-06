@@ -196,3 +196,80 @@ The illustrated painterly rendering is held throughout.
 영상    minimax/minimax-h3     768p  5초   → 0크레딧
 ```
 5초 초과 시 과금. 동시 4개는 Pollo 계정 서버 한도.
+
+---
+
+# 7. 컷 체이닝 — `imageTail` 로 컷을 없앤다 (핵심 기법)
+
+## 원리
+
+`minimax-h3` 는 **시작 프레임(`image`)과 종료 프레임(`imageTail`)** 을 동시에 받는다.
+A컷을 `image`, B컷을 `imageTail` 에 넣으면 모델이 **A에서 B로 가는 5초**를 만든다.
+
+```
+video_1: image=씬A  imageTail=씬B   → A에서 시작해 B에서 끝남
+video_2: image=씬B  imageTail=씬C   → B에서 시작해 C에서 끝남
+```
+
+`video_1` 의 마지막 프레임과 `video_2` 의 첫 프레임이 **같은 이미지**다.
+이어붙이면 컷 지점이 물리적으로 존재하지 않는다. **끊김이 사라진다.**
+
+**비용** — `imageTail` 을 넣어도 768p/5초면 여전히 **0크레딧** (확인함).
+
+## 이 기법이 부수적으로 해결하는 것 두 가지
+
+### (1) "끝 1초 붕괴" 원천 차단
+
+AI 영상의 고질병은 마지막 1초에서 형태가 녹는 것이다.
+**종료 프레임이 고정되면 모델이 도착점을 알고 있으므로 녹을 수 없다.**
+
+### (2) 초고속 무브와 고밀도 디테일의 양립
+
+빠른 무브는 디테일을 뭉갠다. 고밀도 매트페인팅과 상극이다.
+그런데 **양 끝이 선명한 매트페인팅으로 못박혀 있으면** 중간 구간만 흐려지고
+시작·끝은 살아 있다. 모션 블러가 의도된 것처럼 읽힌다.
+
+즉 **속도냐 디테일이냐를 고를 필요가 없다.**
+
+## 실크로드 편 체인 설계
+
+```
+둔황 오아시스 → 사막폭풍 → 카라반사라이 → 빙하 융빙수 → 사마르칸트
+  → 아흐라르 영지 → [낙타발/트럭바퀴 match cut] → 부산항 → 북극항로 → 편지 회수
+```
+
+화살표 하나가 5초 영상 하나. 9개 링크 = **45초가 하나의 연속 이동으로 보인다.**
+
+| # | 시작 → 끝 | 무브 | 대본 |
+|---|---|---|---|
+| 1 | 둔황 → 사막폭풍 | 마을 이탈 → 봉수대 스쳐 → 먼지벽 진입 | 0:00 → 0:50 |
+| 2 | 사막폭풍 → 카라반사라이 | 먼지벽 관통 → 거점 도착 | 0:50 → 1:10 |
+| 3 | 카라반사라이 → 사마르칸트 | 평원 저공 돌진 | 1:10 → 3:20 |
+| 4 | 빙하 → 사마르칸트 | 빙벽 급강하 → 강 따라 질주 | 2:00 → 3:20 |
+| 5 | 사마르칸트 → 아흐라르 영지 | 수로 따라 이탈 → 영지 전경 | 3:20 → 4:15 |
+| 6~9 | (미제작) 부산항 · 북극 · 편지 회수 | | 5:05 → 8:30 |
+
+## 프롬프트 템플릿 (체인용)
+
+```
+EXTREMELY FAST [MOVE]. From the very first frame the camera ROCKETS
+[출발 동작], [중간 통과물] whipping past as smeared streaks, accelerating
+the whole way — then [도착 동작] and SLAMS to arrive on [도착 대상].
+Heavy motion blur at the frame edges, the centre held sharp.
+One single continuous violent acceleration, no cuts, no hesitation,
+locked horizon, no roll.
+The detailed painterly matte-painting rendering is held throughout —
+[재질들] stay solid, no morphing, no warping, no melting of detail.
+```
+
+`no morphing, no warping, no melting of detail` 은 **반드시 넣는다.**
+이 스타일은 디테일이 생명이라, 돌 줄눈과 타일 문양이 녹으면 전부 무너진다.
+
+## ⚠️ 무브 속도에 대한 기록
+
+§3 은 실측값(0.1초당 화면폭 0.6% — 거의 정지)을 담고 있다.
+**§7 의 초고속 체인은 감독의 연출 결정으로 실측값을 의도적으로 벗어난 것이다.**
+둘 다 남겨 둔다 — 어느 쪽으로 갈지는 완성본을 보고 정한다.
+
+다만 체이닝 자체는 속도와 무관하게 유효하다.
+느린 무브에도 `imageTail` 을 쓰면 컷이 사라진다.
