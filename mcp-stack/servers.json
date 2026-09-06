@@ -1,0 +1,32 @@
+{
+  "$comment": "Single source of truth. install.sh/install.ps1 rewrite the {{PLACEHOLDERS}}; configure_clients.py and verify.py both read the result.",
+  "servers": {
+    "music-toolkit": {
+      "description": "Audio QC, BPM/key, sectioning, hum-to-MIDI, stem split, distribution mastering, provenance. No DAW required.",
+      "command": "{{VENV_PYTHON}}",
+      "args": [
+        "{{ROOT}}/music_toolkit/server.py"
+      ],
+      "expect_min_tools": 9,
+      "needs": []
+    },
+    "reaper-twelvetake": {
+      "description": "REAPER control, 176 tools. Needs REAPER running with reaper_mcp_bridge.lua loaded.",
+      "command": "{{UV_BIN}}/twelvetake-reaper-mcp",
+      "args": [],
+      "expect_min_tools": 176,
+      "needs": [
+        "REAPER + bridge Lua for tool CALLS; tools/list works without it"
+      ]
+    },
+    "reaper-xdarkzx": {
+      "description": "REAPER control, 182 tools with the [analysis] extra. Needs REAPER running with reaper_mcp_server.lua loaded.",
+      "command": "{{UV_BIN}}/reaper-mcp",
+      "args": [],
+      "expect_min_tools": 180,
+      "needs": [
+        "REAPER + bridge Lua for tool CALLS; tools/list works without it"
+      ]
+    }
+  }
+}
