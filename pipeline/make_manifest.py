@@ -61,7 +61,30 @@ CLIPS = {
 }
 
 # Pollo CDN URLs, filled in as each generation finishes.
-REMOTE = {}   # "<clip>.<slot>" -> url
+CDN = "https://videocdn.pollo.ai/web-cdn/pollo/production/cmf20asu60gslb2k5fhlac2gn/ori/"
+
+REMOTE = {
+    # --- first-frame stills (gpt-image-2, 2K, quality=medium, 0 credits each).
+    #     These double as the <video poster>, so the section is already
+    #     composed before a single frame of video arrives.
+    "s1-hero.poster": CDN + "1788665412143-578ded88-e134-4ebc-ae7a-1d2cdce6d4d1.png",
+    "s2-broken.poster": CDN + "1788665612214-dcc80bcd-e976-490c-8fd4-5c12fd7cf12b.png",
+    "s3-corridor.poster": CDN + "1788665699025-ba01e410-c649-4073-84a6-3e7499d9c521.png",
+    "s4-a.poster": CDN + "1788666091513-5519e23d-133e-47c9-b393-0287dbf35831.png",
+    "s4-b.poster": CDN + "1788666099605-6743c929-5780-4b78-b987-ea21a38eb2a8.png",
+    "s4-c.poster": CDN + "1788666104281-67334ca8-4c48-482f-be0d-bd3b25ea1793.png",
+    "s6-cta.poster": CDN + "1788665704187-e4b2171b-a26d-4e9b-91b0-e9bb7ec2148c.png",
+
+    # --- clips (image2video). Filled in as each render lands.
+    "s1-hero.desktop": CDN + "1788666175207-857f0604-ad2c-4ab1-9eef-137a625d194f.mp4",
+    "s1-hero.mobile":  CDN + "1788666180052-79ee0bd7-0f71-4755-8175-6ef263467a76.mp4",
+    "s2-broken.desktop": CDN + "1788666123895-81da0b46-f698-4fcd-9d89-a4cb5d5d7261.mp4",
+    "s3-corridor.desktop": CDN + "1788666127086-827dd92d-1f0f-49a5-84f6-9f412999de20.mp4",
+    "s4-a.desktop": CDN + "1788666307897-f342aee5-018d-438c-a3cf-60efbd1d6e32.mp4",
+    "s4-b.desktop": CDN + "1788666322521-76ba6c0e-a582-4dc0-91af-6973c890e101.mp4",
+    "s4-c.desktop": CDN + "1788666362575-fa2ab740-5b4e-4646-ab25-65af294ff00d.mp4",
+    "s6-cta.desktop": CDN + "1788666370406-cdcd3160-37be-46a3-bd18-6136a8e6d401.mp4",
+}
 
 def build():
     for key, url in REMOTE.items():

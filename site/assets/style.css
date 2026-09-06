@@ -161,7 +161,11 @@ img,video{ display:block; max-width:100%; }
       rgba(var(--scrim),.16) 46%,
       rgba(var(--scrim),0) 74%);
 }
-.hero__copy{ max-width: 48ch; padding-bottom: clamp(56px, 9vh, 108px); }
+.hero__copy{
+  /* px, not ch: ch resolves against this box's 17px font, not the 68px h1 */
+  max-width: min(46rem, 100%);
+  padding-bottom: clamp(48px, 8vh, 104px);
+}
 
 .eyebrow{
   font-size: 12.5px; font-weight: 600; letter-spacing: .16em;
@@ -179,8 +183,8 @@ h1{
 .lede{
   font-size: clamp(17px, 2vw, 19px);
   line-height: 1.68;
-  margin: 0 0 32px;
-  max-width: 44ch;
+  margin: 0 0 30px;
+  max-width: 34rem;
   word-break: keep-all;
 }
 /* over video, secondary text stays at full --ink: --ink-2 needs alpha .78
@@ -395,7 +399,7 @@ tr[data-pick="1"] td:first-child{ box-shadow: inset 3px 0 0 var(--gold-lit); }
       rgba(var(--scrim),.42) 0%,
       rgba(var(--scrim),.06) 40%);
 }
-.scrub__copy{ max-width: 42ch; }
+.scrub__copy{ max-width: min(38rem, 100%); }
 .scrub__steps{ list-style:none; margin: 26px 0 0; padding:0; }
 .scrub__steps li{
   padding: 11px 0 11px 34px; position:relative;
@@ -453,7 +457,7 @@ tr[data-pick="1"] td:first-child{ box-shadow: inset 3px 0 0 var(--gold-lit); }
       rgba(var(--scrim),.62) 72%,
       rgba(var(--scrim),.86) 100%);
 }
-.cta__copy{ max-width: 56ch; margin: 0 auto; }
+.cta__copy{ max-width: min(54rem, 100%); margin: 0 auto; }
 .cta .btnrow{ justify-content:center; }
 
 /* ---- checklist ---------------------------------------------- */
@@ -502,6 +506,21 @@ tr[data-pick="1"] td:first-child{ box-shadow: inset 3px 0 0 var(--gold-lit); }
   .scrub__copy{ padding-bottom: 92px; }
   .scrub__bar{ bottom: 28px; }
   .stage .lede{ font-size:16.5px; }
+}
+
+/* ============================================================
+   SHORT WINDOW — laptop + bookmarks bar + extensions is under 620px tall.
+   Verified with a real 1440x580 viewport, not by eye.
+   ============================================================ */
+@media (max-height: 700px) and (min-width: 769px){
+  .hero{ min-height: 96svh; padding-top: 74px; }
+  .hero__copy{ padding-bottom: clamp(24px, 4vh, 48px); }
+  .hero h1{ font-size: clamp(30px, 3.4vw, 46px); margin-bottom: 16px; }
+  .hero .eyebrow{ margin-bottom: 12px; }
+  .hero .lede{ font-size: 16.5px; line-height: 1.6; margin-bottom: 22px; }
+  .scrub{ align-items: end; }
+  .scrub__copy{ padding-bottom: 78px; }
+  .scrub__steps li{ padding: 8px 0 8px 34px; font-size: 14.5px; }
 }
 
 /* ============================================================
