@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "_comment": "Locked casting. A voice is auditioned ONCE, then frozen here. Later sessions look this up and do not re-recommend, which is what makes the same character sound the same in episode 12 as in episode 1. Dialect or emphasis changes go in style_directive -- never a different voice.",
+  "cast": {
+    "NARRATOR_KO_M_V2": {
+      "role": "main Korean male narrator, warm storytelling",
+      "engine": "LOCAL_VOICEBOX",
+      "model": "Qwen3-TTS-0.6B-Base",
+      "kind": "clone",
+      "profile_id": "fb4021a9-c98f-486f-8d56-0daa33f824da",
+      "reference_wav": "<path to your approved reference wav>",
+      "seed": 8312,
+      "preset": "C_B_PAUSE",
+      "speed": 1.10,
+      "sample_rate": 24000,
+      "channels": "mono",
+      "loudness_lufs": -16,
+      "true_peak_db": -1.5,
+      "style_directive": "Composed middle-aged Korean male storyteller. Steady low-mid register, calm warmth, natural conversational breathing, a very light smile. Key nouns clear but not hammered. One continuous intonation curve per sentence; close sentence endings softly and definitely. No broadcast-announcer projection, no advertising delivery.",
+      "locked": true
+    },
+    "NARRATOR_KO_M_V1": {
+      "role": "brisk Korean information-programme presenter",
+      "engine": "LOCAL_VOICEBOX",
+      "model": "Qwen3-TTS-0.6B-Base",
+      "kind": "clone",
+      "profile_id": "fb4021a9-c98f-486f-8d56-0daa33f824da",
+      "reference_wav": "<path to your approved reference wav>",
+      "seed": 147,
+      "preset": "C_B_PAUSE",
+      "speed": 1.10,
+      "sample_rate": 24000,
+      "channels": "mono",
+      "loudness_lufs": -16,
+      "true_peak_db": -1.5,
+      "style_directive": "Mature Korean male presenter. Comfortable low-mid register, crisp articulation, measured confidence. Quick but never rushed; finish final syllables precisely. Emphasise only key words, no exaggeration.",
+      "locked": true
+    }
+  },
+  "pause_preset": {
+    "C_B_PAUSE": {
+      "comma_s": 0.20,
+      "sentence_end_s": 0.50,
+      "paragraph_s": 0.85,
+      "pre_sentence_s": 0.10,
+      "collapse_internal_silence_over_s": 0.32,
+      "collapse_to_s": 0.18
+    }
+  },
+  "engine_kinds": {
+    "clone": {
+      "needs": "reference wav + profile id",
+      "reproducible": true,
+      "note": "seed-fixed, so the same line regenerates identically"
+    },
+    "preset_speaker": {
+      "needs": "a speaker name from the vendor list",
+      "reproducible": false,
+      "note": "no seed, no cloning -- do not expect an exact rerun"
+    }
+  },
+  "rules": [
+    "One character keeps one voice for the whole video, and across episodes.",
+    "Never swap a reference wav mid-project.",
+    "Clone only from audio you own or have permission to use.",
+    "Generate per speaker and join locally rather than forcing many speakers into one call.",
+    "Keep the original script text; normalise pronunciation into a separate normalized_text field."
+  ]
+}

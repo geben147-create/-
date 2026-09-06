@@ -1,0 +1,7 @@
+schema_version: 1
+shots:
+  - { id: TS_WORLD_ESTABLISH, name: the period world, camera: wide, slow drift, reads_as: "when and where we are" }
+  - { id: TS_LENS_ADDRESS,    name: presenter to lens, camera: medium, locked, reads_as: direct address }
+  - { id: TS_PERIOD_REACTION, name: locals react, camera: medium close on a bystander, reads_as: "this person is out of place" }
+  - { id: TS_HANDS_DETAIL,    name: hands and object, camera: close, shallow, reads_as: craft, texture }
+  - { id: TS_WALK_FOLLOW,     name: following walk, camera: tracking behind or beside, reads_as: moving through the world }

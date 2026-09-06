@@ -1,0 +1,901 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>영상 분석 · 제작 플레이북</title>
+<style>
+:root{
+  --bg:#f7f7f5; --panel:#ffffff; --panel-2:#f0f0ee; --ink:#1a1a18; --ink-2:#5a5a55;
+  --ink-3:#8a8a83; --line:#e0e0db; --line-2:#cfcfc9;
+  --accent:#2f6f5e; --accent-soft:#e6f0ec;
+  --warn:#a8620f; --warn-soft:#fdf1e2; --danger:#a33232; --danger-soft:#fbeceb;
+  --core:#2f5f8f; --core-soft:#e8eff7;
+  --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  --sans:system-ui,-apple-system,"Segoe UI","Apple SD Gothic Neo","Noto Sans KR",sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#131315; --panel:#1b1b1e; --panel-2:#232327; --ink:#ececeb; --ink-2:#a8a8a4;
+  --ink-3:#77776f; --line:#2e2e33; --line-2:#3c3c42;
+  --accent:#63b79c; --accent-soft:#182b26;
+  --warn:#d69646; --warn-soft:#2c2113; --danger:#e07b73; --danger-soft:#2e1917;
+  --core:#7aabd9; --core-soft:#152230;
+}}
+:root[data-theme="dark"]{
+  --bg:#131315; --panel:#1b1b1e; --panel-2:#232327; --ink:#ececeb; --ink-2:#a8a8a4;
+  --ink-3:#77776f; --line:#2e2e33; --line-2:#3c3c42;
+  --accent:#63b79c; --accent-soft:#182b26;
+  --warn:#d69646; --warn-soft:#2c2113; --danger:#e07b73; --danger-soft:#2e1917;
+  --core:#7aabd9; --core-soft:#152230;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.75 var(--sans);
+  -webkit-font-smoothing:antialiased}
+.wrap{display:grid;grid-template-columns:250px minmax(0,1fr);gap:0;max-width:1440px;margin:0 auto}
+/* ---------- sidebar ---------- */
+nav{position:sticky;top:0;height:100vh;overflow-y:auto;padding:26px 14px 40px;
+  border-right:1px solid var(--line);background:var(--panel)}
+nav h2{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);
+  margin:20px 8px 8px;font-weight:600}
+nav h2:first-child{margin-top:0}
+nav a{display:block;padding:5px 9px;border-radius:6px;color:var(--ink-2);text-decoration:none;
+  font-size:13.5px;line-height:1.45}
+nav a:hover{background:var(--panel-2);color:var(--ink)}
+nav a.on{background:var(--accent-soft);color:var(--accent);font-weight:600}
+nav a .n{display:inline-block;min-width:20px;color:var(--ink-3);font:600 11px var(--mono)}
+nav a.on .n{color:var(--accent)}
+/* ---------- main ---------- */
+main{padding:38px 46px 120px;min-width:0}
+header.top{border-bottom:1px solid var(--line);padding-bottom:22px;margin-bottom:12px}
+header.top h1{margin:0 0 8px;font-size:27px;letter-spacing:-.02em;line-height:1.3}
+header.top p{margin:0;color:var(--ink-2);max-width:66ch}
+section{padding-top:38px;scroll-margin-top:14px}
+section>h2{font-size:20px;margin:0 0 4px;letter-spacing:-.01em;display:flex;
+  align-items:baseline;gap:11px}
+section>h2 .num{font:700 12px var(--mono);color:var(--accent);background:var(--accent-soft);
+  padding:3px 8px;border-radius:5px;flex:none}
+section>.sub{color:var(--ink-3);margin:0 0 18px;font-size:13.5px}
+h3{font-size:15.5px;margin:26px 0 8px;letter-spacing:-.005em}
+h4{font-size:13.5px;margin:18px 0 6px;color:var(--ink-2);text-transform:uppercase;
+  letter-spacing:.07em;font-weight:600}
+p{margin:0 0 12px;max-width:74ch}
+ul,ol{margin:0 0 12px;padding-left:20px;max-width:74ch}
+li{margin:4px 0}
+code{font:12.5px var(--mono);background:var(--panel-2);padding:1.5px 5px;border-radius:4px;
+  border:1px solid var(--line)}
+pre{background:var(--panel);border:1px solid var(--line);border-radius:9px;padding:14px 16px;
+  overflow-x:auto;margin:0 0 14px}
+pre code{background:none;border:none;padding:0;font-size:12.5px;line-height:1.65}
+table{border-collapse:collapse;width:100%;margin:0 0 16px;font-size:13.5px;display:block;
+  overflow-x:auto;white-space:nowrap}
+th,td{border:1px solid var(--line);padding:7px 11px;text-align:left;vertical-align:top}
+th{background:var(--panel-2);font-weight:600;font-size:12.5px;position:sticky;top:0}
+tbody tr:nth-child(even){background:var(--panel)}
+td.wrap-cell,th.wrap-cell{white-space:normal;min-width:210px}
+.box{border:1px solid var(--line);border-left:3px solid var(--accent);background:var(--panel);
+  border-radius:0 9px 9px 0;padding:13px 17px;margin:0 0 16px}
+.box.warn{border-left-color:var(--warn);background:var(--warn-soft)}
+.box.danger{border-left-color:var(--danger);background:var(--danger-soft)}
+.box.core{border-left-color:var(--core);background:var(--core-soft)}
+.box p:last-child{margin-bottom:0}
+.box .lbl{font:600 11px var(--mono);letter-spacing:.09em;text-transform:uppercase;
+  color:var(--accent);display:block;margin-bottom:5px}
+.box.warn .lbl{color:var(--warn)} .box.danger .lbl{color:var(--danger)}
+.box.core .lbl{color:var(--core)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(235px,1fr));gap:13px;margin-bottom:16px}
+.card{border:1px solid var(--line);border-radius:9px;padding:14px 16px;background:var(--panel)}
+.card h4{margin-top:0}
+.tag{display:inline-block;font:600 11px var(--mono);padding:2px 7px;border-radius:4px;
+  background:var(--panel-2);border:1px solid var(--line);color:var(--ink-2);margin:0 4px 4px 0}
+.tag.core{background:var(--core-soft);color:var(--core);border-color:transparent}
+.tag.pack{background:var(--accent-soft);color:var(--accent);border-color:transparent}
+.tag.no{background:var(--danger-soft);color:var(--danger);border-color:transparent}
+hr{border:none;border-top:1px solid var(--line);margin:34px 0}
+.muted{color:var(--ink-3)}
+.bar{height:9px;background:var(--accent);border-radius:3px;display:block;min-width:2px}
+.barwrap{display:flex;align-items:center;gap:9px}
+.barwrap span{font:11.5px var(--mono);color:var(--ink-2);flex:none;width:44px;text-align:right}
+button{font:inherit;font-size:13.5px;padding:8px 15px;border-radius:7px;border:1px solid var(--line-2);
+  background:var(--panel);color:var(--ink);cursor:pointer}
+button:hover{background:var(--panel-2)}
+button.primary{background:var(--accent);color:#fff;border-color:transparent;font-weight:600}
+.themebtn{position:fixed;top:14px;right:18px;z-index:20}
+.drop{border:2px dashed var(--line-2);border-radius:12px;padding:34px 22px;text-align:center;
+  background:var(--panel);margin-bottom:18px}
+.drop.over{border-color:var(--accent);background:var(--accent-soft)}
+.sheet{width:100%;border-radius:8px;border:1px solid var(--line);display:block;margin:10px 0}
+.vidcard{border:1px solid var(--line);border-radius:11px;padding:16px 18px;background:var(--panel);
+  margin-bottom:16px}
+.kv{display:flex;flex-wrap:wrap;gap:5px 20px;font-size:12.5px;color:var(--ink-2);margin:6px 0 10px}
+.kv b{color:var(--ink);font-weight:600;font-family:var(--mono);font-size:12.5px}
+.shotstrip{display:flex;gap:3px;flex-wrap:wrap;margin-top:9px}
+.shotstrip i{height:26px;border-radius:2px;background:var(--accent);opacity:.75;display:block}
+.shotstrip i.dis{background:var(--warn)}
+details{border:1px solid var(--line);border-radius:9px;padding:10px 15px;margin-bottom:11px;
+  background:var(--panel)}
+summary{cursor:pointer;font-weight:600;font-size:14px}
+details[open] summary{margin-bottom:10px}
+@media (max-width:900px){
+  .wrap{grid-template-columns:1fr}
+  nav{position:static;height:auto;border-right:none;border-bottom:1px solid var(--line)}
+  main{padding:26px 20px 80px}
+}
+@media print{
+  nav,.themebtn,.drop,button{display:none!important}
+  .wrap{grid-template-columns:1fr} body{background:#fff}
+  section{break-inside:avoid} table{white-space:normal}
+}
+</style>
+</head>
+<body>
+<button class="themebtn" id="themebtn" title="테마 전환">◐</button>
+<div class="wrap">
+<nav>
+  <h2>불변 · CORE</h2>
+  <a href="#s1"><span class="n">1</span> 기본 비주얼 스타일</a>
+  <a href="#s2"><span class="n">2</span> 연결성 규칙</a>
+  <a href="#s3"><span class="n">3</span> 단어 = 이미지 정합</a>
+  <a href="#s4"><span class="n">4</span> 장면 전개 원칙</a>
+  <a href="#s5"><span class="n">5</span> 장면 유형</a>
+  <a href="#s6"><span class="n">6</span> 속도</a>
+  <a href="#s7"><span class="n">7</span> 애니메이션 원칙</a>
+  <a href="#s8"><span class="n">8</span> 사운드 디자인</a>
+  <a href="#s9"><span class="n">9</span> 전환 애니메이션</a>
+  <h2>자산 · ASSETS</h2>
+  <a href="#s10"><span class="n">10</span> 캐릭터 시트</a>
+  <a href="#s11"><span class="n">11</span> 배경 · 소품 · 요소</a>
+  <a href="#s12"><span class="n">12</span> 편집 · 효과 · 카메라</a>
+  <a href="#s13"><span class="n">13</span> IMAGE PROMPT 작성법</a>
+  <a href="#s14"><span class="n">14</span> 금지사항</a>
+  <h2>측정 · MEASURED</h2>
+  <a href="#s15"><span class="n">15</span> 개별 영상 정밀분석</a>
+  <a href="#s16"><span class="n">16</span> 전체 지표</a>
+  <a href="#s17"><span class="n">17</span> 측정 방법과 한계</a>
+</nav>
+<main>
+<header class="top">
+  <h1>영상 분석 · 제작 플레이북</h1>
+  <p>주제와 무관하게 적용되는 <b>코어 규칙</b>과, 영상 종류마다 통째로 갈아끼우는
+  <b>장르 팩</b>을 분리한 문서입니다. 15·16절의 수치는 이 문서가 지어내지 않고,
+  <code>pipeline/shotscan.py</code>가 실제로 측정한 결과를 불러와 채웁니다.</p>
+</header>
+
+<div class="box core">
+  <span class="lbl">이 문서를 쓰는 법</span>
+  <p>1~14절은 <b>바꾸지 않습니다</b>. 다큐멘터리든 건축 실측이든 코미디든 그대로 적용됩니다.
+  장르마다 달라지는 값(컷 길이·시선·필수 샷·금지)은 <code>packs/genre/&lt;이름&gt;/</code>
+  폴더 하나에 모여 있고, 폴더를 복사하면 장르 추가·삭제가 끝납니다.</p>
+  <p style="margin-top:8px">영상 시작 시 선언 한 줄:
+  <code>GENRE_PACK = arch_technical</code> — 선언하지 않으면 장르 규칙은 <b>하나도</b>
+  적용되지 않습니다. 조용한 기본값은 건축 영상에서 인물이 갑자기 렌즈를 보고 설명하게 만드는
+  경로이기 때문에 일부러 그렇게 했습니다.</p>
+</div>
+
+<section id="s1">
+<h2><span class="num">1</span> 기본 비주얼 스타일</h2>
+<p class="sub">한 영상 안에서 절대 흔들리면 안 되는 다섯 축</p>
+
+<p>스타일은 취향이 아니라 <b>고정값</b>입니다. 아래 다섯 개를 프로젝트 시작 시 정하고,
+그 뒤로는 컷마다 다시 판단하지 않습니다. 컷마다 판단하면 반드시 흔들리고, 흔들린 영상은
+"AI로 만든 티가 난다"는 인상의 거의 전부를 차지합니다.</p>
+
+<table>
+<thead><tr><th>축</th><th class="wrap-cell">고정해야 하는 것</th><th class="wrap-cell">흔들렸을 때 나타나는 증상</th></tr></thead>
+<tbody>
+<tr><td><b>광원</b></td><td class="wrap-cell">방향 · 색온도 · 세기. 시간대가 바뀌는 연출이면 <i>언제</i> 바뀌는지까지 대본에 적음</td><td class="wrap-cell">컷마다 그림자 방향이 달라 같은 장소로 안 읽힘</td></tr>
+<tr><td><b>렌즈</b></td><td class="wrap-cell">화각대 2개 이내 (예: 광각 establishing + 표준 대화)</td><td class="wrap-cell">공간 크기가 컷마다 달라짐</td></tr>
+<tr><td><b>색</b></td><td class="wrap-cell">주조색 1 · 보조색 1 · 강조색 1. 그 외 채도 억제</td><td class="wrap-cell">정보 위계가 사라져 어디를 봐야 할지 모름</td></tr>
+<tr><td><b>질감</b></td><td class="wrap-cell">사실적/일러스트/3D 중 하나. 중간은 없음</td><td class="wrap-cell">가장 눈에 띄는 붕괴. 한 컷만 달라도 전체가 무너짐</td></tr>
+<tr><td><b>화면비</b></td><td class="wrap-cell">전편 동일. 세로면 중앙 안전영역 기준으로 구성</td><td class="wrap-cell">플랫폼 UI에 잘려나감</td></tr>
+</tbody></table>
+
+<div class="box">
+<span class="lbl">강조색 규칙</span>
+<p>강조색은 <b>의미가 있을 때만</b> 씁니다. 화면에서 가장 채도 높은 것이 그 컷의 주제여야 합니다.
+배경 소품이 주인공보다 선명하면, 시청자는 소품을 봅니다. 이건 취향 문제가 아니라
+시선 유도가 실제로 작동하는 방식입니다.</p>
+</div>
+
+<h3>색 설계를 나중에 검증하는 법</h3>
+<p><code>shotscan.py</code>가 컷마다 평균 휘도(luma)와 채도(saturation)를 기록합니다.
+16절 <code>luma_range</code>가 크면 밝기 설계가 있는 것이고, 거의 0이면 전편이 같은 톤이라는
+뜻입니다. 어느 쪽이 옳은지는 장르가 정합니다 — 다큐는 좁고, 코미디는 넓습니다.</p>
+</section>
+
+<section id="s2">
+<h2><span class="num">2</span> 연결성 규칙</h2>
+<p class="sub">컷과 컷 사이에서 세상이 끊기지 않게 하는 유일한 방법</p>
+
+<div class="box core">
+<span class="lbl">단 하나의 규칙</span>
+<p><b>N번 컷의 end_state = N+1번 컷의 start_state.</b> 이것만 지키면 대부분의 "어색함"이
+사라집니다. 지키지 않으면 어떤 프롬프트 기교로도 복구되지 않습니다.</p>
+</div>
+
+<p>state는 아홉 개 필드로 적습니다. 적지 않은 필드는 모델이 매번 새로 지어내며,
+지어낸 값은 컷마다 다릅니다.</p>
+
+<div class="grid">
+<div class="card"><h4>인물</h4>
+<span class="tag">subject_position</span><span class="tag">subject_pose</span><span class="tag">gaze</span>
+<p class="muted" style="font-size:12.5px;margin:6px 0 0">어디에 · 어떤 자세로 · 어디를 보는가</p></div>
+<div class="card"><h4>물건</h4>
+<span class="tag">held_objects</span><span class="tag">scene_dressing</span>
+<p class="muted" style="font-size:12.5px;margin:6px 0 0">손에 든 것이 컷 사이에 사라지는 사고가 가장 흔합니다</p></div>
+<div class="card"><h4>세계</h4>
+<span class="tag">camera</span><span class="tag">light</span><span class="tag">time_of_day</span><span class="tag">wardrobe</span>
+<p class="muted" style="font-size:12.5px;margin:6px 0 0">의상은 특히 잘 바뀝니다. 매 컷 명시</p></div>
+</div>
+
+<h3>END HOLD</h3>
+<p>모든 컷의 마지막 프레임은 <b>다음 동작을 시작할 수 있는 자세</b>로 끝납니다.
+동작 한가운데서 끊긴 컷은 다음 컷과 절대 이어지지 않습니다. 이 자세를 별도 필드
+<code>next_action_ready_pose</code>로 적어두면 다음 컷의 프롬프트를 그대로 여기서
+출발시킬 수 있습니다.</p>
+
+<h3>한 컷 한 동작</h3>
+<p>한 컷에 동작을 두 개 넣으면 모델은 둘 다 어설프게 합니다. "문을 열고 들어가서 앉는다"는
+세 컷입니다. 이 규칙은 프롬프트 품질 문제가 아니라 생성 길이의 물리적 한계입니다.</p>
+
+<p class="muted">→ <code>pipeline/validate.py --manifest</code>가 이 규칙을 실제로 강제합니다.
+컷 사이에 state 값이 달라지면 실행이 거부됩니다.</p>
+</section>
+
+<section id="s3">
+<h2><span class="num">3</span> 단어 = 이미지 정합</h2>
+<p class="sub">말과 그림이 만나는 지점을 우연에 맡기지 않기</p>
+
+<div class="box core">
+<span class="lbl">마스터 클록</span>
+<p>기준은 <b>완성된 음성 파일</b>입니다. 영상에 음성을 맞추는 게 아니라, 음성에 영상을 맞춥니다.
+순서가 뒤집히면 매 회차 재편집이 발생합니다.</p>
+</div>
+
+<h3>−0.15초 규칙</h3>
+<p>어떤 대상을 말로 지칭하는 순간, 그 대상은 <b>이미 화면에 있어야</b> 합니다.
+단어와 그림이 정확히 동시에 도착하면 시청자에게는 그림이 <i>늦은</i> 것으로 읽힙니다.
+그래서 이미지 전환을 해당 단어보다 약 0.15초 앞에 놓습니다.</p>
+
+<pre><code>단어 타임스탬프:  "측정선"  t = 4.82s
+이미지 전환 시점:            t = 4.67s   ( −0.15 )</code></pre>
+
+<p>manifest의 <code>visual_anchor</code> 필드가 이 값을 들고 있습니다.
+단어별 타임스탬프는 TTS 생성 시 함께 저장해 두면 나중에 다시 뽑을 필요가 없습니다.</p>
+
+<div class="box warn">
+<span class="lbl">5초 함정</span>
+<p>대본 한 문장이 5초를 넘으면, 그 문장에 붙는 그림도 5초를 버텨야 합니다. 생성 모델이
+5초 이상 자연스럽게 유지되는 경우는 드물고, 결과는 거의 항상 후반부에 뭉개집니다.
+해법은 더 좋은 프롬프트가 아니라 <b>문장을 쪼개는 것</b>입니다.</p>
+</div>
+</section>
+
+<section id="s4">
+<h2><span class="num">4</span> 장면 전개 원칙</h2>
+<p class="sub">순서에는 이유가 있어야 한다</p>
+
+<p>컷 순서를 정하는 기준은 "예뻐서"가 아니라 <b>시청자가 지금 무엇을 모르는가</b>입니다.
+각 컷은 직전 컷이 만든 질문에 답하고, 새 질문을 하나 남깁니다. 질문을 남기지 않는 컷은
+그 자리에서 시청이 끝나는 지점입니다.</p>
+
+<table>
+<thead><tr><th>단계</th><th class="wrap-cell">시청자의 질문</th><th class="wrap-cell">이 단계가 하는 일</th></tr></thead>
+<tbody>
+<tr><td><b>진입</b></td><td class="wrap-cell">이게 뭔데?</td><td class="wrap-cell">약속을 던짐. 이미 움직이는 상태로 시작</td></tr>
+<tr><td><b>정착</b></td><td class="wrap-cell">어디/언제야?</td><td class="wrap-cell">공간과 시간을 한 번만 확정</td></tr>
+<tr><td><b>전개</b></td><td class="wrap-cell">그래서?</td><td class="wrap-cell">한 컷 한 정보. 겹치면 둘 다 안 남음</td></tr>
+<tr><td><b>전환점</b></td><td class="wrap-cell">어? 왜?</td><td class="wrap-cell">기대를 깸. 여기가 유일한 페이스 변화 지점</td></tr>
+<tr><td><b>회수</b></td><td class="wrap-cell">그래서 결론이?</td><td class="wrap-cell">진입의 약속을 지킴</td></tr>
+<tr><td><b>퇴장</b></td><td class="wrap-cell">—</td><td class="wrap-cell">첫 프레임과 맞물리게 닫음</td></tr>
+</tbody></table>
+
+<div class="box">
+<span class="lbl">약속과 회수</span>
+<p>진입에서 던진 것과 회수에서 지킨 것이 <b>같은 것</b>이어야 합니다. 다른 걸 회수하면
+시청자는 속았다고 느끼고, 그 감각은 다음 영상의 이탈로 정확히 이어집니다.</p>
+</div>
+</section>
+
+<section id="s5">
+<h2><span class="num">5</span> 장면 유형</h2>
+<p class="sub">모든 컷은 이 중 하나다. 아니면 그 컷은 필요 없다</p>
+
+<div class="grid">
+<div class="card"><h4>ESTABLISH</h4><p style="margin:0;font-size:13.5px">공간·시간 확정. 영상당 1~2회면 충분. 세로 숏폼에서는 <b>생략</b>이 기본</p></div>
+<div class="card"><h4>ACTION</h4><p style="margin:0;font-size:13.5px">동작 하나. 한 컷 한 동작 규칙이 여기 적용</p></div>
+<div class="card"><h4>REACTION</h4><p style="margin:0;font-size:13.5px">앞 컷의 의미를 확정. 코미디에서는 이게 본체</p></div>
+<div class="card"><h4>DETAIL</h4><p style="margin:0;font-size:13.5px">손·질감·소품 클로즈업. 리듬을 끊고 정보 밀도를 올림</p></div>
+<div class="card"><h4>EVIDENCE</h4><p style="margin:0;font-size:13.5px">자료·수치·문서. <b>Tier A</b> — 코드 레이어로만 그림</p></div>
+<div class="card"><h4>TRANSFORM</h4><p style="margin:0;font-size:13.5px">대상이 변함(단면·분해·와이어프레임). 남용 금지, 팩이 상한을 정함</p></div>
+<div class="card"><h4>BRIDGE</h4><p style="margin:0;font-size:13.5px">장소·시간 이동. 짧게. 길면 이탈 지점이 됨</p></div>
+<div class="card"><h4>PAYOFF</h4><p style="margin:0;font-size:13.5px">약속 회수. 화면에서 가장 명확해야 함</p></div>
+</div>
+
+<p>장르 팩은 이 유형들 중 <b>무엇이 필수인지</b>와 <b>무엇이 금지인지</b>를 정합니다.
+예를 들어 <span class="tag pack">shorts_retention</span>은 ESTABLISH를 금지하고,
+<span class="tag pack">arch_technical</span>은 TRANSFORM(단면 슬라이스)을 최소 1회 요구합니다.</p>
+</section>
+
+<section id="s6">
+<h2><span class="num">6</span> 속도</h2>
+<p class="sub">기본값은 팩이 정하고, 실제 값은 측정이 정한다</p>
+
+<p>아래는 각 팩의 <b>설계 기본값</b>입니다. 관측된 통계가 아니라 출발점이며,
+<code>packs/genre/*/pack.yaml</code>에 그대로 들어 있는 값입니다.
+자신의 레퍼런스를 측정한 실제 수치는 16절에 채워집니다.</p>
+
+<table>
+<thead><tr><th>장르 팩</th><th>컷 길이</th><th>목표</th><th>분당 컷</th><th class="wrap-cell">화면 주체</th></tr></thead>
+<tbody>
+<tr><td><span class="tag pack">arch_technical</span></td><td>3.0–6.0s</td><td>4.2s</td><td>10–20</td><td class="wrap-cell">구조물 · 단면 · 치수</td></tr>
+<tr><td><span class="tag pack">documentary</span></td><td>3.0–8.0s</td><td>4.5s</td><td>8–18</td><td class="wrap-cell">사건 · 장소 · 자료</td></tr>
+<tr><td><span class="tag pack">timeslip_presenter</span></td><td>2.0–5.0s</td><td>3.0s</td><td>14–26</td><td class="wrap-cell">진행자</td></tr>
+<tr><td><span class="tag pack">finance_explainer</span></td><td>2.0–4.0s</td><td>2.8s</td><td>16–30</td><td class="wrap-cell">데이터 · 차트</td></tr>
+<tr><td><span class="tag pack">comedy_character</span></td><td>0.7–3.0s</td><td>1.4s</td><td>28–60</td><td class="wrap-cell">표정</td></tr>
+<tr><td><span class="tag pack">shorts_retention</span></td><td>0.6–2.0s</td><td>1.1s</td><td>30–70</td><td class="wrap-cell">변화 · 결과</td></tr>
+</tbody></table>
+
+<h3>템포 변화가 리듬이다</h3>
+<p>평균 컷 길이보다 중요한 것은 <b>편차</b>입니다. 전편이 같은 길이로 잘린 영상은 규칙을
+지켰지만 지루합니다. 16절의 <code>tempo_variance_ratio</code>(표준편차 ÷ 평균)가 이것을
+수치화합니다. 0에 가까우면 기계적이고, 너무 크면 산만합니다.</p>
+
+<div class="box warn">
+<span class="lbl">하이라이트 구간</span>
+<p>강조하고 싶은 지점에서 컷을 <b>더 빠르게</b> 하는 것은 대개 틀립니다. 빠르게 자르면
+정보가 스쳐 지나갑니다. 회수·발견 지점에서는 오히려 <b>약간 느리게</b>(팩의
+<code>highlight_speed</code> 0.90~0.96) 두어야 그 순간이 앉을 자리가 생깁니다.
+빠른 컷은 <i>기대를 쌓는 구간</i>에 씁니다.</p>
+</div>
+</section>
+
+<section id="s7">
+<h2><span class="num">7</span> 애니메이션 원칙</h2>
+<p class="sub">움직임에도 문법이 있다</p>
+
+<ol>
+<li><b>한 컷에 움직임 하나.</b> 카메라가 움직이면 피사체는 멈춥니다. 피사체가 움직이면
+카메라가 멈춥니다. 둘 다 움직이면 시청자는 어느 쪽도 못 읽습니다.</li>
+<li><b>속도는 일정하게.</b> 기계적 움직임(측정·스캔·단면)은 등속. 생물의 움직임은
+가감속. 이걸 반대로 하면 로봇 같거나 술 취한 것처럼 보입니다.</li>
+<li><b>움직임은 의미를 가진다.</b> "멋있어서" 넣은 카메라 무브는 시청자를 피곤하게 합니다.
+전진 = 몰입, 후퇴 = 맥락, 상승 = 전체, 하강 = 구체.</li>
+<li><b>시작과 끝은 정지.</b> 움직이는 중에 컷하면 다음 컷과 충돌합니다. 2절 END HOLD와
+같은 이야기입니다.</li>
+<li><b>parallax는 약하게.</b> 강한 시차는 게임 컷신처럼 보입니다.</li>
+</ol>
+</section>
+
+<section id="s8">
+<h2><span class="num">8</span> 사운드 디자인</h2>
+<p class="sub">음성이 기준이고, 나머지는 전부 그 아래</p>
+
+<table>
+<thead><tr><th>레이어</th><th>역할</th><th class="wrap-cell">기준</th></tr></thead>
+<tbody>
+<tr><td><b>내레이션</b></td><td>마스터 클록</td><td class="wrap-cell">−16 LUFS · True Peak −1.5 dB · 24kHz mono. 이 값이 전체 기준</td></tr>
+<tr><td><b>효과음</b></td><td>컷을 숨김</td><td class="wrap-cell">전환 <b>직전</b>에 배치. 전환과 동시에 넣으면 늦게 들림</td></tr>
+<tr><td><b>앰비언스</b></td><td>공간을 붙임</td><td class="wrap-cell">컷 사이에 <b>끊기지 않고</b> 흐름. 끊기면 컷이 드러남</td></tr>
+<tr><td><b>음악</b></td><td>감정</td><td class="wrap-cell">근거보다 <b>늦게</b> 들어옴. 먼저 들어오면 설득이 아니라 연출로 읽힘</td></tr>
+</tbody></table>
+
+<div class="box">
+<span class="lbl">앰비언스가 실제로 하는 일</span>
+<p>컷이 어색한 이유가 그림이 아니라 소리인 경우가 많습니다. 컷마다 배경음이 끊기면
+그림이 아무리 이어져도 별개의 조각으로 들립니다. 앰비언스 한 트랙을 전편에 깔면
+체감 연결성이 크게 올라갑니다 — 이게 가장 저렴한 품질 개선입니다.</p>
+</div>
+
+<h3>목소리는 한 번만 정한다</h3>
+<p>같은 캐릭터는 영상 전체, 그리고 회차 전체에서 같은 목소리를 유지합니다.
+세션마다 다시 추천받는 구조가 매번 목소리가 달라지는 원인입니다.
+1회 오디션 → 선택 → <code>packs/voice/voice_cast.json</code>에 잠금 → 이후 세션은
+<b>조회만</b>. 사투리·강조 같은 변형은 새 목소리가 아니라 같은 배역의
+<code>style_directive</code> 문장만 바꿉니다.</p>
+
+<table>
+<thead><tr><th>엔진 방식</th><th class="wrap-cell">필요한 것</th><th>재현성</th><th class="wrap-cell">쓰는 곳</th></tr></thead>
+<tbody>
+<tr><td><b>복제형</b></td><td class="wrap-cell">참조 WAV + 프로필 ID + seed</td><td><b>높음</b> — 같은 대사 재생성 시 동일</td><td class="wrap-cell">주인공 · 고정 배역</td></tr>
+<tr><td><b>사전화자형</b></td><td class="wrap-cell">벤더 목록에서 화자 이름</td><td>낮음 — seed 없음</td><td class="wrap-cell">내레이션 · 안정적 음질</td></tr>
+</tbody></table>
+<p class="muted">두 방식은 워크플로가 다르므로 같은 프롬프트로 다룰 수 없습니다.
+어느 쪽인지가 <code>voice_cast.json</code>의 <code>kind</code> 필드에 있습니다.</p>
+</section>
+
+<section id="s9">
+<h2><span class="num">9</span> 전환 애니메이션</h2>
+<p class="sub">전환은 다섯 종류면 충분하다</p>
+
+<table>
+<thead><tr><th>종류</th><th class="wrap-cell">언제</th><th class="wrap-cell">주의</th></tr></thead>
+<tbody>
+<tr><td><b>CUT</b></td><td class="wrap-cell">기본값. 전체의 80% 이상</td><td class="wrap-cell">동작 위에서 자르면 편집점이 숨음</td></tr>
+<tr><td><b>MATCH</b></td><td class="wrap-cell">모양·위치가 같은 두 대상 사이</td><td class="wrap-cell">가장 고급스러운 전환. 대본 단계에서 설계해야 나옴</td></tr>
+<tr><td><b>DISSOLVE</b></td><td class="wrap-cell">시간 경과 · 장소 이동</td><td class="wrap-cell">0.3~1.0초. 남용하면 전체가 느려짐</td></tr>
+<tr><td><b>WIPE / SLICE</b></td><td class="wrap-cell">구조를 드러낼 때(단면·분해)</td><td class="wrap-cell">방향이 내레이션과 일치해야 함</td></tr>
+<tr><td><b>WHIP</b></td><td class="wrap-cell">빠른 장면 전환, 코미디·숏폼</td><td class="wrap-cell">느린 장르에서 쓰면 톤이 무너짐</td></tr>
+</tbody></table>
+
+<div class="box">
+<span class="lbl">측정으로 확인하기</span>
+<p><code>shotscan.py</code>는 각 경계를 <code>cut</code>과 <code>dissolve</code>로 분류하고
+디졸브 길이(<code>transition_ramp</code>)를 함께 기록합니다. 레퍼런스 영상의 전환 구성이
+실제로 어떤 비율인지는 16절에서 확인할 수 있습니다. WIPE·WHIP은 현재 자동 분류되지 않고
+<code>cut</code>으로 보고되므로, 컨택트 시트를 눈으로 보며 보정합니다(17절 한계 참조).</p>
+</div>
+
+<h3>전환 직전 0.1초</h3>
+<p>효과음은 전환보다 아주 살짝 <b>먼저</b> 옵니다. 3절의 −0.15초 규칙과 같은 원리로,
+동시에 오면 늦게 느껴집니다.</p>
+</section>
+
+<section id="s10">
+<h2><span class="num">10</span> 캐릭터 시트</h2>
+<p class="sub">얼굴이 흔들리면 다른 모든 노력이 무의미해진다</p>
+
+<p>캐릭터는 <b>LOCK</b> 상태가 되기 전에는 어떤 컷도 생성하지 않습니다.
+잠그기 전에 생성한 컷은 나중에 전부 다시 만들게 됩니다 — 이게 회차당 가장 큰
+낭비 항목입니다.</p>
+
+<h3>LOCK에 들어가는 9필드</h3>
+<table>
+<thead><tr><th>필드</th><th class="wrap-cell">적는 방식</th></tr></thead>
+<tbody>
+<tr><td><code>char_id</code></td><td class="wrap-cell"><code>CHAR_narrator_m</code> — 영구 불변. 이름이 바뀌어도 id는 그대로</td></tr>
+<tr><td><code>face</code></td><td class="wrap-cell">나이대 · 얼굴형 · 눈/코/입 특징 · 피부톤. 문장이 아니라 항목으로</td></tr>
+<tr><td><code>hair</code></td><td class="wrap-cell">길이 · 색 · 묶음 방식. "단정한" 같은 형용사는 매번 다르게 해석됨</td></tr>
+<tr><td><code>wardrobe</code></td><td class="wrap-cell">상의 · 하의 · 신발 · 색. 장면별 변경이면 <b>언제</b> 바뀌는지까지</td></tr>
+<tr><td><code>build</code></td><td class="wrap-cell">키 · 체형. 컷마다 가장 잘 흔들리는 값</td></tr>
+<tr><td><code>signature_prop</code></td><td class="wrap-cell">항상 지니는 물건 1개. 인물 식별을 크게 돕습니다</td></tr>
+<tr><td><code>expression_default</code></td><td class="wrap-cell">기본 표정. 지정 안 하면 컷마다 감정이 튐</td></tr>
+<tr><td><code>ref_images</code></td><td class="wrap-cell">정면 · 3/4 · 측면 최소 3장. 경로 + 해시</td></tr>
+<tr><td><code>negative</code></td><td class="wrap-cell">이 인물에게 절대 나오면 안 되는 것</td></tr>
+</tbody></table>
+
+<div class="box danger">
+<span class="lbl">순서를 지키세요</span>
+<p>대본 확정 → 캐릭터 LOCK → 그 다음에 컷 생성. 이 순서를 어기면 되돌릴 방법이 없습니다.
+사람 승인이 필요한 네 지점 중 두 번째가 여기입니다.</p>
+</div>
+
+<h3>정체성 고정 방법</h3>
+<p>같은 인물을 여러 컷에 등장시키는 방법은 프롬프트 반복이 아니라 <b>참조 이미지 고정</b>입니다.
+능력 코드로는 <code>CAP_IMAGE_IDENTITY_LOCK</code>이며, 실제 모델은
+<code>packs/model/model_registry.yaml</code>에서만 정합니다. 규칙 문서·프롬프트·대본에는
+모델 이름을 한 글자도 쓰지 않습니다 — 모델이 바뀔 때 스무 군데에 박힌 이름을 고치다 보면
+반드시 하나를 빠뜨립니다.</p>
+</section>
+
+<section id="s11">
+<h2><span class="num">11</span> 배경 · 소품 · 요소</h2>
+<p class="sub">등록되지 않은 물건은 매 컷 새로 태어난다</p>
+
+<p>배경과 소품도 캐릭터와 같은 방식으로 id를 받습니다. 등록하지 않으면 모델이 매번
+다시 만들고, 같은 가게가 컷마다 다른 가게가 됩니다.</p>
+
+<div class="grid">
+<div class="card"><h4>LOC_ 장소</h4>
+<p style="margin:0;font-size:13.5px">구조 · 재질 · 광원 방향 · 시간대 · 고정 배치물.
+같은 장소를 다른 각도에서 찍는 컷은 <b>같은 LOC_id</b>를 참조합니다.</p></div>
+<div class="card"><h4>PROP_ 소품</h4>
+<p style="margin:0;font-size:13.5px">형태 · 재질 · 크기(사람 기준) · 마모 상태.
+크기를 안 적으면 컷마다 크기가 달라집니다.</p></div>
+<div class="card"><h4>요소 · 오버레이</h4>
+<p style="margin:0;font-size:13.5px">치수선 · 라벨 · 수치 · 자막. 전부 <b>코드 레이어</b>.
+생성 이미지 안에 절대 넣지 않습니다.</p></div>
+</div>
+
+<div class="box warn">
+<span class="lbl">화면 안의 글자·숫자</span>
+<p>생성 모델에 글자나 숫자를 맡기면 반드시 틀립니다. 그럴듯하게 틀리기 때문에 더 위험합니다.
+이미지 프롬프트에는 <code>no text, no numbers</code>를 <b>항상</b> 넣고, 필요한 글자는
+합성 단계에서 올립니다. 12절 Tier 판정과 같은 이야기입니다.</p>
+</div>
+</section>
+
+<section id="s12">
+<h2><span class="num">12</span> 편집 · 효과 · 카메라</h2>
+<p class="sub">정밀도가 필요한 화면을 무엇으로 그릴지 정하는 3단계</p>
+
+<p>"측정선·그래프는 무조건 코드로"는 틀린 단정입니다. 반대로 "생성 모델이 다 해준다"도
+틀립니다. 판정 질문은 하나뿐입니다:</p>
+
+<div class="box core">
+<span class="lbl">판정 질문</span>
+<p><b>"이 화면의 숫자·치수·좌표가 틀리면 시청자가 속는가?"</b></p>
+</div>
+
+<table>
+<thead><tr><th>Tier</th><th class="wrap-cell">조건</th><th class="wrap-cell">예</th><th class="wrap-cell">방법</th></tr></thead>
+<tbody>
+<tr><td><b>A</b><br><span class="tag no">코드 단독</span></td>
+  <td class="wrap-cell">예 — 수치가 곧 주장</td>
+  <td class="wrap-cell">수익률 · 물가지수 · 통계 reveal · 공인 치수</td>
+  <td class="wrap-cell">SVG/코드로 작도 후 합성. 생성 모델은 같은 좌표를 두 번 재현하지 못함</td></tr>
+<tr><td><b>B</b><br><span class="tag pack">하이브리드</span></td>
+  <td class="wrap-cell">아니오, 그러나 구조·순서·관계는 정확해야 함</td>
+  <td class="wrap-cell">건축 단면 · X-ray · 분해도 · 공정 흐름 · 지층 · 해부</td>
+  <td class="wrap-cell">화면은 생성, <b>치수선·라벨·수치만</b> 코드로 덧입힘. 화면 안엔 숫자 0개</td></tr>
+<tr><td><b>C</b><br><span class="tag">생성 단독</span></td>
+  <td class="wrap-cell">정확도 요구 없음</td>
+  <td class="wrap-cell">분위기 · 인물 · 일반 b-roll</td>
+  <td class="wrap-cell">생성 모델</td></tr>
+</tbody></table>
+
+<h3>카메라 어휘는 팩이 가진다</h3>
+<p>카메라 문법은 장르마다 다르므로 코어에 두지 않습니다. 각 팩의
+<code>shots.yaml</code>에 <b>이름 붙은 샷</b>으로 등록되고, <code>pack.yaml</code>이
+필수 여부와 반복 상한을 정합니다.</p>
+
+<pre><code>required_shots:
+  - { id: ARCH_APPROACH_DESCEND, min: 1, where: opening }
+  - { id: ARCH_SLICE_REVEAL,     min: 1, where: structure_entry }
+max_repeat:
+  ARCH_WIRE_MORPH: 2      # 한 번은 강렬하고 세 번은 장난이 된다</code></pre>
+
+<p>예를 들어 <span class="tag pack">arch_technical</span> 팩에는 접근·하강, 드론 전진,
+측정선 생성, 벽·흙 슬라이스, 세피아 전환, 지층 분리, 와이어프레임 morph, orbit + laser grid,
+정면 dolly-in, 지반 투명화 등 10개 샷이 id를 갖고 등록되어 있습니다.
+새 장르는 이 파일을 복사해서 어휘만 바꾸면 됩니다.</p>
+
+<p class="muted">→ <code>validate.py</code>가 필수 샷 누락과 반복 초과를 실제로 거부합니다.</p>
+</section>
+
+<section id="s13">
+<h2><span class="num">13</span> IMAGE PROMPT 작성법</h2>
+<p class="sub">8필드 고정. 문장으로 쓰지 않는다</p>
+
+<p>산문으로 쓴 프롬프트는 매번 다르게 해석됩니다. 필드를 고정하면 어느 필드가 문제였는지
+알 수 있고, 그래야 다음 회차에 고칠 수 있습니다.</p>
+
+<pre><code>1 SUBJECT      누가/무엇이            CHAR_ / PROP_ / LOC_ id로 참조
+2 ACTION       동작 하나              두 개면 컷을 나눈다
+3 FRAMING      화각 · 거리 · 높이     wide / medium / close, eye / low / high
+4 CAMERA       카메라 움직임          없으면 "static"이라고 명시
+5 LIGHT        방향 · 색온도 · 세기   전편 고정값에서 가져옴
+6 STYLE        질감 · 그레이딩        전편 고정값. 컷마다 바꾸지 않음
+7 STATE        start_state 9필드      2절에서 그대로 복사
+8 NEGATIVE     금지 목록              항상 포함</code></pre>
+
+<h4>NEGATIVE에 항상 들어가는 것</h4>
+<p><code>no text, no numbers, no watermark, no logo, no extra fingers,
+no duplicate subject, no motion blur unless specified</code></p>
+<p>Tier B 샷이면 여기에 <code>no dimension lines, no labels</code>를 추가합니다 —
+그것들은 나중에 코드로, 정확하게 올라갑니다.</p>
+
+<div class="box">
+<span class="lbl">모델 이름을 쓰지 않는 이유</span>
+<p>프롬프트에는 능력 코드만 씁니다.</p>
+<pre style="margin:8px 0 0"><code>GENRE_PACK   = arch_technical
+CAPABILITIES = [CAP_DIAGRAM_MOTION, CAP_EXACT_NUMERIC, CAP_FINE_DETAIL_BROLL]</code></pre>
+<p style="margin-top:8px">오늘의 실제 모델은 <code>model_registry.yaml</code>이 해결합니다.
+새 모델이 나오면 ① 어느 능력인지 판정 ② 같은 이미지·같은 프롬프트로 2컷 카나리 + 견적 확인
+③ registry의 해당 줄만 교체. 규칙·프롬프트·대본·manifest는 손대지 않습니다.</p>
+</div>
+
+<div class="box warn">
+<span class="lbl">verified_on</span>
+<p>registry의 각 매핑에는 검증 날짜가 붙습니다. 14일이 지난 매핑은 쓰기 전에 다시 견적을
+확인합니다. 무료였던 모델이 조용히 유료로 바뀌는 일이 실제로 일어나기 때문입니다.
+견적 조회는 과금되지 않습니다.</p>
+</div>
+</section>
+
+<section id="s14">
+<h2><span class="num">14</span> 금지사항</h2>
+<p class="sub">전 장르 공통. 팩은 여기에 더할 수는 있어도 뺄 수는 없다</p>
+
+<table>
+<thead><tr><th class="wrap-cell">금지</th><th class="wrap-cell">이유</th></tr></thead>
+<tbody>
+<tr><td class="wrap-cell">한 컷에 동작 두 개</td><td class="wrap-cell">둘 다 어설프게 나옴. 생성 길이의 물리적 한계</td></tr>
+<tr><td class="wrap-cell">state를 적지 않고 생성</td><td class="wrap-cell">모델이 매번 새로 지어냄 → 연결 붕괴</td></tr>
+<tr><td class="wrap-cell">생성 이미지 안의 글자·숫자</td><td class="wrap-cell">반드시 틀리고, 그럴듯하게 틀림</td></tr>
+<tr><td class="wrap-cell">측정하지 않은 수치를 말하기</td><td class="wrap-cell">시청자를 속이는 것. "약 4미터"는 정직, 없는 "4,200mm"는 아님</td></tr>
+<tr><td class="wrap-cell">캐릭터 LOCK 전 컷 생성</td><td class="wrap-cell">전부 다시 만들게 됨</td></tr>
+<tr><td class="wrap-cell">규칙 문서·프롬프트에 모델 이름</td><td class="wrap-cell">교체 시 반드시 하나를 빠뜨림</td></tr>
+<tr><td class="wrap-cell">세션마다 목소리 다시 추천</td><td class="wrap-cell">매번 목소리가 달라지는 직접적 원인</td></tr>
+<tr><td class="wrap-cell">장르 팩 선언 없이 생성</td><td class="wrap-cell">조용한 기본값이 장르 사고를 만듦</td></tr>
+<tr><td class="wrap-cell">견적 없이 제출</td><td class="wrap-cell">견적은 무료, 제출은 아님</td></tr>
+<tr><td class="wrap-cell">권한 없는 음성 복제</td><td class="wrap-cell">본인 소유이거나 사용 허락을 받은 참조 음성만</td></tr>
+<tr><td class="wrap-cell">중간 산출물을 "완료"로 보고</td><td class="wrap-cell">최종 렌더까지가 완료</td></tr>
+</tbody></table>
+
+<div class="box danger">
+<span class="lbl">비용은 믿음이 아니라 장치</span>
+<p>"무료만 쓴다"를 코드에 박지 않습니다. 정책은 숫자 한 줄
+(<code>cost_policy.yaml</code>의 <code>max_credit_per_shot: 0</code>)이고,
+게이트라는 <b>장치</b>는 유료를 허용하는 날 오히려 더 필요합니다.
+문서에 반복해 적어둔 규칙은 지켜지지 않습니다 — 실행을 거부하는 코드만 지켜집니다.</p>
+</div>
+</section>
+
+<section id="s15">
+<h2><span class="num">15</span> 개별 영상 정밀분석</h2>
+<p class="sub">이 절의 수치는 문서에 미리 적혀 있지 않습니다 — 직접 측정한 결과를 불러옵니다</p>
+
+<div class="box danger" id="nodata-note">
+<span class="lbl">현재 상태 · 미측정</span>
+<p>이 문서에는 어떤 영상의 측정값도 들어 있지 않습니다. 레퍼런스 영상을 보지 않고 적은
+숫자는 그럴듯한 거짓말이 되기 때문에, 빈칸으로 두었습니다.</p>
+<p style="margin-top:8px">채우는 방법:</p>
+<pre style="margin:8px 0 0"><code>pip install -r pipeline/requirements.txt
+
+# 분석할 링크를 urls.txt에 한 줄씩 (비공개 저장 목록이면 --cookies-from-browser)
+python pipeline/shotscan.py --urls urls.txt --out ./out --cookies-from-browser chrome
+
+# 끝나면 아래 버튼으로 out 폴더(또는 out/index.json)를 선택</code></pre>
+</div>
+
+<div class="drop" id="drop">
+  <p style="margin:0 0 12px"><b>측정 결과 불러오기</b><br>
+  <span class="muted" style="font-size:13px"><code>out</code> 폴더째 선택하면 컨택트 시트까지 함께 표시됩니다.
+  <code>index.json</code>만 선택해도 수치는 모두 나옵니다.</span></p>
+  <button class="primary" id="pickdir">out 폴더 선택</button>
+  <button id="pickfile">index.json 선택</button>
+  <input type="file" id="dirin" webkitdirectory directory multiple hidden>
+  <input type="file" id="filein" accept="application/json,.json" hidden>
+  <p class="muted" style="margin:12px 0 0;font-size:12.5px">파일을 여기로 끌어다 놓아도 됩니다.
+  브라우저 안에서만 처리되며 아무데도 전송되지 않습니다.</p>
+</div>
+
+<div id="vidlist"></div>
+
+<h3>컨택트 시트를 눈으로 읽을 때 보는 것</h3>
+<p>수치가 알려주지 않는 것들이 있습니다. 시트를 보면서 각 영상마다 아래를 적어
+<code>metrics.json</code>의 <code>manual</code> 항목에 채워 넣으면, 그것이 다음 영상의
+설계 근거가 됩니다.</p>
+<div class="grid">
+<div class="card"><h4>색 설계</h4><p style="margin:0;font-size:13.5px">주조색이 몇 개인가.
+밝기가 이야기를 따라 변하는가, 아니면 전편 균일한가</p></div>
+<div class="card"><h4>구조</h4><p style="margin:0;font-size:13.5px">4절의 6단계가 보이는가.
+약속과 회수가 같은 것인가</p></div>
+<div class="card"><h4>전환</h4><p style="margin:0;font-size:13.5px">CUT 비율. MATCH가 있는가.
+WIPE·WHIP은 자동 분류되지 않으므로 여기서 표시</p></div>
+<div class="card"><h4>특이점</h4><p style="margin:0;font-size:13.5px">이 영상만의 장치 하나.
+따라 할 것인지, 피할 것인지</p></div>
+</div>
+</section>
+
+<section id="s16">
+<h2><span class="num">16</span> 전체 지표</h2>
+<p class="sub">여러 편을 한꺼번에 봤을 때 드러나는 것</p>
+<div id="corpus"><p class="muted">15절에서 측정 결과를 불러오면 이 표가 채워집니다.</p></div>
+</section>
+
+<section id="s17">
+<h2><span class="num">17</span> 측정 방법과 한계</h2>
+<p class="sub">이 수치를 어디까지 믿어도 되는지</p>
+
+<h3>어떻게 재는가</h3>
+<p>ffmpeg의 <code>scdet</code> 필터가 <b>모든 프레임</b>에 대해 직전 프레임과의 차이 점수를
+냅니다. 그 점수 시계열을 2단계로 읽습니다.</p>
+<ol>
+<li><b>1단계 · 적응형 문턱.</b> 문턱값을 고정하지 않고 그 영상 자신의 점수 분포에서
+계산합니다(<code>중앙값 + 6 × MAD</code>). 고정값이 안 되는 이유는 분명합니다 — 고정
+카메라 인터뷰는 점수가 0 근처에 머물고, 움직이는 드론 샷은 컷이 하나도 없어도
+0.3~0.6을 계속 유지합니다. 하나의 고정 문턱은 앞의 것을 잘게 부수거나 뒤의 것을 통째로 놓칩니다.</li>
+<li><b>2단계 · 긴 컷 재검사.</b> 4초를 넘게 남은 컷은 <b>그 구간 자신의</b> 점수로 다시
+계산한 낮은 문턱으로 재검사합니다. 부드러운 컷·매치 컷은 긴 컷 안에 숨고 전역 문턱 아래에
+있습니다. 구간별로 다시 계산하기 때문에, 조용한 고정 컷에서는 문턱이 내려가고
+계속 움직이는 롱테이크에서는 내려가지 않습니다.</li>
+</ol>
+
+<p>디졸브는 별도로 판정합니다. 크로스페이드는 점수가 높게 <i>유지</i>되지 않습니다 —
+선형 블렌드는 한 프레임당 변화가 아주 작기 때문입니다. 대신 <b>완만한 스파이크 두 개와
+그 사이의 비정상적으로 조용한 구간</b>으로 나타납니다. 짧은 정지 컷을 사이에 둔 두 개의
+하드 컷도 똑같이 생겼으므로, 구간 내부의 그림이 계속 변하는지까지 확인합니다.</p>
+
+<h3>검증</h3>
+<p>컷 지점을 미리 아는 합성 영상으로 확인했습니다.</p>
+<table>
+<thead><tr><th class="wrap-cell">테스트</th><th class="wrap-cell">정답</th><th class="wrap-cell">결과</th></tr></thead>
+<tbody>
+<tr><td class="wrap-cell">7컷 · 하드컷 6개(저대비 쌍 포함)</td><td class="wrap-cell">1.2 / 2.1 / 5.1 / 8.1 / 10.5 / 12.8</td><td class="wrap-cell">6개 전부, 초 단위까지 일치</td></tr>
+<tr><td class="wrap-cell">8초 연속 회전·줌, 컷 0개</td><td class="wrap-cell">1컷</td><td class="wrap-cell">1컷</td></tr>
+<tr><td class="wrap-cell">두 장면 + 1.0초 크로스페이드</td><td class="wrap-cell">3.5초 중심 디졸브</td><td class="wrap-cell"><code>dissolve</code> 3.533초, 길이 1.0초</td></tr>
+<tr><td class="wrap-cell">같은 두 장면 + 하드컷</td><td class="wrap-cell">4.0초 컷</td><td class="wrap-cell"><code>cut</code> 4.0초</td></tr>
+</tbody></table>
+<p>마지막 두 줄이 의미 있는 쌍입니다 — <b>내용은 같고 이음매만 다른</b> 두 영상을 올바르게
+구분했습니다.</p>
+
+<div class="box warn">
+<span class="lbl">한계 — 반드시 읽어야 하는 부분</span>
+<ul style="margin:0">
+<li><b>합성 영상으로만 검증했습니다.</b> 실제 촬영·생성 영상으로는 아직 확인하지 않았습니다.
+문턱값은 <code>shotscan.py</code> 상단에 상수로 노출해 두었으니, 첫 배치를 컨택트 시트와
+대조해 보고 조정하십시오.</li>
+<li><b>WIPE·WHIP은 하드컷으로 보고됩니다.</b> 페이드 계열 디졸브만 분류합니다.</li>
+<li><b>비슷하게 생긴 두 컷 사이의 하드컷은 원리적으로 안 잡힙니다.</b> 프레임 차이를 보는
+어떤 방법으로도 마찬가지입니다.</li>
+<li><b><code>motion</code>은 프레임 차이 대용값</b>이지 옵티컬 플로우가 아닙니다.
+컷들 사이의 순위는 믿을 만하지만 카메라 속도 측정값은 아닙니다.</li>
+<li><b>놓친 컷은 컷 수를 줄이는 게 아니라 컷 길이를 늘립니다.</b> 평균값보다
+컨택트 시트를 믿으십시오.</li>
+<li><b>표본이 작으면 평균은 의미가 없습니다.</b> 10편 미만이라면 중앙값과 분포만 보고
+평균은 무시하십시오.</li>
+</ul>
+</div>
+
+<h3>도구 쪽에서 걸리는 두 가지</h3>
+<ul>
+<li><code>yt-dlp</code>가 <code>2026.08.19</code>보다 오래되면 일부 사이트에서 403이 납니다.
+링크가 죽었다고 판단하기 전에 먼저 업데이트하십시오.</li>
+<li>ffmpeg 7에서 <code>-vsync</code>가 제거되었습니다. 대체는
+<code>-fps_mode passthrough</code>이며 이 코드는 그것을 씁니다.</li>
+</ul>
+</section>
+
+</main>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  // ---------- theme ----------
+  var btn = document.getElementById("themebtn");
+  btn.addEventListener("click", function(){
+    var cur = document.documentElement.getAttribute("data-theme");
+    var dark = cur ? cur === "dark"
+      : matchMedia("(prefers-color-scheme: dark)").matches;
+    document.documentElement.setAttribute("data-theme", dark ? "light" : "dark");
+  });
+
+  // ---------- active section in the sidebar ----------
+  var links = [].slice.call(document.querySelectorAll("nav a"));
+  var secs = links.map(function(a){ return document.querySelector(a.getAttribute("href")); });
+  function mark(){
+    var best = 0, y = window.scrollY + 90;
+    secs.forEach(function(s, i){ if (s && s.offsetTop <= y) best = i; });
+    links.forEach(function(a, i){ a.classList.toggle("on", i === best); });
+  }
+  addEventListener("scroll", mark, {passive:true}); mark();
+
+  // ---------- data loading ----------
+  var images = {};                       // relative path -> object URL
+  var fmt = function(v, d){ return (v === null || v === undefined) ? "—" : (+v).toFixed(d === undefined ? 2 : d); };
+  var esc = function(s){ return String(s == null ? "" : s).replace(/[&<>"]/g, function(c){
+    return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); };
+
+  function readFiles(files){
+    var list = [].slice.call(files), idx = null, pending = [];
+    list.forEach(function(f){
+      var rel = (f.webkitRelativePath || f.name).split("/").slice(1).join("/") || f.name;
+      if (/\.(jpg|jpeg|png|webp)$/i.test(f.name)) images[rel] = URL.createObjectURL(f);
+      if (f.name === "index.json" || (!idx && /\.json$/i.test(f.name))) idx = f;
+    });
+    if (!idx){ alert("index.json을 찾지 못했습니다. shotscan.py의 --out 폴더를 선택하세요."); return; }
+    var r = new FileReader();
+    r.onload = function(){
+      try { render(JSON.parse(r.result)); }
+      catch (e){ alert("index.json을 읽지 못했습니다: " + e.message); }
+    };
+    r.readAsText(idx);
+  }
+
+  function shotStrip(shots){
+    if (!shots || !shots.length) return "";
+    var max = Math.max.apply(null, shots.map(function(s){ return s.duration; }));
+    return '<div class="shotstrip">' + shots.map(function(s){
+      var w = Math.max(3, Math.round(s.duration / max * 46));
+      var dis = s.transition_in === "dissolve" ? " dis" : "";
+      return '<i class="' + dis.trim() + '" style="width:' + w + 'px" title="컷 ' + s.index +
+             " · " + fmt(s.duration) + "s · " + esc(s.transition_in) + '"></i>';
+    }).join("") + "</div>";
+  }
+
+  function histo(h){
+    if (!h) return "";
+    var keys = Object.keys(h), max = Math.max.apply(null, keys.map(function(k){ return h[k]; })) || 1;
+    return '<table style="max-width:340px"><tbody>' + keys.map(function(k){
+      return "<tr><td style='white-space:nowrap'>" + esc(k) + "</td><td style='width:100%'>" +
+        '<div class="barwrap"><span>' + h[k] + "</span>" +
+        '<i class="bar" style="width:' + (h[k] / max * 100) + '%"></i></div></td></tr>';
+    }).join("") + "</tbody></table>";
+  }
+
+  function render(data){
+    var vids = (data.videos || []).filter(function(v){ return v.metrics && v.metrics.shot_count; });
+    var note = document.getElementById("nodata-note");
+    if (vids.length) note.style.display = "none";
+
+    document.getElementById("vidlist").innerHTML = vids.map(function(v){
+      var m = v.metrics, d = v.detection || {};
+      var sheet = v.contact_sheet && images[v.contact_sheet]
+        ? '<img class="sheet" src="' + images[v.contact_sheet] + '" alt="컨택트 시트">'
+        : (v.contact_sheet ? '<p class="muted" style="font-size:12.5px">컨택트 시트: <code>' +
+            esc(v.contact_sheet) + "</code> (폴더째 선택하면 여기 표시됩니다)</p>" : "");
+      return '<div class="vidcard"><h3 style="margin-top:0">' + esc(v.id) + "</h3>" +
+        (v.source_url ? '<p class="muted" style="font-size:12px;margin:-4px 0 8px;word-break:break-all">' +
+          esc(v.source_url) + "</p>" : "") +
+        '<div class="kv">' +
+          "<span>길이 <b>" + fmt(m.duration_s) + "s</b></span>" +
+          "<span>컷 <b>" + m.shot_count + "</b></span>" +
+          "<span>분당 <b>" + fmt(m.cuts_per_min, 1) + "</b></span>" +
+          "<span>중앙값 <b>" + fmt(m.shot_len_median) + "s</b></span>" +
+          "<span>평균 <b>" + fmt(m.shot_len_mean) + "s</b></span>" +
+          "<span>최단·최장 <b>" + fmt(m.shot_len_min) + " / " + fmt(m.shot_len_max) + "s</b></span>" +
+          "<span>템포 편차 <b>" + fmt(m.tempo_variance_ratio) + "</b></span>" +
+          "<span>디졸브 <b>" + (m.dissolves || 0) + "</b></span>" +
+          "<span>휘도 <b>" + fmt(m.luma_mean, 1) + "</b> (폭 " + fmt(m.luma_range, 1) + ")</span>" +
+          "<span>채도 <b>" + fmt(m.saturation_mean, 1) + "</b></span>" +
+          "<span>모션 <b>" + fmt(m.motion_mean) + "</b></span>" +
+          "<span>" + esc(m.resolution) + " · " + esc(m.aspect) + " · " + fmt(m.fps, 0) + "fps</span>" +
+        "</div>" + shotStrip(v.shots) + sheet +
+        "<details><summary>컷 표 · 검출 진단</summary>" +
+          '<p class="muted" style="font-size:12.5px">문턱 ' + fmt(d.adaptive_threshold, 3) +
+            " (중앙값 " + fmt(d.score_median, 3) + " · MAD " + fmt(d.score_mad, 3) + ") · " +
+            "1단계 " + (d.stage1_cuts || 0) + " · 2단계 +" + (d.stage2_added || 0) +
+            " · 긴 컷 재검사 " + (d.long_shots_rescanned || 0) + "</p>" +
+          "<table><thead><tr><th>#</th><th>시작</th><th>길이</th><th>진입</th><th>휘도</th><th>채도</th><th>모션</th></tr></thead><tbody>" +
+          (v.shots || []).map(function(s){
+            return "<tr><td>" + s.index + "</td><td>" + fmt(s.start) + "</td><td>" + fmt(s.duration) +
+              "</td><td>" + esc(s.transition_in) + (s.transition_ramp ? " " + fmt(s.transition_ramp) + "s" : "") +
+              "</td><td>" + fmt(s.luma, 1) + "</td><td>" + fmt(s.saturation, 1) +
+              "</td><td>" + fmt(s.motion) + "</td></tr>";
+          }).join("") + "</tbody></table></details></div>";
+    }).join("") || '<p class="muted">분석된 영상이 없습니다.</p>';
+
+    // ---------- corpus ----------
+    var box = document.getElementById("corpus");
+    if (!vids.length){ box.innerHTML = '<p class="muted">데이터가 없습니다.</p>'; return; }
+    var all = [];
+    vids.forEach(function(v){ (v.shots || []).forEach(function(s){ all.push(s); }); });
+    var durs = all.map(function(s){ return s.duration; }).sort(function(a,b){ return a-b; });
+    var sum = durs.reduce(function(a,b){ return a+b; }, 0);
+    var mean = sum / durs.length;
+    var med = durs[Math.floor(durs.length/2)];
+    var sd = Math.sqrt(durs.reduce(function(a,b){ return a + (b-mean)*(b-mean); }, 0) / durs.length);
+    var dis = all.filter(function(s){ return s.transition_in === "dissolve"; }).length;
+    var hist = {"<1s":0,"1-2s":0,"2-3s":0,"3-5s":0,"5-8s":0,">8s":0};
+    durs.forEach(function(d){
+      hist[d<1?"<1s":d<2?"1-2s":d<3?"2-3s":d<5?"3-5s":d<8?"5-8s":">8s"]++; });
+
+    var small = vids.length < 10;
+    box.innerHTML =
+      (small ? '<div class="box warn"><span class="lbl">표본 ' + vids.length +
+        "편</span><p>10편 미만입니다. 평균값은 신뢰하지 말고 중앙값과 분포만 참고하십시오.</p></div>" : "") +
+      '<div class="kv" style="font-size:14px">' +
+        "<span>영상 <b>" + vids.length + "</b></span>" +
+        "<span>총 컷 <b>" + all.length + "</b></span>" +
+        "<span>중앙값 <b>" + fmt(med) + "s</b></span>" +
+        "<span>평균 <b>" + fmt(mean) + "s</b></span>" +
+        "<span>표준편차 <b>" + fmt(sd) + "</b></span>" +
+        "<span>템포 편차 <b>" + fmt(sd/mean) + "</b></span>" +
+        "<span>디졸브 <b>" + dis + "</b> / 하드컷 <b>" + (all.length - dis - vids.length) + "</b></span>" +
+      "</div>" + histo(hist) +
+      "<h3>편별 비교</h3><table><thead><tr><th>영상</th><th>길이</th><th>컷</th><th>분당</th>" +
+      "<th>중앙값</th><th>템포편차</th><th>휘도</th><th>휘도폭</th><th>채도</th><th>모션</th><th>화면비</th></tr></thead><tbody>" +
+      vids.map(function(v){ var m = v.metrics;
+        return "<tr><td>" + esc(v.id) + "</td><td>" + fmt(m.duration_s,1) + "</td><td>" + m.shot_count +
+          "</td><td>" + fmt(m.cuts_per_min,1) + "</td><td>" + fmt(m.shot_len_median) +
+          "</td><td>" + fmt(m.tempo_variance_ratio) + "</td><td>" + fmt(m.luma_mean,1) +
+          "</td><td>" + fmt(m.luma_range,1) + "</td><td>" + fmt(m.saturation_mean,1) +
+          "</td><td>" + fmt(m.motion_mean) + "</td><td>" + esc(m.aspect) + "</td></tr>"; }).join("") +
+      "</tbody></table>" +
+      (data.failed && data.failed.length
+        ? '<div class="box danger"><span class="lbl">실패 ' + data.failed.length +
+          "건</span><p style='word-break:break-all'>" + data.failed.map(esc).join("<br>") + "</p></div>"
+        : "");
+  }
+
+  // ---------- wiring ----------
+  var dirin = document.getElementById("dirin"), filein = document.getElementById("filein");
+  document.getElementById("pickdir").addEventListener("click", function(){ dirin.click(); });
+  document.getElementById("pickfile").addEventListener("click", function(){ filein.click(); });
+  dirin.addEventListener("change", function(){ readFiles(dirin.files); });
+  filein.addEventListener("change", function(){ readFiles(filein.files); });
+
+  var drop = document.getElementById("drop");
+  ["dragenter","dragover"].forEach(function(e){
+    drop.addEventListener(e, function(ev){ ev.preventDefault(); drop.classList.add("over"); }); });
+  ["dragleave","drop"].forEach(function(e){
+    drop.addEventListener(e, function(ev){ ev.preventDefault(); drop.classList.remove("over"); }); });
+  drop.addEventListener("drop", function(ev){
+    if (ev.dataTransfer && ev.dataTransfer.files.length) readFiles(ev.dataTransfer.files); });
+})();
+</script>
+</body>
+</html>

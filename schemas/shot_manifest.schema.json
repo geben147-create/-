@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "shot_manifest.schema.json",
+  "title": "Shot manifest",
+  "description": "One record per shot. This is the contract every stage reads and writes: script, image, voice, video, assembly, QC. If a fact about a shot is not in here, it does not survive to the next stage.",
+  "type": "object",
+  "required": ["schema_version", "project_id", "genre_pack", "shots"],
+  "properties": {
+    "schema_version": { "type": "integer", "const": 1 },
+    "project_id": { "type": "string", "pattern": "^PRJ_[A-Za-z0-9_]+$" },
+    "episode_id": { "type": "string", "pattern": "^EP_[A-Za-z0-9_]+$" },
+    "genre_pack": { "type": "string", "description": "folder name under packs/genre/" },
+    "capabilities": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^CAP_[A-Z_]+$" },
+      "description": "capability codes only -- never a model name"
+    },
+    "shots": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["shot_id", "duration_s", "action", "start_state", "end_state"],
+        "properties": {
+          "shot_id": { "type": "string", "pattern": "^S\\d+_SH\\d+$" },
+          "shot_vocab_id": { "type": "string", "description": "an id from the pack's shots.yaml" },
+          "duration_s": { "type": "number", "exclusiveMinimum": 0 },
+          "action": { "type": "string", "description": "exactly one action" },
+          "line": { "type": "string" },
+          "normalized_line": { "type": "string", "description": "pronunciation-normalised text for TTS; the original is never edited" },
+          "visual_anchor": {
+            "type": "object",
+            "description": "ties the picture to the word that names it",
+            "properties": {
+              "word": { "type": "string" },
+              "word_time_s": { "type": "number" },
+              "image_lead_s": { "type": "number", "default": -0.15,
+                "description": "the picture arrives slightly before the word; simultaneous reads as late" }
+            }
+          },
+          "start_state": { "$ref": "#/$defs/state" },
+          "end_state": { "$ref": "#/$defs/state" },
+          "next_action_ready_pose": { "type": "string" },
+          "transition_in": { "type": "string", "enum": ["cut", "dissolve", "wipe", "match", "whip"] },
+          "characters": { "type": "array", "items": { "type": "string", "pattern": "^CHAR_[A-Za-z0-9_]+$" } },
+          "props": { "type": "array", "items": { "type": "string", "pattern": "^PROP_[A-Za-z0-9_]+$" } },
+          "location": { "type": "string", "pattern": "^LOC_[A-Za-z0-9_]+$" },
+          "precision_tier": { "type": "string", "enum": ["tier_a_code_only", "tier_b_hybrid", "tier_c_generative"] },
+          "code_overlay": { "type": "boolean", "description": "true when figures/labels are composited, not generated" },
+          "image_prompt": { "type": "string" },
+          "negative_prompt": { "type": "string" },
+          "voice_cast_id": { "type": "string" },
+          "status": { "type": "string", "enum": ["planned", "image_done", "video_done", "failed", "final"] },
+          "failure_class": { "type": "string", "enum": ["prompt", "model", "budget", "infra"] },
+          "credits_quoted": { "type": "number" },
+          "credits_actual": { "type": "number" }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "state": {
+      "type": "object",
+      "description": "The world at one edge of a shot. end_state of shot N must equal start_state of shot N+1, or the cut will read as a continuity break.",
+      "properties": {
+        "subject_position": { "type": "string" },
+        "subject_pose": { "type": "string" },
+        "gaze": { "type": "string" },
+        "held_objects": { "type": "array", "items": { "type": "string" } },
+        "camera": { "type": "string" },
+        "light": { "type": "string" },
+        "time_of_day": { "type": "string" },
+        "wardrobe": { "type": "string" },
+        "scene_dressing": { "type": "string" }
+      }
+    }
+  }
+}

@@ -1,0 +1,18 @@
+schema_version: 1
+id: TIMESLIP_PRESENTER
+label: a modern presenter inside a historical setting
+subject: the presenter, and the world reacting to them
+speech_modes: [PRESENTER, IN_WORLD, BRIDGED, VOICE_LED]
+lens_contact: presenter_only     # only the presenter may address the lens
+shot_len_s: { min: 2.0, max: 5.0, target: 3.0 }
+edit: { highlight_speed: 0.95, transition_speed: 1.05, cuts_per_min: { min: 14, max: 26 } }
+required_shots:
+  - { id: TS_WORLD_ESTABLISH, min: 1, where: opening }
+  - { id: TS_LENS_ADDRESS,    min: 1 }
+max_repeat: { TS_PERIOD_REACTION: 3 }
+precision_tier: tier_c_generative
+forbid:
+  - retrospective monologue ("looking back, I...") -- it kills the present tense
+  - anyone but the presenter looking into the lens
+  - failure or humiliation beats played to the lens
+  - modern objects in frame unless the joke is the anachronism

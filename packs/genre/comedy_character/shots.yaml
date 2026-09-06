@@ -1,0 +1,7 @@
+schema_version: 1
+shots:
+  - { id: COM_SETUP,    name: the premise, camera: medium, reads_as: "here is the situation" }
+  - { id: COM_REACTION, name: the face, camera: close, reads_as: how it lands }
+  - { id: COM_PUNCH,    name: punchline, camera: close or snap-wide, reads_as: the turn }
+  - { id: COM_ESCALATE, name: it gets worse, camera: matching the setup, reads_as: escalation }
+  - { id: COM_BUTTON,   name: the button, camera: held one beat, reads_as: end }

@@ -1,0 +1,12 @@
+out/
+_downloads/
+*.mp4
+*.mov
+*.mkv
+*.webm
+*.wav
+*.mp3
+__pycache__/
+*.pyc
+.venv/
+urls.txt

@@ -1,0 +1,7 @@
+schema_version: 1
+shots:
+  - { id: FIN_HOOK_NUMBER,  name: the number, cold, camera: full-frame figure, reads_as: "this is the story" }
+  - { id: FIN_CHART_REVEAL, name: chart draws on, camera: locked, reads_as: the trend }
+  - { id: FIN_COMPARE,      name: side by side, camera: locked split, reads_as: "against what" }
+  - { id: FIN_CONTEXT_BROLL, name: real-world cutaway, camera: slow, reads_as: "what this means to you" }
+  - { id: FIN_TAKEAWAY,     name: closing statement, camera: locked, reads_as: what to do with this }

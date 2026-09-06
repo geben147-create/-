@@ -1,0 +1,18 @@
+schema_version: 1
+id: DOCUMENTARY
+label: documentary / reportage
+subject: the event, the place, the record
+speech_modes: [VOICE_LED, INTERVIEW]
+lens_contact: none               # interviewees look off-axis, never down the lens
+shot_len_s: { min: 3.0, max: 8.0, target: 4.5 }
+edit: { highlight_speed: 0.94, transition_speed: 1.0, cuts_per_min: { min: 8, max: 18 } }
+required_shots:
+  - { id: DOC_ESTABLISH, min: 1, where: opening }
+  - { id: DOC_EVIDENCE,  min: 1 }
+max_repeat: {}
+precision_tier: tier_a_code_only  # any figure shown carries the claim
+forbid:
+  - a subject looking into the lens and explaining
+  - reconstructed footage presented as record
+  - music that tells the viewer how to feel before the evidence does
+  - a statistic on screen that no source supports

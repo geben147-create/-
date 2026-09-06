@@ -1,0 +1,18 @@
+schema_version: 1
+id: FINANCE_EXPLAINER
+label: finance / data explainer
+subject: the data -- the chart is the protagonist
+speech_modes: [VOICE_LED]
+lens_contact: anchor_only        # at most one anchor, if there is one at all
+shot_len_s: { min: 2.0, max: 4.0, target: 2.8 }
+edit: { highlight_speed: 0.90, transition_speed: 1.08, cuts_per_min: { min: 16, max: 30 } }
+required_shots:
+  - { id: FIN_HOOK_NUMBER,  min: 1, where: opening }
+  - { id: FIN_CHART_REVEAL, min: 1 }
+max_repeat: { FIN_CHART_REVEAL: 4 }
+precision_tier: tier_a_code_only
+forbid:
+  - letting a generative model draw any figure, axis or chart
+  - a chart without its axis labelled and its unit stated
+  - implying a forecast is a fact
+  - a y-axis that does not start where the comparison needs it to

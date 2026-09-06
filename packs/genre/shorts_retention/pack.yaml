@@ -1,0 +1,20 @@
+schema_version: 1
+id: SHORTS_RETENTION
+label: vertical short, retention-first
+subject: the change, and the payoff
+speech_modes: [HOOK, PAYOFF, LOOP]
+lens_contact: hook_only
+shot_len_s: { min: 0.6, max: 2.0, target: 1.1 }
+edit: { highlight_speed: 0.96, transition_speed: 1.15, cuts_per_min: { min: 30, max: 70 } }
+required_shots:
+  - { id: SR_HOOK,   min: 1, where: opening }
+  - { id: SR_PAYOFF, min: 1 }
+  - { id: SR_LOOP,   min: 1, where: closing }
+max_repeat: {}
+aspect: "9:16"
+precision_tier: tier_c_generative
+forbid:
+  - an establishing shot
+  - a slow introduction
+  - a payoff that arrives after the halfway point
+  - an ending that does not return to the opening frame

@@ -1,0 +1,19 @@
+schema_version: 1
+id: COMEDY_CHARACTER
+label: character comedy / reaction
+subject: the face, and the timing
+speech_modes: [IN_WORLD, REACTION]
+lens_contact: punchline_only     # brief, and only on the joke
+shot_len_s: { min: 0.7, max: 3.0, target: 1.4 }
+edit: { highlight_speed: 1.0, transition_speed: 1.12, cuts_per_min: { min: 28, max: 60 } }
+required_shots:
+  - { id: COM_SETUP,    min: 1, where: opening }
+  - { id: COM_REACTION, min: 1 }
+  - { id: COM_PUNCH,    min: 1 }
+max_repeat: {}
+precision_tier: tier_c_generative
+forbid:
+  - explanation longer than one sentence
+  - holding a shot past 3 seconds
+  - a slow establishing opening
+  - explaining the joke after the punchline

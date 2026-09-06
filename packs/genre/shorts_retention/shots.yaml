@@ -1,0 +1,6 @@
+schema_version: 1
+shots:
+  - { id: SR_HOOK,    name: the hook, camera: close, already moving, reads_as: "stay" }
+  - { id: SR_TURN,    name: the turn, camera: cut on movement, reads_as: something changed }
+  - { id: SR_PAYOFF,  name: the payoff, camera: clear and centred, reads_as: the answer }
+  - { id: SR_LOOP,    name: loop back, camera: matches the hook frame, reads_as: watch again }

@@ -1,0 +1,12 @@
+# Cost is a mechanism, not a belief. The mechanism stays even when the policy
+# relaxes: today's zero-credit ceiling is one number, not an assumption baked
+# into the code. The day paid runs are allowed, change the number.
+schema_version: 1
+max_credit_per_shot: 0        # raise this to permit paid generation
+paid_fallback: false
+require_canary: true          # 2 shots must pass before a batch
+concurrency: 1
+submissions_per_run_max: 24
+deadline_minutes: 45
+quote_before_submit: true     # quoting is free; submitting is not
+log: one submission = one journal line (model, quote, actual credits)

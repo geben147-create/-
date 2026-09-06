@@ -1,0 +1,72 @@
+# Capability -> model. The ONLY file naming a model.
+# Rules, prompts, scripts and manifests reference CAP_* codes and never a model,
+# so replacing a model is a one-line edit here.
+#
+# verified_on is not decoration: a mapping older than stale_after_days must be
+# re-quoted before use. Models have silently moved from free to paid before.
+schema_version: 1
+stale_after_days: 14
+
+capabilities:
+  CAP_IMAGE_IDENTITY_LOCK:
+    what: keep a character's face identical across shots
+    model: gpt-image            # default image path
+    enabled: true
+    verified_on: null
+  CAP_FINE_DETAIL_BROLL:
+    what: food, hands, product, texture sharpness
+    model: gpt-image
+    enabled: true
+    verified_on: null
+  CAP_LIPSYNC_AUDIO_REF:
+    what: lip sync driven by an audio reference
+    model: null
+    enabled: false
+    verified_on: null
+  CAP_MULTI_SUBJECT_ACTION:
+    what: person plus props, strong action, several subjects
+    model: null
+    enabled: false
+    verified_on: null
+  CAP_DIAGRAM_MOTION:
+    what: section, x-ray, exploded view, process flow
+    model: null
+    enabled: false
+    verified_on: null
+    status: UNVERIFIED          # decide by quote + 2-shot canary, not memory
+  CAP_EXACT_NUMERIC:
+    what: numbers and dimensions that must be literally correct
+    model: null                 # deliberately empty -- see tiers below
+    enabled: false
+    note: never generated; drawn by a code layer
+  CAP_LONG_TAKE:
+    what: a single shot longer than 8s
+    model: null
+    enabled: false
+  CAP_CAMERA_MOVE:
+    what: a specified camera move rather than an incidental one
+    model: null
+    enabled: false
+
+# Retired, not deleted. Flip enabled to true to bring one back.
+disabled:
+  z_image:
+    reason: output quality rejected in review
+    enabled: false
+
+# Which layer draws precise graphics. One question decides it:
+# "if these numbers or coordinates are wrong, is the viewer misled?"
+precision_tiers:
+  tier_a_code_only:
+    when: yes -- the figures carry the claim
+    examples: [index charts, returns, statistics reveal, certified dimensions]
+    how: SVG / code-drawn overlay, composited
+    why: generative models cannot reproduce the same geometry twice
+  tier_b_hybrid:
+    when: no, but structure and order must read correctly
+    examples: [building section, x-ray, exploded view, process flow, strata]
+    how: generate the picture, draw dimension lines, labels and figures in code
+    rule: no digits inside the generated image, ever
+  tier_c_generative:
+    when: no accuracy requirement
+    how: generative model alone

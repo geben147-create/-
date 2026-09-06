@@ -1,0 +1,3 @@
+yt-dlp>=2026.08.19      # older builds fail on several sites with HTTP 403
+PyYAML>=6.0
+imageio-ffmpeg>=1.16    # optional: supplies an ffmpeg binary if none is installed

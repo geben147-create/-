@@ -1,0 +1,7 @@
+schema_version: 1
+shots:
+  - { id: DOC_ESTABLISH,  name: place and time, camera: wide, static or very slow, reads_as: "where this happened" }
+  - { id: DOC_EVIDENCE,   name: document or artefact, camera: close, even light, reads_as: "here is the proof" }
+  - { id: DOC_INTERVIEW,  name: interview, camera: medium, eyeline off-axis, reads_as: testimony }
+  - { id: DOC_ARCHIVE,    name: archive material, camera: slow push on a still, reads_as: the record }
+  - { id: DOC_OBSERVE,    name: observational, camera: handheld tolerated here, reads_as: unmediated }

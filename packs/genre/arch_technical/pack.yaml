@@ -1,0 +1,25 @@
+schema_version: 1
+id: ARCH_TECHNICAL
+label: architecture / survey / section
+subject: the structure -- building, ground, section, dimension
+speech_modes: [VOICE_LED]
+lens_contact: none              # nobody addresses the camera
+shot_len_s: { min: 3.0, max: 6.0, target: 4.2 }
+edit:
+  highlight_speed: 0.92         # slow slightly where the reveal lands
+  transition_speed: 1.06
+  cuts_per_min: { min: 10, max: 20 }
+required_shots:
+  - { id: ARCH_APPROACH_DESCEND, min: 1, where: opening }
+  - { id: ARCH_SLICE_REVEAL,     min: 1, where: structure_entry }
+  - { id: ARCH_DIMENSION_DRAW,   min: 1 }
+max_repeat:
+  ARCH_WIRE_MORPH: 2            # striking once, a gimmick three times
+  ARCH_ORBIT_LASER: 2
+precision_tier: tier_b_hybrid   # generate the picture, draw the numbers in code
+forbid:
+  - character close-ups and emotional performance
+  - anyone looking into the lens
+  - digits or dimension text baked into a generated image
+  - handheld shake as a style choice
+  - inventing a figure that was never measured

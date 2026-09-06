@@ -1,0 +1,65 @@
+# Named shot vocabulary. Scripts reference SHOT_IDs; the pack decides which are
+# mandatory and how often each may repeat.
+schema_version: 1
+shots:
+  - id: ARCH_APPROACH_DESCEND
+    name: high slow push-in with descent
+    camera: forward dolly from height, simultaneous descent, constant speed
+    reads_as: "here is where we are"
+    notes: opening shot; hold long enough to let the site register
+
+  - id: ARCH_DRONE_PARALLAX
+    name: drone advance, light parallax
+    camera: forward flight, foreground slipping against background
+    reads_as: depth and scale
+    notes: keep parallax weak -- strong parallax reads as a game cutscene
+
+  - id: ARCH_DIMENSION_DRAW
+    name: push into the alley as measurement lines draw on
+    camera: forward push at ground level
+    overlay: dimension lines draw in, in sync with the narration
+    reads_as: "this is the actual size"
+    notes: TIER B. Lines and figures are a code layer, never generated pixels
+
+  - id: ARCH_SLICE_REVEAL
+    name: wall and earth slice away
+    camera: locked or very slow lateral
+    motion: material peels off in slices, revealing what is behind
+    reads_as: "what is inside"
+    notes: the workhorse of the genre; slice direction must match the narration
+
+  - id: ARCH_SEPIA_SHIFT
+    name: sepia shift with slow tracking
+    camera: slow lateral track
+    grade: shifts to sepia over the move
+    reads_as: a jump backwards in time
+
+  - id: ARCH_STRATA_SPLIT
+    name: ground separates into layers
+    motion: strata part vertically, each layer labelled
+    reads_as: what the ground is made of
+    notes: TIER B -- labels in code
+
+  - id: ARCH_WIRE_MORPH
+    name: reality to line wireframe
+    motion: photographic image morphs into linework
+    reads_as: "from object to drawing"
+    notes: powerful once per video; twice is the ceiling
+
+  - id: ARCH_ORBIT_LASER
+    name: camera orbit with laser grid
+    camera: orbit around the subject
+    overlay: scan grid tracks the surface
+    reads_as: surveying, measuring
+
+  - id: ARCH_FRONT_DOLLY
+    name: slow frontal dolly-in
+    camera: straight-on, slow approach
+    reads_as: focus, conclusion
+    notes: good closing shot
+
+  - id: ARCH_SUBSURFACE_EXTEND
+    name: ground turns transparent, piles extend downward
+    motion: surface becomes translucent, foundations continue below
+    reads_as: what is underneath
+    notes: TIER B -- depth figures in code

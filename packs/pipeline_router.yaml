@@ -1,0 +1,15 @@
+# Which executor runs a stage. Promotion is earned, not assumed:
+# a queue/ledger role first, executor only after a clean run of real work.
+schema_version: 1
+stages:
+  script:    { executor: local, human_gate: true }
+  images:    { executor: local, capability: CAP_IMAGE_IDENTITY_LOCK }
+  voice:     { executor: local, cast: packs/voice/voice_cast.json }
+  video:     { executor: local, capability: CAP_MULTI_SUBJECT_ACTION }
+  assemble:  { executor: local }
+  qc:        { executor: local, human_gate: false }
+  publish:   { executor: local, human_gate: true }
+orchestrator:
+  role: queue_ledger_alerts    # not the executor yet
+  promote_to_executor_when: "two weeks of incident-free queue operation"
+human_approval_points: [script_lock, character_lock, paid_submission, publish]
