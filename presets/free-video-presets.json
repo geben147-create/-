@@ -1,0 +1,20 @@
+{
+  "_comment": "discountCost=0 이 검증된 설정만 담겨 있습니다. 값을 바꾸면 과금됩니다.",
+  "_verified": "2026-09-06",
+  "image": [
+    { "brand": "bytedance", "model": "seedream-4-5",   "input": { "aspectRatio": "16:9" } },
+    { "brand": "google",    "model": "nano-banana-2",  "input": { "aspectRatio": "16:9" } },
+    { "brand": "bytedance", "model": "seedream-5-lite","input": { "aspectRatio": "16:9" } }
+  ],
+  "video": [
+    { "brand": "minimax",  "model": "minimax-h3",     "input": { "resolution": "768P", "duration": 5 } },
+    { "brand": "kling-ai", "model": "kling-v3",       "input": { "mode": "std",        "duration": 5 } },
+    { "brand": "alibaba",  "model": "wan-v3-0-prime", "input": { "resolution": "480p", "duration": 5 } }
+  ],
+  "forbidden": {
+    "minimax-h3":     ["duration>5", "resolution=2K"],
+    "kling-v3":       ["mode=pro", "duration=10"],
+    "wan-v3-0-prime": ["resolution=720p"],
+    "models":         ["google/nano-banana-2-lite", "bytedance/seedream-5-0-pro"]
+  }
+}
