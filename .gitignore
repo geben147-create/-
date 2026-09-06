@@ -1,0 +1,10 @@
+/yt-analysis/
+/video-analysis/
+/crawl/
+.env
+*.vtt
+*.srt
+*.m4a
+*.mp4
+__pycache__/
+node_modules/

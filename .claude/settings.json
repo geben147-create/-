@@ -1,0 +1,21 @@
+{
+  "extraKnownMarketplaces": {
+    "last30days-skill": { "source": { "source": "github", "repo": "mvanhorn/last30days-skill" } },
+    "claude-video-vision": { "source": { "source": "github", "repo": "jordanrendric/claude-video-vision" } }
+  },
+  "enabledPlugins": {
+    "last30days@last30days-skill": true,
+    "claude-video-vision@claude-video-vision": true
+  },
+  "enableAllProjectMcpServers": true,
+  "permissions": {
+    "allow": [
+      "Bash(yt-dlp:*)", "Bash(ffmpeg:*)", "Bash(ffprobe:*)", "Bash(tesseract:*)",
+      "Bash(agent-browser:*)", "Bash(python3 .claude/skills/*)", "Bash(bash .claude/skills/*)",
+      "Bash(python3 ~/.claude/skills/*)", "Bash(bash ~/.claude/skills/*)",
+      "WebSearch", "WebFetch",
+      "mcp__playwright__*", "mcp__youtube-transcript__*", "mcp__chrome-devtools__*",
+      "mcp__brave-search__*", "mcp__firecrawl__*", "mcp__browser-mcp__*"
+    ]
+  }
+}
