@@ -1,6 +1,6 @@
 {
   "schema": "stayfade/arrangement/1",
-  "created_at": "2026-09-06T23:55:39+00:00",
+  "created_at": "2026-09-07T00:19:19+00:00",
   "choices": {
     "drums": "B_halftime",
     "bass": "C_syncopated",
@@ -35,8 +35,8 @@
         "from": 16,
         "to": 19,
         "semitones": -2,
-        "applied": false,
-        "error": "KeyError: 'index'"
+        "applied": true,
+        "notes_changed": 4
       },
       {
         "op": "move",
@@ -70,20 +70,21 @@
     },
     {
       "start": 40.194,
-      "end": 61.626
+      "end": 76.614
     }
   ],
   "transition_ms": 180.0,
   "new_note_counts": {
-    "drums": 1035,
-    "bass": 279,
-    "pad": 120,
+    "drums": 1060,
+    "bass": 286,
+    "pad": 123,
     "bridge_melody": 24
   },
   "human_vocal_takes": [],
+  "note_edits_failed": [],
   "timeline": {
     "intro_sec": 8.591,
-    "bridge_inserted_at": 93.785,
+    "bridge_inserted_at": 93.425,
     "bridge_sec": 17.09,
     "total_sec": 112.855,
     "xfade_ms": 180.0
@@ -91,22 +92,21 @@
   "master_chain": {
     "hpf_hz": 20.0,
     "side_gain": 0.9,
-    "pre_normalize": {
-      "applied_db": -4.27,
-      "before_lufs": -8.73,
-      "target": -13.0
-    },
-    "limiter": {
-      "max_gain_reduction_db": -2.87,
-      "ceiling_dbtp_target": -1.0,
-      "oversample": 4
-    },
-    "final_normalize": {
-      "applied_db": -0.96,
-      "before_lufs": -13.04,
+    "normalize": {
+      "applied_db": -5.17,
+      "before_lufs": -8.83,
       "target": -14.0
     },
-    "final_true_peak_dbtp": -2.06
+    "limiter": {
+      "max_gain_reduction_db": -2.18,
+      "ceiling_dbtp_target": -1.0,
+      "oversample": 4,
+      "passes_used": 1
+    },
+    "final_true_peak_dbtp": -1.0,
+    "achieved_lufs": -14.01,
+    "lufs_target": -14.0,
+    "lufs_miss_db": -0.01
   },
   "outputs": {
     "premaster": "<PROJECT>/06_mix/arranged_premaster.wav",

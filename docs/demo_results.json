@@ -7,14 +7,15 @@
       "key": "Gb",
       "confidence": 0.323
     },
-    "bars": 40,
+    "bars": 41,
     "sections": 9,
-    "chords_estimated": 40
+    "chords_estimated": 41
   },
   "separation": {
     "engine": "hpss_fallback",
     "sum_correlation": 1.0,
-    "relative_rms_error": 0.00024
+    "relative_rms_error": 0.00024,
+    "caveat_ko": "폴백 엔진에서는 other = 원본 - (bass+vocals+drums) 로 만들기 때문에 합산 상관이 1.0 이 나오는 것이 당연합니다. 분리 품질의 근거가 아닙니다."
   },
   "arrangement": {
     "choices": {
@@ -25,14 +26,15 @@
       "structure": "B_extended"
     },
     "decided_by": "demo_auto",
-    "note_edits": {
+    "note_edits_applied": {
       "bass": 3,
-      "bridge_melody": 1
+      "bridge_melody": 2
     },
+    "note_edits_failed": 0,
     "new_notes": {
-      "drums": 1035,
-      "bass": 279,
-      "pad": 120,
+      "drums": 1060,
+      "bass": 286,
+      "pad": 123,
       "bridge_melody": 24
     },
     "intro": {
@@ -50,22 +52,24 @@
     },
     "timeline": {
       "intro_sec": 8.591,
-      "bridge_inserted_at": 93.785,
+      "bridge_inserted_at": 93.425,
       "bridge_sec": 17.09,
       "total_sec": 112.855,
       "xfade_ms": 180.0
     },
     "limiter": {
-      "max_gain_reduction_db": -2.87,
+      "max_gain_reduction_db": -2.18,
       "ceiling_dbtp_target": -1.0,
-      "oversample": 4
+      "oversample": 4,
+      "passes_used": 1
     },
-    "final_norm": {
-      "applied_db": -0.96,
-      "before_lufs": -13.04,
+    "normalize": {
+      "applied_db": -5.17,
+      "before_lufs": -8.83,
       "target": -14.0
     },
-    "final_true_peak_dbtp": -2.06
+    "achieved_lufs": -14.01,
+    "final_true_peak_dbtp": -1.0
   },
   "qc": {
     "before": {
@@ -82,33 +86,35 @@
     },
     "after": {
       "duration_sec": 112.855,
-      "lufs_i": -14.0,
-      "lra_lu": 11.67,
-      "true_peak_dbtp": -2.06,
-      "sample_peak_dbfs": -2.06,
-      "crest_db": 13.7,
-      "dc_offset_max_abs": 2.4966e-05,
+      "lufs_i": -14.01,
+      "lra_lu": 11.25,
+      "true_peak_dbtp": -1.0,
+      "sample_peak_dbfs": -1.01,
+      "crest_db": 14.8,
+      "dc_offset_max_abs": 7.552e-06,
       "samples_at_or_over_0dbfs": 0,
-      "silence_head_sec": 1.655,
+      "silence_head_sec": 0.0,
       "silence_tail_sec": 0.0
     },
     "before_stereo": {
       "overall": 0.8319,
+      "dead_or_constant_channel": false,
       "negative_window_ratio_active": 0.0,
       "active_windows": 87,
       "min_window": 0.019,
       "note_ko": "참고 검사입니다. 모노 청취를 대체하지 않습니다."
     },
     "after_stereo": {
-      "overall": 0.8534,
-      "negative_window_ratio_active": 0.9,
-      "active_windows": 111,
-      "min_window": -0.0756,
+      "overall": 0.9029,
+      "dead_or_constant_channel": false,
+      "negative_window_ratio_active": 0.89,
+      "active_windows": 112,
+      "min_window": -0.0354,
       "note_ko": "참고 검사입니다. 모노 청취를 대체하지 않습니다."
     },
     "flac16": {
-      "lufs_i": -14.0,
-      "true_peak_dbtp": -2.06,
+      "lufs_i": -14.01,
+      "true_peak_dbtp": -1.0,
       "duration_sec": 112.855
     },
     "spec_verdict": "PASS",
@@ -116,9 +122,9 @@
     "warns": 0,
     "ab": {
       "path": "/home/user/-/work/demo_project/08_qc/AB_original_vs_arranged.wav",
-      "original_lufs": -10.29,
-      "arranged_lufs": -14.29,
-      "matched_to_lufs": -14.29,
+      "original_lufs": -10.54,
+      "arranged_lufs": -14.48,
+      "matched_to_lufs": -14.48,
       "seconds_each": 24.0,
       "order_ko": "원본 → 무음 1초 → 편곡"
     }
@@ -127,11 +133,13 @@
     "raw": "work/vocal_demo_raw.wav",
     "processed": "work/vocal_demo_out/vocal_demo_raw_processed.wav",
     "cents_off_before": 30.0,
-    "cents_off_after": 5.0,
+    "cents_off_after": 0.8,
     "notes_detected": 6,
     "notes_corrected": 5,
     "output_peak_dbfs": -3.0,
+    "timing": null,
     "harmony": "3도/5도 자동 생성 (인간 실연 아님)"
   },
+  "tests": "pipeline/tests/test_pipeline.py 30/30 통과",
   "note_ko": "합성 테스트 곡 기준. 사용자의 곡에서는 다른 값이 나옵니다."
 }

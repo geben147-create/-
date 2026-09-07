@@ -36,19 +36,23 @@ bash skill/scripts/run_unix.sh ~/Music/곡.wav mysong Ebm
 
 ## 실행 순서 (단계별로 직접)
 
+설치 스크립트가 만든 가상환경의 파이썬을 쓰세요. 시스템 `python` 에는 의존성이 없습니다.
+
 ```bash
 export PYTHONPATH=/path/to/pipeline
-python -m stayfade --project ./work/<곡이름> init <원본.wav> --title "곡 제목" --artist "이름" \
+PY=~/stayfade-venv/bin/python     # Windows: %USERPROFILE%\stayfade\.venv\Scripts\python.exe
+
+$PY -m stayfade --project ./work/<곡이름> init <원본.wav> --title "곡 제목" --artist "이름" \
     --target-lufs -14 --side-gain 1.0 --distributor routenote \
     --source-description "Suno Pro 생성 (플랜·생성일 기입)" --rights-evidence "영수증 파일 경로"
-python -m stayfade --project ./work/<곡이름> analyze          # 01 분리 + 02 분석 + 03 채보
-python -m stayfade --project ./work/<곡이름> analyze --key Ebm  # 조성이 모호하다고 나오면 지정
-python -m stayfade --project ./work/<곡이름> candidates       # 04 후보 + 05 미리듣기
-python -m stayfade --project ./work/<곡이름> gate             # 06 사람 결정 관문 (여기서 멈춤)
+$PY -m stayfade --project ./work/<곡이름> analyze          # 01 분리 + 02 분석 + 03 채보
+$PY -m stayfade --project ./work/<곡이름> analyze --key Ebm  # 조성이 모호하다고 나오면 지정
+$PY -m stayfade --project ./work/<곡이름> candidates       # 04 후보 + 05 미리듣기
+$PY -m stayfade --project ./work/<곡이름> gate             # 06 사람 결정 관문 (여기서 멈춤)
 #  → 04_render/*.wav 를 전부 듣고 human_decisions.json 을 채운다
-python -m stayfade --project ./work/<곡이름> build            # 07 보컬 + 08 믹스·마스터
-python -m stayfade --project ./work/<곡이름> qc               # 09 측정 + A/B
-python -m stayfade --project ./work/<곡이름> evidence         # 10 증빙
+$PY -m stayfade --project ./work/<곡이름> build            # 07 보컬 + 08 믹스·마스터
+$PY -m stayfade --project ./work/<곡이름> qc               # 09 측정 + A/B
+$PY -m stayfade --project ./work/<곡이름> evidence         # 10 증빙
 ```
 
 `all` 은 gate 에서 자동으로 멈춘다.
@@ -92,7 +96,7 @@ python -m stayfade --project ./work/<곡이름> evidence         # 10 증빙
 `schema/` 안의 JSON Schema 로 산출물을 검증한다.
 
 ```bash
-python skill/scripts/validate.py ./work/<곡이름>
+$PY skill/scripts/validate.py ./work/<곡이름>
 ```
 
 | 파일 | 스키마 |
@@ -107,7 +111,7 @@ python skill/scripts/validate.py ./work/<곡이름>
 ## 코드를 고쳤다면 테스트부터
 
 ```bash
-PYTHONPATH=pipeline python pipeline/tests/test_pipeline.py     # 21개 단위 테스트, 약 1분
+PYTHONPATH=pipeline $PY pipeline/tests/test_pipeline.py     # 21개 단위 테스트, 약 1분
 ```
 
 리미터·엔벌로프의 수식 정확성, 트루피크 천장 준수, 하모니 클리핑, 후보 재현성,

@@ -31,8 +31,10 @@ function Step($label, $arguments) {
     if ($LASTEXITCODE -ne 0) { throw "$label 단계에서 멈췄습니다. 위 메시지를 확인하세요." }
 }
 
-Step "00 원본 보존" @("init", $Audio, "--title", $Title, "--artist", $Artist,
-                      "--target-lufs", $TargetLufs, "--distributor", $Distributor)
+# PowerShell 은 빈 문자열 인자를 외부 명령에 전달할 때 그냥 지워버립니다 → 조건부로 붙입니다
+$initArgs = @("init", $Audio, "--title", $Title, "--target-lufs", $TargetLufs, "--distributor", $Distributor)
+if ($Artist -ne "") { $initArgs += @("--artist", $Artist) }
+Step "00 원본 보존" $initArgs
 
 $analyzeArgs = @("analyze")
 if ($Key -ne "") { $analyzeArgs += @("--key", $Key) }

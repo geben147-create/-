@@ -50,12 +50,20 @@ def build(project: Project, meta: dict, decisions: dict, qc_data: dict, extra: d
     tv = tool_versions()
     jdump(tv, ev_dir / "tool_versions.json")
 
+    extra = extra or {}
     dec_list = decisions.get("decisions", [])
-    edits = sum(len(d.get("note_edits", []) or []) for d in dec_list)
+    requested_edits = sum(len(d.get("note_edits", []) or []) for d in dec_list)
+    # 요청한 수정이 아니라 '실제로 오디오에 반영된' 수정만 셉니다 (증빙이 부풀려지면 안 됨)
+    edits = extra.get("applied_note_edits", requested_edits)
+    failed_edits = extra.get("failed_note_edits", 0)
     decided_by = decisions.get("decided_by", "unknown")
     human_perf = decisions.get("human_performance", {})
+    takes = extra.get("human_takes") or []
     perf_desc = "없음 (이번 세션에서 새 인간 실연 없음)"
-    if human_perf.get("files"):
+    if takes:
+        perf_desc = "; ".join(f"{Path(t.get('raw') or t.get('processed', '')).name} "
+                              f"(raw sha256 {str(t.get('raw_sha256'))[:16]}…)" for t in takes)
+    elif human_perf.get("files"):
         perf_desc = f"{len(human_perf['files'])}개 파일: " + ", ".join(Path(f).name for f in human_perf["files"])
 
     disclosure = AI_DISCLOSURE_TEMPLATE.format(
@@ -65,12 +73,12 @@ def build(project: Project, meta: dict, decisions: dict, qc_data: dict, extra: d
         source_desc=meta.get("source_description", "AI music generator output (details to be filled in by the artist)"),
         source_hash=meta.get("source_hash", "(unknown)"),
         rights_evidence=meta.get("rights_evidence", "NOT YET SUPPLIED — receipt / subscription record / song URL / generation date"),
-        separation_engine=extra.get("separation_engine", "?") if extra else "?",
-        transcription=extra.get("transcription", "Basic Pitch") if extra else "Basic Pitch",
-        candidates=extra.get("candidates", "generated locally, seeded") if extra else "generated locally, seeded",
+        separation_engine=extra.get("separation_engine", "?"),
+        transcription=extra.get("transcription", "Basic Pitch"),
+        candidates=extra.get("candidates", "generated locally, seeded"),
         human_decision_count=len(dec_list),
         decided_by=decided_by,
-        note_edit_count=edits,
+        note_edit_count=(f"{edits} applied" + (f", {failed_edits} requested but NOT applied" if failed_edits else "")),
         human_performance=perf_desc,
         listening_status=meta.get("listening_status", "PENDING"),
         rights_status=meta.get("rights_status", "UNVERIFIED"),
@@ -86,7 +94,10 @@ def build(project: Project, meta: dict, decisions: dict, qc_data: dict, extra: d
     if not meta.get("rights_evidence"):
         warnings.append("생성 서비스 영수증·구독 증빙이 비어 있습니다 — 유통 심사에서 1순위 요구 항목입니다.")
     if edits == 0:
-        warnings.append("사람이 직접 고친 노트가 0개입니다 — 후보 선택만으로는 창작 기여가 약합니다.")
+        warnings.append("실제로 반영된 노트 수정이 0개입니다 — 후보 선택만으로는 창작 기여가 약합니다.")
+    if failed_edits:
+        warnings.append(f"요청했지만 반영되지 않은 노트 수정이 {failed_edits}개 있습니다 — "
+                        "arrangement_manifest.json 의 note_edits_failed 를 확인하세요.")
 
     manifest = {
         "generated_at": now_iso(),
@@ -94,7 +105,9 @@ def build(project: Project, meta: dict, decisions: dict, qc_data: dict, extra: d
         "meta": meta,
         "tooling": {"packages": tv["packages"], "binaries": {k: (v or {}).get("path") if v else None
                                                              for k, v in tv["binaries"].items()}},
-        "decisions_summary": {"count": len(dec_list), "decided_by": decided_by, "note_edits": edits},
+        "decisions_summary": {"count": len(dec_list), "decided_by": decided_by,
+                              "note_edits_requested": requested_edits, "note_edits_applied": edits,
+                              "note_edits_failed": failed_edits},
         "qc_verdict": qc_data.get("spec_check", {}).get("verdict"),
         "warnings_ko": warnings,
         "not_certified_ko": "이 파일은 저작권 소유나 유통 승인을 증명하지 않습니다.",

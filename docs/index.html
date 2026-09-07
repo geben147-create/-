@@ -148,8 +148,8 @@ footer .wrap{display:grid;gap:10px}
       <div><b>0원</b><span>설치한 도구 비용</span></div>
       <div><b>11단계</b><span>00 보존 → 10 증빙</span></div>
       <div><b>PASS</b><span>기술 QC 결과</span></div>
-      <div><b class="warn">+1.28 → −2.06</b><span>True Peak dBTP</span></div>
-      <div><b>30 → 5.0</b><span>보컬 음정 오차 cents</span></div>
+      <div><b class="warn">+1.28 → −1.00</b><span>True Peak dBTP</span></div>
+      <div><b>30 → 0.8</b><span>보컬 음정 오차 cents</span></div>
       <div><b class="warn">0%</b><span>AI 음원 → 멜론·지니</span></div>
     </div>
   </div>
@@ -241,6 +241,27 @@ footer .wrap{display:grid;gap:10px}
       </ul>
     </div>
   </div>
+  <h3>독립 검토에서 나온 결함을 고쳤습니다</h3>
+  <p>만든 코드를 여섯 갈래(재현성 · 오디오 DSP · 견고성 · 스키마 · 문서 · 정직성)로 나눠 따로 검토시켰고,
+    <strong>재현해서 확인된 결함 21건</strong>을 고쳤습니다. 중요한 것만 옮기면:</p>
+  <ul class="clean">
+    <li><b>같은 시드인데 매번 다른 마스터가 나왔습니다.</b> 드럼 합성이 파이썬의 문자열 해시를 쓰고 있었는데,
+      이 값은 실행할 때마다 달라집니다. 해시 기반 증빙을 내세우는 도구에서 이건 치명적이라 고정 값으로 바꿨습니다.</li>
+    <li><b>인트로 앞 1.6초가 통째로 무음이었습니다.</b> 곡 전체 기준 시각을 인트로 버퍼에 그대로 써서 생긴 문제입니다.</li>
+    <li><b>이음매마다 3 dB씩 소리가 꺼졌습니다.</b> 등파워라고 적어놓고 실제로는 등이득 곡선을 쓰고 있었습니다.</li>
+    <li><b>리미터가 천장을 넘겼습니다.</b> 신호를 다시 다운샘플하면서 피크가 되돌아왔습니다. 이제 게인 곡선만 내려서 곱하고,
+      넘으면 다시 계산합니다. 검증: 핫 노이즈·0 dBFS 사인·구형파·임펄스 모두 정확히 −1.00 dBTP.</li>
+    <li><b>목표 음량을 못 맞춰도 맞춘 것처럼 기록했습니다.</b> 이제 실제 도달값을 기록하고, 못 맞추면 이유를 한국어로 적습니다.</li>
+    <li><b>문서에 적힌 <code>transpose_range</code> 수정이 조용히 실패하고 있었습니다.</b> 사람이 직접 고친 음이 오디오에 반영되지 않는,
+      이 도구의 존재 이유를 무너뜨리는 버그였습니다.</li>
+    <li><b>공시 문서가 “요청한” 수정 개수를 셌습니다.</b> 이제 <mark class="g">실제로 반영된</mark> 개수만 세고, 실패한 것은 따로 표시합니다.</li>
+    <li><b>결정 파일이 비어 있어도 관문을 통과했습니다.</b> 이제 후보를 하나라도 안 고르면 막고, 무엇이 빠졌는지 알려줍니다.</li>
+    <li><b>보컬 타이밍 정렬이 첫 소리를 지우고 구멍과 딱 소리를 만들었습니다.</b> 다시 썼습니다. 지속음처럼 온셋이 불분명한 소재는
+      아예 건드리지 않습니다.</li>
+    <li><b>설치 안내가 시스템 파이썬을 부르고 있었습니다.</b> 가상환경 안의 파이썬을 쓰도록 모든 문서를 고쳤습니다.</li>
+  </ul>
+  <p class="note">검토 결과와 수정 내역은 커밋 기록에 남아 있고,
+    같은 결함이 다시 들어오지 않도록 <a href="https://github.com/geben147-create/-/blob/claude/stay-with-fade-qc-jktund/pipeline/tests/test_pipeline.py">단위 테스트 30개</a>를 붙였습니다.</p>
   <p class="note">증빙 단계가 스스로 이렇게 경고합니다:
     <code>decided_by 가 'human' 이 아닙니다</code> / <code>새 인간 실연 파일이 없습니다</code> /
     <code>생성 서비스 영수증·구독 증빙이 비어 있습니다</code>. 이 경고를 없애는 것이 당신이 할 일입니다.</p>
@@ -453,8 +474,11 @@ bash skill/scripts/run_unix.sh ~/Music/곡.wav mysong Ebm</pre>
       <h4>원본을 잠그고 해시를 남긴다</h4>
       <p>원본은 <code>00_original/</code>에 복사되고 그 뒤로는 절대 수정하지 않습니다. SHA-256을 찍어두면
         나중에 “이 파일이 그 파일”이라는 것을 증명할 수 있습니다.</p>
-      <pre>set PYTHONPATH=<span class="k">%CD%</span>\pipeline
-python -m stayfade --project .\work\mysong <span class="k">init</span> "원본.wav" ^
+      <pre><span class="c">REM 설치 스크립트가 만든 가상환경의 파이썬을 씁니다 (시스템 python 에는 의존성이 없습니다)</span>
+set PYTHONPATH=<span class="k">%CD%</span>\pipeline
+set PY=<span class="k">%USERPROFILE%</span>\stayfade\.venv\Scripts\python.exe
+
+%PY% -m stayfade --project .\work\mysong <span class="k">init</span> "원본.wav" ^
   --title "곡 제목" --artist "내 이름" --target-lufs -14 --distributor routenote ^
   --source-description "Suno Pro 생성, 2026-08-xx" --rights-evidence ".\rights\receipt.pdf"</pre>
       <div class="out">init 완료 · 87.714초 · 44100Hz · 2ch · sha256=34969c86878e00c0…</div>
@@ -482,9 +506,9 @@ python -m stayfade --project .\work\mysong <span class="k">init</span> "원본.w
       <h4>BPM · 조성 · 마디 · 구간 · 코드를 추정한다</h4>
       <p>여기서 <mark>조성이 틀리면 편곡 전체가 불협</mark>이 됩니다. 나란한조(Ebm ↔ Gb처럼 구성음이 같은 짝)는
         자동 판별이 자주 틀리기 때문에, 애매하면 프로그램이 먼저 경고하고 당신에게 물어봅니다.</p>
-      <pre>python -m stayfade --project .\work\mysong <span class="k">analyze</span>
+      <pre>%PY% -m stayfade --project .\work\mysong <span class="k">analyze</span>
 <span class="c"># 경고가 뜨면 귀로 확인하고 직접 지정</span>
-python -m stayfade --project .\work\mysong <span class="k">analyze</span> --key Ebm</pre>
+%PY% -m stayfade --project .\work\mysong <span class="k">analyze</span> --key Ebm</pre>
       <div class="out">BPM 112.347 · 키 Ebm · 마디 40 · 섹션 9
 ⚠ Gb / Ebm 중 하나입니다. 틀리면 편곡이 전부 불협이 됩니다 → `analyze --key Ebm` 로 지정 가능</div>
       <p class="note">실제 테스트에서 자동 추정은 Gb(신뢰도 0.323)를 골랐고, 정답은 Ebm이었습니다.
@@ -509,7 +533,7 @@ python -m stayfade --project .\work\mysong <span class="k">analyze</span> --key 
       <h4>드럼·베이스·코드·브리지·구조를 A/B/C로 만든다</h4>
       <p>같은 시드를 넣으면 항상 같은 결과가 나옵니다(재현 가능 = 증빙에 유리).
         <strong>자동으로 확정하지 않습니다.</strong> 15개 후보가 생기고, 고르는 것은 사람입니다.</p>
-      <pre>python -m stayfade --project .\work\mysong <span class="k">candidates</span></pre>
+      <pre>%PY% -m stayfade --project .\work\mysong <span class="k">candidates</span></pre>
       <div class="out">후보 15개 · 미리듣기 12개 → work\mysong\04_render</div>
     </div>
   </div>
@@ -555,7 +579,7 @@ python -m stayfade --project .\work\mysong <span class="k">analyze</span> --key 
       <h4>내가 부른 파일이 있으면 다듬는다</h4>
       <p>노이즈 제거 → 게이트 → <strong>음정 보정</strong> → 타이밍 정렬 → 디에서 → EQ → 컴프레서 →
         (선택) 3도·5도 하모니 생성. 원본 RAW는 절대 덮어쓰지 않습니다.</p>
-      <div class="out">테스트: 일부러 30 cents 어긋나게 만든 5음 → 보정 후 5.0 cents (6음 감지, 5음 보정)</div>
+      <div class="out">테스트: 일부러 30 cents 어긋나게 만든 5음 → 보정 후 0.8 cents (6음 감지, 5음 보정)</div>
     </div>
   </div>
 
@@ -567,10 +591,10 @@ python -m stayfade --project .\work\mysong <span class="k">analyze</span> --key 
       <p>새 인트로를 앞에 붙이고, 원곡에서 기존 드럼(−1.5 dB)·베이스(−3.0 dB)를 부분 감산한 뒤,
         선택한 새 파트를 얹고, 브리지를 삽입합니다. 구간 경계는 180 ms 등파워 전환입니다.
         마스터 체인은 20 Hz HPF → M/S 폭 조정 → 4배 오버샘플 리미터 → LUFS 정규화.</p>
-      <pre>python -m stayfade --project .\work\mysong <span class="k">build</span> --drum-reduce-db -1.5 --bass-reduce-db -3.0</pre>
+      <pre>%PY% -m stayfade --project .\work\mysong <span class="k">build</span> --drum-reduce-db -1.5 --bass-reduce-db -3.0</pre>
       <div class="out">마스터: 07_master\arranged_master_44k1_24bit.wav
 FLAC: 07_master\distributor_candidate_44k1_16bit.flac
-길이 112.855초 (리미터 최대 2.87 dB 감쇠)</div>
+길이 112.855초 (리미터 최대 2.18 dB 감쇠)</div>
     </div>
   </div>
 
@@ -581,7 +605,7 @@ FLAC: 07_master\distributor_candidate_44k1_16bit.flac
       <h4>유통 규격에 맞는지 12가지를 검사한다</h4>
       <p>샘플레이트·비트뎁스·채널·포맷·클리핑·True Peak·앞뒤 무음·길이·DC·스테레오 상관·LUFS를 검사하고,
         원본 대비 A/B 파일(원본 24초 → 무음 1초 → 편곡 24초, 음량 맞춤)까지 만들어 줍니다.</p>
-      <div class="out">QC PASS · 원본 -9.67 LUFS → 편곡 -14.0 LUFS · TP -2.06 dBTP · 상관 0.8534 · 실패 0 경고 0</div>
+      <div class="out">QC PASS · 원본 -9.67 LUFS → 편곡 -14.0 LUFS · TP -1.0 dBTP · 상관 0.9029 · 실패 0 경고 0</div>
     </div>
   </div>
 
@@ -609,30 +633,30 @@ FLAC: 07_master\distributor_candidate_44k1_16bit.flac
     <thead><tr><th>측정</th><th class="n">원본</th><th class="n">편곡·마스터</th><th>읽는 법</th></tr></thead>
     <tbody>
       <tr><td>길이</td><td class="n">87.71초</td><td class="n">112.86초</td><td>새 인트로 8.59초 + 브리지 17.09초가 붙음</td></tr>
-      <tr><td>LUFS-I</td><td class="n">−9.67</td><td class="n">−14.00</td><td>목표값. 유통사 합격선이 아니라 이번 작업 설정</td></tr>
-      <tr><td>LRA <span class="rank">(근사)</span></td><td class="n">3.4 LU</td><td class="n">11.67 LU</td>
+      <tr><td>LUFS-I</td><td class="n">−9.67</td><td class="n">−14.01</td><td>목표값. 유통사 합격선이 아니라 이번 작업 설정</td></tr>
+      <tr><td>LRA <span class="rank">(근사)</span></td><td class="n">3.4 LU</td><td class="n">11.25 LU</td>
         <td>다이내믹 폭. 3초 블록 10~95 백분위 근사이고, 편곡·무음 변화도 함께 영향</td></tr>
-      <tr><td><b>True Peak</b></td><td class="n no">+1.28 dBTP</td><td class="n yes">−2.06 dBTP</td>
+      <tr><td><b>True Peak</b></td><td class="n no">+1.28 dBTP</td><td class="n yes">−1.00 dBTP</td>
         <td><mark class="g">원본은 0을 넘어 인터샘플 클리핑 위험</mark>. 마스터에서 해결됨</td></tr>
-      <tr><td>Sample Peak</td><td class="n">−1.01 dBFS</td><td class="n">−2.06 dBFS</td><td>파일 안 최대값</td></tr>
-      <tr><td>Crest factor</td><td class="n">10.35 dB</td><td class="n">13.70 dB</td><td>클수록 여유 있는 소리</td></tr>
-      <tr><td>스테레오 상관</td><td class="n">0.8319</td><td class="n">0.8534</td><td>−1에 가까우면 모노에서 소리가 사라짐</td></tr>
-      <tr><td>음(−) 상관 1초 구간</td><td class="n">0.0%</td><td class="n">0.9%</td><td>참고 검사. 모노 청취를 대체 못 함</td></tr>
-      <tr><td>DC 오프셋</td><td class="n">0.0021</td><td class="n yes">0.000025</td><td>20 Hz HPF로 제거됨</td></tr>
+      <tr><td>Sample Peak</td><td class="n">−1.01 dBFS</td><td class="n">−1.00 dBFS</td><td>파일 안 최대값</td></tr>
+      <tr><td>Crest factor</td><td class="n">10.35 dB</td><td class="n">14.80 dB</td><td>클수록 여유 있는 소리</td></tr>
+      <tr><td>스테레오 상관</td><td class="n">0.8319</td><td class="n">0.9029</td><td>−1에 가까우면 모노에서 소리가 사라짐</td></tr>
+      <tr><td>음(−) 상관 1초 구간</td><td class="n">0.0%</td><td class="n">0.89%</td><td>참고 검사. 모노 청취를 대체 못 함</td></tr>
+      <tr><td>DC 오프셋</td><td class="n">0.0021</td><td class="n yes">0.0000076</td><td>20 Hz HPF로 제거됨</td></tr>
       <tr><td>0 dBFS 이상 샘플</td><td class="n">0</td><td class="n">0</td><td>디지털 클리핑 없음</td></tr>
-      <tr><td>앞 / 뒤 무음</td><td class="n">0 / 1.15초</td><td class="n">1.66 / 0초</td><td>8초 넘으면 반려 사유</td></tr>
+      <tr><td>앞 / 뒤 무음</td><td class="n">0 / 1.15초</td><td class="n yes">0 / 0초</td><td>8초 넘으면 반려 사유</td></tr>
       <tr><td>규격 검사</td><td class="n">—</td><td class="n yes">PASS (실패 0 · 경고 0)</td><td>16bit/44.1kHz 스테레오 FLAC 기준</td></tr>
     </tbody>
   </table>
   </div>
 
   <h3>새로 만들어진 파트</h3>
-  <div class="meter"><span class="lb">드럼 MIDI</span><span class="bar"><i style="width:100%"></i></span><span class="vl">1,035</span></div>
-  <div class="meter"><span class="lb">베이스 MIDI</span><span class="bar"><i style="width:27%"></i></span><span class="vl">279</span></div>
-  <div class="meter"><span class="lb">패드/코드</span><span class="bar"><i style="width:12%"></i></span><span class="vl">120</span></div>
+  <div class="meter"><span class="lb">드럼 MIDI</span><span class="bar"><i style="width:100%"></i></span><span class="vl">1,060</span></div>
+  <div class="meter"><span class="lb">베이스 MIDI</span><span class="bar"><i style="width:27%"></i></span><span class="vl">286</span></div>
+  <div class="meter"><span class="lb">패드/코드</span><span class="bar"><i style="width:12%"></i></span><span class="vl">123</span></div>
   <div class="meter"><span class="lb">브리지 멜로디</span><span class="bar"><i style="width:3%"></i></span><span class="vl">24</span></div>
-  <div class="meter"><span class="lb">사람이 고친 음</span><span class="bar"><i class="r" style="width:2.5%"></i></span><span class="vl">4</span></div>
-  <p class="note">마지막 줄이 핵심입니다. 자동 생성 노트가 1,458개여도, <mark>사람이 직접 고친 것은 4개</mark>입니다.
+  <div class="meter"><span class="lb">사람이 고친 음</span><span class="bar"><i class="r" style="width:2.5%"></i></span><span class="vl">5</span></div>
+  <p class="note">마지막 줄이 핵심입니다. 자동 생성 노트가 1,493개여도, <mark>사람이 직접 고친 것은 5개</mark>입니다.
     노트 개수를 늘리는 것보다 <strong>사람이 고른·고친 흔적</strong>을 늘리는 쪽이 훨씬 강한 기록입니다.</p>
 </section>
 
@@ -661,7 +685,7 @@ FLAC: 07_master\distributor_candidate_44k1_16bit.flac
     <div class="a">
       <h4>✅ 프로그램이 고쳐줍니다</h4>
       <ul>
-        <li><b>음정</b> — 반음 안쪽으로 들어오면 스케일 음으로 붙입니다 (실측 30 → 5.0 cents)</li>
+        <li><b>음정</b> — 반음 안쪽으로 들어오면 스케일 음으로 붙입니다 (실측 30 → 0.8 cents)</li>
         <li><b>타이밍</b> — 온셋을 그리드로 최대 90 ms 당기고 밀기</li>
         <li><b>노이즈·잡음</b> — 스펙트럼 차감 + 게이트</li>
         <li><b>치찰음</b> — 6.5 kHz 디에서</li>
@@ -736,10 +760,10 @@ FLAC: 07_master\distributor_candidate_44k1_16bit.flac
 ├─ templates/human_decisions.template.json
 ├─ templates/recording_checklist.md
 └─ templates/lyrics_changelog.template.md</pre>
-  <pre>python skill/scripts/validate.py .\work\mysong
+  <pre>%PY% skill\scripts\validate.py .\work\mysong
 
 <span class="c"># 코드를 고쳤다면 테스트부터 (21개, 약 1분)</span>
-PYTHONPATH=pipeline python pipeline/tests/test_pipeline.py</pre>
+set PYTHONPATH=%CD%\pipeline &amp;&amp; %PY% pipeline\tests\test_pipeline.py</pre>
   <div class="out">✅ project.json  ✅ analysis.json  ✅ candidates.json
 ✅ human_decisions.json  ✅ arrangement_manifest.json  ✅ qc.json
 ⚠  decided_by='demo_auto' — 이 산출물은 인간 창작 증거로 쓸 수 없습니다.

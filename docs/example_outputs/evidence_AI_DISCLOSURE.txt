@@ -1,4 +1,4 @@
-AI DISCLOSURE / 제작 공시 초안  (2026-09-06)
+AI DISCLOSURE / 제작 공시 초안  (2026-09-07)
 Track: Test Track (Ebm)
 Artist: (demo)
 
@@ -15,7 +15,7 @@ Artist: (demo)
 
 3) What a human decided or performed
    - Decisions recorded in human_decisions.json: 5 (decided_by=demo_auto)
-   - Manual note edits: 5
+   - Manual note edits: 5 applied
    - New human vocal / instrumental performance in this session: 없음 (이번 세션에서 새 인간 실연 없음)
 
 4) What was NOT done

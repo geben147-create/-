@@ -238,11 +238,89 @@ def test_repo_schemas_accept_example_outputs():
         return
     pairs = {"project.json": "project.schema.json", "human_decisions.json": "human_decisions.schema.json",
              "arrangement_manifest.json": "arrangement_manifest.schema.json", "qc.json": "qc.schema.json",
-             "candidates.json": "candidates.schema.json"}
+             "candidates.json": "candidates.schema.json", "analysis.json": "analysis.schema.json"}
     for f, s in pairs.items():
         if (ex / f).exists():
             jsonschema.validate(json.loads((ex / f).read_text(encoding="utf-8")),
                                 json.loads((sch / s).read_text(encoding="utf-8")))
+
+
+def test_gate_rejects_empty_or_partial_decisions():
+    cands = {"groups": {"drums": {"question_ko": "?", "options": [{"id": "A"}]},
+                        "bass": {"question_ko": "?", "options": [{"id": "X"}]}}}
+    with tempfile.TemporaryDirectory() as d:
+        p = Path(d) / "hd.json"
+        p.write_text(json.dumps({"schema": "stayfade/human_decisions/1", "status": "DECIDED",
+                                 "decided_by": "human", "decisions": []}), encoding="utf-8")
+        dec, ready = human_gate.load_or_create(cands, p)
+        assert not ready and human_gate.validate(dec, cands)
+        p.write_text(json.dumps({"schema": "stayfade/human_decisions/1", "status": "DECIDED",
+                                 "decided_by": "human",
+                                 "decisions": [{"id": "drums", "choice": "A"}]}), encoding="utf-8")
+        dec, ready = human_gate.load_or_create(cands, p)
+        assert not ready and any("bass" in m for m in human_gate.validate(dec, cands))
+
+
+def test_transpose_range_edit_applies():
+    ev = [{"start": i * 0.5, "end": i * 0.5 + 0.4, "pitch": 60 + i, "velocity": 90} for i in range(6)]
+    out, log = midiio.apply_note_edits(ev, [{"op": "transpose_range", "from": 2, "to": 4, "semitones": -2}])
+    assert log[0]["applied"] and log[0]["notes_changed"] == 3
+    assert [n["pitch"] for n in out] == [60, 61, 60, 61, 62, 65]
+
+
+def test_drum_synthesis_is_process_stable():
+    import hashlib
+    import subprocess
+    code = ("import sys;sys.path.insert(0,%r);from stayfade import synth;import hashlib;"
+            "print(hashlib.sha256(synth.drum_hit('snare',44100,1.0,0).tobytes()).hexdigest())"
+            % str(Path(__file__).resolve().parents[1]))
+    hashes = {subprocess.run([sys.executable, "-c", code], capture_output=True, text=True).stdout.strip()
+              for _ in range(2)}
+    assert len(hashes) == 1 and hashes != {""}
+
+
+def test_mono_center_presets_are_correlated():
+    y = synth.render_events([{"start": 0.0, "end": 1.0, "pitch": 40, "velocity": 100}], SR, 2.0, preset="bass")
+    assert abs(np.corrcoef(y[0], y[1])[0, 1] - 1.0) < 1e-6
+
+
+def test_crossfade_is_equal_power():
+    up, down = mix.ramp(1000, True), mix.ramp(1000, False)
+    assert abs(float(up[500] ** 2 + down[500] ** 2) - 1.0) < 1e-6
+
+
+def test_overlapping_automation_regions_do_not_stack():
+    y = np.ones((2, SR * 8), dtype=np.float32)
+    g = mix.gain_automation(y, SR, [{"start": 1, "end": 5, "gain_db": -6.0},
+                                    {"start": 3, "end": 7, "gain_db": -6.0}])
+    assert abs(20 * np.log10(float(np.abs(g[:, int(4 * SR)]).max())) + 6.0) < 0.3
+
+
+def test_align_to_grid_preserves_head_and_avoids_clicks():
+    t = np.arange(int(SR * 4)) / SR
+    x = np.zeros_like(t)
+    x[: int(0.45 * SR)] = np.sin(2 * np.pi * 180 * t[: int(0.45 * SR)]) * 0.3
+    for st in [0.55, 1.03, 1.52, 2.07, 2.55, 3.1]:
+        seg = (t >= st) & (t < st + 0.35)
+        x[seg] += np.sin(2 * np.pi * 300 * t[seg]) * 0.5 * np.hanning(seg.sum())
+    x = x.astype(np.float32)
+    out, _ = vocal.align_to_grid(x, SR, [0.5 + i * 0.5 for i in range(8)])
+    assert np.sqrt(np.mean(out[: int(0.4 * SR)] ** 2)) > 0.5 * np.sqrt(np.mean(x[: int(0.4 * SR)] ** 2))
+    assert float(np.abs(np.diff(out)).max()) <= float(np.abs(np.diff(x)).max()) * 1.5 + 0.02
+
+
+def test_align_to_grid_skips_unreliable_onsets():
+    t = np.arange(int(SR * 4)) / SR
+    tone = (np.sin(2 * np.pi * 220 * t) * 0.4).astype(np.float32)
+    out, info = vocal.align_to_grid(tone, SR, [0.5 + i * 0.5 for i in range(8)])
+    assert info["moved"] == 0 and np.allclose(out, tone)
+
+
+def test_qc_correlation_json_serialisable_for_dead_channel():
+    dead = np.vstack([np.sin(np.arange(SR) / 50), np.zeros(SR)]).astype(np.float32)
+    st = qc.correlation_stats(dead, SR)
+    assert st["overall"] is None and st["dead_or_constant_channel"] is True
+    json.dumps(st)
 
 
 if __name__ == "__main__":

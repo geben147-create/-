@@ -54,14 +54,23 @@ def load_or_create(candidates: dict, path: Path) -> tuple[dict, bool]:
     if not path.exists():
         return make_template(candidates, path), False
     d = jload(path)
-    ready = d.get("status") == "DECIDED" and all(g.get("choice") for g in d.get("decisions", []))
+    decisions = d.get("decisions") or []
+    covered = {g.get("id") for g in decisions if g.get("choice")}
+    needed = set(candidates.get("groups", {}))
+    ready = (d.get("status") == "DECIDED" and bool(decisions) and needed.issubset(covered))
     return d, ready
 
 
 def validate(decisions: dict, candidates: dict) -> list[str]:
     problems = []
     valid = {k: {o["id"] for o in g["options"]} for k, g in candidates.get("groups", {}).items()}
-    for g in decisions.get("decisions", []):
+    entries = decisions.get("decisions") or []
+    if not entries:
+        problems.append("decisions 가 비어 있습니다 — 후보를 하나도 고르지 않았습니다")
+    answered = {g.get("id") for g in entries if g.get("choice")}
+    for missing in sorted(set(valid) - answered):
+        problems.append(f"{missing}: 아직 고르지 않았습니다 (가능: {sorted(valid[missing])})")
+    for g in entries:
         if not g.get("choice"):
             problems.append(f"{g['id']}: choice 가 비어 있습니다")
         elif g["id"] in valid and g["choice"] not in valid[g["id"]]:

@@ -161,9 +161,10 @@ def downbeats_from_beats(beat_times: list[float], beats_per_bar: int = 4,
     if extend_to_zero and bars[0] > bar_len * 0.5:
         pre = []
         t = bars[0] - bar_len
-        while t > -bar_len * 0.25:
-            pre.append(max(0.0, t))
+        while t > bar_len * 0.25:
+            pre.append(t)
             t -= bar_len
+        pre.append(0.0)          # 첫 마디가 늦게 시작해도 0초부터 그리드를 만든다 (앞부분이 빠지지 않게)
         bars = sorted(set(round(x, 4) for x in pre)) + bars
     if duration is not None:
         t = bars[-1] + bar_len

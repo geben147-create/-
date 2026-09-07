@@ -68,6 +68,16 @@ def apply_note_edits(events: list[dict], edits: list[dict]) -> tuple[list[dict],
                            "pitch": int(ed["pitch"]), "velocity": int(ed.get("velocity", 96))})
                 log.append({**ed, "applied": True})
                 continue
+            if op == "transpose_range":
+                a, b = int(ed["from"]), int(ed["to"])
+                moved = 0
+                for j in range(a, min(b + 1, len(ev))):
+                    if ev[j]:
+                        ev[j]["pitch"] = int(ev[j]["pitch"]) + int(ed["semitones"])
+                        moved += 1
+                log.append({**ed, "applied": moved > 0, "notes_changed": moved,
+                            **({} if moved else {"error": "해당 범위에 음이 없습니다"})})
+                continue
             i = int(ed["index"])
             if op == "delete":
                 ev[i] = None
@@ -83,10 +93,6 @@ def apply_note_edits(events: list[dict], edits: list[dict]) -> tuple[list[dict],
             elif op == "length":
                 ev[i]["dur"] = float(ed["value"])
                 ev[i]["end"] = ev[i]["start"] + float(ed["value"])
-            elif op == "transpose_range":
-                for j in range(int(ed["from"]), min(int(ed["to"]) + 1, len(ev))):
-                    if ev[j]:
-                        ev[j]["pitch"] = int(ev[j]["pitch"]) + int(ed["semitones"])
             else:
                 log.append({**ed, "applied": False, "error": "unknown op"})
                 continue

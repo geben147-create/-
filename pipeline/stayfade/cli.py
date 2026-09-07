@@ -1,6 +1,6 @@
 """stayfade CLI — 단계별 실행기.
 
-  python -m stayfade init <audio> --project DIR [--title T --artist A --target-lufs -14]
+  python -m stayfade --project DIR init <audio> [--title T --artist A --target-lufs -14]
   python -m stayfade analyze      # 01 분리 + 02 분석 + 03 채보
   python -m stayfade candidates   # 04 후보 생성 + 05 미리듣기 렌더
   python -m stayfade gate         # 06 사람 결정 관문 (템플릿 생성 / 검증)
@@ -68,6 +68,7 @@ def cmd_init(args):
     h = sha256(dest)
     from .common import audio_info
     info = audio_info(dest)
+    existing = p.info() if (p.root / "project.json").exists() else {}
     meta = {
         "schema": "stayfade/project/1",
         "title": args.title or src.stem,
@@ -89,6 +90,20 @@ def cmd_init(args):
         "submission_status": "NOT SUBMITTED",
         "warning_ko": "원본 파일은 00_original 에서 수정하지 마세요. 모든 작업은 사본에서 합니다.",
     }
+    if existing:
+        # 같은 프로젝트에 init 을 다시 돌려도 사람이 채워 넣은 값(권리 증빙·청취 상태 등)을 지우지 않는다
+        explicit = {a.split("=")[0].lstrip("-").replace("-", "_") for a in sys.argv[1:] if a.startswith("--")}
+        keep = {"artist", "rights_evidence", "source_description", "listening_status", "rights_status",
+                "submission_status", "target_lufs", "side_gain", "ceiling_dbtp", "distributor_spec", "seed",
+                "title"}
+        flag_for = {"target_lufs": "target_lufs", "side_gain": "side_gain", "ceiling_dbtp": "ceiling",
+                    "distributor_spec": "distributor"}
+        for k in keep:
+            if k in existing and existing[k] not in (None, "") and flag_for.get(k, k) not in explicit:
+                meta[k] = existing[k]
+        meta["created_at"] = existing.get("created_at", meta["created_at"])
+        meta["reinitialised_at"] = now_iso()
+        p.log("기존 project.json 의 사용자 입력값(권리 증빙·상태 등)을 유지했습니다.")
     jdump(meta, p.root / "project.json")
     p.set_state("00_init", "ok", source_hash=h)
     p.log(f"init 완료 · {info['duration_sec']}초 · {info['samplerate']}Hz · {info['channels']}ch · sha256={h[:16]}…")
@@ -275,9 +290,12 @@ def cmd_gate(args):
     if not ready or problems:
         print(f"⏸  사람 결정 대기: {path}")
         for g in dec["decisions"]:
-            print(f"  - {g['id']}: {g['question_ko']}")
-            for o in g["options"]:
-                print(f"      {o['id']}  {o.get('label_ko','')}")
+            gid = g.get("id", "?")
+            question = g.get("question_ko") or (cands.get("groups", {}).get(gid, {}).get("question_ko", ""))
+            print(f"  - {gid}: {question}")
+            options = g.get("options") or cands.get("groups", {}).get(gid, {}).get("options", [])
+            for o in options:
+                print(f"      {o.get('id','?')}  {o.get('label_ko','')}")
         if problems:
             print("문제: " + "; ".join(problems))
         p.set_state("06_gate", "waiting")
@@ -295,8 +313,14 @@ def cmd_build(args):
     cands = jload(p.root / "candidates.json")
     sep = jload(p.root / "separation.json")
     dec, ready = HG.load_or_create(cands, p.root / "human_decisions.json")
-    if not ready:
-        sys.exit("human_decisions.json 이 아직 DECIDED 가 아닙니다. `gate` 를 먼저 통과하세요.")
+    problems = HG.validate(dec, cands)
+    if not ready or problems:
+        lines = ["⛔ human_decisions.json 을 아직 쓸 수 없습니다:"]
+        if dec.get("status") != "DECIDED":
+            lines.append("   · status 가 DECIDED 가 아닙니다")
+        lines += [f"   · {m}" for m in problems]
+        lines.append(f"   파일: {p.root / 'human_decisions.json'}")
+        sys.exit("\n".join(lines))
     choice = {g["id"]: g["choice"] for g in dec["decisions"]}
     edits = {g["id"]: g.get("note_edits", []) for g in dec["decisions"]}
     sr = an["sr"]
@@ -324,10 +348,15 @@ def cmd_build(args):
             edit_log[name] = log
         parts[name] = ev
 
+    bridge_opt = next((o for o in cands["groups"]["bridge"]["options"] if o["id"] == choice["bridge"]), None)
+    bridge_bars = args.bridge_bars if getattr(args, "bridge_bars", None) else (bridge_opt or {}).get("bars", 8)
+    if bridge_opt and args.bridge_bars and args.bridge_bars != bridge_opt.get("bars"):
+        p.log(f"⚠ --bridge-bars {args.bridge_bars} 는 미리듣기({bridge_opt.get('bars')}마디)와 다릅니다. "
+              "들어본 것과 다른 길이가 최종본에 들어갑니다.")
     struct_spec = next(o["spec"] for o in cands["groups"]["structure"]["options"] if o["id"] == choice["structure"])
     intro_bars = struct_spec["intro_bars"]
     intro_sec = intro_bars * bar_len
-    br = V.make_bridge(choice["bridge"], 0.0, an["tempo"]["bpm"], args.bridge_bars, tonic, scale,
+    br = V.make_bridge(choice["bridge"], 0.0, an["tempo"]["bpm"], bridge_bars, tonic, scale,
                        seed=meta.get("seed", 7) + 47)
     if edits.get("bridge"):
         br["melody"], log = midiio.apply_note_edits(br["melody"], edits["bridge"])
@@ -337,12 +366,23 @@ def cmd_build(args):
     human_files = (dec.get("human_performance") or {}).get("files") or []
     processed_vocals = []
     for f in human_files:
-        if Path(f).exists():
-            scale_pcs = [(tonic + s) % 12 for s in scale]
-            r = vocal.process_take(Path(f), p.dir("edit") / "vocal", sr_target=sr,
-                                   scale_pcs=scale_pcs, beat_times=an["tempo"]["beat_times"],
-                                   do_harmony=args.harmony)
-            processed_vocals.append(r)
+        src_take = Path(f)
+        if not src_take.exists():
+            p.log(f"⚠ 녹음 파일을 찾을 수 없습니다: {src_take}")
+            continue
+        # 원본 테이크를 프로젝트 안에 보존하고 해시를 남긴 뒤, 사본을 처리합니다
+        kept = p.dir("human") / src_take.name
+        if not kept.exists() or sha256(src_take) != sha256(kept):
+            kept.write_bytes(src_take.read_bytes())
+        take_hash = sha256(kept)
+        scale_pcs = [(tonic + s) % 12 for s in scale]
+        r = vocal.process_take(kept, p.dir("edit") / "vocal", sr_target=sr,
+                               scale_pcs=scale_pcs, beat_times=an["tempo"]["beat_times"],
+                               do_harmony=args.harmony)
+        r["raw_kept"] = str(kept)
+        r["raw_sha256"] = take_hash
+        r["raw_source"] = str(src_take)
+        processed_vocals.append(r)
     jdump(processed_vocals, p.root / "vocal_processing.json")
 
     # 렌더
@@ -351,10 +391,20 @@ def cmd_build(args):
     for name, ylayer in new_layers.items():
         save_wav(p.dir("edit") / f"new_{name}.wav", ylayer, sr)
 
+    # 마디 시각은 곡 전체 기준(절대 시각)이라 인트로 버퍼(0초부터)에 쓰려면 오프셋을 빼야 합니다.
+    # 빼지 않으면 인트로 앞부분이 통째로 무음이 됩니다.
+    intro_offset = bars[0][0] if bars else 0.0
+
+    def _shift(events, offset):
+        return [{**e, "start": e["start"] - offset,
+                 "end": e.get("end", e["start"] + e.get("dur", 0.25)) - offset} for e in events]
+
     intro_layers = render.render_parts(
-        {"pad": [e for e in V.make_pad(ch[:intro_bars] or ch[:1], bars[:intro_bars], seed=meta.get("seed", 7) + 5)],
-         "drums": [e for e in V.make_drums(choice["drums"], bars[max(0, intro_bars - 1):intro_bars],
-                                           seed=meta.get("seed", 7) + 3)]},
+        {"pad": _shift(V.make_pad(ch[:intro_bars] or ch[:1], bars[:intro_bars], seed=meta.get("seed", 7) + 5),
+                       intro_offset),
+         "drums": _shift(V.make_drums(choice["drums"], bars[max(0, intro_bars - 1):intro_bars],
+                                      seed=meta.get("seed", 7) + 3),
+                         intro_offset + max(0, intro_bars - 1) * bar_len)},
         sr, intro_sec, gains_db={"pad": -8.0, "drums": -6.0})
     intro = render.mixdown(intro_layers, int(intro_sec * sr))
     intro = intro * np.linspace(0.2, 1.0, intro.shape[1], dtype=np.float32)
@@ -388,15 +438,21 @@ def cmd_build(args):
                        "bridge_melody": br["melody"], "bridge_bass": br["bass"], "bridge_pad": br["pad"]},
                       p.dir("edit") / "new_parts.mid", an["tempo"]["bpm"])
 
+    failed_edits = [(name, e) for name, log in edit_log.items() for e in log if not e.get("applied")]
+    for name, e in failed_edits:
+        p.log(f"⚠ 적용되지 않은 노트 수정 ({name}): {e} — 증빙에는 '적용됨'으로 세지 않습니다")
+
     manifest = {"schema": "stayfade/arrangement/1", "created_at": now_iso(), "choices": choice,
                 "decided_by": dec.get("decided_by"), "note_edits_applied": edit_log,
                 "intro": {"bars": intro_bars, "seconds": round(intro_sec, 3)},
-                "bridge": {"variant": choice["bridge"], "bars": args.bridge_bars,
+                "bridge": {"variant": choice["bridge"], "bars": bridge_bars,
                            "inserted_at_sec": round(bridge_at, 3)},
                 "stem_reduction_db": {"drums": args.drum_reduce_db, "bass": args.bass_reduce_db},
                 "reduction_regions": regions, "transition_ms": args.xfade_ms,
                 "new_note_counts": {k: len(v) for k, v in parts.items()} | {"bridge_melody": len(br["melody"])},
-                "human_vocal_takes": [r["output"] for r in processed_vocals],
+                "human_vocal_takes": [{"raw": r.get("raw_kept"), "raw_sha256": r.get("raw_sha256"),
+                                       "processed": r["output"]} for r in processed_vocals],
+                "note_edits_failed": [{"part": n, **e} for n, e in failed_edits],
                 "timeline": timeline, "master_chain": mlog,
                 "outputs": {"premaster": str(p.dir("mix") / "arranged_premaster.wav"),
                             "master_wav": str(master_wav), "flac16": str(flac),
@@ -450,9 +506,14 @@ def cmd_evidence(args):
     qcd = jload(p.root / "qc.json") if (p.root / "qc.json").exists() else {}
     sep = jload(p.root / "separation.json") if (p.root / "separation.json").exists() else {}
     arr = jload(p.root / "arrangement_manifest.json") if (p.root / "arrangement_manifest.json").exists() else {}
+    applied_edits = sum(1 for log in (arr.get("note_edits_applied") or {}).values()
+                        for e in log if e.get("applied"))
+    failed_edits = len(arr.get("note_edits_failed") or [])
     res = EV.build(p, meta, dec, qcd,
                    extra={"separation_engine": sep.get("engine"), "transcription": "Basic Pitch (참고용)",
-                          "candidates": f"drums/bass/chords/bridge/structure, seed={meta.get('seed')}"})
+                          "candidates": f"drums/bass/chords/bridge/structure, seed={meta.get('seed')}",
+                          "applied_note_edits": applied_edits, "failed_note_edits": failed_edits,
+                          "human_takes": arr.get("human_vocal_takes") or []})
     jdump({"checklist": EV.checklist(), "arrangement_choices": arr.get("choices")},
           p.dir("evidence") / "submission_checklist.json")
     p.set_state("10_evidence", "ok", files=res["hashed_files"])
@@ -506,7 +567,8 @@ def build_parser():
     g = sub.add_parser("gate"); g.set_defaults(func=cmd_gate)
 
     b = sub.add_parser("build")
-    b.add_argument("--bridge-bars", type=int, default=8)
+    b.add_argument("--bridge-bars", type=int, default=None,
+                   help="기본값은 미리듣기에서 들은 브리지 길이입니다. 지정하면 그 값으로 덮어씁니다")
     b.add_argument("--drum-reduce-db", type=float, default=-1.5)
     b.add_argument("--bass-reduce-db", type=float, default=-3.0)
     b.add_argument("--xfade-ms", type=float, default=180.0)

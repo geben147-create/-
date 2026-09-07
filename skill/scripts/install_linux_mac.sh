@@ -5,6 +5,7 @@ set -euo pipefail
 
 PY=${PY:-python3}
 VENV=${VENV:-"$HOME/stayfade-venv"}
+REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 
 echo "== 1) 가상환경: $VENV"
 $PY -m venv "$VENV"
@@ -17,21 +18,22 @@ echo "== 3) Basic Pitch (오디오→MIDI, 허밍 채보) — 무료 1순위"
 "$VENV/bin/pip" install basic-pitch onnxruntime
 
 echo "== 4) Matchering (레퍼런스 마스터링) — 무료"
-"$VENV/bin/pip" install matchering
+"$VENV/bin/pip" install matchering || echo "  matchering 설치 실패 — 파이프라인은 이것 없이도 동작합니다"
 
 echo "== 5) Demucs (스템 분리) — 무료. 첫 실행 시 모델 가중치를 내려받습니다"
 "$VENV/bin/pip" install demucs || echo "  demucs 설치 실패 — 파이프라인은 HPSS 폴백으로 계속 동작합니다"
 
 echo "== 6) ffmpeg / fluidsynth (시스템 패키지)"
 if command -v apt-get >/dev/null; then
-  sudo apt-get update -qq && sudo apt-get install -y ffmpeg fluidsynth fluid-soundfont-gm
+  { sudo apt-get update -qq && sudo apt-get install -y ffmpeg fluidsynth fluid-soundfont-gm; } \
+    || echo "  ffmpeg/fluidsynth 자동 설치 실패 — 직접 설치하세요"
 elif command -v brew >/dev/null; then
-  brew install ffmpeg fluid-synth
+  brew install ffmpeg fluid-synth || echo "  ffmpeg/fluidsynth 자동 설치 실패 — 직접 설치하세요"
 else
   echo "  수동 설치 필요: ffmpeg, fluidsynth"
 fi
 
 echo
 echo "완료. 사용:"
-echo "  export PYTHONPATH=$(pwd)/pipeline"
-echo "  $VENV/bin/python -m stayfade --project ./work/mysong init <원본.wav>"
+echo "  export PYTHONPATH=$REPO/pipeline"
+echo "  $VENV/bin/python -m stayfade --project $REPO/work/mysong init <원본.wav>"

@@ -139,40 +139,105 @@ def autotune(y: np.ndarray, sr: int, scale_pcs: list[int] | None = None, strengt
 
 
 def align_to_grid(y: np.ndarray, sr: int, beat_times: list[float], subdiv: int = 2,
-                  max_shift_ms: float = 90.0) -> tuple[np.ndarray, dict]:
-    """온셋을 가장 가까운 그리드로 당기고 미는 간단한 타이밍 정렬 (구간 단위 시프트)."""
+                  max_shift_ms: float = 90.0, fade_ms: float = 8.0) -> tuple[np.ndarray, dict]:
+    """온셋을 가장 가까운 그리드로 옮기는 타이밍 정렬.
+
+    설계상 지켜야 하는 것:
+      * 첫 온셋 앞의 소리를 잃지 않는다 (들숨·시작 자음이 잘리면 안 됨)
+      * 구간을 옮겨서 생기는 빈 자리를 만들지 않는다 (뚝 끊기는 구멍 방지)
+      * 겹치는 구간을 그냥 더하지 않는다 (이중으로 들리는 것 방지)
+      * 이음매마다 짧은 페이드를 넣는다 (딱 소리 방지)
+    """
     import librosa
-    x = _mono(y)
-    if len(beat_times) < 2:
-        return x, {"moved": 0, "reason": "beat grid 없음"}
+
+    x = _mono(y).astype(np.float64)
+    if len(beat_times) < 2 or len(x) == 0:
+        return x.astype(np.float32), {"moved": 0, "reason_ko": "비트 그리드가 없어 정렬하지 않았습니다"}
     grid = []
-    for i in range(len(beat_times) - 1):
+    bt = list(beat_times)
+    for i in range(len(bt) - 1):
         for k in range(subdiv):
-            grid.append(beat_times[i] + (beat_times[i + 1] - beat_times[i]) * k / subdiv)
-    grid = np.array(grid + [beat_times[-1]])
-    onsets = librosa.onset.onset_detect(y=x, sr=sr, units="time", backtrack=True)
-    out = np.zeros_like(x)
+            grid.append(bt[i] + (bt[i + 1] - bt[i]) * k / subdiv)
+    grid = np.array(grid + [bt[-1]])
+
+    env = librosa.onset.onset_strength(y=x.astype(np.float32), sr=sr)
+    frames = librosa.onset.onset_detect(onset_envelope=env, sr=sr, backtrack=True)
+    onsets = list(librosa.frames_to_time(frames, sr=sr))
+    if not onsets:
+        return x.astype(np.float32), {"moved": 0, "reason_ko": "온셋을 찾지 못해 정렬하지 않았습니다"}
+
+    duration = len(x) / sr
+    if len(onsets) / max(duration, 1e-6) > 4.0:
+        # 지속음처럼 온셋이 불분명한 소재에서는 검출이 신뢰할 수 없다.
+        # 이런 자료를 잘라 옮기면 위상이 어긋나 '딱' 소리와 빈 구간이 생기므로 건드리지 않는다.
+        return x.astype(np.float32), {
+            "moved": 0, "onsets": len(onsets),
+            "reason_ko": f"초당 온셋이 {len(onsets)/duration:.1f}개로 너무 많습니다 — "
+                         "타이밍 정렬을 건너뛰었습니다 (지속음이거나 검출이 불안정한 소재)"}
+    if len(frames) and len(env):
+        strengths = env[np.clip(frames, 0, len(env) - 1)]
+        keep = strengths >= np.median(strengths) * 0.5      # 약한 온셋은 옮기지 않는다
+        onsets = [t for t, k in zip(onsets, keep) if k]
+        if not onsets:
+            return x.astype(np.float32), {"moved": 0, "reason_ko": "뚜렷한 온셋이 없어 정렬하지 않았습니다"}
+
+    bounds = [0.0] + [o for o in onsets if o > 0.001] + [len(x) / sr]
+    fade = max(2, int(fade_ms / 1000.0 * sr))
+    out = np.zeros(len(x) + int(max_shift_ms / 1000.0 * sr) + 2 * fade, dtype=np.float64)
+    written_until = 0
     moved = 0
-    bounds = list(onsets) + [len(x) / sr]
-    prev_end = 0
-    for i, on in enumerate(onsets):
-        j = int(np.argmin(np.abs(grid - on)))
-        shift = float(grid[j] - on)
-        if abs(shift) > max_shift_ms / 1000.0:
-            shift = np.sign(shift) * max_shift_ms / 1000.0
-        a = int(on * sr); b = int(bounds[i + 1] * sr)
-        a = max(a, prev_end); b = min(b, len(x))
-        if b <= a:
+    max_shift = max_shift_ms / 1000.0
+
+    for i in range(len(bounds) - 1):
+        a0, b0 = max(0, int(bounds[i] * sr)), min(len(x), int(bounds[i + 1] * sr))
+        if b0 <= a0:
             continue
-        dst = int(a + shift * sr)
-        dst = max(0, min(dst, len(out) - (b - a)))
-        out[dst:dst + (b - a)] += x[a:b]
-        prev_end = b
+        if i == 0:
+            shift = 0.0                      # 첫 조각(첫 온셋 이전)은 옮기지 않는다
+        else:
+            j = int(np.argmin(np.abs(grid - bounds[i])))
+            shift = float(np.clip(grid[j] - bounds[i], -max_shift, max_shift))
+        # 이음매를 부드럽게 하려고 조각 앞에서 fade 만큼 원본을 더 가져온다
+        lead = min(fade, a0)
+        seg = x[a0 - lead:b0].copy()
+        dst = int(round(a0 + shift * sr)) - lead
+        dst = max(0, min(dst, len(out) - len(seg)))
+        if written_until > 0 and dst < written_until:
+            dst = max(dst, written_until - lead) if lead else written_until
+            dst = max(0, min(dst, len(out) - len(seg)))
+        if dst > written_until and written_until > 0:
+            # 옮기면서 생긴 빈 자리는 원본에서 이어지는 소리로 메우고, 조각 앞에 붙여 한 덩어리로 쓴다
+            # (따로 쓰면 '이미 쓴 소리 → 채운 소리' 이음매에 크로스페이드가 걸리지 않아 딱 소리가 납니다)
+            gap = dst - written_until
+            filler = x[max(0, a0 - lead - gap):max(0, a0 - lead)]
+            if len(filler) < gap:
+                filler = (np.pad(filler, (gap - len(filler), 0), mode="edge")
+                          if len(filler) else np.zeros(gap))
+            seg = np.concatenate([filler[-gap:], seg])
+            dst = written_until
+        ov = max(0, min(written_until - dst, len(seg)))
+        if ov < 2 and written_until > 0:
+            # 딱 붙는 이음매도 그냥 이어붙이면 '딱' 소리가 납니다 — fade 만큼 뒤로 물려 겹치게 만든다
+            back = int(min(fade, written_until, len(seg) - 1))
+            if back >= 2:
+                dst -= back
+                ov = back
+        if ov >= 2:
+            w = np.linspace(0.0, 1.0, ov)                       # 겹치는 만큼 크로스페이드
+            out[dst:dst + ov] = out[dst:dst + ov] * (1 - w) + seg[:ov] * w
+            out[dst + ov:dst + len(seg)] = seg[ov:]
+        else:
+            out[dst:dst + len(seg)] = seg
+        written_until = dst + len(seg)
         if abs(shift) > 0.003:
             moved += 1
-    if prev_end < len(x):
-        out[prev_end:] += x[prev_end:]
-    return out.astype(np.float32), {"onsets": len(onsets), "moved": moved, "max_shift_ms": max_shift_ms}
+
+    out = out[: max(written_until, len(x))]
+    if len(out) < len(x):
+        out = np.pad(out, (0, len(x) - len(out)))
+    return out[: len(x)].astype(np.float32), {
+        "onsets": len(onsets), "moved": moved, "max_shift_ms": max_shift_ms,
+        "fade_ms": fade_ms, "note_ko": "첫 온셋 이전 구간은 옮기지 않고 그대로 둡니다."}
 
 
 # ---------- tone ----------
@@ -232,7 +297,8 @@ def harmony(y: np.ndarray, sr: int, intervals: list[int] = (3, 7), gain_db: floa
         d = int(sr * delay_ms / 1000 * (k + 1))
         h = np.concatenate([np.zeros(d), h])[: len(x)]
         pan = spread * (1 if k % 2 == 0 else -1)
-        l = np.cos((pan + 1) * np.pi / 4) * 1.414; r = np.sin((pan + 1) * np.pi / 4) * 1.414
+        # 표준 등파워 팬. 1.414 로 정규화하면 옆으로 보낸 성부가 요청한 gain_db 보다 커집니다
+        l = float(np.cos((pan + 1) * np.pi / 4)); r = float(np.sin((pan + 1) * np.pi / 4))
         out[0] += h * lin(gain_db) * l
         out[1] += h * lin(gain_db) * r
     return out

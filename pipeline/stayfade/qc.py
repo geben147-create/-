@@ -44,7 +44,8 @@ def correlation_stats(y: np.ndarray, sr: int, win_sec: float = 1.0, active_db: f
     if np.allclose(y[0], y[1]):
         return {"overall": 1.0, "negative_window_ratio_active": 0.0, "active_windows": 0,
                 "min_window": 1.0, "mono_note_ko": "좌우 동일 (모노)"}
-    overall = float(np.corrcoef(y[0], y[1])[0, 1])
+    dead = bool(np.std(y[0]) < 1e-9 or np.std(y[1]) < 1e-9)
+    overall = None if dead else float(np.corrcoef(y[0], y[1])[0, 1])
     n = int(win_sec * sr)
     vals, active = [], 0
     thr = 10 ** (active_db / 20)
@@ -58,7 +59,12 @@ def correlation_stats(y: np.ndarray, sr: int, win_sec: float = 1.0, active_db: f
         else:
             vals.append(float(np.corrcoef(a, b)[0, 1]))
     neg = sum(1 for v in vals if v < 0)
-    return {"overall": round(overall, 4),
+    if dead:
+        return {"overall": None, "dead_or_constant_channel": True,
+                "negative_window_ratio_active": round(neg / max(1, len(vals)) * 100, 2),
+                "active_windows": active, "min_window": round(min(vals), 4) if vals else None,
+                "note_ko": "한쪽 채널이 무음이거나 상수입니다 — 상관을 계산할 수 없습니다. 파일을 확인하세요."}
+    return {"overall": round(overall, 4), "dead_or_constant_channel": False,
             "negative_window_ratio_active": round(neg / max(1, len(vals)) * 100, 2),
             "active_windows": active, "min_window": round(min(vals), 4) if vals else None,
             "note_ko": "참고 검사입니다. 모노 청취를 대체하지 않습니다."}
@@ -147,8 +153,12 @@ def check_spec(measurement: dict, distributor: str = "routenote") -> dict:
     add("길이 ≥ 3초", measurement["duration_sec"] >= spec["min_track_sec"], f"{measurement['duration_sec']}초")
     add("DC 오프셋 < 0.001", measurement["dc_offset_max_abs"] < 1e-3,
         f"{measurement['dc_offset_max_abs']}", severity="warn")
-    corr = measurement["stereo"].get("overall")
-    add("스테레오 상관 > -0.3 (모노 호환)", corr is None or corr > -0.3, f"{corr}", severity="warn")
+    stereo = measurement["stereo"]
+    corr = stereo.get("overall")
+    if stereo.get("dead_or_constant_channel"):
+        add("스테레오 상관 > -0.3 (모노 호환)", False, "한쪽 채널이 무음/상수 — 파일 확인 필요", severity="fail")
+    else:
+        add("스테레오 상관 > -0.3 (모노 호환)", corr is None or corr > -0.3, f"{corr}", severity="warn")
     lufs = measurement.get("lufs_i")
     add("LUFS-I -18 ~ -6 범위", lufs is None or (-18 <= lufs <= -6), f"{lufs} LUFS", severity="warn")
     fails = [c for c in checks if not c["pass"] and c["severity"] == "fail"]

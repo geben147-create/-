@@ -9,6 +9,7 @@
 from __future__ import annotations
 
 import math
+import zlib
 from dataclasses import dataclass, field
 
 import numpy as np
@@ -122,12 +123,13 @@ def render_note(preset: Preset, pitch: float, velocity: float, dur: float, sr: i
         ramp = np.clip((t - preset.vibrato_delay) / 0.25, 0, 1)
         freq = f0 * 2 ** (preset.vibrato_cents / 1200 * ramp * np.sin(2 * np.pi * preset.vibrato_hz * t))
     rng = np.random.default_rng(seed)
+    phases = [rng.random() for _ in preset.oscs]   # 채널마다 새로 뽑으면 width=0 프리셋도 좌우가 어긋나 모노에서 깎임
     chans = []
     for ch in range(2):
         x = np.zeros(n)
-        for kind, det, g in preset.oscs:
+        for (kind, det, g), ph0 in zip(preset.oscs, phases):
             det_ch = det + (preset.width * 4.0 * (1 if ch else -1))
-            x += g * _osc(kind, freq * 2 ** (det_ch / 1200), n, sr, phase0=rng.random())
+            x += g * _osc(kind, freq * 2 ** (det_ch / 1200), n, sr, phase0=ph0)
         if preset.sub > 0:
             x += preset.sub * _osc("sine", freq / 2, n, sr)
         env = _adsr(n, sr, preset.attack, preset.decay, preset.sustain, preset.release, n_gate)
@@ -169,8 +171,13 @@ def _hpf(x: np.ndarray, fc: float, sr: int) -> np.ndarray:
     return signal.sosfilt(sos, x)
 
 
+def _kind_offset(kind: str) -> int:
+    """프로세스마다 달라지는 hash() 대신 고정된 값. (PEP 456 이후 str hash 는 실행마다 다름)"""
+    return zlib.crc32(kind.encode("utf-8")) % 1000
+
+
 def drum_hit(kind: str, sr: int, velocity: float = 1.0, seed: int = 0) -> np.ndarray:
-    rng = np.random.default_rng(seed + hash(kind) % 1000)
+    rng = np.random.default_rng(seed + _kind_offset(kind))
     v = float(np.clip(velocity, 0.05, 1.0))
     if kind == "kick":
         n = int(0.42 * sr); t = np.arange(n) / sr
@@ -278,8 +285,9 @@ def render_events(events: list[dict], sr: int, total_sec: float | None = None, p
             if m:
                 out[:, start:start + m] += smp[:, :m]
     if pan:
+        # 표준 등파워 팬 (센터에서 -3 dB). 1.414 로 정규화하면 옆으로 보낸 소리가 오히려 커집니다
         l = math.cos((pan + 1) * math.pi / 4); r = math.sin((pan + 1) * math.pi / 4)
-        out[0] *= l * 1.414; out[1] *= r * 1.414
+        out[0] *= l; out[1] *= r
     return out[:, : int(total_sec * sr)]
 
 

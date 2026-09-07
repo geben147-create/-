@@ -1,6 +1,6 @@
 {
   "schema": "stayfade/candidates/1",
-  "created_at": "2026-09-06T23:26:25+00:00",
+  "created_at": "2026-09-07T00:17:50+00:00",
   "seed": 7,
   "preview_window": {
     "start": 27.341,
@@ -67,12 +67,12 @@
           "id": "A_diatonic_sub",
           "label_ko": "A · 대리코드 (i↔III, iv↔VI)",
           "progression": [
+            "Gb",
             "Abm",
             "Ebm",
             "Bbm",
             "Ebm",
             "B",
-            "Ebm",
             "Ebm",
             "Ebm"
           ],
@@ -83,12 +83,12 @@
           "id": "B_borrowed",
           "label_ko": "B · 차용화음 (v→V, IV/iv 교체)",
           "progression": [
+            "Ebm",
             "C",
             "Gb",
             "D",
             "Gb",
             "Ab",
-            "Gb",
             "Gb",
             "Gb"
           ],
@@ -99,12 +99,12 @@
           "id": "C_pedal_sus",
           "label_ko": "C · 페달 + sus (긴장 유지)",
           "progression": [
-            "B",
-            "Gbsus4",
-            "Db",
-            "Gbsus4",
-            "Abm",
-            "Gbsus4",
+            "Ebm",
+            "Bsus4",
+            "Gb",
+            "Dbsus4",
+            "Gb",
+            "Absus4",
             "Gb",
             "Gbsus4"
           ],

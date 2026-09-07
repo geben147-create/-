@@ -20,7 +20,8 @@ if [ -n "$KEY" ]; then run "01-03 분리·분석·채보" analyze --key "$KEY"; 
 run "04-05 후보·미리듣기" candidates
 run "06 사람 결정 관문" gate
 
-if ! grep -q '"status": "DECIDED"' "$PROJ/human_decisions.json"; then
+if ! "$PY" -c "import json,sys; sys.exit(0 if json.load(open(sys.argv[1])).get('status')=='DECIDED' else 1)" \
+     "$PROJ/human_decisions.json"; then
   cat <<MSG
 
 여기서 멈춥니다.

@@ -45,18 +45,22 @@ bash skill/scripts/run_unix.sh ~/Music/곡.wav mysong Ebm
 
 ### 단계별로 직접 실행하려면
 
+설치 스크립트는 가상환경을 `~/stayfade-venv` (Windows: `%USERPROFILE%\stayfade\.venv`) 에 만듭니다.
+그 안의 파이썬을 직접 부르거나, 먼저 `source ~/stayfade-venv/bin/activate` 로 활성화하세요.
+
 ```bash
 export PYTHONPATH=$PWD/pipeline
+PY=~/stayfade-venv/bin/python          # Windows: %USERPROFILE%\stayfade\.venv\Scripts\python.exe
 
-python -m stayfade --project ./work/mysong init 원본.wav --title "곡 제목" --artist "이름"
-python -m stayfade --project ./work/mysong analyze          # 조성이 모호하면 --key Ebm 로 지정
-python -m stayfade --project ./work/mysong candidates
-python -m stayfade --project ./work/mysong gate             # ⏸ 여기서 멈춤 — 듣고 고르세요
-python -m stayfade --project ./work/mysong build
-python -m stayfade --project ./work/mysong qc
-python -m stayfade --project ./work/mysong evidence
+$PY -m stayfade --project ./work/mysong init 원본.wav --title "곡 제목" --artist "이름"
+$PY -m stayfade --project ./work/mysong analyze          # 조성이 모호하면 --key Ebm 로 지정
+$PY -m stayfade --project ./work/mysong candidates
+$PY -m stayfade --project ./work/mysong gate             # ⏸ 여기서 멈춤 — 듣고 고르세요
+$PY -m stayfade --project ./work/mysong build
+$PY -m stayfade --project ./work/mysong qc
+$PY -m stayfade --project ./work/mysong evidence
 
-python skill/scripts/validate.py ./work/mysong             # 스키마 + 기여 검증
+$PY skill/scripts/validate.py ./work/mysong              # 스키마 + 기여 검증
 ```
 
 ## 검증된 실행 결과
@@ -80,7 +84,7 @@ python skill/scripts/validate.py ./work/mysong             # 스키마 + 기여 
 ## 테스트
 
 ```bash
-PYTHONPATH=pipeline python pipeline/tests/test_pipeline.py
+PYTHONPATH=pipeline ~/stayfade-venv/bin/python pipeline/tests/test_pipeline.py
 ```
 
 21개 단위 테스트가 통과합니다. 리미터 릴리스 수식이 기준 재귀식과 1e-9 dB 이내로 일치하는지,
