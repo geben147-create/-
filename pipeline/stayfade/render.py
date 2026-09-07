@@ -82,6 +82,12 @@ def ab_preview(original: Path, arranged: Path, out_path: Path, at_original: floa
     if peak > 0.95:
         out = out * (0.95 / peak)
     save_wav(out_path, out, sr, subtype="PCM_24")
-    return {"path": str(out_path), "original_lufs": round(float(la), 2), "arranged_lufs": round(float(lb), 2),
-            "matched_to_lufs": round(float(target), 2), "seconds_each": seconds,
-            "order_ko": "원본 → 무음 1초 → 편곡"}
+
+    def _f(v):     # -inf 를 그대로 쓰면 표준 JSON 이 아니게 되어 다른 도구가 파일을 못 읽습니다
+        return round(float(v), 2) if np.isfinite(v) else None
+
+    return {"path": str(out_path), "original_lufs": _f(la), "arranged_lufs": _f(lb),
+            "matched_to_lufs": _f(target), "seconds_each": seconds,
+            "order_ko": "원본 → 무음 1초 → 편곡",
+            **({} if np.isfinite(la) and np.isfinite(lb) else
+               {"warning_ko": "비교 구간이 사실상 무음이라 음량을 맞추지 못했습니다 — 다른 지점을 비교하세요."})}

@@ -62,8 +62,20 @@ def _json_default(o):
 
 
 def jload(path: Path | str):
-    with open(path, "r", encoding="utf-8") as f:
-        return json.load(f)
+    """JSON 읽기. 손으로 고치다 깨뜨리는 일이 잦으므로 어느 파일의 몇 줄인지 한국어로 알려준다."""
+    try:
+        with open(path, "r", encoding="utf-8-sig") as f:   # utf-8-sig: 메모장이 넣는 BOM 을 그대로 처리
+            return json.load(f)
+    except json.JSONDecodeError as e:
+        raise SystemExit(
+            f"⛔ JSON 형식이 깨졌습니다: {path}\n"
+            f"   {e.lineno}번째 줄 {e.colno}번째 글자 근처 — {e.msg}\n"
+            "   자주 나는 실수: 마지막 항목 뒤의 쉼표, 큰따옴표 대신 작은따옴표, 한글 따옴표(“ ”), 괄호 짝 안 맞음\n"
+            "   고치기 어려우면 그 파일을 지우고 해당 단계를 다시 실행하면 새로 만들어집니다.") from None
+    except UnicodeDecodeError:
+        raise SystemExit(
+            f"⛔ 파일 인코딩을 읽을 수 없습니다: {path}\n"
+            "   메모장에서 [다른 이름으로 저장] → 인코딩을 'UTF-8' 로 선택해 저장하세요.") from None
 
 
 def db(x: float) -> float:
@@ -79,6 +91,9 @@ class Project:
 
     def __init__(self, root: Path | str):
         self.root = Path(root).resolve()
+        if self.root.exists() and not self.root.is_dir():
+            raise SystemExit(f"⛔ --project 에는 폴더 경로를 넣어야 합니다. 지금 값은 파일입니다: {self.root}\n"
+                             "   예: --project ./work/mysong  (원본 파일 경로는 init 뒤에 씁니다)")
         self.root.mkdir(parents=True, exist_ok=True)
         self.log_path = self.root / "pipeline.log"
         self.state_path = self.root / "pipeline_state.json"
@@ -108,6 +123,27 @@ class Project:
     def info(self) -> dict:
         p = self.root / "project.json"
         return jload(p) if p.exists() else {}
+
+    def resolve(self, stored: str | Path) -> Path:
+        """저장된 경로를 이 프로젝트 안에서 다시 찾는다.
+
+        프로젝트 폴더를 복사하거나 이름을 바꾸면 절대경로가 남의 폴더를 가리켜
+        엉뚱한 파일을 측정하게 됩니다. 프로젝트 안에 같은 이름이 있으면 그쪽을 씁니다.
+        """
+        p = Path(stored)
+        try:
+            rel = p.relative_to(self.root)
+            return self.root / rel
+        except ValueError:
+            pass
+        for step in STEP_DIRS.values():                    # 같은 단계 폴더 안의 같은 이름
+            cand = self.root / step / p.name
+            if cand.exists():
+                return cand
+        cand = self.root / p.name
+        if cand.exists():
+            return cand
+        return p
 
 
 # ---------- audio io ----------

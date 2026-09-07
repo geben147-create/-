@@ -9,7 +9,7 @@ from pathlib import Path
 
 from .common import Project, jdump, now_iso, sha256, tool_versions, write_hashes_csv
 
-AI_DISCLOSURE_TEMPLATE = """AI DISCLOSURE / 제작 공시 초안  ({date})
+AI_DISCLOSURE_TEMPLATE = """{warning_block}AI DISCLOSURE / 제작 공시 초안  ({date})
 Track: {title}
 Artist: {artist}
 
@@ -18,15 +18,17 @@ Artist: {artist}
    - Original file SHA-256: {source_hash}
    - Commercial-rights evidence: {rights_evidence}
 
+   - AI-generated audio present in the delivered master: {ai_audio_present}
+
 2) What AI did in this session (tools listed with versions in tool_versions.json)
    - Stem estimation: {separation_engine}
    - Automatic transcription (reference only, not claimed as human composition): {transcription}
    - Generated arrangement CANDIDATES (drums / bass / chords / bridge / structure): {candidates}
    - Rendering, mixing, mastering, loudness normalisation, QC measurement: automated
 
-3) What a human decided or performed
+{section3_title}
    - Decisions recorded in human_decisions.json: {human_decision_count} (decided_by={decided_by})
-   - Manual note edits: {note_edit_count}
+   - Note edits {edit_actor}: {note_edit_count}
    - New human vocal / instrumental performance in this session: {human_performance}
 
 4) What was NOT done
@@ -64,34 +66,67 @@ def build(project: Project, meta: dict, decisions: dict, qc_data: dict, extra: d
         perf_desc = "; ".join(f"{Path(t.get('raw') or t.get('processed', '')).name} "
                               f"(raw sha256 {str(t.get('raw_sha256'))[:16]}…)" for t in takes)
     elif human_perf.get("files"):
-        perf_desc = f"{len(human_perf['files'])}개 파일: " + ", ".join(Path(f).name for f in human_perf["files"])
+        # 경로만 적혀 있고 실제로 처리되지 않았다면 '실연 있음' 으로 적으면 안 됩니다
+        perf_desc = (f"NONE — human_decisions.json lists {len(human_perf['files'])} path(s) "
+                     "but no file was actually processed (path not found). "
+                     f"Listed: {', '.join(Path(f).name for f in human_perf['files'])}")
+
+    human_decided = decided_by == "human"
+    section3_title = ("3) What a human decided or performed" if human_decided else
+                      f"3) Decisions in this session — NOT made by a human (decided_by={decided_by}).\n"
+                      "   This document is NOT evidence of human authorship.")
+    warning_lines = []
+    if not human_decided:
+        warning_lines.append(f"!! decided_by = {decided_by} — the choices below were not made by a person.")
+    if not takes:
+        warning_lines.append("!! No human vocal or instrumental performance was processed in this session.")
+    if not (meta.get("rights_evidence") or "").strip():
+        warning_lines.append("!! No commercial-rights evidence supplied (receipt / subscription / song URL).")
+    if not edits:
+        warning_lines.append("!! No note edit was actually applied to the audio.")
+    warning_block = ("" if not warning_lines else
+                     "=== READ FIRST — this draft is not submission-ready ===\n"
+                     + "\n".join(warning_lines)
+                     + "\nFix these before sending this text to a distributor.\n\n")
 
     disclosure = AI_DISCLOSURE_TEMPLATE.format(
+        warning_block=warning_block,
+        section3_title=section3_title,
+        ai_audio_present=extra.get(
+            "ai_audio_present",
+            "YES — the source audio is retained in the master; stems are only attenuated, not removed. "
+            "Set to NO only if you rebuilt the master without any of the source audio."),
         date=now_iso()[:10],
-        title=meta.get("title", "(untitled)"),
-        artist=meta.get("artist", "(unset)"),
-        source_desc=meta.get("source_description", "AI music generator output (details to be filled in by the artist)"),
-        source_hash=meta.get("source_hash", "(unknown)"),
-        rights_evidence=meta.get("rights_evidence", "NOT YET SUPPLIED — receipt / subscription record / song URL / generation date"),
+        title=meta.get("title") or "(untitled)",
+        artist=meta.get("artist") or "(unset)",
+        source_desc=meta.get("source_description") or "AI music generator output (fill in service, plan, date)",
+        source_hash=meta.get("source_hash") or "(unknown)",
+        rights_evidence=(meta.get("rights_evidence") or
+                         "NOT YET SUPPLIED — receipt / subscription record / song URL / generation date"),
         separation_engine=extra.get("separation_engine", "?"),
         transcription=extra.get("transcription", "Basic Pitch"),
         candidates=extra.get("candidates", "generated locally, seeded"),
         human_decision_count=len(dec_list),
         decided_by=decided_by,
+        edit_actor=("made by hand" if human_decided else f"recorded in the decision file ({decided_by})"),
         note_edit_count=(f"{edits} applied" + (f", {failed_edits} requested but NOT applied" if failed_edits else "")),
         human_performance=perf_desc,
-        listening_status=meta.get("listening_status", "PENDING"),
-        rights_status=meta.get("rights_status", "UNVERIFIED"),
-        submission_status=meta.get("submission_status", "NOT SUBMITTED"),
+        listening_status=meta.get("listening_status") or "PENDING",
+        rights_status=meta.get("rights_status") or "UNVERIFIED",
+        submission_status=meta.get("submission_status") or "NOT SUBMITTED",
     )
     (ev_dir / "AI_DISCLOSURE.txt").write_text(disclosure, encoding="utf-8")
 
     warnings = []
     if decided_by != "human":
         warnings.append("decided_by 가 'human' 이 아닙니다 — 이 산출물은 인간 창작 증거로 쓸 수 없습니다.")
-    if not human_perf.get("files"):
-        warnings.append("새 인간 실연(보컬/연주) 파일이 없습니다 — 실연 기여 0.")
-    if not meta.get("rights_evidence"):
+    if not takes:
+        if human_perf.get("files"):
+            warnings.append("human_decisions.json 에 녹음 파일 경로가 있지만 실제로 처리된 파일이 없습니다 — "
+                            "경로를 확인하세요. 지금 상태의 실연 기여는 0 입니다.")
+        else:
+            warnings.append("새 인간 실연(보컬/연주) 파일이 없습니다 — 실연 기여 0.")
+    if not (meta.get("rights_evidence") or "").strip():
         warnings.append("생성 서비스 영수증·구독 증빙이 비어 있습니다 — 유통 심사에서 1순위 요구 항목입니다.")
     if edits == 0:
         warnings.append("실제로 반영된 노트 수정이 0개입니다 — 후보 선택만으로는 창작 기여가 약합니다.")

@@ -25,6 +25,7 @@ from .common import (Project, fmt_time, jdump, jload, load_audio, now_iso, save_
                      sha256, to_stereo)
 
 SCALES = {"minor": V.NAT_MINOR, "major": V.MAJOR, "dorian": V.DORIAN, "harmonic_minor": V.HARM_MINOR}
+TARGET_SR = 44100        # 유통 기본 규격. 원본이 48 kHz 여도 여기에 맞춰 작업합니다.
 
 
 def _proj(args) -> Project:
@@ -61,7 +62,20 @@ def cmd_init(args):
     p = Project(args.project)
     src = Path(args.audio).resolve()
     if not src.exists():
-        sys.exit(f"입력 파일이 없습니다: {src}")
+        sys.exit(f"⛔ 입력 파일이 없습니다: {src}\n"
+                 "   경로를 확인하세요. 공백이 있으면 따옴표로 감싸야 합니다.")
+    if src.is_dir():
+        sys.exit(f"⛔ 폴더가 아니라 오디오 파일을 지정하세요: {src}")
+    from .common import audio_info as _probe
+    try:                                    # 복사하기 전에 오디오인지 먼저 확인합니다
+        probe = _probe(src)
+    except Exception:                       # noqa: BLE001
+        sys.exit(f"⛔ 오디오 파일로 읽을 수 없습니다: {src}\n"
+                 "   WAV · FLAC · MP3 · OGG 를 지원합니다. M4A·AAC·WMA 는 지원하지 않습니다.\n"
+                 "   변환:  ffmpeg -i \"입력.m4a\" -ar 44100 \"출력.wav\"")
+    if probe["samplerate"] != TARGET_SR:
+        print(f"ℹ 원본이 {probe['samplerate']} Hz 입니다 — 작업과 출력은 {TARGET_SR} Hz 로 맞춥니다 "
+              "(유통 기본 규격).")
     dest = p.dir("original") / src.name
     if not dest.exists() or sha256(src) != sha256(dest):
         dest.write_bytes(src.read_bytes())
@@ -114,16 +128,22 @@ def cmd_init(args):
 # ---------- 01-03 ----------
 def cmd_analyze(args):
     p = _proj(args)
+    if getattr(args, "beats_per_bar", 4) < 1:
+        sys.exit(f"⛔ --beats-per-bar 는 1 이상의 정수여야 합니다 (보통 4, 3박자 곡은 3). "
+                 f"지금 값: {args.beats_per_bar}")
     require(p, "project.json")
     meta = p.info()
-    src = Path(meta["source_file"])
+    src = p.resolve(meta["source_file"])
+    if not src.exists():
+        sys.exit(f"⛔ 원본을 찾을 수 없습니다: {meta['source_file']}\n"
+                 "   프로젝트 폴더를 옮겼다면 같은 폴더에서 init 을 다시 실행하세요.")
     sep = separate.run(p, src, prefer=args.separator)
     jdump(sep, p.root / "separation.json")
     p.set_state("01_separate", "ok", engine=sep["engine"])
 
-    y, sr = load_audio(src, mono=True)
+    y, sr = load_audio(src, sr=TARGET_SR, mono=True)     # 48 kHz 원본도 여기서 44.1 kHz 로 맞춥니다
     mono = y[0]
-    p.log("분석: BPM/키/섹션/코드")
+    p.log(f"분석: BPM/키/섹션/코드 (작업 샘플레이트 {sr} Hz)")
     tempo = A.estimate_tempo_beats(mono, sr)
     bass_mono = None
     bass_path = sep["stems"].get("bass")
@@ -296,9 +316,12 @@ def cmd_gate(args):
             options = g.get("options") or cands.get("groups", {}).get(gid, {}).get("options", [])
             for o in options:
                 print(f"      {o.get('id','?')}  {o.get('label_ko','')}")
-        if problems:
-            print("문제: " + "; ".join(problems))
         p.set_state("06_gate", "waiting")
+        if problems and dec.get("status") == "DECIDED":
+            # 다 정했다고 표시해 놓고 내용이 틀린 경우는 '대기'가 아니라 '오류'입니다.
+            # 실행 스크립트가 이걸 무시하고 build 로 넘어가지 않도록 0 이 아닌 코드로 끝냅니다.
+            sys.exit("⛔ 결정 파일에 고칠 곳이 있습니다:\n  · " + "\n  · ".join(problems) +
+                     f"\n   파일: {path}")
         return {"ready": False, "path": str(path), "problems": problems}
     p.set_state("06_gate", "ok", decided_by=dec.get("decided_by"))
     print(f"✅ 결정 확인됨 (decided_by={dec.get('decided_by')})")
@@ -324,7 +347,7 @@ def cmd_build(args):
     choice = {g["id"]: g["choice"] for g in dec["decisions"]}
     edits = {g["id"]: g.get("note_edits", []) for g in dec["decisions"]}
     sr = an["sr"]
-    src = Path(meta["source_file"])
+    src = p.resolve(meta["source_file"])
     y, _ = load_audio(src, sr=sr)
     y = to_stereo(y)
     total = y.shape[1] / sr
@@ -420,7 +443,7 @@ def cmd_build(args):
         bridge[:, :m] += vy[:, :m] * 0.9
 
     # 원곡 바탕에서 기존 드럼/베이스 부분 감산
-    stems = {k: load_audio(v, sr=sr)[0] for k, v in sep["stems"].items() if Path(v).exists()}
+    stems = {k: load_audio(p.resolve(v), sr=sr)[0] for k, v in sep["stems"].items() if p.resolve(v).exists()}
     regions = [{"start": s["start"], "end": s["end"]} for s in an["sections"]
                if s["label"] in ("chorus?", "verse?")][: args.max_regions] or None
     base = mix.subtract_stems(y, stems, {"drums": args.drum_reduce_db, "bass": args.bass_reduce_db},
@@ -470,9 +493,13 @@ def cmd_qc(args):
     require(p, "project.json", "analysis.json", "arrangement_manifest.json")
     meta, an = p.info(), jload(p.root / "analysis.json")
     arr = jload(p.root / "arrangement_manifest.json")
-    src = Path(meta["source_file"])
-    master = Path(arr["outputs"]["master_wav"])
-    flac = Path(arr["outputs"]["flac16"])
+    src = p.resolve(meta["source_file"])
+    master = p.resolve(arr["outputs"]["master_wav"])
+    flac = p.resolve(arr["outputs"]["flac16"])
+    for label, f in (("원본", src), ("마스터", master), ("FLAC", flac)):
+        if not f.exists():
+            sys.exit(f"⛔ {label} 파일을 찾을 수 없습니다: {f}\n"
+                     "   프로젝트 폴더를 옮겼다면 build 를 다시 실행하세요.")
     before = qc.measure(src)
     after = qc.measure(master)
     after_flac = qc.measure(flac)
@@ -489,8 +516,12 @@ def cmd_qc(args):
                                     "가사·보컬·샘플 권리", "커버·메타데이터"]}
     jdump(out, p.root / "qc.json")
     p.set_state("09_qc", "ok", verdict=spec["verdict"])
-    print(f"QC {spec['verdict']} · 원본 {before['lufs_i']} LUFS → 편곡 {after['lufs_i']} LUFS · "
-          f"TP {after['true_peak_dbtp']} dBTP · 상관 {after['stereo']['overall']}")
+    def _lufs(v):
+        return f"{v} LUFS" if v is not None else "측정 불가(무음)"
+
+    corr = after["stereo"].get("overall")
+    print(f"QC {spec['verdict']} · 원본 {_lufs(before['lufs_i'])} → 편곡 {_lufs(after['lufs_i'])} · "
+          f"TP {after['true_peak_dbtp']} dBTP · 상관 {corr if corr is not None else '측정 불가(한쪽 채널 무음)'}")
     for c in spec["checks"]:
         if not c["pass"]:
             print(f"  ⚠ {c['check']}: {c['detail']}")
@@ -535,8 +566,19 @@ def cmd_all(args):
     return cmd_evidence(args)
 
 
+class KoParser(argparse.ArgumentParser):
+    """argparse 의 영어 오류 메시지를 한국어 안내로 바꿉니다."""
+
+    def error(self, message):                       # noqa: A003
+        self.print_usage(sys.stderr)
+        sys.exit(f"⛔ 명령을 이해하지 못했습니다: {message}\n"
+                 "   · --project 는 하위명령 '앞'에 씁니다:  python -m stayfade --project ./work/mysong analyze\n"
+                 "   · 하위명령: init · analyze · candidates · gate · build · qc · evidence · all\n"
+                 "   · 경로에 공백이 있으면 따옴표로 감싸세요")
+
+
 def build_parser():
-    ap = argparse.ArgumentParser(prog="stayfade", description="AI 파생곡 재편곡·QC·증빙 파이프라인")
+    ap = KoParser(prog="stayfade", description="AI 파생곡 재편곡·QC·증빙 파이프라인")
     ap.add_argument("--project", default="./work/project", help="프로젝트 폴더")
     ap.add_argument("--debug", action="store_true", help="오류가 나면 전체 추적 정보를 그대로 보여줍니다")
     sub = ap.add_subparsers(dest="cmd", required=True)

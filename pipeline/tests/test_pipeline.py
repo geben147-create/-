@@ -323,6 +323,78 @@ def test_qc_correlation_json_serialisable_for_dead_channel():
     json.dumps(st)
 
 
+def test_disclosure_never_claims_human_authorship_for_machine_runs():
+    from stayfade import evidence as EV
+    from stayfade.common import Project
+    with tempfile.TemporaryDirectory() as d:
+        proj = Project(Path(d) / "p")
+        meta = {"title": "T", "artist": "A", "source_hash": "0" * 64, "rights_evidence": ""}
+        dec = {"decided_by": "demo_auto",
+               "decisions": [{"id": "bass", "choice": "A", "note_edits": [{"op": "delete", "index": 0}]}],
+               "human_performance": {"files": ["/does/not/exist.wav"]}}
+        res = EV.build(proj, meta, dec, {}, extra={"applied_note_edits": 0, "failed_note_edits": 1,
+                                                   "human_takes": []})
+        text = Path(res["disclosure"]).read_text(encoding="utf-8")
+        assert "READ FIRST" in text and "NOT evidence of human authorship" in text
+        assert "3) What a human decided or performed" not in text
+        assert "NOT YET SUPPLIED" in text                     # 빈 문자열이 빈칸으로 새지 않는다
+        assert "AI-generated audio present in the delivered master: YES" in text
+        assert "no file was actually processed" in text       # 없는 경로를 실연으로 주장하지 않는다
+        assert any("실연 기여는 0" in w for w in res["warnings_ko"])
+
+
+def test_disclosure_marks_human_run_normally():
+    from stayfade import evidence as EV
+    from stayfade.common import Project
+    with tempfile.TemporaryDirectory() as d:
+        proj = Project(Path(d) / "p")
+        take = Path(d) / "take.wav"
+        save_wav(take, np.zeros((2, SR), dtype=np.float32) + 0.1, SR)
+        res = EV.build(proj, {"title": "T", "rights_evidence": "/receipt.pdf", "source_hash": "a" * 64},
+                       {"decided_by": "human", "decisions": [{"id": "bass", "choice": "A"}],
+                        "human_performance": {"files": [str(take)]}}, {},
+                       extra={"applied_note_edits": 3, "failed_note_edits": 0,
+                              "human_takes": [{"raw": str(take), "raw_sha256": "b" * 64,
+                                               "processed": str(take)}]})
+        text = Path(res["disclosure"]).read_text(encoding="utf-8")
+        assert "3) What a human decided or performed" in text and "READ FIRST" not in text
+        assert "made by hand" in text and "/receipt.pdf" in text
+
+
+def test_project_resolve_finds_files_after_folder_move():
+    from stayfade.common import Project
+    with tempfile.TemporaryDirectory() as d:
+        a = Project(Path(d) / "a")
+        f = save_wav(a.dir("master") / "m.wav", np.zeros((2, 100), dtype=np.float32), SR)
+        import shutil
+        shutil.copytree(a.root, Path(d) / "b")
+        b = Project(Path(d) / "b")
+        assert b.resolve(str(f)).parent.parent == b.root      # 복사본은 자기 파일을 본다
+        assert b.resolve(str(f)).exists()
+
+
+def test_jload_reports_broken_json_in_korean():
+    from stayfade.common import jload
+    with tempfile.TemporaryDirectory() as d:
+        p = Path(d) / "x.json"
+        p.write_text('{"a": 1,}', encoding="utf-8")
+        try:
+            jload(p)
+            raise AssertionError("깨진 JSON 은 실패해야 합니다")
+        except SystemExit as e:
+            assert "JSON 형식이 깨졌습니다" in str(e) and str(p) in str(e)
+        p.write_text('\ufeff{"a": 1}', encoding="utf-8")     # 메모장 BOM 은 읽혀야 한다
+        assert jload(p) == {"a": 1}
+
+
+def test_ab_preview_never_writes_infinity():
+    with tempfile.TemporaryDirectory() as d:
+        silent = save_wav(Path(d) / "s.wav", np.zeros((2, SR * 30), dtype=np.float32), SR)
+        info = render.ab_preview(silent, silent, Path(d) / "ab.wav", 0.0, 0.0, seconds=5.0)
+        json.dumps(info)                                       # -Infinity 면 여기서 실패
+        assert info["original_lufs"] is None and "warning_ko" in info
+
+
 if __name__ == "__main__":
     fns = [(n, f) for n, f in sorted(globals().items()) if n.startswith("test_") and callable(f)]
     failed = 0

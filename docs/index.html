@@ -1,3 +1,6 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Stay with the fade 작업실</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -66,8 +69,8 @@ p{max-width:68ch;margin:0 0 14px}
 .ok h4{font-family:var(--body);font-weight:600;font-size:16px;color:var(--lime);margin-bottom:6px}
 .ok p{margin:0}
 .note{color:var(--dim);font-size:13.5px;max-width:70ch;border-top:1px solid var(--line);padding-top:10px;margin-top:14px}
-mark{background:rgba(255,51,85,.16);color:var(--neon);padding:0 4px;font-weight:500}
-mark.g{background:rgba(184,255,68,.14);color:var(--lime)}
+mark{background:rgba(255,51,85,.16);color:#FF8FA3;padding:0 4px;font-weight:500}
+mark.g{background:rgba(184,255,68,.14);color:#CDFF7A}
 strong{font-weight:600;color:#fff}
 
 /* ---------- tables ---------- */
@@ -149,8 +152,8 @@ footer .wrap{display:grid;gap:10px}
       <div><b>11단계</b><span>00 보존 → 10 증빙</span></div>
       <div><b>PASS</b><span>기술 QC 결과</span></div>
       <div><b class="warn">+1.28 → −1.00</b><span>True Peak dBTP</span></div>
-      <div><b>30 → 0.8</b><span>보컬 음정 오차 cents</span></div>
-      <div><b class="warn">0%</b><span>AI 음원 → 멜론·지니</span></div>
+      <div><b>30 → 9.2</b><span>보컬 음정 오차 cents</span></div>
+      <div><b class="warn">0%</b><span>RouteNote 경로 · AI → 멜론·지니</span></div>
     </div>
   </div>
 </header>
@@ -158,18 +161,18 @@ footer .wrap{display:grid;gap:10px}
 <div class="wrap shell">
 <nav class="rail">
   <p>목차</p>
-  <a href="#gates"><span class="n">01</span>먼저 알 3가지</a>
-  <a href="#did"><span class="n">02</span>이번에 한 것</a>
-  <a href="#money"><span class="n">03</span>유통사 비교(원화)</a>
-  <a href="#payout"><span class="n">04</span>멜론·지니 내 몫 💵</a>
-  <a href="#contentid"><span class="n">05</span>Content ID 뜻</a>
-  <a href="#install"><span class="n">06</span>설치 (무료 순위)</a>
-  <a href="#steps"><span class="n">07</span>단계별 실행</a>
-  <a href="#numbers"><span class="n">08</span>실측 결과</a>
-  <a href="#human"><span class="n">09</span>내가 할 일 🎤</a>
-  <a href="#reuse"><span class="n">10</span>다음 곡에 재사용</a>
-  <a href="#fixes"><span class="n">11</span>정정·한계</a>
-  <a href="#links"><span class="n">12</span>링크 전부</a>
+  <a href="#gates"><span class="n">§01</span>먼저 알 3가지</a>
+  <a href="#did"><span class="n">§02</span>이번에 한 것</a>
+  <a href="#money"><span class="n">§03</span>유통사 비교(원화)</a>
+  <a href="#payout"><span class="n">§04</span>멜론·지니 내 몫 💵</a>
+  <a href="#contentid"><span class="n">§05</span>Content ID 뜻</a>
+  <a href="#install"><span class="n">§06</span>설치 (무료 순위)</a>
+  <a href="#steps"><span class="n">§07</span>단계별 실행</a>
+  <a href="#numbers"><span class="n">§08</span>실측 결과</a>
+  <a href="#human"><span class="n">§09</span>내가 할 일 🎤</a>
+  <a href="#reuse"><span class="n">§10</span>다음 곡에 재사용</a>
+  <a href="#fixes"><span class="n">§11</span>정정·한계</a>
+  <a href="#links"><span class="n">§12</span>링크 전부</a>
 </nav>
 
 <main>
@@ -221,12 +224,12 @@ footer .wrap{display:grid;gap:10px}
       <h4>🤖 컴퓨터가 자동으로 한 것</h4>
       <ul>
         <li><b>스템 분리</b> — demucs 우선, 실패 시 HPSS 폴백 (이 환경은 모델 가중치 다운로드가 막혀 폴백 사용)</li>
-        <li><b>분석</b> — BPM 112.347, 40마디, 9구간, 코드 40개 추정</li>
+        <li><b>분석</b> — BPM 112.347, 41마디, 9구간, 코드 41개 추정</li>
         <li><b>채보</b> — Basic Pitch로 bass/vocals/other → MIDI (참고용)</li>
         <li><b>후보 생성</b> — 드럼·베이스·코드·브리지·구조 <b>15개 후보 + 미리듣기 12개</b></li>
         <li><b>믹스·마스터</b> — 20 Hz HPF → M/S → 4배 오버샘플 리미터 → LUFS 정규화</li>
         <li><b>QC</b> — LUFS/LRA/True Peak/상관/DC/무음/포맷 12개 검사</li>
-        <li><b>증빙</b> — 60개 파일 해시 + 도구 버전 + AI 공시 초안</li>
+        <li><b>증빙</b> — 61개 파일 해시 + 도구 버전 + AI 공시 초안</li>
       </ul>
     </div>
     <div class="b">
@@ -234,7 +237,7 @@ footer .wrap{display:grid;gap:10px}
       <ul>
         <li><b>후보 듣고 고르기</b> — 데모에서는 <code>decided_by: demo_auto</code>로 자동 선택했습니다.
           증빙 파일에 <mark>“인간 창작 증거로 쓸 수 없음”</mark>이라고 자동으로 찍혔습니다</li>
-        <li><b>노트 직접 수정</b> — 문법 검증용으로 4개만 적용</li>
+        <li><b>노트 직접 수정</b> — 문법 검증용으로 5개만 적용</li>
         <li><b>허밍/가창</b> — 새 인간 실연 없음 → 증빙 경고 발생</li>
         <li><b>권리 증빙</b> — 영수증 미첨부 → 증빙 경고 발생</li>
         <li><b>전체 청취</b> — 수치 검사로 대체 불가</li>
@@ -261,7 +264,7 @@ footer .wrap{display:grid;gap:10px}
     <li><b>설치 안내가 시스템 파이썬을 부르고 있었습니다.</b> 가상환경 안의 파이썬을 쓰도록 모든 문서를 고쳤습니다.</li>
   </ul>
   <p class="note">검토 결과와 수정 내역은 커밋 기록에 남아 있고,
-    같은 결함이 다시 들어오지 않도록 <a href="https://github.com/geben147-create/-/blob/claude/stay-with-fade-qc-jktund/pipeline/tests/test_pipeline.py">단위 테스트 30개</a>를 붙였습니다.</p>
+    같은 결함이 다시 들어오지 않도록 <a href="https://github.com/geben147-create/-/blob/claude/stay-with-fade-qc-jktund/pipeline/tests/test_pipeline.py">단위 테스트 35개</a>를 붙였습니다.</p>
   <p class="note">증빙 단계가 스스로 이렇게 경고합니다:
     <code>decided_by 가 'human' 이 아닙니다</code> / <code>새 인간 실연 파일이 없습니다</code> /
     <code>생성 서비스 영수증·구독 증빙이 비어 있습니다</code>. 이 경고를 없애는 것이 당신이 할 일입니다.</p>
@@ -279,11 +282,11 @@ footer .wrap{display:grid;gap:10px}
       <th>AI 음원</th><th>AI → Content ID</th><th>AI → 한국 스토어</th><th class="n">심사</th><th>메모</th>
     </tr></thead>
     <tbody>
-      <tr><td class="rank">1</td><td><b>DistroKid</b> Musician</td><td class="n">약 33,700<br><span class="rank">+ Content ID 싱글 약 6,700/년</span></td><td class="n yes">100%</td>
+      <tr><td class="rank">1</td><td><b>DistroKid</b> Musician</td><td class="n">약 33,700 <span class="rank">(2차 출처)</span><br><span class="rank">+ Content ID 싱글 약 6,700/년 (2차 출처)</span></td><td class="n yes">100%</td>
         <td class="yes">허용(권리 보유 시)</td><td class="maybe">직접 만들지 않은 오디오 있으면 부적격<br><span class="rank">수익의 20%를 DistroKid가 가져감</span></td>
         <td class="no">멜론·지니·벅스 미지원<br><span class="rank">FLO만 (2차 출처)</span></td>
         <td class="n">1–3일</td><td>가장 빠름. 업로드 시 AI 공시 항목 선택</td></tr>
-      <tr><td class="rank">2</td><td><b>DistroKid</b> Musician Plus</td><td class="n">약 60,700</td><td class="n yes">100%</td>
+      <tr><td class="rank">2</td><td><b>DistroKid</b> Musician Plus</td><td class="n">약 60,700 <span class="rank">(2차 출처)</span></td><td class="n yes">100%</td>
         <td class="yes">동일</td><td class="maybe">동일</td><td class="no">동일</td><td class="n">1–3일</td>
         <td>아티스트명 2개, 발매일 지정</td></tr>
       <tr><td class="rank">3</td><td><b>RouteNote</b> Free</td><td class="n yes">0</td><td class="n">85%</td>
@@ -295,25 +298,27 @@ footer .wrap{display:grid;gap:10px}
       <tr><td class="rank">5</td><td><b>Symphonic</b> Starter</td><td class="n">약 40,500</td><td class="n yes">100%</td>
         <td class="yes">허용(공시 필수)</td><td class="no">제한 파트너</td><td class="maybe">미확인</td><td class="n">3–7일</td>
         <td>아티스트 1명 전용. 레이블은 Partner 신청</td></tr>
-      <tr><td class="rank">6</td><td><b>Amuse</b> Artist</td><td class="n">약 32,400</td><td class="n yes">100%</td>
-        <td class="yes">허용</td><td class="no">제외</td><td class="maybe">미확인</td><td class="n">1–3일</td>
-        <td>7일당 10릴리스 제한</td></tr>
+      <tr><td class="rank">6</td><td><b>Amuse</b> Artist</td><td class="n">약 32,400 <span class="rank">(2차 출처)</span></td><td class="n yes">100%</td>
+        <td class="yes">허용</td><td class="no">제외 <span class="rank">(2차 출처)</span></td><td class="maybe">미확인</td><td class="n">1–3일</td>
+        <td>7일당 10릴리스 제한 <span class="rank">(2차 출처)</span></td></tr>
       <tr><td class="rank">7</td><td><b>LANDR</b></td><td class="n">플랜별</td><td class="n">플랜별</td>
         <td class="yes">허용</td><td class="no">제외</td><td class="maybe">미확인</td><td class="n">—</td>
-        <td>월 12곡 제한. TikTok·Deezer·Pandora도 제외</td></tr>
+        <td>월 12곡 제한. TikTok·Deezer·Pandora도 제외 <span class="rank">(2차 출처)</span></td></tr>
       <tr><td class="rank">8</td><td><b>TuneCore</b></td><td class="n">플랜별</td><td class="n">플랜별</td>
         <td class="maybe">완전 AI 거부</td><td class="maybe">조건부</td><td class="maybe">미확인</td><td class="n">—</td>
-        <td>사람 창작이 “명확·입증가능·지배적”이어야</td></tr>
+        <td>사람 창작이 “명확·입증가능·지배적”이어야 <span class="rank">(2차 출처)</span></td></tr>
       <tr><td class="rank">9</td><td><b>CD Baby</b></td><td class="n">건당</td><td class="n">—</td>
         <td class="no">AI 거부</td><td class="no">—</td><td class="no">—</td><td class="n">—</td>
-        <td>지금 곡으로는 불가</td></tr>
+        <td>지금 곡으로는 불가 <span class="rank">(2차 출처)</span></td></tr>
       <tr><td class="rank">—</td><td><b>사운드리퍼블리카</b> (국내)</td><td class="n maybe">비공개</td><td class="n maybe">비공개</td>
         <td class="maybe">공개 자료 없음</td><td class="maybe">미확인</td><td class="yes">멜론·지니·벅스·FLO·VIBE 배포사</td>
         <td class="n">문의</td><td>개인도 신청 가능. AI 수용 여부는 <b>직접 문의</b></td></tr>
     </tbody>
   </table>
   </div>
-  <p class="note">“미확인”은 이번 조사에서 공식 문서로 확인하지 못했다는 뜻입니다. 추측으로 채우지 않았습니다.
+  <p class="note">“미확인”은 이번 조사에서 공식 문서로 확인하지 못했다는 뜻이고, <b>(2차 출처)</b> 는 공식 페이지가 아니라
+    업계 블로그·위키를 근거로 했다는 뜻입니다. 항목별 출처와 신뢰도는
+    <a href="factcheck.json">factcheck.json</a> 에 있습니다. 추측으로 채우지 않았습니다.
     계약·결제 전에 각 사 공식 페이지에서 다시 확인하세요. 정책이 3주 만에 뒤집힌 전례가 있습니다.</p>
 
   <h3>“아티스트로 가입? 레이블로 가입?” — 무슨 말이냐면</h3>
@@ -438,14 +443,14 @@ footer .wrap{display:grid;gap:10px}
   <pre><span class="c"># 1) 설치 (한 번만)</span>
 powershell -ExecutionPolicy Bypass -File skill\scripts\install_windows.ps1
 
-<span class="c"># 2) 곡 하나 처리 — 사람이 고를 차례가 되면 알아서 멈추고
-#    미리듣기 폴더와 결정 파일을 열어 줍니다</span>
-powershell -ExecutionPolicy Bypass -File skill\scripts\run_windows.ps1 ^
-  -Audio <span class="k">"C:\Users\나\Music\곡.wav"</span> -Name mysong -Key Ebm
+<span class="c"># 2) 곡 하나 처리 — 사람이 고를 차례가 되면 알아서 멈추고 미리듣기 폴더와 결정 파일을 열어 줍니다</span>
+powershell -ExecutionPolicy Bypass -File skill\scripts\run_windows.ps1 -Audio <span class="k">"C:\Users\나\Music\곡.wav"</span> -Name mysong -Key Ebm
 
 <span class="c"># macOS / Linux 는 같은 이름의 .sh 파일</span>
 bash skill/scripts/install_linux_mac.sh
 bash skill/scripts/run_unix.sh ~/Music/곡.wav mysong Ebm</pre>
+  <p class="note">위 두 줄은 <b>PowerShell</b> 에 붙여넣으세요 (윈도우에서 시작 → PowerShell).
+    아래 단계별 명령은 <b>명령 프롬프트(cmd)</b> 기준입니다.</p>
   <p class="note">결정 파일을 채운 뒤 <b>같은 명령을 다시 실행</b>하면 이어서 끝까지 갑니다.
     단계를 건너뛰거나 조성을 잘못 적으면 무엇을 먼저 해야 하는지 한국어로 알려줍니다.</p>
   <p class="note">이 저장소의 <code>skill/scripts/</code> 안에 두 스크립트가 들어 있습니다.
@@ -457,9 +462,7 @@ bash skill/scripts/run_unix.sh ~/Music/곡.wav mysong Ebm</pre>
   <div class="ok">
     <h4>내 곡으로 바로 시작하려면 (Windows)</h4>
     <p>설치를 마쳤다면 이 한 줄이면 됩니다. 파일 경로만 바꾸세요.</p>
-    <pre style="margin-top:10px">powershell -ExecutionPolicy Bypass -File skill\scripts\run_windows.ps1 ^
-  -Audio <span class="k">"C:\Users\llorr\Music\Stay with the fade(Ebm)_original.wav"</span> ^
-  -Name stayfade -Key Ebm</pre>
+    <pre style="margin-top:10px">powershell -ExecutionPolicy Bypass -File skill\scripts\run_windows.ps1 -Audio <span class="k">"C:\Users\llorr\Music\Stay with the fade(Ebm)_original.wav"</span> -Name stayfade -Key Ebm</pre>
     <p>원본이 MP3여도 됩니다. 조성을 모르면 <code>-Key</code>를 빼고 실행하면 추정값과 함께
       “귀로 확인하세요” 경고가 나옵니다.</p>
   </div>
@@ -507,9 +510,9 @@ set PY=<span class="k">%USERPROFILE%</span>\stayfade\.venv\Scripts\python.exe
       <p>여기서 <mark>조성이 틀리면 편곡 전체가 불협</mark>이 됩니다. 나란한조(Ebm ↔ Gb처럼 구성음이 같은 짝)는
         자동 판별이 자주 틀리기 때문에, 애매하면 프로그램이 먼저 경고하고 당신에게 물어봅니다.</p>
       <pre>%PY% -m stayfade --project .\work\mysong <span class="k">analyze</span>
-<span class="c"># 경고가 뜨면 귀로 확인하고 직접 지정</span>
+<span class="c">REM 경고가 뜨면 귀로 확인하고 직접 지정</span>
 %PY% -m stayfade --project .\work\mysong <span class="k">analyze</span> --key Ebm</pre>
-      <div class="out">BPM 112.347 · 키 Ebm · 마디 40 · 섹션 9
+      <div class="out">BPM 112.347 · 키 Ebm · 마디 41 · 섹션 9
 ⚠ Gb / Ebm 중 하나입니다. 틀리면 편곡이 전부 불협이 됩니다 → `analyze --key Ebm` 로 지정 가능</div>
       <p class="note">실제 테스트에서 자동 추정은 Gb(신뢰도 0.323)를 골랐고, 정답은 Ebm이었습니다.
         이래서 이 경고를 넣었습니다.</p>
@@ -579,7 +582,11 @@ set PY=<span class="k">%USERPROFILE%</span>\stayfade\.venv\Scripts\python.exe
       <h4>내가 부른 파일이 있으면 다듬는다</h4>
       <p>노이즈 제거 → 게이트 → <strong>음정 보정</strong> → 타이밍 정렬 → 디에서 → EQ → 컴프레서 →
         (선택) 3도·5도 하모니 생성. 원본 RAW는 절대 덮어쓰지 않습니다.</p>
-      <div class="out">테스트: 일부러 30 cents 어긋나게 만든 5음 → 보정 후 0.8 cents (6음 감지, 5음 보정)</div>
+      <div class="out">테스트: 일부러 30 cents 어긋나게 만든 5음 → 보정 후 9.2 cents (6음 감지, 5음 보정)</div>
+      <p class="note">측정 방법을 밝혀둡니다. 이 값은 <b>하모니를 끈 리드</b>를, <b>스테레오 전체를 모노로 합쳐</b> 잰 중앙값입니다.
+        하모니를 켜면 일부러 다른 음(3도·5도)이 섞이므로 같은 방식으로 재면 19.2 cents 가 나옵니다.
+        한쪽 채널만 재면 0.8 cents 로 보이는데, 그건 실제보다 좋게 보이는 잘못된 측정입니다.
+        (검토 과정에서 저희가 실제로 저지른 실수라 방법까지 적어둡니다.)</p>
     </div>
   </div>
 
@@ -616,7 +623,7 @@ FLAC: 07_master\distributor_candidate_44k1_16bit.flac
       <h4>해시·도구 버전·결정 이력·AI 공시 초안을 묶는다</h4>
       <p>전체 파일 해시 CSV, 사용한 라이브러리 버전, 무엇을 누가 정했는지, 그리고 유통사에 낼 AI 공시 문안 초안이 나옵니다.
         <strong>이 패키지는 저작권을 만들지 않습니다.</strong> 다만 분쟁이 났을 때 “언제 무엇을 했는지”를 보여줍니다.</p>
-      <div class="out">증빙 60개 파일 해시 · 09_evidence\manifest.json
+      <div class="out">증빙 61개 파일 해시 · 09_evidence\manifest.json
   ⚠ decided_by 가 'human' 이 아닙니다 — 이 산출물은 인간 창작 증거로 쓸 수 없습니다.
   ⚠ 새 인간 실연(보컬/연주) 파일이 없습니다 — 실연 기여 0.
   ⚠ 생성 서비스 영수증·구독 증빙이 비어 있습니다 — 유통 심사에서 1순위 요구 항목입니다.</div>
@@ -638,7 +645,7 @@ FLAC: 07_master\distributor_candidate_44k1_16bit.flac
         <td>다이내믹 폭. 3초 블록 10~95 백분위 근사이고, 편곡·무음 변화도 함께 영향</td></tr>
       <tr><td><b>True Peak</b></td><td class="n no">+1.28 dBTP</td><td class="n yes">−1.00 dBTP</td>
         <td><mark class="g">원본은 0을 넘어 인터샘플 클리핑 위험</mark>. 마스터에서 해결됨</td></tr>
-      <tr><td>Sample Peak</td><td class="n">−1.01 dBFS</td><td class="n">−1.00 dBFS</td><td>파일 안 최대값</td></tr>
+      <tr><td>Sample Peak</td><td class="n">−1.01 dBFS</td><td class="n">−1.01 dBFS</td><td>파일 안 최대값</td></tr>
       <tr><td>Crest factor</td><td class="n">10.35 dB</td><td class="n">14.80 dB</td><td>클수록 여유 있는 소리</td></tr>
       <tr><td>스테레오 상관</td><td class="n">0.8319</td><td class="n">0.9029</td><td>−1에 가까우면 모노에서 소리가 사라짐</td></tr>
       <tr><td>음(−) 상관 1초 구간</td><td class="n">0.0%</td><td class="n">0.89%</td><td>참고 검사. 모노 청취를 대체 못 함</td></tr>
@@ -655,15 +662,18 @@ FLAC: 07_master\distributor_candidate_44k1_16bit.flac
   <div class="meter"><span class="lb">베이스 MIDI</span><span class="bar"><i style="width:27%"></i></span><span class="vl">286</span></div>
   <div class="meter"><span class="lb">패드/코드</span><span class="bar"><i style="width:12%"></i></span><span class="vl">123</span></div>
   <div class="meter"><span class="lb">브리지 멜로디</span><span class="bar"><i style="width:3%"></i></span><span class="vl">24</span></div>
-  <div class="meter"><span class="lb">사람이 고친 음</span><span class="bar"><i class="r" style="width:2.5%"></i></span><span class="vl">5</span></div>
-  <p class="note">마지막 줄이 핵심입니다. 자동 생성 노트가 1,493개여도, <mark>사람이 직접 고친 것은 5개</mark>입니다.
-    노트 개수를 늘리는 것보다 <strong>사람이 고른·고친 흔적</strong>을 늘리는 쪽이 훨씬 강한 기록입니다.</p>
+  <div class="meter"><span class="lb">데모 자동이 고친 음</span><span class="bar"><i class="r" style="width:0.5%;min-width:2px"></i></span><span class="vl">5</span></div>
+  <p class="note">마지막 줄이 핵심입니다. 자동 생성 노트가 1,493개인데 고친 것은 5개뿐이고,
+    <mark>이번 데모는 자동 선택이라 그 5개도 사람이 고친 것이 아닙니다</mark>
+    (<code>decided_by: demo_auto</code>). 당신의 곡에서는 이 자리가 <strong>사람이 실제로 고른·고친 개수</strong>가 됩니다.
+    노트 개수를 늘리는 것보다 그 흔적을 늘리는 쪽이 훨씬 강한 기록입니다.</p>
 </section>
 
 <section id="human">
   <h2><span class="em">🎤</span>이제 당신 차례 — 사람만 할 수 있는 것</h2>
   <p class="lede">여기까지는 전부 자동이었습니다. 이 아래가 당신이 실제로 해야 하는 부분이고,
-    <strong>승인 확률과 저작권 방어력에 가장 크게 기여하는 부분</strong>입니다.</p>
+    <strong>유통사 공시 양식이 직접 묻는 항목</strong>이고, 저작권 논의에서 가장 자주 요구되는 부분입니다.
+    (승인 “확률”은 어떤 유통사도 공개하지 않으므로 이 문서에는 확률 숫자를 쓰지 않습니다.)</p>
   <div class="rule"></div>
 
   <h3>① 휴대폰으로 녹음하기 — 장비 0원</h3>
@@ -685,7 +695,7 @@ FLAC: 07_master\distributor_candidate_44k1_16bit.flac
     <div class="a">
       <h4>✅ 프로그램이 고쳐줍니다</h4>
       <ul>
-        <li><b>음정</b> — 반음 안쪽으로 들어오면 스케일 음으로 붙입니다 (실측 30 → 0.8 cents)</li>
+        <li><b>음정</b> — 반음 안쪽으로 들어오면 스케일 음으로 붙입니다 (실측 30 → 9.2 cents)</li>
         <li><b>타이밍</b> — 온셋을 그리드로 최대 90 ms 당기고 밀기</li>
         <li><b>노이즈·잡음</b> — 스펙트럼 차감 + 게이트</li>
         <li><b>치찰음</b> — 6.5 kHz 디에서</li>
@@ -708,7 +718,7 @@ FLAC: 07_master\distributor_candidate_44k1_16bit.flac
   <p>머릿속 멜로디를 흥얼거려 녹음하면 Basic Pitch가 MIDI로 옮겨줍니다. 그 MIDI를 신스·피아노로 렌더하면 그게 새 파트가 됩니다.
     이때 <strong>멜로디를 당신이 만들었다는 사실</strong>이 남습니다.</p>
   <pre>basic-pitch .\out .\내허밍.wav
-<span class="c"># → 내허밍_basic_pitch.mid 생성. 이걸 브리지 멜로디로 교체하면 됩니다</span></pre>
+<span class="c">REM → 내허밍_basic_pitch.mid 생성. 이걸 브리지 멜로디로 교체하면 됩니다</span></pre>
   <div class="gate">
     <h4>주의: 원곡 후렴을 그대로 따라 허밍하면 새 멜로디가 아닙니다</h4>
     <p>화면을 끄고, 코드와 분위기만 참고해서 <em>새로</em> 흥얼거려 보세요. 그리고 원곡 멜로디와 너무 비슷한 부분만 고치세요.</p>
@@ -720,7 +730,8 @@ FLAC: 07_master\distributor_candidate_44k1_16bit.flac
     박수·셰이커·탬버린도 실제 사람이 녹음한 오디오이고, 그 리듬으로 좋은 드럼 샘플을 트리거하면 음질은 프로덕션급이 됩니다.</p>
   <ul class="clean">
     <li><b>RAW를 반드시 보관하세요</b> — <code>drums_RAW_human.mid</code>와 <code>drums_EDITED.mid</code>를 둘 다 남기면
-      “내가 연주했고 프로그램은 후처리만 했다”가 증명됩니다.</li>
+      “내가 연주했고 프로그램은 후처리만 했다”는 <mark class="g">주장을 뒷받침하는 기록</mark>이 됩니다.
+      기록 자체가 증명은 아닙니다 — 제3자 타임스탬프가 없는 내 파일이니까요.</li>
     <li>정리 강도는 <code>quantize 65%</code> 정도가 자연스럽습니다. 100%로 붙이면 기계처럼 들립니다.</li>
   </ul>
 
@@ -760,10 +771,14 @@ FLAC: 07_master\distributor_candidate_44k1_16bit.flac
 ├─ templates/human_decisions.template.json
 ├─ templates/recording_checklist.md
 └─ templates/lyrics_changelog.template.md</pre>
-  <pre>%PY% skill\scripts\validate.py .\work\mysong
+  <pre><span class="c">REM 새 창을 열었다면 이 두 줄을 다시 실행하세요</span>
+set PYTHONPATH=%CD%\pipeline
+set PY=%USERPROFILE%\stayfade\.venv\Scripts\python.exe
 
-<span class="c"># 코드를 고쳤다면 테스트부터 (21개, 약 1분)</span>
-set PYTHONPATH=%CD%\pipeline &amp;&amp; %PY% pipeline\tests\test_pipeline.py</pre>
+%PY% skill\scripts\validate.py .\work\mysong
+
+<span class="c">REM 코드를 고쳤다면 테스트부터 (35개, 약 1분)</span>
+%PY% pipeline\tests\test_pipeline.py</pre>
   <div class="out">✅ project.json  ✅ analysis.json  ✅ candidates.json
 ✅ human_decisions.json  ✅ arrangement_manifest.json  ✅ qc.json
 ⚠  decided_by='demo_auto' — 이 산출물은 인간 창작 증거로 쓸 수 없습니다.

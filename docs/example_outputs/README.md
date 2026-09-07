@@ -2,7 +2,7 @@
 
 합성 테스트 곡을 파이프라인에 통과시켰을 때 실제로 나온 파일들입니다.
 오디오 파일(WAV/FLAC/MIDI)은 저장소 크기 때문에 제외했고, 판단에 필요한 JSON·텍스트만 넣었습니다.
-경로는 `<PROJECT>`, `<REPO>`, `<VENV>`로 치환했습니다.
+경로는 `<PROJECT>` 와 `<REPO>` 로 치환했습니다.
 
 | 파일 | 무엇 |
 |---|---|
@@ -16,4 +16,6 @@
 | `evidence_manifest.json` | 도구 버전·결정 요약·**경고 목록** |
 | `evidence_AI_DISCLOSURE.txt` | 유통사 제출용 공시 초안 |
 | `evidence_submission_checklist.json` | 제출 전 확인 11항목 |
+| `evidence_tool_versions.json` | 사용한 라이브러리·바이너리 버전 |
+| `evidence_file_hashes_sample.csv` | 전체 61행 해시 목록 중 앞부분 샘플 |
 | `pipeline.log` | 실행 로그 |

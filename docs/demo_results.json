@@ -131,13 +131,15 @@
   },
   "vocal_demo": {
     "raw": "work/vocal_demo_raw.wav",
-    "processed": "work/vocal_demo_out/vocal_demo_raw_processed.wav",
+    "processed_lead": "/home/user/-/work/vocal_demo_out/vocal_demo_raw_processed.wav",
+    "processed_with_harmony": "/home/user/-/work/vocal_demo_out_harmony/vocal_demo_raw_processed.wav",
     "cents_off_before": 30.0,
-    "cents_off_after": 0.8,
+    "cents_off_after_lead": 9.2,
+    "cents_off_after_with_harmony": 19.2,
+    "measurement_note_ko": "튠 정확도는 하모니를 끈 리드에서 측정했습니다. 하모니는 일부러 다른 음(3도·5도)을 넣는 것이라 같이 재면 오차가 커 보입니다 — 참고로 하모니를 포함해 재면 19.2 cents 입니다. 측정은 스테레오 전체를 모노로 합쳐서 합니다 (한쪽 채널만 재면 실제보다 좋게 나옵니다).",
     "notes_detected": 6,
     "notes_corrected": 5,
     "output_peak_dbfs": -3.0,
-    "timing": null,
     "harmony": "3도/5도 자동 생성 (인간 실연 아님)"
   },
   "tests": "pipeline/tests/test_pipeline.py 30/30 통과",

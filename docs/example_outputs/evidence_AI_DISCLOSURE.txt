@@ -1,3 +1,9 @@
+=== READ FIRST — this draft is not submission-ready ===
+!! decided_by = demo_auto — the choices below were not made by a person.
+!! No human vocal or instrumental performance was processed in this session.
+!! No commercial-rights evidence supplied (receipt / subscription / song URL).
+Fix these before sending this text to a distributor.
+
 AI DISCLOSURE / 제작 공시 초안  (2026-09-07)
 Track: Test Track (Ebm)
 Artist: (demo)
@@ -5,7 +11,9 @@ Artist: (demo)
 1) Source audio
    - 합성 테스트 트랙 (실제 원곡 아님)
    - Original file SHA-256: 34969c86878e00c0459cd7e6e9d793dcf611c7313c6ce6e4d136feba9553743a
-   - Commercial-rights evidence: 
+   - Commercial-rights evidence: NOT YET SUPPLIED — receipt / subscription record / song URL / generation date
+
+   - AI-generated audio present in the delivered master: YES — the source audio is retained in the master; stems are only attenuated, not removed. Set to NO only if you rebuilt the master without any of the source audio.
 
 2) What AI did in this session (tools listed with versions in tool_versions.json)
    - Stem estimation: hpss_fallback
@@ -13,9 +21,10 @@ Artist: (demo)
    - Generated arrangement CANDIDATES (drums / bass / chords / bridge / structure): drums/bass/chords/bridge/structure, seed=7
    - Rendering, mixing, mastering, loudness normalisation, QC measurement: automated
 
-3) What a human decided or performed
+3) Decisions in this session — NOT made by a human (decided_by=demo_auto).
+   This document is NOT evidence of human authorship.
    - Decisions recorded in human_decisions.json: 5 (decided_by=demo_auto)
-   - Manual note edits: 5 applied
+   - Note edits recorded in the decision file (demo_auto): 5 applied
    - New human vocal / instrumental performance in this session: 없음 (이번 세션에서 새 인간 실연 없음)
 
 4) What was NOT done

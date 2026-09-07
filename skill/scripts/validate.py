@@ -52,9 +52,22 @@ def main(project: str) -> int:
         d = json.loads(hd.read_text(encoding="utf-8"))
         if d.get("status") == "DECIDED" and d.get("decided_by") != "human":
             print(f"⚠  decided_by='{d.get('decided_by')}' — 이 산출물은 인간 창작 증거로 쓸 수 없습니다.")
-        edits = sum(len(g.get("note_edits") or []) for g in d.get("decisions", []))
-        if edits == 0:
-            print("⚠  직접 고친 노트가 0개입니다 — 선택만으로는 창작 기여가 약합니다.")
+        requested = sum(len(g.get("note_edits") or []) for g in d.get("decisions", []))
+        arr_path = root / "arrangement_manifest.json"
+        applied = None
+        if arr_path.exists():
+            arr = json.loads(arr_path.read_text(encoding="utf-8"))
+            applied = sum(1 for log in (arr.get("note_edits_applied") or {}).values()
+                          for e in log if e.get("applied"))
+            failed = arr.get("note_edits_failed") or []
+            if failed:
+                print(f"⚠  요청했지만 오디오에 반영되지 않은 노트 수정이 {len(failed)}개 있습니다 — "
+                      "arrangement_manifest.json 의 note_edits_failed 를 보세요.")
+        count = applied if applied is not None else requested
+        if count == 0:
+            label = "반영된" if applied is not None else "적어둔"
+            print(f"⚠  {label} 노트 수정이 0개입니다 — 선택만으로는 창작 기여가 약합니다."
+                  + (f" (요청 {requested}건은 모두 실패했습니다)" if applied == 0 and requested else ""))
         if not (d.get("human_performance") or {}).get("files"):
             print("⚠  사람이 녹음한 파일이 없습니다 — 실연 기여 0.")
     an = root / "analysis.json"
