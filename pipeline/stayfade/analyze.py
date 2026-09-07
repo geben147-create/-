@@ -304,10 +304,14 @@ def bass_note_stats(events: list[dict]) -> dict:
 
 
 def parse_key(text: str) -> tuple[int, str]:
-    """'Ebm', 'C#', 'Gb major', 'F#m' → (tonic_pc, mode)."""
-    t = text.strip().replace("minor", "m").replace("major", "").replace(" ", "")
-    mode = "minor" if t.endswith("m") else "major"
-    root = t[:-1] if t.endswith("m") else t
+    """'Ebm', 'C#', 'Gb major', 'F#m' → (tonic_pc, mode). 해석 불가하면 ValueError."""
+    t = (text or "").strip().replace("minor", "m").replace("major", "").replace(" ", "")
+    if not t:
+        raise ValueError("조성이 비어 있습니다")
+    mode = "minor" if t.endswith("m") and len(t) > 1 else "major"
+    root = t[:-1] if mode == "minor" else t
+    if not root:
+        raise ValueError(f"조성을 해석할 수 없습니다: {text}")
     names = {**{n: i for i, n in enumerate(NOTE_NAMES_SHARP)}, **{n: i for i, n in enumerate(NOTE_NAMES_FLAT)}}
     root = root[0].upper() + root[1:].replace("B", "b").replace("S", "#")
     if root not in names:

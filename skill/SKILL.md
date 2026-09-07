@@ -104,6 +104,15 @@ python skill/scripts/validate.py ./work/<곡이름>
 | `arrangement_manifest.json` | `schema/arrangement_manifest.schema.json` |
 | `qc.json` | `schema/qc.schema.json` |
 
+## 코드를 고쳤다면 테스트부터
+
+```bash
+PYTHONPATH=pipeline python pipeline/tests/test_pipeline.py     # 21개 단위 테스트, 약 1분
+```
+
+리미터·엔벌로프의 수식 정확성, 트루피크 천장 준수, 하모니 클리핑, 후보 재현성,
+노트 수정 문법, 스키마 적합성, 조성 파싱을 검사합니다.
+
 ## 기술 규격 (제출 직전 각 유통사 공식 페이지에서 재확인)
 
 - RouteNote: 스테레오 **FLAC 또는 MP3 320kbps, 16bit/44.1kHz**, WAV 업로드 불가. 앞뒤 무음 8초 초과 금지, 클리핑 금지.

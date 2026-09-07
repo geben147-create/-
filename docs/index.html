@@ -736,7 +736,10 @@ FLAC: 07_master\distributor_candidate_44k1_16bit.flac
 ├─ templates/human_decisions.template.json
 ├─ templates/recording_checklist.md
 └─ templates/lyrics_changelog.template.md</pre>
-  <pre>python skill/scripts/validate.py .\work\mysong</pre>
+  <pre>python skill/scripts/validate.py .\work\mysong
+
+<span class="c"># 코드를 고쳤다면 테스트부터 (21개, 약 1분)</span>
+PYTHONPATH=pipeline python pipeline/tests/test_pipeline.py</pre>
   <div class="out">✅ project.json  ✅ analysis.json  ✅ candidates.json
 ✅ human_decisions.json  ✅ arrangement_manifest.json  ✅ qc.json
 ⚠  decided_by='demo_auto' — 이 산출물은 인간 창작 증거로 쓸 수 없습니다.

@@ -77,12 +77,22 @@ python skill/scripts/validate.py ./work/mysong             # 스키마 + 기여 
 
 전체 수치: [`docs/demo_results.json`](docs/demo_results.json)
 
+## 테스트
+
+```bash
+PYTHONPATH=pipeline python pipeline/tests/test_pipeline.py
+```
+
+21개 단위 테스트가 통과합니다. 리미터 릴리스 수식이 기준 재귀식과 1e-9 dB 이내로 일치하는지,
+마스터가 트루피크 천장을 지키는지, 하모니를 더해도 클리핑이 없는지, 같은 시드가 같은 후보를 만드는지,
+스키마가 실제 산출물을 받아들이는지를 검사합니다.
+
 ## 구조
 
 ```
 pipeline/stayfade/     파이프라인 코드 (common, synth, analyze, separate, transcribe,
                        variants, midiio, render, vocal, mix, qc, evidence, human_gate, cli)
-pipeline/tests/        합성 테스트 곡 생성기
+pipeline/tests/        합성 테스트 곡 생성기 + 단위 테스트
 skill/SKILL.md         재사용 스킬 (언제 멈춰야 하는지 포함)
 skill/schema/          산출물 6종 JSON Schema
 skill/scripts/         설치 스크립트 + 검증기
