@@ -6,6 +6,7 @@ Suno 같은 AI 생성곡에서 출발한 트랙을 **사람이 결정하는 재�
 📖 **[단계별 튜토리얼 — 바로 보기](https://claude.ai/code/artifact/73bf272c-77a8-4765-92c0-875b6afed09a)**
 (저장소 파일: [`docs/index.html`](docs/index.html) · GitHub에서 바로 렌더:
 [htmlpreview](https://htmlpreview.github.io/?https://github.com/geben147-create/-/blob/claude/stay-with-fade-qc-jktund/docs/index.html))
+📋 **[실행 점검표 세 장](docs/checklist.html)** — 승인 기여 순위별 한 것/안 한 것, 항목별 실행 방법과 유료 대안, 세 세션 비교
 📦 **[재사용 스킬](skill/SKILL.md)** — 다음 곡도 같은 절차로
 
 ---
