@@ -2,10 +2,10 @@
   "schema": "stayfade/project/1",
   "title": "Test Track (Ebm)",
   "artist": "(demo)",
-  "created_at": "2026-09-07T00:16:53+00:00",
+  "created_at": "2026-09-07T00:57:32+00:00",
   "source_file": "<PROJECT>/00_original/testtrack_Ebm_112.wav",
   "source_original_path": "<REPO>/work/testtrack_Ebm_112.wav",
-  "source_hash": "34969c86878e00c0459cd7e6e9d793dcf611c7313c6ce6e4d136feba9553743a",
+  "source_hash": "3898f74dedf1af493c492a3bf0df242a5aabbdb7ff196ca411a82389c0622d81",
   "source_info": {
     "path": "<PROJECT>/00_original/testtrack_Ebm_112.wav",
     "samplerate": 44100,

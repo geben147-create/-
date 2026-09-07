@@ -111,7 +111,7 @@ $PY skill/scripts/validate.py ./work/<곡이름>
 ## 코드를 고쳤다면 테스트부터
 
 ```bash
-PYTHONPATH=pipeline $PY pipeline/tests/test_pipeline.py     # 35개 단위 테스트, 약 1분
+PYTHONPATH=pipeline $PY pipeline/tests/test_pipeline.py     # 37개 단위 테스트, 약 1분
 ```
 
 리미터·엔벌로프의 수식 정확성, 트루피크 천장 준수, 하모니 클리핑, 후보 재현성,

@@ -329,7 +329,12 @@ footer .wrap{display:grid;gap:8px}
         <td class="not">수동 동기화</td><td class="did"><code>build_report.py</code></td><td class="did"><code>make_tutorial.py</code></td>
         <td>A는 튜토리얼 수치를 손으로 맞춥니다 — 실제로 이번에 수치가 어긋나 여러 번 고쳤습니다.
           B·C는 결과 JSON에서 문서를 생성해 <mark class="g">문서와 결과가 어긋날 수 없습니다</mark>. A의 명백한 약점입니다.</td></tr>
-      <tr><td class="med">7️⃣</td><td><b>의존성 버전 고정</b></td>
+      <tr><td class="med">7️⃣</td><td><b>문서 수치 재현성</b></td>
+        <td class="did">완료</td><td class="did">완료</td><td class="did">완료</td>
+        <td>A는 처음에 발표한 원본 수치가 재현되지 않았습니다(데모가 드럼 시드 수정 이전 트랙으로 만들어짐).
+          검토에서 지적받아 곡을 다시 만들고 전 단계를 재실행했고,
+          생성이 실행마다 같은 바이트를 내는지 테스트로 못박았습니다. B·C는 문서를 결과에서 생성하므로 구조적으로 안전합니다.</td></tr>
+      <tr><td class="med">8️⃣</td><td><b>의존성 버전 고정</b></td>
         <td class="not">없음</td><td class="did"><code>requirements-lock.txt</code></td><td class="part">requirements</td>
         <td>A는 설치 스크립트가 최신 버전을 받습니다. 나중에 라이브러리가 바뀌면 결과가 달라질 수 있습니다.</td></tr>
       <tr style="border-top:2px solid var(--line2)"><td class="med">✅</td><td><b>세 세션 공통 (전부 함)</b></td>
@@ -341,9 +346,11 @@ footer .wrap{display:grid;gap:8px}
           윈도우/유닉스 설치 스크립트</td></tr>
       <tr><td class="med">🅰️</td><td><b>A만 한 것</b></td>
         <td class="did">완료</td><td class="not">없음</td><td class="not">없음</td>
-        <td><b>단위 테스트 35개</b> (리미터 수식이 기준 재귀식과 1e-9 dB 이내, 트루피크 천장, 등파워 크로스페이드,
-          드럼 합성 프로세스 재현성, 공시문이 기계 결정을 사람 것으로 적지 않는지까지 회귀 테스트).<br>
-          <b>6갈래 독립 검토</b> 후 재현 확인된 결함 40여 건 수정.<br>
+        <td><b>단위 테스트 37개</b> (리미터 수식이 기준 재귀식과 1e-9 dB 이내, 트루피크 천장, 등파워 크로스페이드,
+          드럼 합성 프로세스 재현성, 공시문이 기계 결정을 사람 것으로 적지 않는지, 테스트 곡 생성이 실행마다 같은 바이트를 내는지까지 회귀 테스트).<br>
+          <b>6갈래 독립 검토</b> — 72건이 제기됐고, 검증 단계에서 확정된 잔여 결함은 0건입니다
+          (검토가 도는 동안 대부분을 이미 고쳤고, 검증이 HEAD 기준으로 하나씩 반증했습니다).
+          검토 중 발견해 고친 것이 40여 건.<br>
           <b>나란한조 모호성 경고</b>(Ebm↔Gb)와 <code>--key</code> 수동 지정.<br>
           <b>빈 결정 차단</b> — 후보를 하나도 안 고르면 관문 통과 불가.<br>
           <b>공시문 자기경고 블록</b> — decided_by≠human 이면 문서 맨 위에 경고.<br>

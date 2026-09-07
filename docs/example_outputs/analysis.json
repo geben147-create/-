@@ -34,7 +34,7 @@
     "key": "Ebm",
     "tonic_pc": 3,
     "mode": "minor",
-    "confidence": 0.323,
+    "confidence": 0.364,
     "ambiguous": false,
     "relative_pair": [
       "Gb",
@@ -44,26 +44,26 @@
     "alternatives": [
       {
         "key": "Gb",
-        "score": 0.323
-      },
-      {
-        "key": "Fm",
-        "score": 0.32
+        "score": 0.364
       },
       {
         "key": "Db",
-        "score": 0.302
+        "score": 0.316
       },
       {
         "key": "B",
-        "score": 0.275
+        "score": 0.312
+      },
+      {
+        "key": "Fm",
+        "score": 0.295
       }
     ],
     "caveat_ko": "나란한조(예: Ebm ↔ Gb)는 구성음이 같아 자동 판별이 자주 틀립니다. ambiguous=true 면 반드시 귀로 확인하고 analyze --key 로 지정하세요.",
     "manual": true,
     "auto_estimate": {
       "key": "Gb",
-      "confidence": 0.323
+      "confidence": 0.364
     },
     "note_ko": "사용자가 직접 지정한 조성입니다."
   },
@@ -90,7 +90,7 @@
       "end": 1.602,
       "bars": 1,
       "label": "intro",
-      "rms": 0.04772,
+      "rms": 0.06009,
       "label_note": "자동 추정 라벨 — 들어보고 human_decisions.json 에서 고치세요"
     },
     {
@@ -99,7 +99,7 @@
       "end": 3.75,
       "bars": 1,
       "label": "breakdown?",
-      "rms": 0.04422,
+      "rms": 0.04847,
       "label_note": "자동 추정 라벨 — 들어보고 human_decisions.json 에서 고치세요"
     },
     {
@@ -108,7 +108,7 @@
       "end": 5.898,
       "bars": 1,
       "label": "breakdown?",
-      "rms": 0.0471,
+      "rms": 0.05091,
       "label_note": "자동 추정 라벨 — 들어보고 human_decisions.json 에서 고치세요"
     },
     {
@@ -116,8 +116,8 @@
       "start": 5.898,
       "end": 8.046,
       "bars": 1,
-      "label": "breakdown?",
-      "rms": 0.04499,
+      "label": "verse?",
+      "rms": 0.05702,
       "label_note": "자동 추정 라벨 — 들어보고 human_decisions.json 에서 고치세요"
     },
     {
@@ -126,7 +126,7 @@
       "end": 25.194,
       "bars": 8,
       "label": "chorus?",
-      "rms": 0.24646,
+      "rms": 0.24614,
       "label_note": "자동 추정 라벨 — 들어보고 human_decisions.json 에서 고치세요"
     },
     {
@@ -135,7 +135,7 @@
       "end": 40.194,
       "bars": 7,
       "label": "chorus?",
-      "rms": 0.31012,
+      "rms": 0.3151,
       "label_note": "자동 추정 라벨 — 들어보고 human_decisions.json 에서 고치세요"
     },
     {
@@ -144,7 +144,7 @@
       "end": 76.614,
       "bars": 17,
       "label": "chorus?",
-      "rms": 0.28363,
+      "rms": 0.28979,
       "label_note": "자동 추정 라벨 — 들어보고 human_decisions.json 에서 고치세요"
     },
     {
@@ -153,7 +153,7 @@
       "end": 85.194,
       "bars": 4,
       "label": "verse?",
-      "rms": 0.22297,
+      "rms": 0.22264,
       "label_note": "자동 추정 라벨 — 들어보고 human_decisions.json 에서 고치세요"
     },
     {
@@ -162,7 +162,7 @@
       "end": 87.714,
       "bars": 1,
       "label": "outro",
-      "rms": 0.05248,
+      "rms": 0.05266,
       "label_note": "자동 추정 라벨 — 들어보고 human_decisions.json 에서 고치세요"
     }
   ],
@@ -174,7 +174,7 @@
       "chord": "Ebm",
       "root_pc": 3,
       "quality": "m",
-      "confidence": 0.688
+      "confidence": 0.685
     },
     {
       "bar": 1,
@@ -183,7 +183,7 @@
       "chord": "Bmaj7",
       "root_pc": 11,
       "quality": "maj7",
-      "confidence": 0.82
+      "confidence": 0.819
     },
     {
       "bar": 2,
@@ -192,7 +192,7 @@
       "chord": "Gbmaj7",
       "root_pc": 6,
       "quality": "maj7",
-      "confidence": 0.748
+      "confidence": 0.746
     },
     {
       "bar": 3,
@@ -201,16 +201,16 @@
       "chord": "Dbmaj7",
       "root_pc": 1,
       "quality": "maj7",
-      "confidence": 0.734
+      "confidence": 0.736
     },
     {
       "bar": 4,
       "start": 8.046,
       "end": 10.194,
-      "chord": "Gbmaj7",
-      "root_pc": 6,
-      "quality": "maj7",
-      "confidence": 0.69
+      "chord": "Ebm7",
+      "root_pc": 3,
+      "quality": "m7",
+      "confidence": 0.695
     },
     {
       "bar": 5,
@@ -228,7 +228,7 @@
       "chord": "Gbmaj7",
       "root_pc": 6,
       "quality": "maj7",
-      "confidence": 0.761
+      "confidence": 0.752
     },
     {
       "bar": 7,
@@ -237,7 +237,7 @@
       "chord": "Gbmaj7",
       "root_pc": 6,
       "quality": "maj7",
-      "confidence": 0.761
+      "confidence": 0.779
     }
   ],
   "caveat_ko": "BPM·키·코드·섹션은 모두 자동 추정입니다. 미리듣기로 확인하세요.",

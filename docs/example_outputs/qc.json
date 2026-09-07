@@ -1,6 +1,6 @@
 {
   "schema": "stayfade/qc/1",
-  "measured_at": "2026-09-07T00:19:30+00:00",
+  "measured_at": "2026-09-07T00:59:11+00:00",
   "before": {
     "file": {
       "path": "<PROJECT>/00_original/testtrack_Ebm_112.wav",
@@ -14,28 +14,28 @@
     },
     "duration_sec": 87.714,
     "duration_mmss": "01:27.71",
-    "lufs_i": -9.67,
-    "lra_lu": 3.4,
+    "lufs_i": -9.76,
+    "lra_lu": 3.43,
     "lra_note_ko": "LRA 는 3초 블록의 10~95 백분위로 계산한 근사치입니다 (EBU R128 정식 게이팅과 다를 수 있음).",
-    "true_peak_dbtp": 1.28,
+    "true_peak_dbtp": 0.85,
     "sample_peak_dbfs": -1.01,
-    "crest_db": 10.35,
+    "crest_db": 10.42,
     "stereo": {
-      "overall": 0.8319,
+      "overall": 0.9169,
       "dead_or_constant_channel": false,
       "negative_window_ratio_active": 0.0,
       "active_windows": 87,
-      "min_window": 0.019,
+      "min_window": 0.4373,
       "note_ko": "참고 검사입니다. 모노 청취를 대체하지 않습니다."
     },
-    "dc_offset_max_abs": 0.002103419,
+    "dc_offset_max_abs": 0.002156043,
     "dc_per_channel": [
-      0.002093511,
-      0.002103419
+      0.002148956,
+      0.002156043
     ],
     "samples_at_or_over_0dbfs": 0,
     "silence_head_sec": 0.0,
-    "silence_tail_sec": 1.153
+    "silence_tail_sec": 1.16
   },
   "after": {
     "file": {
@@ -50,24 +50,24 @@
     },
     "duration_sec": 112.855,
     "duration_mmss": "01:52.86",
-    "lufs_i": -14.01,
-    "lra_lu": 11.25,
+    "lufs_i": -14.0,
+    "lra_lu": 11.68,
     "lra_note_ko": "LRA 는 3초 블록의 10~95 백분위로 계산한 근사치입니다 (EBU R128 정식 게이팅과 다를 수 있음).",
     "true_peak_dbtp": -1.0,
     "sample_peak_dbfs": -1.01,
-    "crest_db": 14.8,
+    "crest_db": 14.74,
     "stereo": {
-      "overall": 0.9029,
+      "overall": 0.9528,
       "dead_or_constant_channel": false,
       "negative_window_ratio_active": 0.89,
       "active_windows": 112,
       "min_window": -0.0354,
       "note_ko": "참고 검사입니다. 모노 청취를 대체하지 않습니다."
     },
-    "dc_offset_max_abs": 7.552e-06,
+    "dc_offset_max_abs": 5.822e-06,
     "dc_per_channel": [
-      6.48e-06,
-      7.552e-06
+      5.789e-06,
+      5.822e-06
     ],
     "samples_at_or_over_0dbfs": 0,
     "silence_head_sec": 0.0,
@@ -82,28 +82,28 @@
       "duration_sec": 112.855,
       "subtype": "PCM_16",
       "format": "FLAC",
-      "bytes": 9830292
+      "bytes": 9646071
     },
     "duration_sec": 112.855,
     "duration_mmss": "01:52.86",
-    "lufs_i": -14.01,
-    "lra_lu": 11.25,
+    "lufs_i": -14.0,
+    "lra_lu": 11.68,
     "lra_note_ko": "LRA 는 3초 블록의 10~95 백분위로 계산한 근사치입니다 (EBU R128 정식 게이팅과 다를 수 있음).",
     "true_peak_dbtp": -1.0,
     "sample_peak_dbfs": -1.01,
-    "crest_db": 14.8,
+    "crest_db": 14.74,
     "stereo": {
-      "overall": 0.9029,
+      "overall": 0.9528,
       "dead_or_constant_channel": false,
       "negative_window_ratio_active": 0.89,
       "active_windows": 112,
       "min_window": -0.0354,
       "note_ko": "참고 검사입니다. 모노 청취를 대체하지 않습니다."
     },
-    "dc_offset_max_abs": 7.597e-06,
+    "dc_offset_max_abs": 5.86e-06,
     "dc_per_channel": [
-      6.533e-06,
-      7.597e-06
+      5.844e-06,
+      5.86e-06
     ],
     "samples_at_or_over_0dbfs": 0,
     "silence_head_sec": 0.0,
@@ -111,24 +111,24 @@
   },
   "comparison": {
     "lufs_i": {
-      "before": -9.67,
-      "after": -14.01,
-      "delta": -4.34
+      "before": -9.76,
+      "after": -14.0,
+      "delta": -4.24
     },
     "lra_lu": {
-      "before": 3.4,
-      "after": 11.25,
-      "delta": 7.85
+      "before": 3.43,
+      "after": 11.68,
+      "delta": 8.25
     },
     "true_peak_dbtp": {
-      "before": 1.28,
+      "before": 0.85,
       "after": -1.0,
-      "delta": -2.28
+      "delta": -1.85
     },
     "crest_db": {
-      "before": 10.35,
-      "after": 14.8,
-      "delta": 4.45
+      "before": 10.42,
+      "after": 14.74,
+      "delta": 4.32
     },
     "duration_sec": {
       "before": 87.714,
@@ -136,16 +136,16 @@
       "delta": 25.14
     },
     "stereo_correlation": {
-      "before": 0.8319,
-      "after": 0.9029
+      "before": 0.9169,
+      "after": 0.9528
     },
     "negative_corr_ratio_pct": {
       "before": 0.0,
       "after": 0.89
     },
     "dc_offset_max_abs": {
-      "before": 0.002103419,
-      "after": 7.552e-06
+      "before": 0.002156043,
+      "after": 5.822e-06
     },
     "note_ko": "LRA·crest 변화에는 편곡·무음 길이 변화도 함께 영향을 줍니다."
   },
@@ -210,19 +210,19 @@
       {
         "check": "DC 오프셋 < 0.001",
         "pass": true,
-        "detail": "7.597e-06",
+        "detail": "5.86e-06",
         "severity": "info"
       },
       {
         "check": "스테레오 상관 > -0.3 (모노 호환)",
         "pass": true,
-        "detail": "0.9029",
+        "detail": "0.9528",
         "severity": "info"
       },
       {
         "check": "LUFS-I -18 ~ -6 범위",
         "pass": true,
-        "detail": "-14.01 LUFS",
+        "detail": "-14.0 LUFS",
         "severity": "info"
       }
     ],
@@ -233,9 +233,9 @@
   },
   "ab_preview": {
     "path": "<PROJECT>/08_qc/AB_original_vs_arranged.wav",
-    "original_lufs": -10.54,
-    "arranged_lufs": -14.48,
-    "matched_to_lufs": -14.48,
+    "original_lufs": -10.68,
+    "arranged_lufs": -14.86,
+    "matched_to_lufs": -14.86,
     "seconds_each": 24.0,
     "order_ko": "원본 → 무음 1초 → 편곡"
   },

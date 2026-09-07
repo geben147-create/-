@@ -1,6 +1,6 @@
 {
   "schema": "stayfade/arrangement/1",
-  "created_at": "2026-09-07T00:19:19+00:00",
+  "created_at": "2026-09-07T00:58:56+00:00",
   "choices": {
     "drums": "B_halftime",
     "bass": "C_syncopated",
@@ -61,16 +61,16 @@
   },
   "reduction_regions": [
     {
+      "start": 5.898,
+      "end": 8.046
+    },
+    {
       "start": 8.046,
       "end": 25.194
     },
     {
       "start": 25.194,
       "end": 40.194
-    },
-    {
-      "start": 40.194,
-      "end": 76.614
     }
   ],
   "transition_ms": 180.0,
@@ -93,20 +93,20 @@
     "hpf_hz": 20.0,
     "side_gain": 0.9,
     "normalize": {
-      "applied_db": -5.17,
-      "before_lufs": -8.83,
+      "applied_db": -5.5,
+      "before_lufs": -8.5,
       "target": -14.0
     },
     "limiter": {
-      "max_gain_reduction_db": -2.18,
+      "max_gain_reduction_db": -1.43,
       "ceiling_dbtp_target": -1.0,
       "oversample": 4,
       "passes_used": 1
     },
     "final_true_peak_dbtp": -1.0,
-    "achieved_lufs": -14.01,
+    "achieved_lufs": -14.0,
     "lufs_target": -14.0,
-    "lufs_miss_db": -0.01
+    "lufs_miss_db": 0.0
   },
   "outputs": {
     "premaster": "<PROJECT>/06_mix/arranged_premaster.wav",

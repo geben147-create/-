@@ -6,6 +6,7 @@
 from __future__ import annotations
 
 import json
+import os
 import sys
 import tempfile
 from pathlib import Path
@@ -208,6 +209,18 @@ def test_gate_blocks_until_decided_and_validates_choices():
 
 
 # ---------- analyze ----------
+def test_downbeats_rejects_bad_beats_per_bar():
+    """음수/0 을 넣으면 무한 루프나 slice 오류가 아니라 즉시 ValueError 여야 합니다."""
+    beats = [i * 0.5 for i in range(64)]
+    for bad in (0, -1, -4):
+        try:
+            A.downbeats_from_beats(beats, bad, duration=32.0)
+            raise AssertionError(f"beats_per_bar={bad} 는 거부되어야 합니다")
+        except ValueError:
+            pass
+    assert len(A.downbeats_from_beats(beats, 4, duration=32.0)) > 4
+
+
 def test_key_parsing_and_override():
     assert A.parse_key("Ebm") == (3, "minor")
     assert A.parse_key("Gb") == (6, "major")
@@ -321,6 +334,22 @@ def test_qc_correlation_json_serialisable_for_dead_channel():
     st = qc.correlation_stats(dead, SR)
     assert st["overall"] is None and st["dead_or_constant_channel"] is True
     json.dumps(st)
+
+
+def test_test_track_generation_is_byte_stable():
+    """문서에 실은 원본 수치가 깨끗한 체크아웃에서 재현되려면 생성 자체가 결정적이어야 합니다."""
+    import hashlib
+    import subprocess
+    gen = Path(__file__).resolve().parent / "make_test_track.py"
+    digests = set()
+    with tempfile.TemporaryDirectory() as d:
+        for i, seed in enumerate(("0", "12345")):          # PYTHONHASHSEED 를 바꿔도 같아야 한다
+            out = Path(d) / f"t{i}.wav"
+            env = {**os.environ, "PYTHONHASHSEED": seed,
+                   "PYTHONPATH": str(Path(__file__).resolve().parents[1])}
+            subprocess.run([sys.executable, str(gen), str(out)], check=True, capture_output=True, env=env)
+            digests.add(hashlib.sha256(out.read_bytes()).hexdigest())
+    assert len(digests) == 1, "테스트 곡 생성이 실행마다 다릅니다 — 문서의 원본 수치를 재현할 수 없습니다"
 
 
 def test_disclosure_never_claims_human_authorship_for_machine_runs():

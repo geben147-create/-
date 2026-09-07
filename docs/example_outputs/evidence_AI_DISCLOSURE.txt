@@ -10,7 +10,7 @@ Artist: (demo)
 
 1) Source audio
    - 합성 테스트 트랙 (실제 원곡 아님)
-   - Original file SHA-256: 34969c86878e00c0459cd7e6e9d793dcf611c7313c6ce6e4d136feba9553743a
+   - Original file SHA-256: 3898f74dedf1af493c492a3bf0df242a5aabbdb7ff196ca411a82389c0622d81
    - Commercial-rights evidence: NOT YET SUPPLIED — receipt / subscription record / song URL / generation date
 
    - AI-generated audio present in the delivered master: YES — the source audio is retained in the master; stems are only attenuated, not removed. Set to NO only if you rebuilt the master without any of the source audio.

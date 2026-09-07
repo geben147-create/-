@@ -153,6 +153,9 @@ def downbeats_from_beats(beat_times: list[float], beats_per_bar: int = 4,
     """
     if not beat_times:
         return []
+    if beats_per_bar < 1:
+        # CLI 는 이미 막고 있지만, 이 함수를 라이브러리로 직접 부르면 음수에서 무한 루프가 됩니다
+        raise ValueError(f"beats_per_bar 는 1 이상이어야 합니다 (받은 값: {beats_per_bar})")
     bt = np.asarray(beat_times, dtype=float)
     bars = list(bt[::beats_per_bar])
     if len(bars) < 2:

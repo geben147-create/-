@@ -153,7 +153,7 @@ footer .wrap{display:grid;gap:10px}
       <div><b>0원</b><span>설치한 도구 비용</span></div>
       <div><b>11단계</b><span>00 보존 → 10 증빙</span></div>
       <div><b>PASS</b><span>기술 QC 결과</span></div>
-      <div><b class="warn">+1.28 → −1.00</b><span>True Peak dBTP</span></div>
+      <div><b class="warn">+0.85 → −1.00</b><span>True Peak dBTP</span></div>
       <div><b>30 → 9.2</b><span>보컬 음정 오차 cents</span></div>
       <div><b class="warn">0%</b><span>RouteNote 경로 · AI → 멜론·지니</span></div>
     </div>
@@ -232,7 +232,7 @@ footer .wrap{display:grid;gap:10px}
         <li><b>후보 생성</b> — 드럼·베이스·코드·브리지·구조 <b>15개 후보 + 미리듣기 12개</b></li>
         <li><b>믹스·마스터</b> — 20 Hz HPF → M/S → 4배 오버샘플 리미터 → LUFS 정규화</li>
         <li><b>QC</b> — LUFS/LRA/True Peak/상관/DC/무음/포맷 12개 검사</li>
-        <li><b>증빙</b> — 61개 파일 해시 + 도구 버전 + AI 공시 초안</li>
+        <li><b>증빙</b> — 60개 파일 해시 + 도구 버전 + AI 공시 초안</li>
       </ul>
     </div>
     <div class="b">
@@ -267,7 +267,7 @@ footer .wrap{display:grid;gap:10px}
     <li><b>설치 안내가 시스템 파이썬을 부르고 있었습니다.</b> 가상환경 안의 파이썬을 쓰도록 모든 문서를 고쳤습니다.</li>
   </ul>
   <p class="note">검토 결과와 수정 내역은 커밋 기록에 남아 있고,
-    같은 결함이 다시 들어오지 않도록 <a href="https://github.com/geben147-create/-/blob/claude/stay-with-fade-qc-jktund/pipeline/tests/test_pipeline.py">단위 테스트 35개</a>를 붙였습니다.</p>
+    같은 결함이 다시 들어오지 않도록 <a href="https://github.com/geben147-create/-/blob/claude/stay-with-fade-qc-jktund/pipeline/tests/test_pipeline.py">단위 테스트 37개</a>를 붙였습니다.</p>
   <p class="note">증빙 단계가 스스로 이렇게 경고합니다:
     <code>decided_by 가 'human' 이 아닙니다</code> / <code>새 인간 실연 파일이 없습니다</code> /
     <code>생성 서비스 영수증·구독 증빙이 비어 있습니다</code>. 이 경고를 없애는 것이 당신이 할 일입니다.</p>
@@ -604,7 +604,7 @@ set PY=<span class="k">%USERPROFILE%</span>\stayfade\.venv\Scripts\python.exe
       <pre>%PY% -m stayfade --project .\work\mysong <span class="k">build</span> --drum-reduce-db -1.5 --bass-reduce-db -3.0</pre>
       <div class="out">마스터: 07_master\arranged_master_44k1_24bit.wav
 FLAC: 07_master\distributor_candidate_44k1_16bit.flac
-길이 112.855초 (리미터 최대 2.18 dB 감쇠)</div>
+길이 112.855초 (리미터 최대 1.43 dB 감쇠, 1회 통과)</div>
     </div>
   </div>
 
@@ -615,7 +615,7 @@ FLAC: 07_master\distributor_candidate_44k1_16bit.flac
       <h4>유통 규격에 맞는지 12가지를 검사한다</h4>
       <p>샘플레이트·비트뎁스·채널·포맷·클리핑·True Peak·앞뒤 무음·길이·DC·스테레오 상관·LUFS를 검사하고,
         원본 대비 A/B 파일(원본 24초 → 무음 1초 → 편곡 24초, 음량 맞춤)까지 만들어 줍니다.</p>
-      <div class="out">QC PASS · 원본 -9.67 LUFS → 편곡 -14.0 LUFS · TP -1.0 dBTP · 상관 0.9029 · 실패 0 경고 0</div>
+      <div class="out">QC PASS · 원본 -9.67 LUFS → 편곡 -14.0 LUFS · TP -1.0 dBTP · 상관 0.9528 · 실패 0 경고 0</div>
     </div>
   </div>
 
@@ -626,7 +626,7 @@ FLAC: 07_master\distributor_candidate_44k1_16bit.flac
       <h4>해시·도구 버전·결정 이력·AI 공시 초안을 묶는다</h4>
       <p>전체 파일 해시 CSV, 사용한 라이브러리 버전, 무엇을 누가 정했는지, 그리고 유통사에 낼 AI 공시 문안 초안이 나옵니다.
         <strong>이 패키지는 저작권을 만들지 않습니다.</strong> 다만 분쟁이 났을 때 “언제 무엇을 했는지”를 보여줍니다.</p>
-      <div class="out">증빙 61개 파일 해시 · 09_evidence\manifest.json
+      <div class="out">증빙 60개 파일 해시 · 09_evidence\manifest.json
   ⚠ decided_by 가 'human' 이 아닙니다 — 이 산출물은 인간 창작 증거로 쓸 수 없습니다.
   ⚠ 새 인간 실연(보컬/연주) 파일이 없습니다 — 실연 기여 0.
   ⚠ 생성 서비스 영수증·구독 증빙이 비어 있습니다 — 유통 심사에서 1순위 요구 항목입니다.</div>
@@ -637,24 +637,28 @@ FLAC: 07_master\distributor_candidate_44k1_16bit.flac
 <section id="numbers">
   <h2><span class="em">📊</span>실측 결과 — 테스트 곡 전후</h2>
   <p class="lede">합성 테스트 곡을 파이프라인에 통과시킨 실제 측정값입니다. 당신의 곡 숫자는 다르게 나옵니다.</p>
+  <p class="note" style="border-top:0;margin-top:0;margin-bottom:18px">✅ 이 표는 <b>깨끗한 체크아웃에서 재현됩니다</b>.
+    테스트 곡 생성이 실행마다 같은 바이트를 내는지 테스트로 못박아 뒀습니다
+    (<code>test_test_track_generation_is_byte_stable</code>). 처음에는 재현되지 않았고,
+    검토에서 지적받아 곡을 다시 만들고 전 단계를 재실행한 뒤의 값입니다.</p>
   <div class="rule"></div>
   <div class="scroll">
   <table>
     <thead><tr><th>측정</th><th class="n">원본</th><th class="n">편곡·마스터</th><th>읽는 법</th></tr></thead>
     <tbody>
       <tr><td>길이</td><td class="n">87.71초</td><td class="n">112.86초</td><td>새 인트로 8.59초 + 브리지 17.09초가 붙음</td></tr>
-      <tr><td>LUFS-I</td><td class="n">−9.67</td><td class="n">−14.01</td><td>목표값. 유통사 합격선이 아니라 이번 작업 설정</td></tr>
-      <tr><td>LRA <span class="rank">(근사)</span></td><td class="n">3.4 LU</td><td class="n">11.25 LU</td>
+      <tr><td>LUFS-I</td><td class="n">−9.76</td><td class="n">−14.00</td><td>목표값. 유통사 합격선이 아니라 이번 작업 설정</td></tr>
+      <tr><td>LRA <span class="rank">(근사)</span></td><td class="n">3.43 LU</td><td class="n">11.68 LU</td>
         <td>다이내믹 폭. 3초 블록 10~95 백분위 근사이고, 편곡·무음 변화도 함께 영향</td></tr>
-      <tr><td><b>True Peak</b></td><td class="n no">+1.28 dBTP</td><td class="n yes">−1.00 dBTP</td>
+      <tr><td><b>True Peak</b></td><td class="n no">+0.85 dBTP</td><td class="n yes">−1.00 dBTP</td>
         <td><mark class="g">원본은 0을 넘어 인터샘플 클리핑 위험</mark>. 마스터에서 해결됨</td></tr>
       <tr><td>Sample Peak</td><td class="n">−1.01 dBFS</td><td class="n">−1.01 dBFS</td><td>파일 안 최대값</td></tr>
-      <tr><td>Crest factor</td><td class="n">10.35 dB</td><td class="n">14.80 dB</td><td>클수록 여유 있는 소리</td></tr>
-      <tr><td>스테레오 상관</td><td class="n">0.8319</td><td class="n">0.9029</td><td>−1에 가까우면 모노에서 소리가 사라짐</td></tr>
+      <tr><td>Crest factor</td><td class="n">10.42 dB</td><td class="n">14.74 dB</td><td>클수록 여유 있는 소리</td></tr>
+      <tr><td>스테레오 상관</td><td class="n">0.9169</td><td class="n">0.9528</td><td>−1에 가까우면 모노에서 소리가 사라짐</td></tr>
       <tr><td>음(−) 상관 1초 구간</td><td class="n">0.0%</td><td class="n">0.89%</td><td>참고 검사. 모노 청취를 대체 못 함</td></tr>
-      <tr><td>DC 오프셋</td><td class="n">0.0021</td><td class="n yes">0.0000076</td><td>20 Hz HPF로 제거됨</td></tr>
+      <tr><td>DC 오프셋</td><td class="n">0.0022</td><td class="n yes">0.0000058</td><td>20 Hz HPF로 제거됨</td></tr>
       <tr><td>0 dBFS 이상 샘플</td><td class="n">0</td><td class="n">0</td><td>디지털 클리핑 없음</td></tr>
-      <tr><td>앞 / 뒤 무음</td><td class="n">0 / 1.15초</td><td class="n yes">0 / 0초</td><td>8초 넘으면 반려 사유</td></tr>
+      <tr><td>앞 / 뒤 무음</td><td class="n">0 / 1.16초</td><td class="n yes">0 / 0초</td><td>8초 넘으면 반려 사유</td></tr>
       <tr><td>규격 검사</td><td class="n">—</td><td class="n yes">PASS (실패 0 · 경고 0)</td><td>16bit/44.1kHz 스테레오 FLAC 기준</td></tr>
     </tbody>
   </table>
@@ -780,7 +784,7 @@ set PY=%USERPROFILE%\stayfade\.venv\Scripts\python.exe
 
 %PY% skill\scripts\validate.py .\work\mysong
 
-<span class="c">REM 코드를 고쳤다면 테스트부터 (35개, 약 1분)</span>
+<span class="c">REM 코드를 고쳤다면 테스트부터 (37개, 약 1분)</span>
 %PY% pipeline\tests\test_pipeline.py</pre>
   <div class="out">✅ project.json  ✅ analysis.json  ✅ candidates.json
 ✅ human_decisions.json  ✅ arrangement_manifest.json  ✅ qc.json
