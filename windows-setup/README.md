@@ -2,14 +2,50 @@
 
 두 가지 설정을 자동으로 처리하는 스크립트와 가이드입니다.
 
-| 폴더 | 내용 |
+| 항목 | 내용 |
 |---|---|
 | [`rustdesk/`](#1-rustdesk--승인-클릭-없이-폰에서-바로-접속) | RustDesk 무인 접속 (폰에서 승인 없이 연결 + 부팅 시 자동 실행) |
 | [`screenshot/`](#2-ctrl--printscreen--d스크린샷-자동-저장) | `Ctrl + PrintScreen` → 전체 화면 캡처 → `D:\스크린샷` 자동 저장 |
+| `Check-Status.ps1` | 두 설정이 제대로 됐는지 확인하는 읽기 전용 진단 |
+| `1~3-*.cmd` | 명령어 타이핑 없이 더블클릭으로 실행하는 런처 |
 
-## 빠른 시작
+## 빠른 시작 — 더블클릭만 하면 됩니다
 
-PC(윈도우)에서 이 폴더를 내려받은 뒤:
+1. GitHub 페이지에서 **Code → Download ZIP**
+2. 압축을 풀고 `windows-setup` 폴더로 들어갑니다
+3. 아래 파일을 순서대로 **더블클릭**
+
+| 파일 | 하는 일 | 권한 |
+|---|---|---|
+| `1-Setup-RustDesk.cmd` | RustDesk 무인 접속 설정 | UAC 창이 뜨면 **[예]** 클릭 (스스로 관리자 권한을 올립니다) |
+| `2-Setup-Screenshot.cmd` | `Ctrl+PrintScreen` 단축키 설정 | 그냥 더블클릭 (관리자 권한 **없이** 실행해야 맞습니다) |
+| `3-Check-Status.cmd` | 설정이 잘 됐는지 확인만 | 아무것도 바꾸지 않는 읽기 전용 진단 |
+
+`1-Setup-RustDesk.cmd` 전에 **영구 비밀번호를 한 번 지정**해 두세요
+(RustDesk → 설정 → 보안 → 영구 비밀번호). 이유는 [아래](#0단계--영구-비밀번호-먼저-지정-이것만-수동)에 있습니다.
+
+`2-Setup-Screenshot.cmd` 는 **AutoHotkey v2** 가 필요합니다. 없으면 먼저:
+
+```powershell
+winget install --id AutoHotkey.AutoHotkey
+```
+
+### 뭔가 안 될 때
+
+`3-Check-Status.cmd` 를 더블클릭하면 아래처럼 상태를 정리해서 보여 줍니다.
+이 화면을 그대로 복사해서 보내주시면 원인을 짚기 쉽습니다.
+
+```
+=== 1. RustDesk 무인 접속 =====================================
+  [O] 서비스 상태               Running
+  [O] 시작 유형                 Auto
+  [O] verification-method       use-permanent-password
+  [O] approve-mode              password
+  [O] 영구 비밀번호             설정됨
+  [O] 절전 (AC 전원)            사용 안 함 (좋음)
+```
+
+### 명령줄로 직접 실행하고 싶다면
 
 ```powershell
 # 1) RustDesk 무인 접속  -- 반드시 [관리자 권한] PowerShell
@@ -17,10 +53,10 @@ powershell -ExecutionPolicy Bypass -File .\rustdesk\Setup-RustDeskUnattended.ps1
 
 # 2) 스크린샷 단축키  -- 평소 쓰는 계정에서 그냥 실행 (관리자 권한 X)
 powershell -ExecutionPolicy Bypass -File .\screenshot\Setup-ScreenshotHotkey.ps1
-```
 
-> 리포지토리 전체를 받는 방법: GitHub 페이지에서 **Code → Download ZIP** 을 누른 뒤
-> 압축을 풀고, 그 안의 `windows-setup` 폴더에서 위 명령을 실행하세요.
+# 3) 상태 확인 (읽기 전용)
+powershell -ExecutionPolicy Bypass -File .\Check-Status.ps1
+```
 
 ---
 
