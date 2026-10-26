@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>가족 리조트 TOP 50</title>
+<style>
+:root{
+  --bg:#f6f7fb;--surface:#ffffff;--text:#1b1f2a;--muted:#5d6475;--line:#e3e6ee;
+  --accent:#2563eb;--accent-soft:#e6eefc;
+  --w:#0891b2;--k:#16a34a;--p:#d97706;--a:#7c3aed;--t:#dc2626;
+  --shadow:0 1px 3px rgba(20,30,60,.08);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0f1218;--surface:#181c25;--text:#e8ebf2;--muted:#9aa2b4;--line:#2a303d;
+    --accent:#6b9bff;--accent-soft:#1f2a44;
+    --w:#22d3ee;--k:#4ade80;--p:#fbbf24;--a:#a78bfa;--t:#f87171;--shadow:none;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0f1218;--surface:#181c25;--text:#e8ebf2;--muted:#9aa2b4;--line:#2a303d;
+  --accent:#6b9bff;--accent-soft:#1f2a44;
+  --w:#22d3ee;--k:#4ade80;--p:#fbbf24;--a:#a78bfa;--t:#f87171;--shadow:none;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",sans-serif;line-height:1.5}
+.wrap{max-width:1180px;margin:0 auto;padding:24px 16px 64px}
+h1{font-size:1.6rem;margin:0 0 4px}
+.sub{color:var(--muted);margin:0 0 16px;font-size:.95rem}
+.notice{background:var(--accent-soft);border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:.88rem;color:var(--text);margin-bottom:18px}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.tab{border:1px solid var(--line);background:var(--surface);color:var(--text);padding:8px 14px;border-radius:999px;cursor:pointer;font-size:.95rem}
+.tab[aria-selected="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:14px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 12px;box-shadow:var(--shadow)}
+.stat .lbl{font-size:.8rem;color:var(--muted);display:flex;align-items:center;gap:6px}
+.stat .num{font-size:1.4rem;font-weight:700}
+.bar{height:6px;border-radius:3px;background:var(--line);overflow:hidden;margin-top:6px}
+.bar i{display:block;height:100%}
+.dot{width:9px;height:9px;border-radius:50%;display:inline-block}
+.filters{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:16px}
+.chip{border:1px solid var(--line);background:var(--surface);color:var(--text);border-radius:8px;padding:6px 10px;font-size:.85rem;cursor:pointer;display:flex;align-items:center;gap:6px}
+.chip[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft)}
+.search{flex:1;min-width:180px;border:1px solid var(--line);background:var(--surface);color:var(--text);border-radius:8px;padding:7px 10px;font-size:.9rem}
+.count{color:var(--muted);font-size:.85rem;margin-bottom:10px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column}
+.ph{position:relative;height:110px;display:flex;align-items:center;justify-content:center;font-size:2.4rem;letter-spacing:6px}
+.rank{position:absolute;top:8px;left:8px;background:rgba(0,0,0,.6);color:#fff;font-weight:700;border-radius:8px;padding:2px 9px;font-size:.9rem;letter-spacing:0}
+.tbadge{position:absolute;top:8px;right:8px;background:var(--t);color:#fff;border-radius:6px;padding:2px 7px;font-size:.72rem;letter-spacing:0}
+.body{padding:12px 14px;display:flex;flex-direction:column;gap:6px;flex:1}
+.name{font-weight:700;font-size:1rem;margin:0}
+.area{color:var(--muted);font-size:.82rem}
+.desc{font-size:.86rem}
+.tags{display:flex;flex-wrap:wrap;gap:5px}
+.tag{font-size:.74rem;border-radius:5px;padding:2px 7px;border:1px solid currentColor}
+.tag.W{color:var(--w)}.tag.K{color:var(--k)}.tag.P{color:var(--p)}.tag.A{color:var(--a)}
+.kidmark{font-size:.8rem;font-weight:700;color:var(--k)}
+.links{display:flex;gap:10px;margin-top:auto;padding-top:6px;font-size:.82rem}
+.links a{color:var(--accent);text-decoration:none}
+.links a:hover{text-decoration:underline}
+footer{margin-top:28px;color:var(--muted);font-size:.8rem}
+footer a{color:var(--accent)}
+@media (max-width:480px){h1{font-size:1.3rem}.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>🏨 아이와 가기 좋은 물놀이·가족 리조트 TOP 50</h1>
+  <p class="sub">미국 · 일본 · 대만 · 한국 국가별 50곳 · 2026년 10~11월 시즌 기준</p>
+  <div class="notice">
+    ⚠️ <b>트립닷컴 실시간 순위가 아니라 조사 기반 추천 순위예요.</b> 작업 환경에서 trip.com에 직접 접속할 수 없어서
+    웹 검색에 나온 Trip.com Trip.Best 가족 호텔 순위 일부(<span style="color:var(--t);font-weight:700">TRIP</span> 배지)와
+    수영장·워터파크·키즈 시설, 볼거리, 이번 시즌 적합도를 종합해 순서를 매겼어요.
+    사진은 직접 넣지 못해서 각 카드의 <b>사진 보기</b> 링크로 연결했어요. 예약 전에 시설 운영 여부(야외 수영장은 계절 운영)를 꼭 확인하세요.
+  </div>
+
+  <div class="tabs" role="tablist" id="tabs"></div>
+  <div class="stats" id="stats"></div>
+  <div class="filters" id="filters">
+    <input class="search" id="q" type="search" placeholder="호텔·지역 검색">
+  </div>
+  <div class="count" id="count"></div>
+  <div class="grid" id="grid"></div>
+
+  <footer>
+    범례: <b style="color:var(--w)">워터파크/슬라이드</b> · <b style="color:var(--k)">키즈 물놀이(유아풀·스플래시)</b> ·
+    <b style="color:var(--p)">실내 놀이시설/키즈클럽</b> · <b style="color:var(--a)">테마파크·볼거리 인접</b> ·
+    <b style="color:var(--t)">TRIP</b> = 검색으로 확인된 Trip.com 가족 호텔 순위(Trip.Best) 등장 호텔.<br>
+    참고 출처: <a href="https://au.trip.com/toplist/tripbest/united-states-best-family-hotels-100200445730">Trip.com 미국 가족 호텔</a> ·
+    <a href="https://www.trip.com/t/SoO5mfz1ET2">Trip.com 일본 가족 호텔</a> ·
+    <a href="https://uk.trip.com/toplist/tripbest/taiwan-best-family-hotels-100200156491">Trip.com 대만 가족 호텔</a> ·
+    <a href="https://uk.trip.com/toplist/tripbest/south-korea-best-family-hotels-100200445813">Trip.com 한국 가족 호텔</a> ·
+    <a href="https://familyvacationist.com/family-resorts-with-the-best-indoor-pools-and-water-parks/">Family Vacationist</a> ·
+    <a href="https://okinawa-labo.com/en/okinawa-pool-hotel-3105">Okinawa Labo</a> ·
+    <a href="https://iconia.co.jp/en-us/feature/pool">iconia</a> ·
+    <a href="https://kr.trip.com/moments/poi-hanwha-resort-geoje-belvedere-61080769">Trip.com 모먼츠</a>
+  </footer>
+</div>
+
+<script>
+// [이름, 지역, 특징, 시설 플래그(W 워터파크/슬라이드, K 키즈 물놀이, P 실내 놀이/키즈클럽, A 테마파크·볼거리), Trip.com 순위 확인 여부]
+const DATA = {
+  us: { label: "🇺🇸 미국", emoji: "🌴", hue: 200, items: [
+    ["Disney's Polynesian Village Resort","플로리다 올랜도","화산 테마 수영장·워터슬라이드, 매직킹덤 모노레일 직결","WKPA",1],
+    ["Universal's Loews Portofino Bay Hotel","플로리다 올랜도","빌라 풀 슬라이드, 키즈 수영장, 유니버설 얼리 입장","WKPA",1],
+    ["Universal's Hard Rock Hotel Orlando","플로리다 올랜도","260피트 워터슬라이드, 수중 스피커 풀, 파크 도보","WKA",1],
+    ["Four Seasons Resort Orlando at Walt Disney World","플로리다 올랜도","익스플로러 아일랜드 레이지리버·슬라이드·스플래시존, 키즈클럽","WKPA",1],
+    ["Aulani, A Disney Resort & Spa","하와이 오아후 코올리나","와이콜로헤 밸리 레이지리버·슬라이드, 키즈클럽 Aunty's Beach House","WKPA",1],
+    ["Ho'olei at Grand Wailea","하와이 마우이","그랜드 와일레아 9개 수영장·워터 엘리베이터 이용, 빌라형","WKP",1],
+    ["Disney's Polynesian Villas & Bungalows","플로리다 올랜도","라군 위 방갈로, 폴리네시안 풀·슬라이드 공유","WKA",1],
+    ["Loews Royal Pacific Resort","플로리다 올랜도","라군 풀·키즈 스플래시존, 유니버설 얼리 입장","KA",1],
+    ["Grand Wailea, A Waldorf Astoria Resort","하와이 마우이","와일레아 캐니언 액티비티 풀, 슬라이드 9개, Camp Grande","WKP",0],
+    ["Universal's Loews Sapphire Falls Resort","플로리다 올랜도","카리브 테마 풀·워터슬라이드, 키즈 분수","WKA",0],
+    ["Disney's Grand Floridian Resort & Spa","플로리다 올랜도","비치 풀 워터슬라이드·지어로 깊이 키즈 풀","WKA",0],
+    ["Disney's Beach Club Resort","플로리다 올랜도","모래 바닥 풀 Stormalong Bay, 난파선 슬라이드","WKA",0],
+    ["Disney's Animal Kingdom Lodge","플로리다 올랜도","객실에서 기린·얼룩말 관찰, 우지마 풀 슬라이드","WKA",0],
+    ["Universal's Cabana Bay Beach Resort","플로리다 올랜도","레이지리버·슬라이드·볼링장, 가성비","WKPA",0],
+    ["Universal Endless Summer Resort – Dockside Inn","플로리다 올랜도","대형 풀 3곳, 키즈 스플래시 패드","KA",0],
+    ["Gaylord Palms Resort","플로리다 키시미","Cypress Springs 워터파크, 실내 아트리움","WKP",0],
+    ["Disneyland Hotel","캘리포니아 애너하임","모노레일 슬라이드 수영장, 디즈니랜드 도보","WKA",0],
+    ["Disney's Grand Californian Hotel & Spa","캘리포니아 애너하임","레드우드 슬라이드 풀, 디즈니 캘리포니아 어드벤처 전용 입구","WKA",0],
+    ["Great Wolf Lodge Southern California","캘리포니아 가든그로브","실내 워터파크 연중 운영, MagiQuest, 디즈니랜드 인근","WKPA",0],
+    ["Kalahari Resorts Poconos","펜실베이니아","미국 최대급 실내 워터파크, 실내 테마파크","WKP",0],
+    ["Kalahari Resorts Round Rock","텍사스 오스틴","실내 워터파크 + 실내 놀이공원 Tom Foolerie's","WKP",0],
+    ["Kalahari Resorts Sandusky","오하이오","실내·야외 워터파크, 시더포인트 인근","WKPA",0],
+    ["Kalahari Resorts Wisconsin Dells","위스콘신 델스","실내 워터파크, 2026 US News 가족여행지 위스콘신 델스","WKPA",0],
+    ["Gaylord Opryland Resort","테네시 내슈빌","SoundWaves 실내 워터파크·서핑, 거대 실내 정원","WKP",0],
+    ["Gaylord Texan Resort","텍사스 그레이프바인","Paradise Springs 워터파크, 크리스마스 이벤트","WKP",0],
+    ["Hilton Hawaiian Village Waikiki Beach Resort","하와이 와이키키","슈퍼풀·슬라이드, 라군, 금요 불꽃놀이","WKA",0],
+    ["Hyatt Regency Maui Resort & Spa","하와이 마우이","라군 풀·150피트 슬라이드, Camp Hyatt","WKP",0],
+    ["Four Seasons Resort Maui at Wailea","하와이 마우이","키즈 풀·Kids for All Seasons 키즈클럽","KP",0],
+    ["Hilton Waikoloa Village","하와이 빅아일랜드","돌핀 퀘스트, 슬라이드 풀, 리조트 내 트램·보트","WKA",0],
+    ["Great Wolf Lodge Williamsburg","버지니아","실내 워터파크, 부시가든 인근","WKPA",0],
+    ["Great Wolf Lodge Arizona","애리조나 스코츠데일","실내 워터파크 연중 운영","WKP",0],
+    ["Great Wolf Lodge Grapevine","텍사스","실내 워터파크·MagiQuest","WKP",0],
+    ["Great Wolf Lodge Pocono Mountains","펜실베이니아","실내 워터파크, 가을 단풍 시즌","WKP",0],
+    ["Wilderness at the Smokies","테네시 세비어빌","실내·야외 워터파크, 돌리우드 인근","WKPA",0],
+    ["Westgate Smoky Mountain Resort & Water Park","테네시 개틀린버그","Wild Bear Falls 실내 워터파크","WKA",0],
+    ["Margaritaville Resort Orlando","플로리다 키시미","Island H2O 워터파크 연계","WKA",0],
+    ["Hyatt Regency Grand Cypress","플로리다 올랜도","폭포·동굴 라군 풀 슬라이드, 디즈니 인근","WKA",0],
+    ["JW Marriott Orlando Grande Lakes","플로리다 올랜도","레이지리버·키즈 풀","WK",0],
+    ["Marriott's Orlando World Center","플로리다 올랜도","200피트 슬라이드, 키즈 풀","WK",0],
+    ["Omni Orlando Resort at ChampionsGate","플로리다","레이지리버·워터슬라이드·키즈클럽","WKP",0],
+    ["Disney's Yacht Club Resort","플로리다 올랜도","Stormalong Bay 공유, 엡콧 도보","WKA",0],
+    ["Disney's Contemporary Resort","플로리다 올랜도","워터슬라이드 풀, 매직킹덤 도보","WKA",0],
+    ["Disney's Caribbean Beach Resort","플로리다 올랜도","해적 요새 테마 풀·슬라이드","WKA",0],
+    ["Hyatt Regency Lost Pines Resort","텍사스","Crooked River 워터파크, 승마","WKP",0],
+    ["Arizona Grand Resort & Spa","애리조나 피닉스","Oasis 워터파크 (10월 운영 확인)","WK",0],
+    ["JW Marriott Phoenix Desert Ridge","애리조나 피닉스","레이지리버·슬라이드","WK",0],
+    ["Fairmont Scottsdale Princess","애리조나 스코츠데일","워터슬라이드 풀, 할로윈·연말 이벤트","WKP",0],
+    ["Hotel del Coronado","캘리포니아 샌디에이고","해변, 키즈 프로그램, 레고랜드·씨월드 거리","KPA",0],
+    ["Paradise Point Resort & Spa","캘리포니아 샌디에이고","섬 리조트 풀 5곳, 해변, 씨월드 인근","KA",0],
+    ["Fontainebleau Miami Beach","플로리다 마이애미","대형 풀, 키즈클럽, 해변","KP",0]
+  ]},
+  jp: { label: "🇯🇵 일본", emoji: "🗻", hue: 350, items: [
+    ["The Park Front Hotel at Universal Studios Japan","오사카","USJ 정문 앞, 키즈 객실","PA",1],
+    ["LEGOLAND Japan Hotel","나고야","레고 테마 객실, 호텔 내 놀이공간, 레고랜드 직결","PA",1],
+    ["Club Med Kabira Ishigaki","오키나와 이시가키","올인클루시브, 키즈클럽, 수영장·해변","KP",1],
+    ["Tokyo DisneySea Hotel MiraCosta","지바 우라야스","디즈니씨 파크 안 호텔, 실내·야외 풀","KA",0],
+    ["Tokyo Disney Resort Fantasy Springs Hotel","지바 우라야스","판타지 스프링스 직결 신규 호텔","A",0],
+    ["Disney Ambassador Hotel","지바 우라야스","캐릭터 객실·수영장","KA",0],
+    ["Hilton Okinawa Chatan Resort","오키나와 차탄","키즈 풀 워터슬라이드, 아메리칸 빌리지 도보","WKA",0],
+    ["Sheraton Okinawa Sunmarina Resort","오키나와 온나","83m 토네이도 슬라이드, 수심 30cm 키즈 풀","WK",0],
+    ["Fusaki Beach Resort Hotel & Villas","오키나와 이시가키","Aqua Garden 워터파크 슬라이드, 키즈룸","WKP",0],
+    ["Okinawa Marriott Resort & Spa","오키나와 나고","대형 풀·슬라이드, 키즈 클럽","WKP",0],
+    ["Hyatt Regency Seragaki Island Okinawa","오키나와 온나","섬 리조트, 키즈 클럽, 해변 액티비티","KP",0],
+    ["ANA InterContinental Manza Beach Resort","오키나와 온나","풀·해변, 키즈 클럽","KP",0],
+    ["Hotel Nikko Alivila","오키나와 요미탄","유럽풍 리조트, 키즈 풀, 해양 액티비티","KP",0],
+    ["Rizzan Sea-Park Hotel Tancha Bay","오키나와 온나","워터슬라이드, 실내 키즈 풀","WK",0],
+    ["Grand Mercure Okinawa Cape Zanpa Resort","오키나와 요미탄","와라바 키즈 풀(수심 20~26cm), 슬라이드, 급류 풀","WK",0],
+    ["Hotel Orion Motobu Resort & Spa","오키나와 모토부","츄라우미 수족관 도보, 키즈 풀","KA",0],
+    ["Oriental Hotel Okinawa Resort & Spa","오키나와 나고","키즈 풀·키즈룸, 전 객실 오션뷰","KP",0],
+    ["Kanucha Resort","오키나와 나고","리조트 내 수영장·놀이시설, 넓은 부지","KP",0],
+    ["The Busena Terrace","오키나와 나고","해중공원 인근, 키즈 클럽","KPA",0],
+    ["Halekulani Okinawa","오키나와 온나","5개 수영장, 키즈 프로그램","KP",0],
+    ["Hilton Okinawa Sesoko Resort","오키나와 세소코섬","키즈 풀, 츄라우미 수족관 근거리","KA",0],
+    ["Hotel Monterey Okinawa Spa & Resort","오키나와 온나","워터슬라이드 풀, 키즈 풀","WK",0],
+    ["Laguna Garden Hotel","오키나와 기노완","워터슬라이드 수영장","WK",0],
+    ["Southern Beach Hotel & Resort Okinawa","오키나와 이토만","대형 풀, 해변, 공항 근거리","K",0],
+    ["Okinawa Kariyushi Beach Resort Ocean Spa","오키나와 온나","풀·해변·키즈 놀이공간","KP",0],
+    ["Suginoi Hotel","오이타 벳푸","Aqua Garden·Aqua Beat 실내 워터파크, 온천","WKP",0],
+    ["Spa Resort Hawaiians","후쿠시마 이와키","대형 실내 워터파크, 훌라 쇼","WKA",0],
+    ["Chateraise Gateaux Kingdom Sapporo","홋카이도 삿포로","실내 워터파크·유수풀·유아 풀","WKP",0],
+    ["Hoshino Resorts RISONARE Tomamu","홋카이도 토마무","미나미나 비치 실내 파도풀, 겨울 스키","WKP",0],
+    ["Club Med Tomamu Hokkaido","홋카이도 토마무","올인클루시브, 키즈클럽, 스키","P",0],
+    ["Club Med Kiroro Grand","홋카이도 키로로","실내 풀, 키즈클럽, 스키","KP",0],
+    ["Rusutsu Resort Hotel & Convention","홋카이도 루스츠","놀이공원, 실내 파도풀, 스키","WKPA",0],
+    ["Hoshino Resorts RISONARE Yatsugatake","야마나시","파도풀 '이루카 풀', 키즈 프로그램","WKP",0],
+    ["Hoshino Resorts RISONARE Atami","시즈오카 아타미","키즈 돔 '소라' 실내 놀이터, 풀","KP",0],
+    ["Shinagawa Prince Hotel","도쿄 시나가와","맥셀 아쿠아파크 수족관, 실내 풀","KA",0],
+    ["Hilton Tokyo Bay","지바 우라야스","디즈니 셔틀, 키즈 객실, 수영장","KA",0],
+    ["Sheraton Grande Tokyo Bay Hotel","지바 우라야스","실내 풀, 키즈 놀이공간, 디즈니 인근","KPA",0],
+    ["Hotel Okura Tokyo Bay","지바 우라야스","디즈니 파트너 호텔, 수영장","KA",0],
+    ["Hotel Universal Port","오사카","USJ 인근, 키즈 테마 객실","PA",0],
+    ["Hotel Keihan Universal Tower","오사카","USJ 인근, 고층 전망, 실내 풀","KA",0],
+    ["Highland Resort Hotel & Spa","야마나시 후지요시다","후지큐 하이랜드 직결, 후지산 뷰","PA",0],
+    ["Nagashima Resort Hotel Hanamizuki","미에 구와나","나가시마 스파랜드 놀이공원·온천","WA",0],
+    ["Hotel Europe (Huis Ten Bosch)","나가사키 사세보","하우스텐보스 테마파크 내 호텔","A",0],
+    ["Shima Spain Village Hotel","미에 시마","파르케 에스파냐 테마파크·온천","PA",0],
+    ["Hotel Mikazuki Ryugujo","지바 기사라즈","대형 온천 수영장 '오션 스파'","WK",0],
+    ["Hakone Hotel Kowakien","가나가와 하코네","하코네 유네상 수영장 테마파크 연계","WKA",0],
+    ["Sheraton Grande Ocean Resort (Phoenix Seagaia)","미야자키","실내·야외 풀, 키즈 프로그램, 해변","KP",0],
+    ["Shirahama Key Terrace Hotel Seamore","와카야마 시라하마","어드벤처월드(판다) 인근, 키즈 풀","KA",0],
+    ["Hotel Epinard Nasu","도치기 나스","키즈 놀이공간·수영장, 나스 하이랜드파크 인근","KPA",0],
+    ["Karuizawa Prince Hotel West","나가노 가루이자와","가을 단풍, 키즈 프로그램, 아울렛 인근","PA",0]
+  ]},
+  tw: { label: "🇹🇼 대만", emoji: "🏝️", hue: 150, items: [
+    ["Fleur de Chine Hotel","난터우 일월담","전 객실 온천, 일월담 호수뷰, 키즈 프로그램","KP",1],
+    ["Grand Cosmos Resort Ruisui","화롄 루이쑤이","108개 풀 골든 워터파크, 실내 풀","WKP",1],
+    ["The Westin Tashee Resort","타오위안","3~12세 키즈 놀이터, 열대풍 야외 풀","KP",1],
+    ["Grand Bay Resort Hotel","핑둥 헝춘(컨딩)","실내 물놀이 구역 슬라이드","WKP",1],
+    ["Four Points by Sheraton Yilan Jiaoxi","이란 자오시","온천 풀, 키즈 놀이방","KP",1],
+    ["Silks Place Yilan","이란","실내·야외 풀, 놀이터","KP",1],
+    ["Kaohsiung Marriott Hotel","가오슝","키즈 존, 수영장, 한신 아레나 인근","KP",1],
+    ["Lakeshore Hotel Hsinchu","신주","약 8만 평방피트 키즈 놀이공간, 온수 풀·유아 풀","KP",0],
+    ["CHECK inn MAGI Kids","타이베이","키즈 테마 호텔, 객실 놀이시설","P",1],
+    ["Fame Hall Garden Hotel","타오위안","가든 산책로, 키즈 공간","P",1],
+    ["Fullon Hotel Lihpao Resort","타이중","리바오랜드 테마파크 인근, 키즈클럽","PA",0],
+    ["Phoenix Hotel Taichung","타이중","레이싱 트랙 있는 대형 실내 놀이터","P",0],
+    ["Leofoo Resort Guanxi","신주 관시","리우푸 빌리지 테마파크 직결","PA",0],
+    ["Promisedland Resort & Lagoon","화롄","라군 풀·워터 놀이시설, 키즈 프로그램","WKP",0],
+    ["Farglory Hotel Hualien","화롄","원앙 해양공원 인근, 키즈 놀이공간","PA",0],
+    ["E-DA Skylark Hotel","가오슝","E-DA 월드 테마파크·아울렛 직결","A",0],
+    ["E-DA Royal Hotel","가오슝","E-DA 월드 테마파크, 실내 풀","KA",0],
+    ["Hotel Royal Chihpen","타이둥 즈번","온천 풀, 키즈 놀이공간","KP",0],
+    ["Hotel Royal Chiaohsi","이란 자오시","온천 수영장, 키즈 공간","KP",0],
+    ["Formosan Naruwan Hotel","타이둥","원주민 문화 공연, 수영장","K",0],
+    ["Caesar Park Hotel Kenting","핑둥 컨딩","키즈 풀, 컨딩 대로 앞","KA",0],
+    ["Chateau Beach Resort Kenting","핑둥 컨딩","해변 직결, 수영장","K",0],
+    ["Kenting Howard Beach Resort","핑둥 컨딩","워터슬라이드 풀, 키즈 놀이방","WKP",0],
+    ["YOHO Beach Resort Kenting","핑둥 컨딩","키즈클럽, 슬라이드 풀","WKP",0],
+    ["Gloria Manor Kenting","핑둥 컨딩","국립공원 내 리조트, 수영장","K",0],
+    ["Silks Place Taroko","화롄 타이루거","루프탑 풀, 키즈 프로그램, 협곡 트레킹","KPA",0],
+    ["Parkview Hotel Hualien","화롄","넓은 정원·수영장, 키즈 놀이공간","KP",0],
+    ["The Lalu Sun Moon Lake","난터우 일월담","호수뷰 인피니티 풀","K",0],
+    ["Hotel Del Lago Sun Moon Lake","난터우 일월담","호수뷰, 키즈 공간","P",0],
+    ["Silks Place Tainan","타이난","루프탑 풀, 키즈 놀이공간","KP",0],
+    ["Crowne Plaza Tainan","타이난","키즈 수영장, 키즈 클럽","KP",0],
+    ["Tayih Landis Tainan","타이난","수영장, 구시가지 인근","K",0],
+    ["Grand Hi-Lai Hotel","가오슝","수영장, 쇼핑몰 연결","K",0],
+    ["The Grand Hotel Kaohsiung","가오슝","청칭호 호수변, 수영장","K",0],
+    ["Ambassador Hotel Kaohsiung","가오슝","루프탑 풀, 아이허 강변","K",0],
+    ["The Lin Hotel Taichung","타이중","수영장, 키즈 놀이공간","KP",0],
+    ["The Grand Hotel Taipei","타이베이","궁전형 호텔, 수영장","K",0],
+    ["Taipei Marriott Hotel","타이베이","수영장, 미라마 관람차 인근","KA",0],
+    ["Grand Mayfull Hotel Taipei","타이베이","수영장, 키즈 공간","KP",0],
+    ["Renaissance Taipei Shihlin Hotel","타이베이","키즈 놀이공간, 과학관 인근","PA",0],
+    ["Volando Urai Spring Spa & Resort","신베이 우라이","온천 풀, 숲 리조트","K",0],
+    ["Hotel Royal Beitou","타이베이 베이터우","온천 호텔","K",0],
+    ["Fullon Hotel Linkou","신베이 린커우","키즈 놀이공간, 아울렛 인근","P",0],
+    ["Novotel Taipei Taoyuan Airport","타오위안","공항 근거리, 수영장","K",0],
+    ["Sheraton Hsinchu Hotel","신주","수영장, 키즈 놀이공간","KP",0],
+    ["Ambassador Hotel Hsinchu","신주","수영장","K",0],
+    ["Kuva Chateau","타오위안","유럽풍 정원, 키즈 공간","P",0],
+    ["Evergreen Resort Hotel Jiaosi","이란 자오시","온천 풀, 키즈 놀이공간","KP",0],
+    ["Wellspring by Silks Jiaoxi","이란 자오시","온천 객실, 루프탑","K",0],
+    ["Mandarin Oriental Taipei","타이베이","대형 야외 풀","K",0]
+  ]},
+  kr: { label: "🇰🇷 한국", emoji: "🌊", hue: 260, items: [
+    ["JW Marriott Jeju Resort & Spa","제주 서귀포","키즈클럽(보육), 인피니티 풀","KP",1],
+    ["The Shilla Jeju","제주 중문","야외 온수풀·키즈 풀, 키즈 빌리지","KP",1],
+    ["Ecoland Hotel","제주 조천","에코랜드 테마파크 기차, 곶자왈","PA",1],
+    ["Paradise City","인천 영종도","씨메르 스파·워터파크, 원더박스 실내 놀이공원","WKPA",1],
+    ["Grand Hyatt Jeju","제주시","대형 루프탑 풀, 드림타워","K",1],
+    ["Haevichi Hotel & Resort Jeju","제주 표선","온수 풀, 키즈 놀이공간","KP",1],
+    ["Grand Josun Jeju","제주 중문","인피니티 풀, 키즈 라운지","KP",1],
+    ["Somerset Jeju Shinhwa World","제주 서귀포","패밀리 스위트, 신화 테마파크·워터파크 인접","WKPA",1],
+    ["Grand Hyatt Incheon","인천 영종도","실내 풀, 공항 근거리","K",1],
+    ["Chestertons Sokcho","강원 속초","루프탑 인피니티 풀, 바다뷰","K",1],
+    ["LEGOLAND Korea Resort Hotel","강원 춘천","레고 테마 객실, 호텔 내 놀이공간, 레고랜드 직결","PA",0],
+    ["Lotte Hotel Jeju","제주 중문","사계절 온수풀·워터슬라이드, 키즈 공간","WKP",0],
+    ["Jeju Shinhwa World Marriott Resort","제주 서귀포","신화워터파크·테마파크 직결","WKPA",0],
+    ["Parnas Hotel Jeju","제주 중문","국내 최장 야외 수영장, 키즈 라운지","KP",0],
+    ["Hanwha Resort Geoje Belvedere","경남 거제","바다뷰 키즈 워터파크, 클라이밍, 키즈클럽","WKP",0],
+    ["Lotte Hotel World","서울 잠실","롯데월드 어드벤처 직결, 키즈 객실","PA",0],
+    ["Sono Belle Vivaldi Park","강원 홍천","오션월드 워터파크, 스키","WKPA",0],
+    ["Lotte Resort Sokcho","강원 속초","워터파크, 바다뷰","WKP",0],
+    ["Hanwha Resort Seorak Sorano","강원 속초","설악 워터피아, 설악산 단풍","WKA",0],
+    ["Kensington Hotel Seorak","강원 속초","키즈룸, 키즈 크래프트, 설악산 단풍","PA",0],
+    ["Midas Hotel & Resort","경기 가평","트니트니 어드벤처 키즈 놀이, 실내 풀, 보팅","KP",0],
+    ["Vista Walkerhill Seoul","서울 광진","인피니티 풀, 키즈 놀이공간","KP",0],
+    ["Banyan Tree Club & Spa Seoul","서울 남산","오아시스 야외 온수풀, 키즈클럽","KP",0],
+    ["Paradise Hotel Busan","부산 해운대","야외 온천 풀, 키즈 놀이공간","KP",0],
+    ["Hilton Busan (Ananti Cove)","부산 기장","인피니티 풀, 워터하우스 스파","K",0],
+    ["Signiel Busan","부산 해운대","실내·야외 풀, 해운대 뷰","K",0],
+    ["Lotte Hotel Busan","부산 서면","실내 풀, 키즈 공간","KP",0],
+    ["The Westin Josun Busan","부산 해운대","해변 앞, 수영장","K",0],
+    ["Yongpyong Resort Dragon Valley Hotel","강원 평창","피크아일랜드 워터파크, 스키","WKP",0],
+    ["Holiday Inn & Suites Alpensia Pyeongchang","강원 평창","오션700 워터파크, 스키","WKP",0],
+    ["Welli Hilli Park","강원 횡성","워터파크, 스키","WKP",0],
+    ["High1 Grand Hotel","강원 정선","키즈 파크, 스키","KP",0],
+    ["Kumho Resort Asan Spavis","충남 아산","스파비스 실내 온천 워터파크","WKP",0],
+    ["Kumho Resort Seorak","강원 속초","아쿠아월드 실내 워터파크","WK",0],
+    ["Hidden Cliff Hotel & Nature","제주 중문","숲속 인피니티 풀","K",0],
+    ["Sono Calm Jeju","제주 서귀포","야외 풀, 바다뷰","K",0],
+    ["Kensington Resort Seogwipo","제주 서귀포","수영장, 키즈 놀이공간","KP",0],
+    ["Phoenix Jeju (Phoenix Island)","제주 섭지코지","섭지코지 경관, 수영장","KA",0],
+    ["Lotte Resort Jeju Art Villas","제주 중문","빌라형 개별 풀","K",0],
+    ["Four Seasons Hotel Seoul","서울 광화문","실내 풀, 키즈 프로그램","KP",0],
+    ["Sofitel Ambassador Seoul","서울 잠실","석촌호수 뷰, 롯데월드 인근, 실내 풀","KA",0],
+    ["Nest Hotel","인천 영종도","인피니티 풀, 바다뷰","K",0],
+    ["Hilton Gyeongju","경북 경주","수영장, 키즈 놀이방, 경주월드 인근","KPA",0],
+    ["Lahan Select Gyeongju","경북 경주","보문호 단풍, 키즈 공간","PA",0],
+    ["Sono Calm Yeosu","전남 여수","오션뷰 수영장, 아쿠아플라넷 인근","KA",0],
+    ["Hidden Bay Hotel","전남 여수","인피니티 풀, 바다뷰","K",0],
+    ["The Weekend Resort","인천 영종도","워터파크 유수풀","WK",0],
+    ["Lotte Resort Buyeo","충남 부여","수영장, 백제문화단지 인근","KA",0],
+    ["Gonjiam Resort","경기 광주","화담숲 단풍, 키즈 놀이공간","PA",0],
+    ["Roro Kids Pool Villa Resort","강원 춘천","키즈 풀빌라, 워터슬라이드(여름), 키즈 조식","WKP",0]
+  ]}
+};
+
+const FLAGS = {
+  W:{label:"워터파크/슬라이드",color:"var(--w)",icon:"🌊"},
+  K:{label:"키즈 물놀이",color:"var(--k)",icon:"🏊"},
+  P:{label:"실내 놀이/키즈클럽",color:"var(--p)",icon:"🧸"},
+  A:{label:"테마파크·볼거리",color:"var(--a)",icon:"🎢"}
+};
+let country = "us";
+const active = new Set();
+let onlyTrip = false;
+
+const $ = id => document.getElementById(id);
+const tabs = $("tabs"), grid = $("grid"), stats = $("stats"), filters = $("filters"), q = $("q");
+
+for (const [key, c] of Object.entries(DATA)) {
+  const b = document.createElement("button");
+  b.className = "tab"; b.role = "tab"; b.textContent = c.label;
+  b.onclick = () => { country = key; render(); };
+  b.dataset.key = key; tabs.appendChild(b);
+}
+for (const [f, m] of Object.entries(FLAGS)) {
+  const b = document.createElement("button");
+  b.className = "chip"; b.setAttribute("aria-pressed","false");
+  b.innerHTML = `<span class="dot" style="background:${m.color}"></span>${m.icon} ${m.label}`;
+  b.onclick = () => { active.has(f) ? active.delete(f) : active.add(f); b.setAttribute("aria-pressed", active.has(f)); render(); };
+  filters.insertBefore(b, q);
+}
+const tb = document.createElement("button");
+tb.className = "chip"; tb.setAttribute("aria-pressed","false");
+tb.innerHTML = `<span class="dot" style="background:var(--t)"></span>TRIP 순위 확인`;
+tb.onclick = () => { onlyTrip = !onlyTrip; tb.setAttribute("aria-pressed", onlyTrip); render(); };
+filters.insertBefore(tb, q);
+q.oninput = render;
+
+const enc = s => encodeURIComponent(s);
+const esc = s => s.replace(/[&<>"]/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[ch]));
+
+function render(){
+  const c = DATA[country];
+  [...tabs.children].forEach(t => t.setAttribute("aria-selected", t.dataset.key === country));
+
+  const n = c.items.length;
+  const kidsBoth = c.items.filter(i => i[3].includes("K") && (i[3].includes("P") || i[3].includes("W"))).length;
+  stats.innerHTML = Object.entries(FLAGS).map(([f,m]) => {
+    const k = c.items.filter(i => i[3].includes(f)).length;
+    return `<div class="stat"><div class="lbl"><span class="dot" style="background:${m.color}"></span>${m.label}</div>
+      <div class="num">${k}<small style="font-size:.8rem;color:var(--muted)"> / ${n}</small></div>
+      <div class="bar"><i style="width:${k/n*100}%;background:${m.color}"></i></div></div>`;
+  }).join("") + `<div class="stat"><div class="lbl">⭐ 키즈 물놀이 + 놀이시설/워터파크</div>
+      <div class="num">${kidsBoth}<small style="font-size:.8rem;color:var(--muted)"> / ${n}</small></div>
+      <div class="bar"><i style="width:${kidsBoth/n*100}%;background:var(--accent)"></i></div></div>`;
+
+  const term = q.value.trim().toLowerCase();
+  const list = c.items.map((it, idx) => ({it, rank: idx+1})).filter(({it}) =>
+    [...active].every(f => it[3].includes(f)) &&
+    (!onlyTrip || it[4]) &&
+    (!term || (it[0]+" "+it[1]+" "+it[2]).toLowerCase().includes(term)));
+
+  $("count").textContent = `${c.label} · ${list.length}곳 표시 (전체 ${n}곳)`;
+  grid.innerHTML = list.map(({it, rank}) => {
+    const [name, area, desc, fl, trip] = it;
+    const icons = [...fl].map(f => FLAGS[f].icon).join("") || c.emoji;
+    const kid = fl.includes("K") && (fl.includes("P") || fl.includes("W"));
+    const h = (c.hue + rank * 7) % 360;
+    return `<article class="card">
+      <div class="ph" style="background:linear-gradient(135deg,hsl(${h} 70% 62%),hsl(${(h+40)%360} 70% 45%))">
+        <span class="rank">#${rank}</span>${trip ? '<span class="tbadge">TRIP</span>' : ""}${icons}
+      </div>
+      <div class="body">
+        <h3 class="name">${esc(name)}</h3>
+        <div class="area">📍 ${esc(area)}</div>
+        ${kid ? '<div class="kidmark">⭐ 호텔 안 어린이 물놀이·놀이시설 우수</div>' : ""}
+        <div class="desc">${esc(desc)}</div>
+        <div class="tags">${[...fl].map(f => `<span class="tag ${f}">${FLAGS[f].label}</span>`).join("")}</div>
+        <div class="links">
+          <a href="https://www.google.com/search?tbm=isch&q=${enc(name)}" target="_blank" rel="noopener">📷 사진 보기</a>
+          <a href="https://www.google.com/search?q=${enc("site:trip.com " + name)}" target="_blank" rel="noopener">🔎 트립닷컴에서 찾기</a>
+        </div>
+      </div>
+    </article>`;
+  }).join("") || `<p style="color:var(--muted)">조건에 맞는 호텔이 없어요.</p>`;
+}
+render();
+</script>
+</body>
+</html>
