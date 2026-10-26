@@ -73,7 +73,18 @@ footer{padding:40px 0 70px;color:var(--faint);font-size:13.5px;background:var(--
   그 구조만 빌려서 <b>당신이 직접 치는</b> 곡으로 만드는 순서를 1번부터 8번까지 적었습니다.
   단계마다 배경색이 다릅니다.</p>
   <div class="chips"><span class="chip">🎹 D minor · 148 BPM</span><span class="chip">🔊 미리듣기 7개</span>
-  <span class="chip">⏱ 2:08.64</span><span class="chip">✍️ 저작권은 당신 것</span></div>
+  <span class="chip">⏱ 2:08.64</span><span class="chip">✍️ 저작권은 당신 것</span>
+  <span class="chip">🔁 2026-10-26 정정 2건</span></div>
+  <div class="note nr" style="margin-top:22px"><b>제가 먼저 드렸던 답 중 두 가지가 틀렸습니다 — 조사 후 바로잡습니다</b>
+  <ol style="margin:10px 0 0">
+    <li><b class="hi">MIDI 내보내기 경로를 잘못 알려드렸습니다.</b> "Song → Export → MIDI File"이라고 했는데
+      <b>그런 메뉴는 없습니다.</b> 실제로는 <b>File → Save As… → 파일 형식을 *.mid 로</b> 바꾸는 것입니다.
+      File → Export는 오디오 전용입니다. (4단계에 고쳐 적었습니다)</li>
+    <li><b class="hi">"Studio One은 MCP 연결이 불가능하다"고 했는데 사실이 아닙니다.</b>
+      공개 API가 없는 건 맞지만, 그걸 우회한 <b>커뮤니티 MCP 서버가 두 개 실제로 존재합니다.</b>
+      다만 지금 쓰시기에는 문제가 있습니다 — 8단계에 전부 적었습니다.
+      그리고 <b>"폴더 경로를 주면 읽어달라"는 것도 방법이 있습니다.</b> 이것도 제가 안 된다고 했는데 틀렸습니다.</li>
+  </ol></div>
 </div></header>
 
 <section class="st st1"><div class="w">
@@ -157,20 +168,52 @@ footer{padding:40px 0 70px;color:var(--faint);font-size:13.5px;background:var(--
 <section class="st st4"><div class="w">
   <div class="hd"><div class="num">4</div><div><h2>MIDI로 내보내서 <b class="hi">저한테 주기</b></h2>
   <span class="who">👤 당신 · 1분</span></div></div>
-  <p class="sub">제가 당신 PC 안을 직접 볼 수는 없습니다. 파일을 주셔야 합니다. 방법은 둘 중 편한 쪽으로.</p>
+  <p class="sub">먼저 <b class="hi">트랙 이름부터 바꾸세요.</b> 트랙 이름은 MIDI 파일에 살아남는 거의 유일한 정보입니다.
+  "piano RH", "bass" 처럼 적어 두시면 제가 뭐가 뭔지 알아봅니다.</p>
+
+  <div class="note nr"><b>⚠️ 정정 — 제가 먼저 알려드린 경로는 틀렸습니다</b><br>
+  "Song → Export → MIDI File"이라고 했는데 <b class="hi">그런 메뉴 항목은 존재하지 않습니다.</b>
+  Studio One의 <code>File → Export</code>는 <b>오디오 전용</b>이라 아무리 찾아도 MIDI가 안 나옵니다.
+  아래가 공식 매뉴얼에 적힌 실제 경로입니다.</div>
+
   <div class="grid g2">
-    <div class="card"><h3>방법 A · 드래그 (제일 빠름)</h3>
-      <p>Studio One에서 <b>MIDI 트랙(이벤트)을 통째로 집어</b> 바탕화면으로 끌어다 놓으세요.
-      <code>.mid</code> 파일이 바로 생깁니다. 그걸 이 채팅에 올려 주세요.</p></div>
-    <div class="card"><h3>방법 B · 메뉴</h3>
-      <p><span class="kb">Song</span> → <span class="kb">Export</span> →
-      <b>MIDI File…</b> 로 저장하세요.<br>
-      <span style="color:var(--faint);font-size:13px">※ 버전에 따라 File 메뉴 아래에 있을 수 있습니다. 메뉴 이름은 지금 재확인 중입니다.</span></p></div>
+    <div class="card"><h3>✅ 방법 A · 곡 전체 (이게 기본)</h3>
+      <p><span class="kb">File</span> → <span class="kb">Save As…</span> →
+      파일 형식 선택 칸을 <b class="hi">*.mid</b> 로 바꾸고 저장<br><br>
+      전 트랙 + <b>템포 + 트랙 이름</b>이 전부 들어갑니다. 제 분석 스크립트가 BPM을 파일에서 읽기 때문에
+      이 방식이 가장 좋습니다. <code>Convert To…</code> 로도 됩니다.</p></div>
+    <div class="card"><h3>✅ 방법 B · 방금 친 파트만</h3>
+      <p>그 파트를 <b>오른쪽 클릭</b> → <span class="kb">Export Selection</span> →
+      형식에서 <b class="hi">Standard MIDI file</b> 선택<br><br>
+      <b>Musicloop이 아니라 Standard MIDI file</b>을 고르세요. Musicloop은 Studio One 전용 형식이라
+      제가 열 수 없습니다. 여러 파트를 같이 선택해서 한 파일로 내보낼 수도 있습니다.</p></div>
   </div>
-  <div class="note ny"><b>경로만 알려주시는 건 안 됩니다</b><br>
-  <code>C:\Users\...</code> 같은 경로를 주셔도 제가 열 수 없습니다. 저는 클라우드에서 돌고 있어서
-  당신 PC의 디스크에 접근할 방법이 없습니다. <b class="hi">파일 자체를 채팅에 올려 주세요.</b>
-  드래그해서 놓으시면 됩니다. (PC 폴더를 직접 읽게 만드는 방법은 8단계 아래 표에 정리했습니다.)</div>
+  <div class="note ny"><b>헷갈리기 쉬운 것 두 가지</b>
+  <ul style="margin:8px 0 0">
+    <li><b class="hi">Ctrl+B (Bounce Selection)는 MIDI가 아니라 오디오입니다.</b> 게다가 <b>원래 파트를 음소거시킵니다.</b>
+      눌렀는데 피아노가 안 들린다면 지워진 게 아니라 음소거된 것입니다. 되돌리세요.</li>
+    <li><b>드래그로 내보내기</b>도 되지만 Alt인지 Shift인지가 버전마다 다르고, Musicloop으로 나가면
+      앞쪽 빈 공간이 잘립니다. <b class="hi">위의 A나 B를 쓰세요.</b></li>
+    <li>버전 8에서는 <b>"Song"이 "Session"으로 이름이 바뀌었습니다.</b> 6·7 튜토리얼에서 Song이라고 나오면 Session을 찾으세요.
+      다만 File 메뉴의 Save As…는 이름 그대로입니다.</li>
+  </ul></div>
+
+  <h3 style="margin:26px 0 10px">파일을 저한테 주는 방법 — 두 가지</h3>
+  <div class="grid g2">
+    <div class="card"><h3>① 채팅에 올리기 (설정 0분)</h3>
+      <p>만들어진 <code>.mid</code> 를 이 채팅창에 <b>끌어다 놓으면</b> 끝입니다.
+      제가 바로 읽고, 분석해서, 새 <code>.mid</code> 와 미리듣기를 돌려드립니다.
+      <b class="hi">지금 당장 되는 방법입니다.</b></p></div>
+    <div class="card"><h3>② 제가 폴더를 직접 읽게 하기</h3>
+      <p><b class="hi">이것도 됩니다 — 제가 앞서 안 된다고 한 건 틀렸습니다.</b><br>
+      Windows에 <b>Claude Code 데스크톱 앱</b>을 깔고 <b>로컬 세션</b>을 연 다음,
+      프로젝트 폴더를 Studio One 내보내기 폴더로 지정하면 됩니다.
+      그러면 제가 그 폴더의 파일을 <b>직접 읽고 바로 써넣습니다.</b> 올릴 필요가 없어집니다.</p></div>
+  </div>
+  <div class="note nb"><b>왜 지금 이 세션은 폴더를 못 읽나</b><br>
+  <b>지금 저는 리눅스 클라우드 컨테이너에서 돌고 있습니다.</b> 당신 PC와 연결된 통로가 없어서
+  <code>C:\Users\…</code> 는 저한테 아무 의미가 없는 글자입니다.
+  위 ②번처럼 <b class="hi">제 세션이 당신 PC 위에서 돌아야</b> 폴더를 읽을 수 있습니다.</div>
 </div></section>
 
 <section class="st st5"><div class="w">
@@ -190,10 +233,18 @@ footer{padding:40px 0 70px;color:var(--faint);font-size:13.5px;background:var(--
   "오른손은 바이올린, 왼손은 그대로 둬"
   "3마디 마지막 음 한 음 내려줘"
   "드럼은 B로 하고 12마디 킥 하나 빼줘"</pre>
-  <div class="note nb"><b>악기를 누가 바꾸는 게 편한가</b><br>
-  <b class="hi">둘 다 됩니다.</b> Studio One 안에서 트랙의 가상악기만 갈아 끼우면 즉시 바뀝니다(가장 빠름).
-  제가 바꾸면 <b>여러 악기를 한꺼번에 렌더해서 비교</b>해 드릴 수 있습니다.
+  <div class="note nb"><b>악기를 누가 바꾸는 게 편한가 — 둘 다 됩니다</b><br>
+  <b class="hi">Studio One에서 바꾸는 법(2초)</b>: 오른쪽 Browser → Instruments 탭 →
+  원하는 악기(예: Presence XT의 바이올린)를 <b>피아노 트랙 위로 끌어다 놓기</b> →
+  뜨는 팝업에서 <b>Replace</b> 선택. 음은 하나도 안 움직이고 소리만 바뀝니다.
+  <b>Combine</b>을 고르면 피아노와 바이올린이 같이 납니다.<br>
+  <b class="hi">제가 바꾸는 게 나은 경우</b>: 여러 악기를 한꺼번에 렌더해서 <b>나란히 비교</b>하고 싶을 때.
   고르기 전에는 제가, 고른 뒤 다듬을 때는 Studio One에서 하시는 게 효율적입니다.</div>
+  <div class="note ny"><b>돌려받은 MIDI를 다시 넣는 법</b><br>
+  제가 드린 <code>.mid</code> 를 탐색기에서 집어 <b class="hi">기존 트랙 아래 빈 공간에 끌어다 놓으면</b> 됩니다.<br>
+  • <b>악기 설정은 따라오지 않습니다</b> — MIDI는 음표만 담습니다. 넣은 다음 위 방법으로 악기를 고르세요. 그 선택이 당신 몫입니다.<br>
+  • <b>템포도 따라오지 않습니다</b> — 이건 오히려 좋습니다. 당신 세션 BPM이 유지되고 제 파일이 그 격자에 맞춰집니다.<br>
+  • 혹시 새 창이 열리면 빈 arrange 공간이 아닌 곳에 떨어뜨린 것입니다. 다시 하세요.</div>
 </div></section>
 
 <section class="st st6"><div class="w">
@@ -241,13 +292,47 @@ footer{padding:40px 0 70px;color:var(--faint);font-size:13.5px;background:var(--
       <td>제가 쓰는 건 General MIDI 음원이라 "들어보고 판단"엔 충분하지만 발매용으로는 부족합니다.
       최종본은 DAW의 좋은 가상악기로 뽑으세요.</td></tr>
     <tr><td>믹스·볼륨·EQ 다듬기</td><td class="mid">Studio One</td><td>귀로 들으면서 만지는 작업이라 DAW가 맞습니다.</td></tr>
-    <tr><td>제가 DAW를 직접 조작</td><td class="no">Studio One으로는 불가</td>
-      <td>Studio One은 공개 스크립팅 API가 없어서 제가 조작할 방법이 없습니다.
-      꼭 원하시면 REAPER($60) + Reaper-MCP 조합이 유일한 현실적 선택입니다.
-      <span style="color:var(--faint)">※ 재확인 조사 진행 중</span></td></tr>
-    <tr><td>제 PC 폴더를 제가 직접 읽기</td><td class="mid">Remote Control 연결 시</td>
-      <td>클라우드 세션인 지금은 불가능합니다. 데스크톱 앱에서 컴퓨터를 연결하면 폴더를 직접 읽을 수 있습니다.</td></tr>
+    <tr><td>제가 DAW를 직접 조작</td><td class="mid">MCP 서버가 존재하긴 함</td>
+      <td><b class="hi">정정</b> — 불가능하다고 했는데 틀렸습니다. 아래 표에 자세히 적었습니다.
+      다만 지금 쓰시는 건 권하지 않습니다.</td></tr>
+    <tr><td>제 PC 폴더를 제가 직접 읽기</td><td class="ok">됩니다 (데스크톱 앱 로컬 세션)</td>
+      <td><b class="hi">정정</b> — 안 된다고 했는데 틀렸습니다. Claude Code 데스크톱 앱에서 <b>로컬 세션</b>을 열고
+      프로젝트 폴더를 Studio One 내보내기 폴더로 지정하면 제가 직접 읽고 씁니다. 파일 올릴 필요가 없어집니다.</td></tr>
     </tbody></table></div>
+  <h3 style="margin:28px 0 10px">Studio One MCP 연결 — 정확한 사실</h3>
+  <p class="sub">"MCP 연결할 수 있는 게 있으면 알려달라"고 하셨죠. <b class="hi">있습니다.</b>
+  다만 지금 당신 상황에서는 권하지 않는 이유가 분명합니다.</p>
+  <div class="tw"><table>
+    <thead><tr><th>항목</th><th>사실</th><th>당신에게 의미</th></tr></thead><tbody>
+    <tr><td>공식 스크립팅 API</td><td class="no">없음</td>
+      <td>PreSonus/Fender가 공개한 DAW 제어용 API·SDK가 없습니다. 공개 저장소는 플러그인 제작용이지 DAW 제어용이 아닙니다.</td></tr>
+    <tr><td>내부 JavaScript 엔진</td><td class="mid">있음 (문서 없음)</td>
+      <td>4.5부터 내장돼 있지만 벤더 문서가 전혀 없고 커뮤니티가 역공학한 것입니다. 업데이트마다 깨질 수 있습니다.</td></tr>
+    <tr><td><b>Macro 기능</b></td><td class="ok">공식 지원</td>
+      <td><b class="hi">가장 안전한 자동화</b>입니다. 반복 작업을 매크로로 묶어 버튼에 할당하면 업데이트에도 잘 살아남습니다.
+      스크립트보다 이쪽을 권합니다.</td></tr>
+    <tr><td>studio-one-mcp<br><span style="color:var(--faint)">NeanderthalMan</span></td><td class="mid">실존 · MIT · v0.3.0</td>
+      <td>약 1,400개 명령, 믹서·트랙·노트 편집까지. 하지만 <b class="hi">별 12개, 공개 한 달</b>,
+      원저자는 macOS·Studio One 5.5.2에서 개발, <b>버전 8은 미검증</b>이라고 본인이 밝힙니다.</td></tr>
+    <tr><td>StudioOneMcp<br><span style="color:var(--faint)">tiwadara</span></td><td class="mid">실존 · 작업 중</td>
+      <td>별 6개, 본인이 "work in progress"라고 표시. 미완성입니다.</td></tr>
+    <tr><td><b>결정적 문제</b></td><td class="no">지금 세션과 연결 불가</td>
+      <td>이 MCP 서버들은 <b class="hi">당신 PC에서 돌아야</b> 합니다. 그런데 지금 저는 클라우드에 있어서
+      당신 PC의 서버에 닿을 수 없습니다. 데스크톱 앱 로컬 세션이면 가능해집니다.</td></tr>
+    <tr><td>MIDI 전용 MCP 서버들</td><td class="no">쓸 만한 게 없음</td>
+      <td>공식 레지스트리에 MIDI 검색 결과가 2개뿐이고 작곡은 못 합니다. 악기 변경 기능이 있는 게 사실상 없고,
+      라이선스가 없는 저장소도 있어 저작권 민감한 작업에는 부적합합니다.</td></tr>
+    <tr><td>제가 지금 쓰는 방식</td><td class="ok">music21 + 자체 스크립트</td>
+      <td>MCP 서버 없이 제 컨테이너 안에서 MIDI를 직접 읽고 편집합니다. <b class="hi">당신 설치 작업 0분</b>이고
+      규칙이 전부 코드로 남아 재현됩니다.</td></tr>
+    </tbody></table></div>
+  <div class="note ng"><b>그래서 제 권고</b><br>
+  ① <b class="hi">지금은 MIDI 파일을 주고받으세요.</b> 설치할 것도, 깨질 것도 없고, 6·7·8 어느 버전이든 똑같이 됩니다.<br>
+  ② 올리는 게 번거로워지면 <b class="hi">Claude Code 데스크톱 앱 로컬 세션</b>을 쓰세요. 폴더를 직접 읽습니다. 이게 실질적인 "MCP 연결" 효과입니다.<br>
+  ③ Studio One MCP 서버는 <b>몇 달 뒤에 다시 보세요.</b> 지금 버전 8에 붙이는 건 위험합니다.
+  꼭 시험하시려면 <b>.song 파일 복사본</b>에만, 읽기 전용 기능만 쓰세요.<br>
+  ④ <b>DAW를 바꿀 이유는 없습니다.</b> 이미 익숙하신 걸 쓰세요.</div>
+
   <div class="note nr"><b>저작권 — 꼭 지켜야 할 세 가지</b>
   <ol style="margin:10px 0 0">
     <li><b>원곡 음을 베끼지 마세요.</b> 진행(i–VI–III–VII)과 템포·조성은 빌려도 되지만, 선율은 직접 만드셔야 합니다.</li>
@@ -267,5 +352,7 @@ footer{padding:40px 0 70px;color:var(--faint);font-size:13.5px;background:var(--
   <p style="margin-top:12px">예시곡 3개는 원곡의 음을 하나도 쓰지 않고 새로 만든 것입니다.
   도구 <code>compose/compose.py</code> · 저장소
   <a href="https://github.com/geben147-create/-/tree/claude/manual-composition" target="_blank" rel="noopener">geben147-create/- · claude/manual-composition</a><br>
-  Studio One 메뉴 경로와 MCP 연결 가능성은 현재 재확인 조사 중이며, 결과가 나오면 갱신하겠습니다.</p>
+  Studio One 메뉴 경로와 MCP 연결 가능성은 2026-10-26에 6개 에이전트로 재조사하고 회의적 검토까지 거쳐 갱신했습니다.
+  메뉴 경로는 Fender/PreSonus 공식 매뉴얼 기준이며, 일부 벤더 사이트는 이 컨테이너 망 정책에 막혀
+  검색 색인에 남은 공식 문서 인용으로 확인했습니다. 결제·설치 전에 직접 확인하세요.</p>
 </div></footer>
