@@ -55,12 +55,25 @@ def limit(x, sr, ceil_db=-1.0, os_=4, look_ms=5.0, rel_ms=80.0):
     return y * (ceil / tp) if tp > ceil else y
 
 
-def master(src, dst, target_lufs=-14.0, ceil=-1.0, side=0.95):
+def shelf(x, sr, fc=7000.0, gain_db=0.0, q=0.7):
+    """High shelf, for air. An orchestral set without cymbals has very little above 8 kHz,
+    so a small lift here is the difference between full and dull. Keep it small: lifting
+    content that is 35 dB down mostly lifts the sampler's noise floor."""
+    if abs(gain_db) < 0.01:
+        return x
+    A = 10 ** (gain_db / 40); w = 2 * np.pi * fc / sr
+    a_ = np.sin(w) / (2 * q); c = np.cos(w); s2 = 2 * np.sqrt(A) * a_
+    b = np.array([A*((A+1)+(A-1)*c+s2), -2*A*((A-1)+(A+1)*c), A*((A+1)+(A-1)*c-s2)])
+    a = np.array([(A+1)-(A-1)*c+s2, 2*((A-1)-(A+1)*c), (A+1)-(A-1)*c-s2])
+    return signal.sosfiltfilt(signal.tf2sos(b / a[0], a / a[0]), x, axis=0)
+
+
+def master(src, dst, target_lufs=-14.0, ceil=-1.0, side=0.95, air_db=0.0, air_hz=7000.0):
     x, sr = read(src)
     before = {"lufs": round(lufs(x, sr), 2), "true_peak": round(true_peak(x, sr), 2),
               "peak": round(_db(np.max(np.abs(x))), 2),
               "clipped": int(np.sum(np.abs(x) >= 0.99997))}
-    y = width(highpass(x, sr), side)
+    y = shelf(width(highpass(x, sr), side), sr, air_hz, air_db)
     y = y * 10 ** ((target_lufs - lufs(y, sr)) / 20)
     y = limit(y, sr, ceil)
     l = lufs(y, sr)
@@ -73,4 +86,4 @@ def master(src, dst, target_lufs=-14.0, ceil=-1.0, side=0.95):
              "dc": float(np.max(np.abs(np.mean(y, axis=0))))}
     return {"before": before, "after": after, "settings":
             {"highpass_hz": 20, "side_gain": side, "target_lufs": target_lufs, "ceiling_dbtp": ceil,
-             "limiter_oversampling": 4}}
+             "limiter_oversampling": 4, "air_db": air_db, "air_hz": air_hz}}
