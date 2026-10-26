@@ -1,0 +1,203 @@
+{
+ "tempo": 120.0,
+ "source_notes": {
+  "pedal": 4,
+  "bass": 4,
+  "STRING": 126,
+  "STRING 2": 126,
+  "piano": 16
+ },
+ "edits": [
+  {
+   "id": "square-loop",
+   "what": "두 STRING 트랙의 둘째 바퀴를 제자리로 밀어 블록을 모두 4.0초로 맞춤",
+   "exact": "STRING +0.703s, STRING 2 +0.750s (4번째 블록이 3.25초였음)"
+  },
+  {
+   "id": "snap-early",
+   "what": "다음 화음 음이 마디선보다 먼저 들어와 앞 화음과 부딪히던 것을 마디선에 맞춤",
+   "exact": "STRING 0개, STRING 2 1개"
+  },
+  {
+   "id": "block3-c-to-f",
+   "what": "3번째 블록에서 피아노가 C major, STRING이 F major를 동시에 쳐서 E와 F가 반음으로 부딪히던 것 수정. 곡 전체를 끌고 가는 STRING을 살리고 피아노를 F/C로 바꿈",
+   "exact": "E4(64) -> F4(65), G3(55) -> A3(57)"
+  },
+  {
+   "id": "unmask-bass",
+   "what": "당신 베이스가 피아노 맨 아래 음과 같은 옥타브·같은 타이밍의 완전 유니즌이어서 베이스 선이 전혀 들리지 않았음. 피아노의 중복된 맨 아래 음을 빼서 베이스에게 그 음역을 넘김. 화음은 그대로 유지됨 (그 음은 베이스가 계속 치고 있음)",
+   "exact": "피아노에서 제거: D3(50) @0s, A#2(46) @4s, C3(48) @8s, A2(45) @12s"
+  },
+  {
+   "id": "pedal-roots",
+   "what": "제일 낮은 트랙이 네 화음 내내 C2 하나를 붙잡고 있어 A7의 C#과 반음으로 충돌. 당신이 이미 연주한 각 화음의 루트로 바꿈",
+   "exact": "C2(36) -> D2(38)  block 1 Dm; C2(36) -> A#1(34)  block 2 Bb; C2(36) -> F2(41)  block 3 F; C2(36) -> A1(33)  block 4 A7"
+  },
+  {
+   "id": "copy-paste-pass2",
+   "what": "둘째 바퀴에는 베이스·피아노·저음이 아예 없어서 STRING만 외롭게 돌고 있었음. 첫 바퀴를 그대로 복붙",
+   "exact": "+16.0s 지점에 베이스 4, 피아노 12, 저음 4 노트 복제"
+  }
+ ],
+ "length_sec": 32.0,
+ "added": {
+  "choir": {
+   "notes": 24,
+   "what": "당신이 친 화음의 구성음만 길게. A3~F4 (당신 STRING은 D5~A5) 이므로 멜로디를 덮지 않음",
+   "voicing": [
+    [
+     "A3",
+     "D4",
+     "F4"
+    ],
+    [
+     "A#3",
+     "D4",
+     "F4"
+    ],
+    [
+     "A3",
+     "C4",
+     "F4"
+    ],
+    [
+     "C#4",
+     "E4",
+     "G4"
+    ]
+   ]
+  }
+ },
+ "versions": {
+  "A_깔린베이스": {
+   "title": "A · 깔린 베이스",
+   "blurb": "저음 루트를 처음부터 끝까지 길게 깔아 바닥만 받쳐줍니다. 가장 조용하고 당신 멜로디가 제일 또렷하게 들립니다. 짜짜짜 펄스는 없습니다.",
+   "tracks": {
+    "STRING 2 (당신)": 126,
+    "STRING (당신)": 126,
+    "피아노 (당신)": 24,
+    "베이스 (당신)": 8,
+    "저음 루트 (당신 트랙 음고 교정)": 8,
+    "합창 (당신 화음 구성음)": 24
+   },
+   "total_notes": 316,
+   "master": {
+    "before": {
+     "lufs": -20.26,
+     "true_peak": -3.68,
+     "peak": -3.68,
+     "clipped": 0
+    },
+    "after": {
+     "lufs": -14.07,
+     "true_peak": -1.0,
+     "peak": -1.01,
+     "clipped": 0,
+     "dc": 4.4631886633745854e-05
+    },
+    "settings": {
+     "highpass_hz": 20,
+     "side_gain": 0.95,
+     "target_lufs": -14.0,
+     "ceiling_dbtp": -1.0,
+     "limiter_oversampling": 4
+    }
+   }
+  },
+  "B_짜짜베이스": {
+   "title": "B · 짜짜짜 베이스",
+   "blurb": "첫 바퀴는 깔린 저음, 둘째 바퀴는 그 저음을 빼고 16분음표 스타카토 펄스로 바꿔 버립니다. 바닥이 ‘붙잡은 소리’에서 ‘잘게 부서지는 소리’로 넘어가면서 고조됩니다.",
+   "tracks": {
+    "STRING 2 (당신)": 126,
+    "STRING (당신)": 126,
+    "피아노 (당신)": 24,
+    "베이스 (당신)": 8,
+    "저음 루트 (당신 트랙 음고 교정)": 4,
+    "짜짜짜 펄스 (당신 음고, 리듬만 새로)": 128,
+    "합창 (당신 화음 구성음)": 24
+   },
+   "total_notes": 440,
+   "master": {
+    "before": {
+     "lufs": -20.44,
+     "true_peak": -4.16,
+     "peak": -4.16,
+     "clipped": 0
+    },
+    "after": {
+     "lufs": -14.25,
+     "true_peak": -1.0,
+     "peak": -1.01,
+     "clipped": 0,
+     "dc": 1.5519004323359455e-05
+    },
+    "settings": {
+     "highpass_hz": 20,
+     "side_gain": 0.95,
+     "target_lufs": -14.0,
+     "ceiling_dbtp": -1.0,
+     "limiter_oversampling": 4
+    }
+   }
+  },
+  "C_둘다": {
+   "title": "C · 둘 다",
+   "blurb": "깔린 저음을 끝까지 유지한 채로 둘째 바퀴에 짜짜짜 펄스를 겹칩니다. 가장 두껍습니다.",
+   "tracks": {
+    "STRING 2 (당신)": 126,
+    "STRING (당신)": 126,
+    "피아노 (당신)": 24,
+    "베이스 (당신)": 8,
+    "저음 루트 (당신 트랙 음고 교정)": 8,
+    "짜짜짜 펄스 (당신 음고, 리듬만 새로)": 128,
+    "합창 (당신 화음 구성음)": 24
+   },
+   "total_notes": 444,
+   "master": {
+    "before": {
+     "lufs": -20.23,
+     "true_peak": -4.12,
+     "peak": -4.13,
+     "clipped": 0
+    },
+    "after": {
+     "lufs": -14.28,
+     "true_peak": -1.0,
+     "peak": -1.01,
+     "clipped": 0,
+     "dc": 2.8697411215450498e-05
+    },
+    "settings": {
+     "highpass_hz": 20,
+     "side_gain": 0.95,
+     "target_lufs": -14.0,
+     "ceiling_dbtp": -1.0,
+     "limiter_oversampling": 4
+    }
+   }
+  }
+ },
+ "ab_test": {
+  "window": [
+   24.0,
+   32.0
+  ],
+  "what": "당신 STRING의 A#4(B♭)를 그대로 둔 것 vs A4로 내린 것",
+  "masters": {
+   "as_played_Bb": {
+    "lufs": -14.04,
+    "true_peak": -1.0,
+    "peak": -1.01,
+    "clipped": 0,
+    "dc": 4.2122031120070816e-05
+   },
+   "retuned_A": {
+    "lufs": -14.04,
+    "true_peak": -1.0,
+    "peak": -1.01,
+    "clipped": 0,
+    "dc": 4.206999139742281e-05
+   }
+  }
+ }
+}

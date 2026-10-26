@@ -69,3 +69,30 @@ python compose/compose.py 내피아노.mid --out work/곡1
 결과 리포트: `analysis/master_report_rich.json`
 결과 MIDI: `out/풍성한버전.mid`
 설명 페이지: `../docs/풍성하게.html`
+
+## 세 가지 저음 (화음 교정 + 드럼 제거)
+
+`rebuild3.py` — draft 를 고치는 모듈. 고치는 것은 네 가지뿐이고, 전부
+"이미 연주된 음을 옮기거나 지우는" 범위 안에 있다.
+
+- `square_loop()` 둘째 바퀴가 0.7초 일찍 들어와 4번째 블록이 3.25초였던 것을 4.0초로
+- `snap_early()` 마디선보다 먼저 들어온 음을 마디선에 붙임
+- `fix_piano_block3()` 피아노 C major vs STRING F major 충돌 — 피아노를 F/C 로 (두 음)
+- `unmask_bass()` 베이스가 피아노 맨 아래 음과 완전 유니즌이라 안 들리던 것 —
+  피아노의 중복 음을 제거해 베이스에게 그 음역을 넘김
+- `pedal_to_roots()` C2 하나로 고정된 저음을, 연주된 각 화음의 루트로
+
+새로 만드는 것은 `pulse()` (당신 음고에 리듬만) 와 `choir()` (당신 화음의
+구성음만) 둘뿐이다. 드럼은 없다. 멜로디는 쓰지 않는다.
+
+`analysis/build3_run.py` — 세 버전을 만들고 마스터링한다.
+`analysis/build3_page.py` — 미리 듣기 페이지를 만든다.
+
+검증 (둘 다 실제로 출고된 파일 위에서 돌린다):
+- `analysis/verify_collisions.py` 트랙끼리 반음·단9도로 겹치는 구간을 센다.
+  draft 227 → 40 (남은 40개는 전부 블록 4의 A♯4 ♭9 하나, 일부러 남긴 것)
+- `analysis/verify_masking.py` 베이스 트랙을 빼고 다시 렌더해서 95–190 Hz 가
+  얼마나 줄어드는지 잰다. 이전 버전 +0.86 dB (사실상 안 들림) → +5.08 dB
+
+결과: `out/v3/*.mid`, 리포트 `analysis/report_v3.json`,
+페이지 `../docs/세가지저음.html`
