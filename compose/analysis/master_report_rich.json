@@ -1,0 +1,22 @@
+{
+ "before": {
+  "lufs": -22.08,
+  "true_peak": -4.27,
+  "peak": -4.29,
+  "clipped": 0
+ },
+ "after": {
+  "lufs": -14.15,
+  "true_peak": -1.0,
+  "peak": -1.02,
+  "clipped": 0,
+  "dc": 2.399637532820559e-05
+ },
+ "settings": {
+  "highpass_hz": 20,
+  "side_gain": 0.95,
+  "target_lufs": -14.0,
+  "ceiling_dbtp": -1.0,
+  "limiter_oversampling": 4
+ }
+}

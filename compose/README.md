@@ -48,3 +48,24 @@ python compose/compose.py 내피아노.mid --out work/곡1
 - 코드·조성 추정은 **자동이라 틀릴 수 있습니다**. 리포트가 그렇게 명시합니다.
 - 반주 후보는 확정되지 않습니다. 고르는 것이 당신의 창작 결정이고, 그 기록이 남습니다.
 - 멜로디를 대신 만들어 주지 않습니다. 그래야 곡이 당신 것입니다.
+
+## 풍성하게 만들기 (.song 기반)
+
+`musicx.py` — Studio One `.song` 안의 `Performances/*.musicx` 바이너리를 읽어
+트랙별 노트를 꺼낸다. 문서화되지 않은 포맷이라 리버스 엔지니어링한 것이고,
+시간 단위 해석에는 불확실성이 남아 있다 (`notes(beats_per_whole=...)`).
+
+`enrich.py` — 이미 연주된 음에서만 파생 레이어를 만든다.
+`octave()` 는 옥타브 복제, `chord_bed()` 는 당신이 친 화음의 구성음만 길게
+늘인 패드. 새로 만드는 것은 `drum_pattern()` (드럼) 뿐이다. 멜로디는
+만들지 않는다 — 그건 당신 몫이다.
+
+`master_simple.py` — 20 Hz 하이패스 → 사이드 폭 조절 → EBU R128 측정 →
+4× 오버샘플 트루피크 리미터. 측정은 4×, 게인 커브는 원본 샘플레이트에 적용.
+
+`analysis/enrich_run.py` — 위 세 모듈을 묶어 실제로 돌린 스크립트.
+`python3 analysis/enrich_run.py <1안.mid 가 있는 폴더>`
+
+결과 리포트: `analysis/master_report_rich.json`
+결과 MIDI: `out/풍성한버전.mid`
+설명 페이지: `../docs/풍성하게.html`
