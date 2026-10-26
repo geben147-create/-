@@ -98,19 +98,19 @@ BASE = [
 ]
 
 VERSIONS = {
-    "1_트레몰로": dict(
+    "orch1_tremolo": dict(
         title="1안 · 현악 트레몰로",
         blurb="둘째 바퀴에서 첼로·비올라가 트레몰로로 깔립니다. 활을 잘게 떠는 소리라 "
               "잘게 부서지면서도 박자를 때리지 않습니다. 가장 조용하고 클래식에 가깝습니다.",
         extra=[T("트레몰로 현악", "Tremolo strings", O.tremolo(), GM["tremolo"],
                  -0.05, -7.0, -5.0, "제가 만든 반주")]),
-    "2_피치카토": dict(
+    "orch2_pizzicato": dict(
         title="2안 · 피치카토",
         blurb="둘째 바퀴에서 현을 손가락으로 뜯습니다. 당신이 말한 잘게 부서지는 느낌을 "
               "신스가 아니라 현악 섹션이 냅니다. 윤곽이 가장 또렷합니다.",
         extra=[T("피치카토 현악", "Pizzicato strings", O.pizzicato(), GM["pizzicato"],
                  0.22, -5.0, -6.0, "제가 만든 반주")]),
-    "3_트레몰로_팀파니": dict(
+    "orch3_tremolo_timpani": dict(
         title="3안 · 트레몰로 + 팀파니",
         blurb="1안에 팀파니 롤을 아주 약하게 더했습니다. 들린다기보다 느껴지는 정도로, "
               "블록마다 조금씩 커지면서 밀어 올립니다. 가장 영화음악에 가깝습니다.",

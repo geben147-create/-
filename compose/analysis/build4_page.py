@@ -5,14 +5,14 @@ import os, sys, json, base64, html
 D, OUTHTML = sys.argv[1], sys.argv[2]
 V = os.path.join(D, "v4")
 rep = json.load(open(f"{V}/report.json", encoding="utf-8"))
-KEYS = ["1_트레몰로", "2_피치카토", "3_트레몰로_팀파니"]
+KEYS = ["orch1_tremolo", "orch2_pizzicato", "orch3_tremolo_timpani"]
 
 def b64(p): return "data:audio/mpeg;base64," + base64.b64encode(open(p, "rb").read()).decode()
 AUD, missing = {}, []
 for k in KEYS:
     p = f"{V}/{k}.mp3"
     AUD.__setitem__(k, b64(p)) if os.path.exists(p) else missing.append(p)
-oldp = f"{D}/v3/C_둘다.mp3"
+oldp = f"{D}/v3/C_\uB458\uB2E4.mp3"
 if os.path.exists(oldp): AUD["OLD"] = b64(oldp)
 
 def player(key, label=""):
