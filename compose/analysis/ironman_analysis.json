@@ -1,0 +1,177 @@
+{
+ "duration": 128.64,
+ "tempo": 147.7,
+ "harmonic_pct": 99.4,
+ "bands": [
+  {
+   "band": "서브 20-60Hz",
+   "pct": 58.4
+  },
+  {
+   "band": "저음 60-120Hz",
+   "pct": 31.2
+  },
+  {
+   "band": "베이스 120-250Hz",
+   "pct": 4.6
+  },
+  {
+   "band": "로우미드 250-500Hz",
+   "pct": 2.6
+  },
+  {
+   "band": "미드 500-2kHz",
+   "pct": 2.1
+  },
+  {
+   "band": "하이미드 2k-6kHz",
+   "pct": 0.5
+  },
+  {
+   "band": "고음 6k-16kHz",
+   "pct": 0.4
+  }
+ ],
+ "low_hits": 145,
+ "hit_analysis": [
+  {
+   "t": 86.59,
+   "f0": 36.3,
+   "midi": "D1",
+   "harmonics": [
+    1.0,
+    0.78,
+    0.17,
+    0.23,
+    0.05,
+    0.12
+   ],
+   "harmonic_strength": 0.396,
+   "decay_s": 0.066,
+   "flatness": 0.0002
+  },
+  {
+   "t": 84.49,
+   "f0": 51.1,
+   "midi": "G♯1",
+   "harmonics": [
+    1.0,
+    0.16,
+    0.25,
+    0.01,
+    0.01,
+    0.06
+   ],
+   "harmonic_strength": 0.139,
+   "decay_s": 0.001,
+   "flatness": 0.0011
+  },
+  {
+   "t": 84.92,
+   "f0": 74.0,
+   "midi": "D2",
+   "harmonics": [
+    1.0,
+    0.4,
+    0.1,
+    0.09,
+    0.01,
+    0.17
+   ],
+   "harmonic_strength": 0.198,
+   "decay_s": 0.005,
+   "flatness": 0.0011
+  },
+  {
+   "t": 72.62,
+   "f0": 73.3,
+   "midi": "D2",
+   "harmonics": [
+    1.0,
+    0.27,
+    0.09,
+    0.09,
+    0.01,
+    0.06
+   ],
+   "harmonic_strength": 0.15,
+   "decay_s": 0.0,
+   "flatness": 0.0009
+  },
+  {
+   "t": 20.39,
+   "f0": 87.5,
+   "midi": "F2",
+   "harmonics": [
+    1.0,
+    0.22,
+    0.19,
+    0.15,
+    0.13,
+    0.26
+   ],
+   "harmonic_strength": 0.19,
+   "decay_s": 0.007,
+   "flatness": 0.0005
+  },
+  {
+   "t": 121.59,
+   "f0": 36.3,
+   "midi": "D1",
+   "harmonics": [
+    1.0,
+    0.64,
+    0.32,
+    0.32,
+    0.03,
+    0.02
+   ],
+   "harmonic_strength": 0.428,
+   "decay_s": 0.003,
+   "flatness": 0.001
+  },
+  {
+   "t": 111.84,
+   "f0": 70.0,
+   "midi": "C♯2",
+   "harmonics": [
+    1.0,
+    0.25,
+    0.01,
+    0.1,
+    0.01,
+    0.02
+   ],
+   "harmonic_strength": 0.12,
+   "decay_s": 0.001,
+   "flatness": 0.0011
+  },
+  {
+   "t": 1.02,
+   "f0": 73.3,
+   "midi": "D2",
+   "harmonics": [
+    1.0,
+    0.53,
+    0.13,
+    0.11,
+    0.01,
+    0.09
+   ],
+   "harmonic_strength": 0.256,
+   "decay_s": 0.014,
+   "flatness": 0.0002
+  }
+ ],
+ "median": {
+  "f0": 71.7,
+  "harm": 0.19,
+  "flat": 0.0009,
+  "decay": 0.004
+ },
+ "melody_range": {
+  "note_low": "D♯2",
+  "note_high": "A3",
+  "median": "D♯2"
+ }
+}
