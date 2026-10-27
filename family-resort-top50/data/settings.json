@@ -1,0 +1,13 @@
+{
+  "season": "2026년 10~11월",
+  "score_note": "물놀이 종합점수는 공식 평점이 아니라 자체 평가 점수입니다.",
+  "weights": {
+    "waterpark_slide": 25,
+    "kids_water": 20,
+    "indoor_heated_pool": 15,
+    "kids_club_play": 15,
+    "near_attractions": 10,
+    "season_fit": 10,
+    "info_reliability": 5
+  }
+}

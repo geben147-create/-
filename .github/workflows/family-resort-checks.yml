@@ -1,0 +1,65 @@
+name: family-resort-checks
+
+# 사진 수집, 라이선스 판별, 가격 조회는 하지 않는다(공식 API·사용 허가 연결 전).
+# 데이터 검증, 링크 점검, 사람이 처리할 갱신 목록만 만든다.
+on:
+  schedule:
+    - cron: "17 0 * * *"   # 매일 09:17 KST
+    - cron: "37 0 * * 1"   # 매주 월요일 09:37 KST
+    - cron: "47 0 1 * *"   # 매월 1일 09:47 KST
+  workflow_dispatch:
+    inputs:
+      kind:
+        description: "daily | weekly | monthly"
+        default: daily
+  push:
+    paths:
+      - "family-resort-top50/**"
+      - ".github/workflows/family-resort-checks.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: family-resort-top50/scripts
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Pick report kind
+        id: kind
+        run: |
+          kind="${{ github.event.inputs.kind }}"
+          if [ -z "$kind" ]; then
+            case "${{ github.event.schedule }}" in
+              "37 0 * * 1") kind=weekly ;;
+              "47 0 1 * *") kind=monthly ;;
+              *) kind=daily ;;
+            esac
+          fi
+          echo "kind=$kind" >> "$GITHUB_OUTPUT"
+      - name: Validate hotels.json
+        run: python validate_data.py
+      - name: Check public data is up to date
+        run: |
+          python build_public.py
+          git diff --exit-code -- ../data/public-hotels.js || {
+            echo "::error::data/public-hotels.js is stale. Run scripts/build_public.py and commit."; exit 1; }
+      - name: Report
+        run: python report.py "${{ steps.kind.outputs.kind }}"
+      - name: Check links
+        if: github.event_name != 'push'
+        continue-on-error: true
+        run: python check_links.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: reports-${{ steps.kind.outputs.kind }}-${{ github.run_id }}
+          path: family-resort-top50/reports/*.md
+          retention-days: 30
