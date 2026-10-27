@@ -1,0 +1,249 @@
+{
+ "tempo": 140.0,
+ "blocks": 10,
+ "hold_end_beat": 86.0,
+ "tracks": [
+  {
+   "name": "제1바이올린 — 당신 멜로디",
+   "midi_name": "Violin I (yours)",
+   "who": "당신",
+   "enters_block": 1,
+   "notes": 159,
+   "pan": -0.38,
+   "gain_db": 3.982213264484365,
+   "send_db": -10.0
+  },
+  {
+   "name": "제2바이올린 — 당신 멜로디 겹침",
+   "midi_name": "Violin II (yours)",
+   "who": "당신",
+   "enters_block": 1,
+   "notes": 159,
+   "pan": -0.1,
+   "gain_db": 13.342980827151926,
+   "send_db": -8.0
+  },
+  {
+   "name": "호른 — 당신 화음",
+   "midi_name": "Horns chords (yours)",
+   "who": "당신(교정)",
+   "enters_block": 1,
+   "notes": 30,
+   "pan": -0.3,
+   "gain_db": -11.450429337304545,
+   "send_db": -4.0
+  },
+  {
+   "name": "콘트라베이스 — 당신 베이스",
+   "midi_name": "Contrabass (yours)",
+   "who": "당신",
+   "enters_block": 1,
+   "notes": 10,
+   "pan": 0.4,
+   "gain_db": 4.55806829866372,
+   "send_db": -9.0
+  },
+  {
+   "name": "콘트라베이스 — 저음 루트",
+   "midi_name": "Contrabass root",
+   "who": "당신(교정)",
+   "enters_block": 1,
+   "notes": 10,
+   "pan": 0.3,
+   "gain_db": -8.495959331803718,
+   "send_db": -9.0
+  },
+  {
+   "name": "합창",
+   "midi_name": "Choir",
+   "who": "제가 만든 반주",
+   "enters_block": 1,
+   "notes": 30,
+   "pan": 0.0,
+   "gain_db": 3.9243285858355677,
+   "send_db": -2.0
+  },
+  {
+   "name": "글로켄슈필",
+   "midi_name": "Glockenspiel",
+   "who": "제가 만든 반주",
+   "enters_block": 1,
+   "notes": 30,
+   "pan": 0.55,
+   "gain_db": -0.8512798769223835,
+   "send_db": -3.0
+  },
+  {
+   "name": "저음 현악 베드",
+   "midi_name": "Low strings bed",
+   "who": "당신 화음에서 파생",
+   "enters_block": 1,
+   "notes": 20,
+   "pan": -0.2,
+   "gain_db": 6.9585976668464795,
+   "send_db": -5.0
+  },
+  {
+   "name": "첼로 오스티나토",
+   "midi_name": "Cello ostinato",
+   "who": "당신 화음에서 파생",
+   "enters_block": 5,
+   "notes": 93,
+   "pan": 0.35,
+   "gain_db": 8.991691078475277,
+   "send_db": -8.0
+  },
+  {
+   "name": "프렌치 호른 (저음)",
+   "midi_name": "French horns low",
+   "who": "당신 화음에서 파생",
+   "enters_block": 6,
+   "notes": 10,
+   "pan": -0.45,
+   "gain_db": 8.899217899608182,
+   "send_db": -4.0
+  },
+  {
+   "name": "트롬본",
+   "midi_name": "Trombones",
+   "who": "당신 화음에서 파생",
+   "enters_block": 9,
+   "notes": 6,
+   "pan": 0.45,
+   "gain_db": 1.2769354596606775,
+   "send_db": -4.0
+  },
+  {
+   "name": "팀파니",
+   "midi_name": "Timpani",
+   "who": "제가 만든 반주",
+   "enters_block": 7,
+   "notes": 34,
+   "pan": 0.05,
+   "gain_db": 1.8635788049048756,
+   "send_db": -4.0
+  },
+  {
+   "name": "타이코",
+   "midi_name": "Taiko",
+   "who": "제가 만든 반주",
+   "enters_block": 9,
+   "notes": 7,
+   "pan": 0.0,
+   "gain_db": -4.055155622043504,
+   "send_db": -5.0
+  },
+  {
+   "name": "리버스 심벌 스웰",
+   "midi_name": "Reverse cymbal swell",
+   "who": "제가 만든 반주",
+   "enters_block": 10,
+   "notes": 1,
+   "pan": 0.0,
+   "gain_db": 11.02976627771141,
+   "send_db": -2.0
+  },
+  {
+   "name": "바이올린 옥타브 (최종 합창)",
+   "midi_name": "Violins +8ve (final)",
+   "who": "당신 음에서 파생",
+   "enters_block": 10,
+   "notes": 12,
+   "pan": -0.25,
+   "gain_db": -2.7106189947764783,
+   "send_db": -8.0
+  }
+ ],
+ "bass_worth_db": {
+  "yours_only": 4.68,
+  "yours_plus_root": 5.0
+ },
+ "block_rms_db": [
+  -22.0,
+  -21.3,
+  -22.3,
+  -21.9,
+  -22.5,
+  -20.3,
+  -21.0,
+  -20.3,
+  -17.4,
+  -13.9,
+  -12.2
+ ],
+ "master": {
+  "before": {
+   "lufs": -18.37,
+   "true_peak": -0.98,
+   "peak": -1.01,
+   "clipped": 0
+  },
+  "after": {
+   "lufs": -14.44,
+   "true_peak": -1.0,
+   "peak": -1.01,
+   "clipped": 0,
+   "dc": 8.663596465559928e-06
+  },
+  "settings": {
+   "highpass_hz": 20,
+   "side_gain": 0.95,
+   "target_lufs": -14.0,
+   "ceiling_dbtp": -1.0,
+   "limiter_oversampling": 4,
+   "air_db": 2.5,
+   "air_hz": 7000.0
+  }
+ },
+ "layer_worth_db": {
+  "호른 — 당신 화음": {
+   "avg_db": -16.0,
+   "peak_db": -8.2
+  },
+  "콘트라베이스 — 저음 루트": {
+   "avg_db": -19.4,
+   "peak_db": -10.0
+  },
+  "합창": {
+   "avg_db": -17.9,
+   "peak_db": -8.3
+  },
+  "글로켄슈필": {
+   "avg_db": -32.6,
+   "peak_db": -20.8
+  },
+  "저음 현악 베드": {
+   "avg_db": -18.2,
+   "peak_db": -8.6
+  },
+  "첼로 오스티나토": {
+   "avg_db": -10.9,
+   "peak_db": -7.8
+  },
+  "프렌치 호른 (저음)": {
+   "avg_db": -11.8,
+   "peak_db": -3.7
+  },
+  "트롬본": {
+   "avg_db": -14.6,
+   "peak_db": -8.1
+  },
+  "팀파니": {
+   "avg_db": -14.5,
+   "peak_db": -1.5
+  },
+  "타이코": {
+   "avg_db": -19.7,
+   "peak_db": -7.5
+  },
+  "리버스 심벌 스웰": {
+   "avg_db": -29.0,
+   "peak_db": -11.0
+  },
+  "바이올린 옥타브 (최종 합창)": {
+   "avg_db": -26.0,
+   "peak_db": -12.4
+  }
+ },
+ "length_sec": 40.06
+}
