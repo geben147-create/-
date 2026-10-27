@@ -1,0 +1,117 @@
+{
+ "mode": "cello",
+ "sweep": [
+  {
+   "sub_rel_db": null,
+   "lt120_pct": 11.6,
+   "sub_band_40_75_pct": 1.9,
+   "melody_500_1k_pct": 33.2,
+   "melody_500_1k_dbfs": -22.5,
+   "bass_95_190_dbfs": -25.5,
+   "crest_db": 16.4,
+   "lufs_after": -14.1,
+   "tp_after": -1.0,
+   "clipped": 0,
+   "side_mid_db": -8.0
+  },
+  {
+   "sub_rel_db": -15.0,
+   "lt120_pct": 14.9,
+   "sub_band_40_75_pct": 4.9,
+   "melody_500_1k_pct": 31.9,
+   "melody_500_1k_dbfs": -22.6,
+   "bass_95_190_dbfs": -25.6,
+   "crest_db": 16.3,
+   "lufs_after": -14.1,
+   "tp_after": -1.0,
+   "clipped": 0,
+   "side_mid_db": -8.2
+  },
+  {
+   "sub_rel_db": -12.0,
+   "lt120_pct": 18.1,
+   "sub_band_40_75_pct": 7.7,
+   "melody_500_1k_pct": 30.7,
+   "melody_500_1k_dbfs": -22.6,
+   "bass_95_190_dbfs": -25.6,
+   "crest_db": 16.2,
+   "lufs_after": -14.1,
+   "tp_after": -1.0,
+   "clipped": 0,
+   "side_mid_db": -8.4
+  },
+  {
+   "sub_rel_db": -9.0,
+   "lt120_pct": 23.8,
+   "sub_band_40_75_pct": 12.8,
+   "melody_500_1k_pct": 28.6,
+   "melody_500_1k_dbfs": -22.8,
+   "bass_95_190_dbfs": -25.8,
+   "crest_db": 16.0,
+   "lufs_after": -14.09,
+   "tp_after": -1.0,
+   "clipped": 0,
+   "side_mid_db": -8.7
+  },
+  {
+   "sub_rel_db": -6.0,
+   "lt120_pct": 33.0,
+   "sub_band_40_75_pct": 20.9,
+   "melody_500_1k_pct": 25.2,
+   "melody_500_1k_dbfs": -23.0,
+   "bass_95_190_dbfs": -26.1,
+   "crest_db": 15.7,
+   "lufs_after": -14.08,
+   "tp_after": -1.0,
+   "clipped": 0,
+   "side_mid_db": -9.3
+  },
+  {
+   "sub_rel_db": -3.0,
+   "lt120_pct": 45.8,
+   "sub_band_40_75_pct": 32.3,
+   "melody_500_1k_pct": 20.4,
+   "melody_500_1k_dbfs": -23.5,
+   "bass_95_190_dbfs": -26.6,
+   "crest_db": 15.3,
+   "lufs_after": -14.07,
+   "tp_after": -1.0,
+   "clipped": 0,
+   "side_mid_db": -10.2
+  }
+ ],
+ "chosen_rel_db": -3.0,
+ "bass_worth_db": 6.19,
+ "master": {
+  "before": {
+   "lufs": -19.8,
+   "true_peak": -1.0,
+   "peak": -1.01,
+   "clipped": 0
+  },
+  "after": {
+   "lufs": -14.07,
+   "true_peak": -1.0,
+   "peak": -1.01,
+   "clipped": 0,
+   "dc": 1.1867107242306112e-06
+  },
+  "settings": {
+   "highpass_hz": 20,
+   "side_gain": 0.95,
+   "target_lufs": -14.0,
+   "ceiling_dbtp": -1.0,
+   "limiter_oversampling": 4,
+   "air_db": 2.5,
+   "air_hz": 7000.0
+  }
+ },
+ "sub_pitches_hz": {
+  "33": 55.0,
+  "34": 58.3,
+  "36": 65.4,
+  "38": 73.4
+ },
+ "hpf_hz": 90.0,
+ "ref_rms_dbfs_premaster": -20.2
+}
