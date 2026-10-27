@@ -47,12 +47,16 @@ def in_block(ns, b): return [n for n in ns if b * BLK - 1e-6 <= n["start"] < (b 
 
 # ---------------------------------------------------------------- the harmony, one entry per block
 # Chord of each block (0-based): Dm | Bb | F/C | A7 | Dm | Bb | F/C | A7 | Dm (new) | Dm (new)
-CH = [0, 1, 2, 3, 0, 1, 2, 3, 0, 0]
+N_BLOCKS = 22
+# Five passes of the composer's four chords, then two blocks on the tonic the A7 resolves to.
+CH = [0, 1, 2, 3] * 5 + [0, 0]
 # Low strings bed: open fifths/thirds under the composer's own bass note.
 # An octave above the composer's bass, so the bed never sits in the 95-190 Hz band their bass line lives in.
 PAD   = [[57, 65], [53, 62], [57, 65], [52, 64]]            # A3 F4 | F3 D4 | A3 F4 | E3 E4
 # Cello ostinato: root and a second chord tone, an octave and a half under their melody.
-OST   = [(38, 45), (34, 41), (36, 41), (33, 40)]            # D A | Bb F | C F | A E
+# Block 3 is F over THEIR C bass, so the cello stays on C (C2/C3): alternating C and F under a held C
+# made the low end swing between two roots.
+OST   = [(38, 45), (34, 41), (36, 48), (33, 40)]            # D A | Bb F | C C8 | A E
 # Low French horns: their own bass note plus the fifth/fourth above it.
 # Also above the bass register (it used to double their bass notes and bury them).
 # Block 4 leaves out the root A: their own A#4 (the b9) rings above it and a root underneath turns it into a minor 9th.
@@ -103,17 +107,25 @@ def timpani_pass2(b_first=4, b_last=7):
     return out
 
 
+# The rock figure runs through all four chords in the long build, so its pitches follow the chord:
+# timpani (the "kick") on a root, taiko (the "backbeat") on another chord tone.
+KICK  = {0: 38, 1: 46, 2: 48, 3: 45}      # D2  Bb2  C3  A2
+SNARE = {0: 45, 1: 53, 2: 45, 3: 52}      # A2  F3   A2  E3
+TBONE_V = {0: [45, 53], 1: [41, 50], 2: [45, 53], 3: [40, 52]}   # trombones: A2 F3 | F2 D3 | A2 F3 | E2 E3
+
+
 def rock_bar(b):
     """The driving cinematic-rock bar, with orchestral percussion instead of a kit: timpani
     where a kick would be, taiko where the backbeat would be, the low strings carrying the
     eighth-note drive."""
     timp, taiko = [], []
+    c = CH[b]
     for half in range(2):
         t0 = b * BLK + half * 4
         for t in (0.0, 2.0, 2.5):                                  # kick figure
-            timp.append({"pitch": 38, "start": t0 + t, "end": t0 + t + 0.5, "vel": 104 if t == 0 else 92})
+            timp.append({"pitch": KICK[c], "start": t0 + t, "end": t0 + t + 0.5, "vel": 104 if t == 0 else 92})
         for t in (1.0, 3.0):                                       # backbeat
-            taiko.append({"pitch": 43, "start": t0 + t, "end": t0 + t + 0.5, "vel": 100})
+            taiko.append({"pitch": SNARE[c], "start": t0 + t, "end": t0 + t + 0.5, "vel": 100})
     return timp, taiko
 
 

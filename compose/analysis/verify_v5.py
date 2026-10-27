@@ -8,7 +8,8 @@ from compose import render
 NM = ["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"]
 def nn(p): return f"{NM[p%12]}{p//12-1}"
 UP, D = sys.argv[1], sys.argv[2]
-FULL = f"{D}/finale_FULL_140bpm.mid"
+PFX = sys.argv[3] if len(sys.argv) > 3 else "finale"
+FULL = f"{D}/{PFX}_FULL_140bpm.mid"
 B = lambda pm: float(pm.get_tempo_changes()[1][0]) / 60.0
 
 # 1. harmony: semitone / minor-9th between different tracks
@@ -52,7 +53,7 @@ wa = render(FULL, f"{D}/_a.wav", 0.7); wb = render(mid, f"{D}/_b.wav", 0.7)
 xa, sr = sf.read(wa, always_2d=True); xb, _ = sf.read(wb, always_2d=True); xa, xb = xa.mean(1), xb.mean(1); n = min(len(xa), len(xb))
 print(f"4. your bass line is worth {band(xa[:n], sr, 95, 190) - band(xb[:n], sr, 95, 190):+.2f} dB in 95-190 Hz")
 for f in (mid, wa, wb): os.remove(f)
-x, sr = sf.read(f"{D}/finale_master.wav", always_2d=True); m = x.mean(1)
+x, sr = sf.read(f"{D}/{PFX}_master.wav", always_2d=True); m = x.mean(1)
 f, P = signal.welch(m, sr, nperseg=16384); tot = np.trapezoid(P, f)
 sh = lambda a, b: round(100*np.trapezoid(P[(f>=a)&(f<b)], f[(f>=a)&(f<b)])/tot, 1)
 print(f"5. energy share  <120Hz {sh(20,120)}%   120-350 {sh(120,350)}%   MELODY 500-1k {sh(500,1000)}%   1-3k {sh(1000,3000)}%   >3k {sh(3000,12000)}%")
