@@ -1,0 +1,182 @@
+{
+ "tempo": 140.0,
+ "blocks": 22,
+ "cut_beat": 174.0,
+ "hold_end_beat": 179.2,
+ "bass_worth_db": {
+  "yours_only": 6.67,
+  "yours_plus_root": 7.02
+ },
+ "block_rms_db": [
+  -20.9,
+  -20.1,
+  -21.2,
+  -20.8,
+  -21.4,
+  -19.1,
+  -20.0,
+  -19.2,
+  -18.7,
+  -18.5,
+  -18.9,
+  -18.6,
+  -18.5,
+  -17.6,
+  -17.6,
+  -17.6,
+  -15.5,
+  -15.6,
+  -15.5,
+  -16.3,
+  -14.3,
+  -14.1,
+  -16.5
+ ],
+ "master": {
+  "before": {
+   "lufs": -18.09,
+   "true_peak": -3.34,
+   "peak": -3.34,
+   "clipped": 0
+  },
+  "after": {
+   "lufs": -14.05,
+   "true_peak": -1.0,
+   "peak": -1.01,
+   "clipped": 0,
+   "dc": 5.142529546423877e-07
+  },
+  "settings": {
+   "highpass_hz": 20,
+   "side_gain": 0.95,
+   "target_lufs": -14.0,
+   "ceiling_dbtp": -1.0,
+   "limiter_oversampling": 4,
+   "air_db": 2.5,
+   "air_hz": 7000.0
+  }
+ },
+ "length_sec": 80.0,
+ "tracks": [
+  {
+   "name": "제1바이올린 — 당신 멜로디",
+   "midi_name": "Violin I (yours)",
+   "who": "당신",
+   "enters_block": 1,
+   "notes": 350,
+   "gain_db": 4.0
+  },
+  {
+   "name": "제2바이올린 — 당신 멜로디 겹침",
+   "midi_name": "Violin II (yours)",
+   "who": "당신",
+   "enters_block": 1,
+   "notes": 349,
+   "gain_db": 13.3
+  },
+  {
+   "name": "호른 — 당신 화음",
+   "midi_name": "Horns chords (yours)",
+   "who": "당신(교정)",
+   "enters_block": 1,
+   "notes": 66,
+   "gain_db": -11.5
+  },
+  {
+   "name": "콘트라베이스 — 당신 베이스",
+   "midi_name": "Contrabass (yours)",
+   "who": "당신",
+   "enters_block": 1,
+   "notes": 22,
+   "gain_db": 4.6
+  },
+  {
+   "name": "콘트라베이스 — 저음 루트",
+   "midi_name": "Contrabass root",
+   "who": "당신(교정)",
+   "enters_block": 1,
+   "notes": 22,
+   "gain_db": -8.5
+  },
+  {
+   "name": "합창",
+   "midi_name": "Choir",
+   "who": "제가 만든 반주",
+   "enters_block": 1,
+   "notes": 66,
+   "gain_db": 3.9
+  },
+  {
+   "name": "글로켄슈필",
+   "midi_name": "Glockenspiel",
+   "who": "제가 만든 반주",
+   "enters_block": 1,
+   "notes": 66,
+   "gain_db": -0.9
+  },
+  {
+   "name": "저음 현악 베드",
+   "midi_name": "Low strings bed",
+   "who": "당신 화음에서 파생",
+   "enters_block": 1,
+   "notes": 44,
+   "gain_db": 7.3
+  },
+  {
+   "name": "첼로 오스티나토",
+   "midi_name": "Cello ostinato",
+   "who": "당신 화음에서 파생",
+   "enters_block": 5,
+   "notes": 284,
+   "gain_db": 9.1
+  },
+  {
+   "name": "프렌치 호른 (저음)",
+   "midi_name": "French horns low",
+   "who": "당신 화음에서 파생",
+   "enters_block": 6,
+   "notes": 34,
+   "gain_db": 8.0
+  },
+  {
+   "name": "트롬본",
+   "midi_name": "Trombones",
+   "who": "당신 화음에서 파생",
+   "enters_block": 9,
+   "notes": 28,
+   "gain_db": 5.3
+  },
+  {
+   "name": "팀파니",
+   "midi_name": "Timpani",
+   "who": "제가 만든 반주",
+   "enters_block": 7,
+   "notes": 65,
+   "gain_db": 2.9
+  },
+  {
+   "name": "타이코",
+   "midi_name": "Taiko",
+   "who": "제가 만든 반주",
+   "enters_block": 17,
+   "notes": 23,
+   "gain_db": -3.5
+  },
+  {
+   "name": "리버스 심벌 스웰",
+   "midi_name": "Reverse cymbal swell",
+   "who": "제가 만든 반주",
+   "enters_block": 22,
+   "notes": 1,
+   "gain_db": 11.0
+  },
+  {
+   "name": "바이올린 옥타브",
+   "midi_name": "Violins +8ve",
+   "who": "당신 음에서 파생",
+   "enters_block": 17,
+   "notes": 92,
+   "gain_db": -0.8
+  }
+ ]
+}
