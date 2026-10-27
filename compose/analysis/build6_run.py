@@ -25,6 +25,7 @@ import tuning as TU
 
 SRC, OUT = sys.argv[1], sys.argv[2]
 TARGET_S = float(sys.argv[3]) if len(sys.argv) > 3 else 77.0     # cut at 1:17
+MODE = sys.argv[4] if len(sys.argv) > 4 else "violin"           # "violin": solo violin leads; "cello": a cello leads
 TMP = os.path.join(OUT, "_stems"); os.makedirs(TMP, exist_ok=True)
 S = F.load_beats(SRC)
 N = F.N_BLOCKS
@@ -200,6 +201,15 @@ AUTO = {
     "Trombones": (-31.0, 64, 96), "Taiko": (-31.0, 128, 160),
     "Reverse cymbal swell": (-34.0, (N - 1) * BLK, CUT), "Violins +8ve": (-33.0, 128, 160),
 }
+
+if MODE == "cello":
+    # The cello leads the melody (their second take, an octave down, staccato); the violin keeps the original octave but steps back.
+    for t in TRACKS:
+        if t["midi_name"] == "Viola melody -8ve (yours)":
+            t.update(name="첼로 — 당신 멜로디 한 옥타브 아래", midi_name="Cello melody -8ve (yours)", program=42, pan=-0.15, send_db=-8.0)
+    AUTO.pop("Viola melody -8ve (yours)", None)
+    AUTO["Cello melody -8ve (yours)"] = (-27.0, 0, 32)
+    AUTO["Violin I (yours)"] = (-34.0, 0, 32)
 
 # ---- tuning: General MIDI patches are not all at concert pitch, and the error depends on the note
 # (the solo-violin patch is 29 cents flat on A5 and 3 cents sharp on D5; the timpani is 40 sharp above D2).
