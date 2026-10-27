@@ -50,14 +50,19 @@ ROOT, CHOIR = repeat(get("Contrabass (root, retuned)")), repeat(get("Choir"))
 GLOCK = repeat(get("Glockenspiel"))
 
 # Block 3 (F over their C bass): the retuned root went to F2, which fought their C3. Back to C2.
+def blk_of(n):
+    """Block index of a note. The composer's block starts sit a hair under the boundary (15.9999 beats instead
+    of 16), so a plain floor put them in the previous block - which is how the first pass's block 3 kept its F2."""
+    return int((n["start"] + 1e-3) // BLK)
+
 def fix_f_over_c(ns):
-    return [{**n, "pitch": 36} if (int(n["start"] // BLK) % 4 == 2 and n["pitch"] == 41) else n for n in ns]
+    return [{**n, "pitch": 36} if (blk_of(n) % 4 == 2 and n["pitch"] == 41) else n for n in ns]
 ROOT = fix_f_over_c(ROOT)
 
 # the whole piece swells pass by pass (velocity only)
 GAIN = [1.0]*8 + [1.05]*4 + [1.12]*4 + [1.22]*4 + [1.32, 1.45]
 def crescendo(ns):
-    return [{**n, "vel": int(np.clip(round(n["vel"] * GAIN[min(int(n["start"] // BLK), N - 1)]), 1, 127))} for n in ns]
+    return [{**n, "vel": int(np.clip(round(n["vel"] * GAIN[min(blk_of(n), N - 1)]), 1, 127))} for n in ns]
 V1, V2, HORN, CHOIR = map(crescendo, (V1, V2, HORN, CHOIR))
 GLOCK = [{**n, "vel": min(127, n["vel"] + (10 if n["start"] >= 16 * BLK else 0))} for n in GLOCK]
 

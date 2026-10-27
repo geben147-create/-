@@ -5,7 +5,8 @@ The format is a small tagged binary tree, not documented by the vendor; this rea
 derived by inspecting real files. Grammar:
     '{' ... '}'   object        '[' ... ']'   array
     'i' <len:u8> <utf8 bytes>   string (used for keys)
-    'i' <u8>                    small integer value
+    'i' <u8>                    small integer value (0-127); 'U' <u8> for 128-255; 'I' <int16> above that
+    'S' 'i' <len:u8> <utf8>      string used as a value
     'D' <8 bytes>               IEEE-754 double, big-endian
 A key is always a string; the token after it is its value, so the parser only has to know
 whether it is expecting a key or a value. Note objects carry start, pitch, noteId, length
@@ -40,10 +41,16 @@ def _value(r: _R):
     if t == 0x44:   # D
         r.i += 1
         v = struct.unpack(">d", r.b[r.i:r.i + 8])[0]; r.i += 8; return v
-    if t == 0x69:   # i  -> small int value
+    if t == 0x69:   # i  -> small int value (0-127)
         r.i += 1; return r.u8()
-    r.i += 1        # unknown token: skip
-    return None
+    if t == 0x55:   # U  -> uint8 (128-255)
+        r.i += 1; return r.u8()
+    if t == 0x49:   # I  -> int16, big-endian (note ids above 255)
+        r.i += 1; v = struct.unpack(">h", r.b[r.i:r.i + 2])[0]; r.i += 2; return v
+    if t == 0x53:   # S  -> string used as a VALUE: 'S' 'i' <len:u8> <utf8>
+        r.i += 1; r.i += 1; n = r.u8()
+        v = r.b[r.i:r.i + n].decode("utf-8", "replace"); r.i += n; return v
+    raise ValueError(f"unknown .musicx token {t:#x} at {r.i}")   # never skip silently: that undercounted notes
 
 
 def _key(r: _R):

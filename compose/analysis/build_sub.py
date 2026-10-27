@@ -65,6 +65,10 @@ def share(x, a, b):
     f, P = signal.welch(x, SR, nperseg=16384); tot = np.trapezoid(P, f)
     k = (f >= a) & (f < b); return 100 * np.trapezoid(P[k], f[k]) / tot
 
+def band(x, a, b):
+    sos = signal.butter(4, [a, b], btype="bandpass", fs=SR, output="sos")
+    return 20 * np.log10(np.sqrt(np.mean(signal.sosfiltfilt(sos, x.mean(axis=1)) ** 2)) + 1e-12)
+
 rows = []
 for rel in (None, -15.0, -12.0, -9.0, -6.0, -3.0):
     if rel is None: y = base
@@ -76,6 +80,7 @@ for rel in (None, -15.0, -12.0, -9.0, -6.0, -3.0):
     m, _ = sf.read(f"{OUT}/_sweep_m.wav", always_2d=True); mm = m.mean(axis=1)
     row = {"sub_rel_db": rel, "lt120_pct": round(share(mm, 20, 120), 1), "sub_band_40_75_pct": round(share(mm, 40, 75), 1),
            "melody_500_1k_pct": round(share(mm, 500, 1000), 1),
+           "melody_500_1k_dbfs": round(float(band(m, 500, 1000)), 1), "bass_95_190_dbfs": round(float(band(m, 95, 190)), 1),
            "crest_db": round(float(20 * np.log10(np.max(np.abs(mm)) / rms(mm))), 1),
            "lufs_after": rep["after"]["lufs"], "tp_after": rep["after"]["true_peak"], "clipped": rep["after"]["clipped"],
            "side_mid_db": round(float(20 * np.log10(rms((m[:, 0] - m[:, 1]) / 2) / rms((m[:, 0] + m[:, 1]) / 2))), 1)}
@@ -91,10 +96,6 @@ y = finish(base + (sub * g)[:, None]); sf.write(f"{OUT}/_f.wav", y, SR, subtype=
 rep = M.master(f"{OUT}/_f.wav", f"{OUT}/sub_master.wav", target_lufs=-14.0, air_db=2.5, air_hz=7000.0)
 subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", f"{OUT}/sub_master.wav", "-ac", "2", "-b:a", "128k", f"{OUT}/sub.mp3"], check=True)
 
-# bass audibility inside the real mix (95-190 Hz), with the sub present
-def band(x, a, b):
-    sos = signal.butter(4, [a, b], btype="bandpass", fs=SR, output="sos")
-    return 20 * np.log10(np.sqrt(np.mean(signal.sosfiltfilt(sos, x.mean(axis=1)) ** 2)) + 1e-12)
 without = O.mix([q for q in stems if q["midi_name"] != "Contrabass (yours)"], IR, wet_bus_db=-6.0)[:L] + (sub * g)[:, None]
 bass_worth = round(float(band(base + (sub * g)[:, None], 95, 190) - band(without, 95, 190)), 2)
 
