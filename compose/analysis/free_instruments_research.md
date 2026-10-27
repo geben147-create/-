@@ -139,3 +139,16 @@ MIDI는 소리가 아니라 음표 데이터이므로 "변환"이 아니다. **M
 
 ### 이 문서의 5단계 안내에 관해
 Top 3의 5단계 안내는 **공식 문서에서 검증한 단계가 아니다.** 일반적인 VST3 설치 절차와 2차 자료를 조합한 것이므로 실행 전에 각 공식 안내와 대조해야 한다.
+
+---
+
+## 교차 확인 (부모 세션, 2026-10-27, 웹 검색 요약 기준 — 공식 페이지 직접 확인 아님)
+
+- **Spitfire BBC Symphony Orchestra Discover는 무료**라는 보도가 여러 곳에서 일치한다 (MusicRadar, Rekkerd, MusicTech, Sound On Sound).
+  약 200MB, PC/Mac, VST/AU/AAX, 현악·목관·금관·타악 포함, 악기 수는 33~35개로 보도가 엇갈린다.
+  **호른·트롬본·첼로·비올라·팀파니가 각각 들어 있는지는 확인하지 못했다.** 설치 전에 공식 제품 페이지에서 악기 목록을 확인할 것.
+- **Spitfire LABS의 오케스트라 현악 팩(Symphonic Violins & Violas, Celli & Basses)은 유료(LABS+)로 보인다.**
+  금관 무료 팩은 찾지 못했다. LABS는 이 사용자의 호른/첼로 용도로 우선 추천하지 않는다. (바로 위 Top 3 순서와는 별개로, 이 항목은 LABS를 뺀다.)
+- **Studio One의 Presence XT 기본 라이브러리**에는 피아노·현악·튜닝 타악·금관·베이스 등이 있다는 리뷰가 있으나, 이는 Studio One 3 시절 글이다.
+  Fender Studio Pro 8에 어떤 구성이 들어 있는지는 확인하지 못했다. 오케스트라 전용 `PreSonus Symphonic Orchestra`는 별도 유료 애드온이다.
+  Presence XT가 SoundFont를 읽는다는 2차 출처가 하나 있으나 SFZ 지원 근거는 찾지 못했다.
