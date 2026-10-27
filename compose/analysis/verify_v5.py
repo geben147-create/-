@@ -29,11 +29,12 @@ for (a, b, x, y), (c, t0) in sorted(seen.items(), key=lambda kv: -kv[1][0])[:8]:
 # 2. their notes: untouched in blocks 1-8?
 up = pretty_midi.PrettyMIDI(UP); bu, bn = B(up), B(pm)
 def key(n, b): return (n.pitch, round(n.start * b, 2))
-keep = {"Violin I (your melody)": "Violin I (yours)", "Violin II (your melody, doubled)": "Violin II (yours)",
+keep = {"Violin I (your melody)": "Violin I (yours)", "Violin II (your melody, doubled)": "Viola melody -8ve (yours)",
         "Contrabass (your bass)": "Contrabass (yours)"}
 for old, new in keep.items():
     a = {key(n, bu) for i in up.instruments if i.name == old for n in i.notes if n.start * bu < 64}
-    b = {key(n, bn) for i in pm.instruments if i.name == new for n in i.notes if n.start * bn < 64}
+    sh = 12 if "Viola" in new else 0      # the second take now sounds an octave lower
+    b = {(n.pitch + sh, round(n.start * bn, 2)) for i in pm.instruments if i.name == new for n in i.notes if n.start * bn < 64}
     print(f"2. {old:<34} blocks 1-8: {len(a)} notes in upload, {len(a & b)} identical in output, {len(a - b)} changed/missing")
 
 # 3. retrigger density in blocks 1-8 for everything that is not the composer's

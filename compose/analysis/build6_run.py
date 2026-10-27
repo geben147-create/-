@@ -69,7 +69,10 @@ def staccato(ns):
     return [{**n, "end": n["start"] + min(n["end"] - n["start"], STACCATO)} if n["end"] - n["start"] < 1.5 else n for n in ns]
 V1, V2 = staccato(V1), staccato(V2)
 V1 = [n for n in V1 if n["start"] < CUT] + [{"pitch": p, "start": CUT, "end": HOLD_END - 0.1, "vel": 90} for p in (74, 77)]   # D5 F5
-V2 = [n for n in V2 if n["start"] < CUT] + [{"pitch": 69, "start": CUT, "end": HOLD_END - 0.1, "vel": 84}]                      # A4
+# Their second take of the melody is now a VIOLA, one octave down (D4 A3 D4 F4 ...): the heavier, darker
+# "alto violin" line under the solo violin. Same notes and timing as the take they played, an octave lower.
+# Exception: their A#4 (the b9 over A7) stays at A#4. An octave down it lands a minor 9th above the A2 bass.
+V2 = [{**n, "pitch": n["pitch"] if n["pitch"] == 70 else n["pitch"] - 12} for n in V2 if n["start"] < CUT] + [{"pitch": 57, "start": CUT, "end": HOLD_END - 0.1, "vel": 84}]  # A3
 OCT = F.scale_vel([{**n, "pitch": n["pitch"] + 12} for n in V1
                    if 16 * BLK <= n["start"] < CUT and n["end"] - n["start"] < 1.5], 0.78)
 
@@ -85,9 +88,33 @@ PADN = stop_at_cut(PADN)
 def lvl(b, lo, hi): return (lo + (hi - lo) * min(1.0, b / (N - 1)))
 PADCC = [c for b in range(N) for c in F.ramp(b * BLK, (b + 1) * BLK - 0.01, 70 + b, 96 + b * 0.6)]
 
+# Two string lines under the melody: a viola (low) and a violin (upper), quarter notes that follow each block's chord.
+# Block 4 (A7) leaves out the root A: their own A#4 rings above it and a root underneath makes a minor 9th.
+#            viola (3 notes per 4 beats: root root fifth root)   violin (third fifth third fifth)
+PULSE_V = {0: ([50, 50, 57, 50], [65, 69, 65, 69]),    # Dm   D3 D3 A3 D3     F4 A4 F4 A4
+           1: ([46, 46, 53, 46], [62, 65, 62, 65]),    # Bb   Bb2 Bb2 F3 Bb2  D4 F4 D4 F4
+           2: ([53, 53, 60, 53], [69, 72, 69, 72]),    # F/C  F3 F3 C4 F3     A4 C5 A4 C5
+           3: ([52, 52, 55, 52], [61, 64, 61, 64])}    # A7   E3 E3 G3 E3     C#4 E4 C#4 E4
+def pulse_vel(b): return 50 if b < 8 else 60 if b < 12 else 66 if b < 16 else 74 if b < 20 else 82
+VPULSE, UPULSE = [], []
+for b in range(4, N):
+    lo, hi = PULSE_V[F.CH[b]]
+    for k in range(8):
+        t0 = b * BLK + k
+        if t0 >= CUT: continue
+        acc = 12 if k % 4 == 0 else 0
+        VPULSE.append({"pitch": lo[k % 4], "start": t0, "end": t0 + 0.85, "vel": pulse_vel(b) + acc})
+        UPULSE.append({"pitch": hi[k % 4], "start": t0, "end": t0 + 0.85, "vel": pulse_vel(b) - 4 + acc})
+
 # cello: enters block 5, rising; drives eighths from pass E
 def cello_vel(b): return 48 + 5 * (b - 4) if b < 8 else (62 if b < 12 else 66 if b < 16 else 72)
-CELLO = sum([F.cello_ostinato([b], cello_vel(b), drive=(b >= 16)) for b in range(4, N)], [])
+# Passes B-D: the cello plays quarter notes, in step with the viola and violin lines, so the three are one
+# string trio ("딴 딴 딴 딴"). In the driving passes it goes to eighths.
+def cello_quarters(b):
+    root, alt = F.OST[F.CH[b]]
+    return [{"pitch": alt if k % 4 == 3 else root, "start": b * BLK + k, "end": b * BLK + k + 0.85,
+             "vel": cello_vel(b) + (12 if k % 4 == 0 else 0)} for k in range(8)]
+CELLO = sum([cello_quarters(b) if b < 16 else F.cello_ostinato([b], cello_vel(b), drive=True) for b in range(4, N)], [])
 CELLO = [n for n in CELLO if n["start"] < CUT]
 
 # low French horns: enter block 6, breath swell at the end of each pass
@@ -146,7 +173,7 @@ def T(name, mn, prog, notes, pan, gain, send, who, enters, cc=None):
                 gain_db=gain, send_db=send, who=who, enters=enters)
 TRACKS = [
     T("제1바이올린 — 당신 멜로디", "Violin I (yours)", 40, V1, -0.38, 0.0, -10.0, "당신", 1),
-    T("제2바이올린 — 당신 멜로디 겹침", "Violin II (yours)", 40, V2, -0.10, -5.0, -8.0, "당신", 1),
+    T("비올라 — 당신 멜로디 한 옥타브 아래", "Viola melody -8ve (yours)", 41, V2, -0.10, -5.0, -8.0, "당신(옥타브 아래)", 1),
     T("호른 — 당신 화음", "Horns chords (yours)", 60, HORN, -0.30, -7.0, -4.0, "당신(교정)", 1),
     T("콘트라베이스 — 당신 베이스", "Contrabass (yours)", 43, BASS, 0.40, -2.0, -9.0, "당신", 1),
     T("콘트라베이스 — 저음 루트", "Contrabass root", 43, ROOT, 0.30, -4.0, -9.0, "당신(교정)", 1),
@@ -154,6 +181,8 @@ TRACKS = [
     T("글로켄슈필", "Glockenspiel", 9, GLOCK, 0.55, -5.0, -3.0, "제가 만든 반주", 1),
     T("저음 현악 베드", "Low strings bed", 48, PADN, -0.20, -3.0, -5.0, "당신 화음에서 파생", 1, PADCC),
     T("첼로 오스티나토", "Cello ostinato", 42, CELLO, 0.35, 0.0, -8.0, "당신 화음에서 파생", 5),
+    T("비올라 펄스 (딴딴딴딴)", "Viola pulse", 41, VPULSE, -0.25, 0.0, -6.0, "당신 화음에서 파생", 5),
+    T("바이올린 펄스 (딴딴딴딴)", "Violin pulse", 40, UPULSE, 0.15, 0.0, -6.0, "당신 화음에서 파생", 5),
     T("프렌치 호른 (저음)", "French horns low", 60, LH, -0.45, 0.0, -4.0, "당신 화음에서 파생", 6, LHCC),
     T("트롬본", "Trombones", 57, TB, 0.45, 0.0, -4.0, "당신 화음에서 파생", 9, TBCC),
     T("팀파니", "Timpani", 47, TIMP, 0.05, 0.0, -4.0, "제가 만든 반주", 7),
@@ -163,10 +192,10 @@ TRACKS = [
 ]
 # fader targets: dB RMS over the beats where the layer is meant to carry (measured, not guessed)
 AUTO = {
-    "Violin I (yours)": (-28.0, 0, 32), "Violin II (yours)": (-34.0, 0, 32),
+    "Violin I (yours)": (-28.0, 0, 32), "Viola melody -8ve (yours)": (-31.0, 0, 32),
     "Horns chords (yours)": (-35.0, 0, 32), "Contrabass (yours)": (-24.5, 0, 32),
     "Contrabass root": (-35.0, 0, 32), "Choir": (-41.0, 0, 32), "Glockenspiel": (-50.0, 0, 32),
-    "Low strings bed": (-35.0, 0, 32), "Cello ostinato": (-33.0, 32, 64),
+    "Low strings bed": (-35.0, 0, 32), "Cello ostinato": (-33.0, 32, 64), "Viola pulse": (-33.0, 32, 64), "Violin pulse": (-35.0, 32, 64),
     "French horns low": (-29.0, 40, 64), "Timpani": (-41.0, 48, 64),
     "Trombones": (-31.0, 64, 96), "Taiko": (-31.0, 128, 160),
     "Reverse cymbal swell": (-34.0, (N - 1) * BLK, CUT), "Violins +8ve": (-33.0, 128, 160),
@@ -177,7 +206,7 @@ AUTO = {
 # A flat A5 against an in-tune A3 horn is heard as a dissonance in a chord whose written notes are all
 # right. Each track is split into voices so every note can carry its own pitch correction.
 PERC = {"Taiko", "Reverse cymbal swell"}                 # not pitched enough for a bend to mean anything
-EXTRA = {"Violin II (yours)": 8.0}                       # a few cents of section detune so two lines are not one clone
+EXTRA = {}
 NMS = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
 def _nn(p): return f"{NMS[p % 12]}{p // 12 - 1}"
 

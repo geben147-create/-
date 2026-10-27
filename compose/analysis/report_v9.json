@@ -1,0 +1,336 @@
+{
+ "tempo": 140.0,
+ "blocks": 22,
+ "cut_beat": 174.0,
+ "hold_end_beat": 179.2,
+ "bass_worth_db": {
+  "yours_only": 6.87,
+  "yours_plus_root": 7.2
+ },
+ "block_rms_db": [
+  -21.7,
+  -21.1,
+  -22.0,
+  -21.5,
+  -21.6,
+  -19.2,
+  -20.5,
+  -19.5,
+  -18.8,
+  -18.4,
+  -19.1,
+  -18.4,
+  -18.1,
+  -17.5,
+  -17.7,
+  -17.3,
+  -15.5,
+  -15.8,
+  -15.7,
+  -16.1,
+  -14.3,
+  -13.1,
+  -12.3
+ ],
+ "tuning_measured_cents": {
+  "Violin I (yours)": {
+   "A4": 5,
+   "A#4": 5,
+   "C5": 4,
+   "C#5": 4,
+   "D5": 3,
+   "E5": -14,
+   "F5": -14,
+   "G5": -13,
+   "A5": -29
+  },
+  "Viola melody -8ve (yours)": {
+   "A3": 1,
+   "C4": 0,
+   "C#4": -1,
+   "D4": -1,
+   "E4": -5,
+   "F4": -4,
+   "G4": 24,
+   "A4": -1,
+   "A#4": 0
+  },
+  "Horns chords (yours)": {
+   "F3": 0,
+   "G3": -1,
+   "A3": -1,
+   "A#3": -1,
+   "C4": 1,
+   "C#4": 1,
+   "D4": 2,
+   "E4": 3,
+   "F4": 4
+  },
+  "Contrabass (yours)": {
+   "A2": 1,
+   "A#2": 0,
+   "C3": 0,
+   "D3": -1
+  },
+  "Contrabass root": {
+   "A1": -1,
+   "A#1": -1,
+   "C2": 4,
+   "D2": 4,
+   "F2": 0
+  },
+  "Choir": {
+   "A3": -25,
+   "A#3": -5,
+   "C4": -2,
+   "C#4": -55,
+   "D4": -28,
+   "E4": 6,
+   "F4": 6,
+   "G4": -3
+  },
+  "Glockenspiel": {
+   "C6": 5,
+   "C#6": 5,
+   "D6": 5,
+   "E6": 6,
+   "F6": 6,
+   "G6": 6,
+   "A6": 9,
+   "A#6": 9
+  },
+  "Low strings bed": {
+   "E3": -1,
+   "F3": -4,
+   "A3": -10,
+   "D4": -2,
+   "E4": 0,
+   "F4": 0
+  },
+  "Cello ostinato": {
+   "A1": 6,
+   "A#1": 6,
+   "C2": 6,
+   "D2": 6,
+   "E2": -2,
+   "F2": -1,
+   "A2": 5,
+   "C3": -1
+  },
+  "Viola pulse": {
+   "A#2": 3,
+   "D3": 3,
+   "E3": -2,
+   "F3": -2,
+   "G3": 37,
+   "A3": 1,
+   "C4": 0
+  },
+  "Violin pulse": {
+   "C#4": -7,
+   "D4": 0,
+   "E4": 0,
+   "F4": -1,
+   "A4": 5,
+   "C5": 4
+  },
+  "French horns low": {
+   "G3": -1,
+   "A3": -1,
+   "A#3": -1,
+   "C4": 1,
+   "D4": 2,
+   "E4": 3,
+   "F4": 4
+  },
+  "Trombones": {
+   "E2": -4,
+   "F2": -3,
+   "A2": -1,
+   "D3": -1,
+   "E3": -3,
+   "F3": -3
+  },
+  "Timpani": {
+   "D2": 0,
+   "A2": 37,
+   "A#2": 37,
+   "C3": 37,
+   "D3": 43
+  },
+  "Violins +8ve": {
+   "A5": -29,
+   "A#5": -29,
+   "C6": -16,
+   "C#6": -16,
+   "D6": -16,
+   "E6": 26,
+   "F6": 26,
+   "G6": 25,
+   "A6": 38
+  }
+ },
+ "master": {
+  "before": {
+   "lufs": -19.72,
+   "true_peak": -1.01,
+   "peak": -1.01,
+   "clipped": 0
+  },
+  "after": {
+   "lufs": -14.07,
+   "true_peak": -1.0,
+   "peak": -1.01,
+   "clipped": 0,
+   "dc": 4.944613137719761e-06
+  },
+  "settings": {
+   "highpass_hz": 20,
+   "side_gain": 0.95,
+   "target_lufs": -14.0,
+   "ceiling_dbtp": -1.0,
+   "limiter_oversampling": 4,
+   "air_db": 2.5,
+   "air_hz": 7000.0
+  }
+ },
+ "length_sec": 77.0,
+ "tracks": [
+  {
+   "name": "제1바이올린 — 당신 멜로디",
+   "midi_name": "Violin I (yours)",
+   "who": "당신",
+   "enters_block": 1,
+   "notes": 350,
+   "gain_db": 8.2
+  },
+  {
+   "name": "비올라 — 당신 멜로디 한 옥타브 아래",
+   "midi_name": "Viola melody -8ve (yours)",
+   "who": "당신(옥타브 아래)",
+   "enters_block": 1,
+   "notes": 349,
+   "gain_db": 22.1
+  },
+  {
+   "name": "호른 — 당신 화음",
+   "midi_name": "Horns chords (yours)",
+   "who": "당신(교정)",
+   "enters_block": 1,
+   "notes": 66,
+   "gain_db": -11.5
+  },
+  {
+   "name": "콘트라베이스 — 당신 베이스",
+   "midi_name": "Contrabass (yours)",
+   "who": "당신",
+   "enters_block": 1,
+   "notes": 22,
+   "gain_db": 4.6
+  },
+  {
+   "name": "콘트라베이스 — 저음 루트",
+   "midi_name": "Contrabass root",
+   "who": "당신(교정)",
+   "enters_block": 1,
+   "notes": 22,
+   "gain_db": -8.5
+  },
+  {
+   "name": "합창",
+   "midi_name": "Choir",
+   "who": "제가 만든 반주",
+   "enters_block": 1,
+   "notes": 66,
+   "gain_db": 3.9
+  },
+  {
+   "name": "글로켄슈필",
+   "midi_name": "Glockenspiel",
+   "who": "제가 만든 반주",
+   "enters_block": 1,
+   "notes": 66,
+   "gain_db": -0.9
+  },
+  {
+   "name": "저음 현악 베드",
+   "midi_name": "Low strings bed",
+   "who": "당신 화음에서 파생",
+   "enters_block": 1,
+   "notes": 44,
+   "gain_db": 7.3
+  },
+  {
+   "name": "첼로 오스티나토",
+   "midi_name": "Cello ostinato",
+   "who": "당신 화음에서 파생",
+   "enters_block": 5,
+   "notes": 188,
+   "gain_db": 7.6
+  },
+  {
+   "name": "비올라 펄스 (딴딴딴딴)",
+   "midi_name": "Viola pulse",
+   "who": "당신 화음에서 파생",
+   "enters_block": 5,
+   "notes": 142,
+   "gain_db": 6.0
+  },
+  {
+   "name": "바이올린 펄스 (딴딴딴딴)",
+   "midi_name": "Violin pulse",
+   "who": "당신 화음에서 파생",
+   "enters_block": 5,
+   "notes": 142,
+   "gain_db": 3.7
+  },
+  {
+   "name": "프렌치 호른 (저음)",
+   "midi_name": "French horns low",
+   "who": "당신 화음에서 파생",
+   "enters_block": 6,
+   "notes": 34,
+   "gain_db": 8.0
+  },
+  {
+   "name": "트롬본",
+   "midi_name": "Trombones",
+   "who": "당신 화음에서 파생",
+   "enters_block": 9,
+   "notes": 28,
+   "gain_db": 5.3
+  },
+  {
+   "name": "팀파니",
+   "midi_name": "Timpani",
+   "who": "제가 만든 반주",
+   "enters_block": 7,
+   "notes": 65,
+   "gain_db": 2.7
+  },
+  {
+   "name": "타이코",
+   "midi_name": "Taiko",
+   "who": "제가 만든 반주",
+   "enters_block": 17,
+   "notes": 23,
+   "gain_db": -3.5
+  },
+  {
+   "name": "리버스 심벌 스웰",
+   "midi_name": "Reverse cymbal swell",
+   "who": "제가 만든 반주",
+   "enters_block": 22,
+   "notes": 1,
+   "gain_db": 11.0
+  },
+  {
+   "name": "바이올린 옥타브",
+   "midi_name": "Violins +8ve",
+   "who": "당신 음에서 파생",
+   "enters_block": 17,
+   "notes": 92,
+   "gain_db": 4.6
+  }
+ ]
+}
