@@ -207,7 +207,7 @@ AUTO = {
     "Reverse cymbal swell": (-34.0, (N - 1) * BLK, CUT), "Violins +8ve": (-33.0, 128, 160),
 }
 
-if MODE == "cello":
+if MODE in ("cello", "cellosolo"):
     # The cello leads the melody (their second take, an octave down, staccato); the violin keeps the original octave but steps back.
     for t in TRACKS:
         if t["midi_name"] == "Viola melody -8ve (yours)":
@@ -215,6 +215,13 @@ if MODE == "cello":
     AUTO.pop("Viola melody -8ve (yours)", None)
     AUTO["Cello melody -8ve (yours)"] = (-27.0, 0, 32)
     AUTO["Violin I (yours)"] = (-34.0, 0, 32)
+
+if MODE in ("viola", "cellosolo"):
+    # One instrument carries the melody: no violin on it at all (and no violin octave doubling of it in the finale).
+    TRACKS[:] = [t for t in TRACKS if t["midi_name"] not in ("Violin I (yours)", "Violins +8ve")]
+    AUTO.pop("Violin I (yours)", None); AUTO.pop("Violins +8ve", None)
+    for k in ("Viola melody -8ve (yours)", "Cello melody -8ve (yours)"):
+        if k in AUTO: AUTO[k] = (-27.0, 0, 32)
 
 # ---- tuning: General MIDI patches are not all at concert pitch, and the error depends on the note
 # (the solo-violin patch is 29 cents flat on A5 and 3 cents sharp on D5; the timpani is 40 sharp above D2).

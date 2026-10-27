@@ -70,7 +70,9 @@ def band(x, a, b):
     return 20 * np.log10(np.sqrt(np.mean(signal.sosfiltfilt(sos, x.mean(axis=1)) ** 2)) + 1e-12)
 
 rows = []
-for rel in (None, -15.0, -12.0, -9.0, -6.0, -3.0):
+FIXED = os.environ.get("SUB_REL")          # skip the sweep when the level is already known
+LEVELS = (None, float(FIXED)) if FIXED else (None, -15.0, -12.0, -9.0, -6.0, -3.0)
+for rel in LEVELS:
     if rel is None: y = base
     else:
         g = ref * 10 ** (rel / 20) / sub_rms
