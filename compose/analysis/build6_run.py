@@ -21,15 +21,16 @@ sys.path.insert(0, os.path.dirname(HERE))
 import finale as F
 import orchestra as O
 import master_simple as M
+import tuning as TU
 
 SRC, OUT = sys.argv[1], sys.argv[2]
-TARGET_S = float(sys.argv[3]) if len(sys.argv) > 3 else 80.0
+TARGET_S = float(sys.argv[3]) if len(sys.argv) > 3 else 77.0     # cut at 1:17
 TMP = os.path.join(OUT, "_stems"); os.makedirs(TMP, exist_ok=True)
 S = F.load_beats(SRC)
 N = F.N_BLOCKS
 BLK = F.BLK
 CUT = (N - 1) * BLK + 6                                   # beat where the last chord lands
-TAIL = 3.2                                                # seconds of hall left after the hold
+TAIL = 0.2                                                # the file ends right after the held chord
 HOLD_END = TARGET_S / 60.0 * F.TEMPO - TAIL / 60.0 * F.TEMPO   # so the file is TARGET_S long
 HOLD_END = round(HOLD_END, 2)
 
@@ -61,6 +62,12 @@ GLOCK = [{**n, "vel": min(127, n["vel"] + (10 if n["start"] >= 16 * BLK else 0))
 
 # ---- the final chord: violins DIVIDED, not doubled. Two ensemble patches holding the same three
 # notes beat against each other (that was the shake in the last seconds of the previous version).
+# The melody was rendered with ensemble-string patches, whose soft attack on short notes sounds like a
+# synth or a piano. It is a solo violin now, and the notes are cut to a staccato length.
+STACCATO = 0.30                                              # beats; their notes were about 0.45
+def staccato(ns):
+    return [{**n, "end": n["start"] + min(n["end"] - n["start"], STACCATO)} if n["end"] - n["start"] < 1.5 else n for n in ns]
+V1, V2 = staccato(V1), staccato(V2)
 V1 = [n for n in V1 if n["start"] < CUT] + [{"pitch": p, "start": CUT, "end": HOLD_END - 0.1, "vel": 90} for p in (74, 77)]   # D5 F5
 V2 = [n for n in V2 if n["start"] < CUT] + [{"pitch": 69, "start": CUT, "end": HOLD_END - 0.1, "vel": 84}]                      # A4
 OCT = F.scale_vel([{**n, "pitch": n["pitch"] + 12} for n in V1
@@ -138,8 +145,8 @@ def T(name, mn, prog, notes, pan, gain, send, who, enters, cc=None):
     return dict(name=name, midi_name=mn, program=prog, notes=notes, cc11=cc or [], pan=pan,
                 gain_db=gain, send_db=send, who=who, enters=enters)
 TRACKS = [
-    T("제1바이올린 — 당신 멜로디", "Violin I (yours)", 48, V1, -0.38, 0.0, -10.0, "당신", 1),
-    T("제2바이올린 — 당신 멜로디 겹침", "Violin II (yours)", 49, V2, -0.10, -5.0, -8.0, "당신", 1),
+    T("제1바이올린 — 당신 멜로디", "Violin I (yours)", 40, V1, -0.38, 0.0, -10.0, "당신", 1),
+    T("제2바이올린 — 당신 멜로디 겹침", "Violin II (yours)", 40, V2, -0.10, -5.0, -8.0, "당신", 1),
     T("호른 — 당신 화음", "Horns chords (yours)", 60, HORN, -0.30, -7.0, -4.0, "당신(교정)", 1),
     T("콘트라베이스 — 당신 베이스", "Contrabass (yours)", 43, BASS, 0.40, -2.0, -9.0, "당신", 1),
     T("콘트라베이스 — 저음 루트", "Contrabass root", 43, ROOT, 0.30, -4.0, -9.0, "당신(교정)", 1),
@@ -152,7 +159,7 @@ TRACKS = [
     T("팀파니", "Timpani", 47, TIMP, 0.05, 0.0, -4.0, "제가 만든 반주", 7),
     T("타이코", "Taiko", 116, TAIKO, 0.0, 0.0, -5.0, "제가 만든 반주", 17),
     T("리버스 심벌 스웰", "Reverse cymbal swell", 119, REV, 0.0, 6.0, -2.0, "제가 만든 반주", N, REVCC),
-    T("바이올린 옥타브", "Violins +8ve", 48, OCT, -0.25, -7.0, -8.0, "당신 음에서 파생", 17),
+    T("바이올린 옥타브", "Violins +8ve", 40, OCT, -0.25, -7.0, -8.0, "당신 음에서 파생", 17),
 ]
 # fader targets: dB RMS over the beats where the layer is meant to carry (measured, not guessed)
 AUTO = {
@@ -165,7 +172,42 @@ AUTO = {
     "Reverse cymbal swell": (-34.0, (N - 1) * BLK, CUT), "Violins +8ve": (-33.0, 128, 160),
 }
 
-def write_midi(path, tracks):
+# ---- tuning: General MIDI patches are not all at concert pitch, and the error depends on the note
+# (the solo-violin patch is 29 cents flat on A5 and 3 cents sharp on D5; the timpani is 40 sharp above D2).
+# A flat A5 against an in-tune A3 horn is heard as a dissonance in a chord whose written notes are all
+# right. Each track is split into voices so every note can carry its own pitch correction.
+PERC = {"Taiko", "Reverse cymbal swell"}                 # not pitched enough for a bend to mean anything
+EXTRA = {"Violin II (yours)": 8.0}                       # a few cents of section detune so two lines are not one clone
+NMS = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
+def _nn(p): return f"{NMS[p % 12]}{p // 12 - 1}"
+
+def split_voices(notes):
+    """k-th lowest note of each chord goes to voice k, so each voice is one line."""
+    voices, cluster, last = {}, [], None
+    for n in sorted(notes, key=lambda q: (round(q["start"], 2), q["pitch"])):
+        if last is not None and abs(n["start"] - last) > 0.02:
+            for k, m in enumerate(cluster): voices.setdefault(k, []).append(m)
+            cluster = []
+        cluster.append(n); last = n["start"]
+    for k, m in enumerate(cluster): voices.setdefault(k, []).append(m)
+    return [voices[k] for k in sorted(voices)]
+
+CAL = {}
+for prog in sorted({t["program"] for t in TRACKS if t["midi_name"] not in PERC}):
+    pitches = [n["pitch"] for t in TRACKS if t["program"] == prog and t["midi_name"] not in PERC for n in t["notes"]]
+    CAL[prog] = TU.calibrate(prog, pitches, TMP)
+TUNING = {}
+for t in TRACKS:
+    t["voices"], t["vbends"] = split_voices(t["notes"]), []
+    if t["midi_name"] in PERC:
+        t["vbends"] = [[] for _ in t["voices"]]; continue
+    extra = EXTRA.get(t["midi_name"], 0.0); cal = CAL[t["program"]]
+    for v in t["voices"]:
+        bends = [(n["start"] - 0.02, -cal.get(n["pitch"], 0.0) + extra) for n in v]
+        t["vbends"].append(bends if any(abs(c) >= 5 for _, c in bends) else [])
+    TUNING[t["midi_name"]] = {_nn(p): round(cal[p]) for p in sorted({n["pitch"] for n in t["notes"]})}
+
+def write_midi(path, tracks, bend=False):
     pm = pretty_midi.PrettyMIDI(initial_tempo=F.TEMPO)
     for t in tracks:
         inst = pretty_midi.Instrument(program=int(t["program"]), is_drum=False, name=t["midi_name"])
@@ -174,17 +216,29 @@ def write_midi(path, tracks):
                                                F.sec(n["start"]), F.sec(max(n["end"], n["start"] + 0.05))))
         for b, v in t["cc11"]:
             inst.control_changes.append(pretty_midi.ControlChange(11, int(np.clip(v, 0, 127)), F.sec(b)))
+        if bend:
+            for b, c in t.get("bends", []):
+                inst.pitch_bends.append(pretty_midi.PitchBend(TU.bend_value(c), max(0.0, F.sec(b))))
         pm.instruments.append(inst)
     pm.write(path)
 
-def stem(t, i, tail_s=3.8):
-    mid, wav = f"{TMP}/s{i}.mid", f"{TMP}/s{i}.wav"
-    write_midi(mid, [{**t, "cc11": ([(0.0, 127)] if not t["cc11"] else t["cc11"])}])
+def _render(t, tag, tail_s):
+    mid, wav = f"{TMP}/{tag}.mid", f"{TMP}/{tag}.wav"
+    write_midi(mid, [t], bend=True)
     r = subprocess.run([F.FLUID, "-ni", "-g", "0.7", "-F", wav, "-r", "44100", "-R", "0", "-C", "0", F.SF2, mid],
                        capture_output=True, text=True)
     if r.returncode != 0: raise RuntimeError(r.stderr[:200])
     x, sr = sf.read(wav, dtype="float64", always_2d=True)
     return np.concatenate([x.mean(axis=1), np.zeros(int(tail_s * sr))])
+
+def stem(t, i, tail_s=3.8):
+    parts = []
+    for k, v in enumerate(t["voices"]):
+        tv = {**t, "notes": v, "cc11": t["cc11"] or [(0.0, 127)], "bends": t["vbends"][k]}
+        parts.append(_render(tv, f"s{i}_{k}", tail_s))
+    out = np.zeros(max(len(p) for p in parts))
+    for p in parts: out[: len(p)] += p
+    return out
 
 if __name__ == "__main__":
     IR = O.hall_ir()
@@ -197,7 +251,7 @@ if __name__ == "__main__":
         t["gain_db"] = float(np.clip(tgt - meas, -30.0, 25.0)); stems.append({**t, "audio": a})
     y = O.mix(stems, IR, wet_bus_db=-6.0)
     END_S = F.sec(HOLD_END) + TAIL
-    y = y[: int(END_S * 44100)].copy(); fade = int(2.2 * 44100)
+    y = y[: int(END_S * 44100)].copy(); fade = int(1.2 * 44100)
     y[-fade:] *= (0.5 * (1 + np.cos(np.linspace(0, np.pi, fade))))[:, None]
     n = len(y)
     def band(x, a, b):
@@ -219,6 +273,7 @@ if __name__ == "__main__":
     bl = F.sec(BLK)
     report["block_rms_db"] = [round(float(20 * np.log10(np.sqrt(np.mean(mm[int(b*bl*sr):int(min((b+1)*bl, len(mm)/sr)*sr)] ** 2)) + 1e-12)), 1)
                               for b in range(N + 1) if int(b * bl * sr) < len(mm)]
+    report["tuning_measured_cents"] = TUNING
     report["master"] = rep; report["length_sec"] = round(n / 44100, 2)
     report["tracks"] = [{"name": t["name"], "midi_name": t["midi_name"], "who": t["who"], "enters_block": t["enters"],
                          "notes": len(t["notes"]), "gain_db": round(t["gain_db"], 1)} for t in TRACKS]
