@@ -124,6 +124,35 @@ if want("5_grand"):
            prep(RV, [{"pitch": 61, "start": CUT - 8, "end": CUT, "vel": 100}], F.ramp(CUT - 8, CUT, 34, 127, curve=1.5))]
     res["5_grand"] = render("5_grand", tr, F.sec(CUT + 8) + 2.6, 2.4)
 
+# --- "ba-bam" family: A7 -> Dm without the sudden jump, longer last chord ---------------------------------------------
+def swell(n, g0, g1, a=CUT - 8, b=CUT):
+    """velocity ramps g0 -> g1 over beats a..b for their notes (no new notes)"""
+    out = []
+    for x in n:
+        k = float(np.clip((x["start"] - a) / (b - a), 0, 1)) if x["start"] >= a - 1e-3 else 0.0
+        out.append({**x, "vel": int(np.clip(round(x["vel"] * (g0 + (g1 - g0) * k if x["start"] >= a - 1e-3 else 1.0)), 1, 127))})
+    return out
+
+def bapam(key, vs, hold_beats, fade_s, brass=0, timp=0, accent=False, tail=2.0, SW=1.45):
+    ch = chord_hold(CUT, hold_beats, vs)
+    base = {n: swell(upto(n, CUT), 1.0, SW) if n in (V1, V2, HN, CH_) else upto(n, CUT) for n in PASS_A}
+    tr = [prep(n, base[n] + ch.get(n, [])) for n in PASS_A]
+    if brass:                       # horns/trombones bloom into the Dm (CC11 ramp) instead of arriving at full level
+        tr += [prep(LH, hold([57, 62], CUT + 0.02, hold_beats, 80), F.ramp(CUT, CUT + 3, 40, brass, curve=1.0)),
+               prep(TB, hold([45, 53], CUT + 0.02, hold_beats, 78), F.ramp(CUT, CUT + 3, 40, brass, curve=1.0))]
+    pts = []
+    if accent: pts.append({"pitch": 45, "start": 28.0, "end": 28.5, "vel": 70})      # the "ba": a soft A on the A7
+    if timp:   pts.append({"pitch": 38, "start": CUT, "end": CUT + 4.0, "vel": timp})   # the "bam": D under the Dm
+    if pts: tr.append(prep(TP, pts))
+    return render(key, tr, F.sec(CUT + hold_beats) + tail, fade_s)
+
+if want("g1_natural"):      # same idea as 5_grand, but the last chord arrives with a bloom, not a hit
+    res["g1_natural"] = bapam("g1_natural", 0.7, 12.0, 4.0, brass=84, timp=88, accent=True)
+if want("g2_long"):         # longest hold, strings+choir only plus a soft timpani D
+    res["g2_long"] = bapam("g2_long", 0.68, 18.0, 6.0, brass=0, timp=80, accent=True, tail=2.5)
+if want("g3_soft"):         # no percussion at all; the Dm blooms and rings
+    res["g3_soft"] = bapam("g3_soft", 0.7, 14.0, 5.0, brass=70, timp=0, accent=False)
+
 json.dump(res, open(f"{OUT}/endings_report.json", "w"), indent=1)
 shutil.rmtree(B.TMP, ignore_errors=True)
 for k, v in res.items(): print(k, v)
