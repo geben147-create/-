@@ -41,7 +41,7 @@ def scale(ns, g, lo=CUT - 8): return [{**n, "vel": int(np.clip(round(n["vel"] * 
 def prep(name, notes, cc=None):
     t = dict(TR[name]); t["notes"] = notes; t["gain_db"] = gains[name]
     if cc is not None: t["cc11"] = cc
-    cal = B.CAL[t["program"]]
+    cal = B.CAL.get(t["program"], {})          # unpitched patches (taiko, cymbal) have no tuning table
     t["voices"] = B.split_voices(notes)
     t["vbends"] = []
     for v in t["voices"]:
@@ -78,6 +78,8 @@ def render(key, tracks, end_s, fade_s):
     B.write_midi(f"{OUT}/{key}_FULL_140bpm.mid", tracks)
     return {"seconds": round(len(y) / SR, 2), "lufs": rep["after"]["lufs"], "tp": float(rep["after"]["true_peak"]), "clipped": rep["after"]["clipped"]}
 
+ONLY = {x for x in os.environ.get("ONLY", "").split(",") if x}
+def want(k): return not ONLY or k in ONLY
 res = {}
 def chord_hold(start, length, vel_scale=1.0, d=None):
     """Dm from the composer's own chord: horns A3 D4 F4, choir the same, bed A3 F4, bass D3, root D2, melody D5 F5 / A3."""
@@ -87,35 +89,40 @@ def chord_hold(start, length, vel_scale=1.0, d=None):
             PD: hold([57, 65], start, length, v(54)), BS: hold([50], start, length, v(90)), RT: hold([38], start, length, v(86))}
 
 # 1 open: stop on the A7 and let it ring
-tr = [prep(n, upto(n, CUT)) for n in PASS_A]
-res["1_open"] = render("1_open", tr, F.sec(CUT) + 1.5, 1.0)
+if want("1_open"):
+    tr = [prep(n, upto(n, CUT)) for n in PASS_A]
+    res["1_open"] = render("1_open", tr, F.sec(CUT) + 1.5, 1.0)
 
 # 2 linger: resolve to Dm, soft, long ring and a slow fade
-ch = chord_hold(CUT, 7.8)
-tr = [prep(n, upto(n, CUT) + ch.get(n, [])) for n in PASS_A]
-tr = [prep(GL, upto(GL, CUT) + [{"pitch": 86, "start": CUT + 0.02, "end": CUT + 1.6, "vel": 58}, {"pitch": 93, "start": CUT + 3.0, "end": CUT + 4.4, "vel": 46}])
-      if t["midi_name"] == GL else t for t in tr]
-res["2_linger"] = render("2_linger", tr, F.sec(CUT + 8) + 2.0, 3.4)
+if want("2_linger"):
+    ch = chord_hold(CUT, 7.8)
+    tr = [prep(n, upto(n, CUT) + ch.get(n, [])) for n in PASS_A]
+    tr = [prep(GL, upto(GL, CUT) + [{"pitch": 86, "start": CUT + 0.02, "end": CUT + 1.6, "vel": 58}, {"pitch": 93, "start": CUT + 3.0, "end": CUT + 4.4, "vel": 46}])
+          if t["midi_name"] == GL else t for t in tr]
+    res["2_linger"] = render("2_linger", tr, F.sec(CUT + 8) + 2.0, 3.4)
 
 # 3 stop: one short Dm hit
-ch = chord_hold(CUT, 0.9, 1.25)
-tr = [prep(n, upto(n, CUT) + ch.get(n, [])) for n in PASS_A] + [prep(TP, hold([38], CUT, 0.7, 108))]
-res["3_stop"] = render("3_stop", tr, F.sec(CUT + 1) + 1.6, 0.7)
+if want("3_stop"):
+    ch = chord_hold(CUT, 0.9, 1.25)
+    tr = [prep(n, upto(n, CUT) + ch.get(n, [])) for n in PASS_A] + [prep(TP, hold([38], CUT, 0.7, 108))]
+    res["3_stop"] = render("3_stop", tr, F.sec(CUT + 1) + 1.6, 0.7)
 
 # 4 fade-out: their own next two blocks keep going and fade (no added layers)
-tr = [prep(n, upto(n, CUT + 16, CUT + 15.9)) for n in PASS_A]
-res["4_fadeout"] = render("4_fadeout", tr, F.sec(CUT + 16) + 0.4, F.sec(CUT + 16) + 0.4 - F.sec(CUT))
+if want("4_fadeout"):
+    tr = [prep(n, upto(n, CUT + 16, CUT + 15.9)) for n in PASS_A]
+    res["4_fadeout"] = render("4_fadeout", tr, F.sec(CUT + 16) + 0.4, F.sec(CUT + 16) + 0.4 - F.sec(CUT))
 
 # 5 grand: crescendo through the A7, then a big Dm with timpani, taiko, low horns and trombones
-ch = chord_hold(CUT, 7.8, 1.5)
-base5 = {n: scale(upto(n, CUT), 1.25) if n in (V1, V2, HN, CH_) else upto(n, CUT) for n in PASS_A}
-tr = [prep(n, base5[n] + ch.get(n, [])) for n in PASS_A]
-tr += [prep(LH, hold([57, 62], CUT + 0.02, 7.8, 100), [(0.0, 127)]), prep(TB, hold([45, 53], CUT + 0.02, 7.8, 100), [(0.0, 127)]),
-       prep(TP, [{"pitch": 45, "start": 28.0, "end": 28.4, "vel": 84}, {"pitch": 45, "start": 30.0, "end": 30.4, "vel": 96},
-                 {"pitch": 45, "start": 31.0, "end": 31.4, "vel": 106}, {"pitch": 38, "start": CUT, "end": CUT + 4.0, "vel": 127}]),
-       prep(TK, [{"pitch": 45, "start": CUT, "end": CUT + 3.0, "vel": 120}]),
-       prep(RV, [{"pitch": 60, "start": CUT - 8, "end": CUT, "vel": 100}], F.ramp(CUT - 8, CUT, 34, 127, curve=1.5))]
-res["5_grand"] = render("5_grand", tr, F.sec(CUT + 8) + 2.6, 2.4)
+if want("5_grand"):
+    ch = chord_hold(CUT, 7.8, 1.5)
+    base5 = {n: scale(upto(n, CUT), 1.25) if n in (V1, V2, HN, CH_) else upto(n, CUT) for n in PASS_A}
+    tr = [prep(n, base5[n] + ch.get(n, [])) for n in PASS_A]
+    tr += [prep(LH, hold([57, 62], CUT + 0.02, 7.8, 100), [(0.0, 127)]), prep(TB, hold([45, 53], CUT + 0.02, 7.8, 100), [(0.0, 127)]),
+           prep(TP, [{"pitch": 45, "start": 28.0, "end": 28.4, "vel": 84}, {"pitch": 45, "start": 30.0, "end": 30.4, "vel": 96},
+                     {"pitch": 45, "start": 31.0, "end": 31.4, "vel": 106}, {"pitch": 38, "start": CUT, "end": CUT + 4.0, "vel": 127}]),
+           prep(TK, [{"pitch": 45, "start": CUT, "end": CUT + 3.0, "vel": 120}]),
+           prep(RV, [{"pitch": 60, "start": CUT - 8, "end": CUT, "vel": 100}], F.ramp(CUT - 8, CUT, 34, 127, curve=1.5))]
+    res["5_grand"] = render("5_grand", tr, F.sec(CUT + 8) + 2.6, 2.4)
 
 json.dump(res, open(f"{OUT}/endings_report.json", "w"), indent=1)
 shutil.rmtree(B.TMP, ignore_errors=True)
