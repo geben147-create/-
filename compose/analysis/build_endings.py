@@ -121,7 +121,7 @@ if want("5_grand"):
            prep(TP, [{"pitch": 45, "start": 28.0, "end": 28.4, "vel": 84}, {"pitch": 45, "start": 30.0, "end": 30.4, "vel": 96},
                      {"pitch": 45, "start": 31.0, "end": 31.4, "vel": 106}, {"pitch": 38, "start": CUT, "end": CUT + 4.0, "vel": 127}]),
            prep(TK, [{"pitch": 45, "start": CUT, "end": CUT + 3.0, "vel": 120}]),
-           prep(RV, [{"pitch": 60, "start": CUT - 8, "end": CUT, "vel": 100}], F.ramp(CUT - 8, CUT, 34, 127, curve=1.5))]
+           prep(RV, [{"pitch": 61, "start": CUT - 8, "end": CUT, "vel": 100}], F.ramp(CUT - 8, CUT, 34, 127, curve=1.5))]
     res["5_grand"] = render("5_grand", tr, F.sec(CUT + 8) + 2.6, 2.4)
 
 json.dump(res, open(f"{OUT}/endings_report.json", "w"), indent=1)
